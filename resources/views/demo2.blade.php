@@ -14,7 +14,6 @@
             <p>Hệ thống show room</p><br>
             <p>CN HCM: 35 Trần Phú, phường 4, quận 5, TP.HCM</p><br>
             <p>CN CT: 53 Trần Phú, Ninh kiều, Cần Thơ</p><br>
-
         </div>
         <div class="col-sm-4">
             <p>Brilliance</p>
