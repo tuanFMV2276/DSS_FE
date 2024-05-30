@@ -21,7 +21,7 @@
     />
   </head>
   <body>
-    <footer class="text-center text-lg-start bg-body-tertiary text-muted line">
+    <footer class="text-center text-lg-start bg-body-tertiary line">
       <section class="">
         <div class="container text-center text-md-start mt-5">
           <div class="row mt-3">
