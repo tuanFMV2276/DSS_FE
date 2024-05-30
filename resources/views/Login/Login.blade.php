@@ -7,11 +7,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login</title>
     <style>
-        body {
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+    font-size: 62.5%;
     font-family: Arial, sans-serif;
-    background-color: #eee;
+}
+body {
+    font-size: 1.6rem;
 }
 
 .gradient-form {
@@ -19,11 +26,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.container {
-    max-width: 1000px;
-    width: 100%;
 }
 
 .card {
@@ -191,7 +193,7 @@ p {
                     <div class="card-body p-md-5 mx-md-4">
       
                       <div class="text-center">
-                        <img src="/public/Picture/Diamond.jpg"
+                        <img src="{{asset('Picture/Diamond.jpg')}}"
                           style="width: 140px;" alt="logo">
                         <h4 class="name mt-1 mb-5 pb-1">Brilliance</h4>
                       </div>
