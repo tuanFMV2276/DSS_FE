@@ -57,8 +57,6 @@
               <li><a href="#">Heard</a></li>
               <li><a href="#">Pear</a></li>
               <li><a href="#">Marquise</a></li>
-              <li><a href="#">Asscher</a></li>
-              <li><a href="#">Radiant</a></li>
             </ul>
           </li>
           <li>
@@ -72,8 +70,6 @@
               <li><a href="#">Heard</a></li>
               <li><a href="#">Pear</a></li>
               <li><a href="#">Marquise</a></li>
-              <li><a href="#">Asscher</a></li>
-              <li><a href="#">Radiant</a></li>
             </ul>
           </li>
           <li><a href="#">Nhẫn Kim Cương <i class='bx bx-chevron-down'></i></a>
