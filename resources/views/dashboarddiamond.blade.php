@@ -60,7 +60,7 @@
           </div>
         </div>
       </div>
-      <nav>
+      <nav >
         <ul>
           <li><a href="#">Trang Chủ</a></li>
           <li>
@@ -112,6 +112,7 @@
           <li><a href="#">Liên Hệ</a></li>
         </ul>
       </nav>
+      
     </header>
     <div class="top-header-body">
         <p>Trang chủ / Bảng giá kim cương</p>
@@ -524,7 +525,229 @@
         <div class="col-sm-2">7,600,000</div>
       </div>
     </div>
-    <h5 class="top-header-body">Giá kim cương 6ly3<1CT</h5>
+    <h5 class="top-header-body">Giá kim cương 6ly3<i class="fa-solid fa-less-than"></i>1CT</h5>
+
+    <div class="container mb-5">
+      <div class="row rowheader">
+        <div class="col-sm-2">4.1 MM</div>
+        <div class="col-sm-2">IF</div>
+        <div class="col-sm-2">VVS1</div>
+        <div class="col-sm-2">VVS2</div>
+        <div class="col-sm-2">VS1</div>
+        <div class="col-sm-2">VS2</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">D</div>
+        <div class="col-sm-2">12,900,000</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">11,000,000</div>
+        <div class="col-sm-2">10,600,000</div>
+        <div class="col-sm-2">9,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">E</div>
+        <div class="col-sm-2">12,400,000</div>
+        <div class="col-sm-2">10,800,000</div>
+        <div class="col-sm-2">10,300,000</div>
+        <div class="col-sm-2">8,800,000</div>
+        <div class="col-sm-2">7,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">F</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">10,100,000</div>
+        <div class="col-sm-2">9,200,000</div>
+        <div class="col-sm-2">8,000,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">G</div>
+        <div class="col-sm-2">9,500,000</div>
+        <div class="col-sm-2">9,300,000</div>
+        <div class="col-sm-2">8,600,000</div>
+        <div class="col-sm-2">8,200,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+    </div>
+    <h5 class="top-header-body">Giá kim cương 6ly3<i class="fa-solid fa-greater-than"></i>1CT</h5>
+
+    <div class="container mb-5">
+      <div class="row rowheader">
+        <div class="col-sm-2">4.1 MM</div>
+        <div class="col-sm-2">IF</div>
+        <div class="col-sm-2">VVS1</div>
+        <div class="col-sm-2">VVS2</div>
+        <div class="col-sm-2">VS1</div>
+        <div class="col-sm-2">VS2</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">D</div>
+        <div class="col-sm-2">12,900,000</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">11,000,000</div>
+        <div class="col-sm-2">10,600,000</div>
+        <div class="col-sm-2">9,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">E</div>
+        <div class="col-sm-2">12,400,000</div>
+        <div class="col-sm-2">10,800,000</div>
+        <div class="col-sm-2">10,300,000</div>
+        <div class="col-sm-2">8,800,000</div>
+        <div class="col-sm-2">7,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">F</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">10,100,000</div>
+        <div class="col-sm-2">9,200,000</div>
+        <div class="col-sm-2">8,000,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">G</div>
+        <div class="col-sm-2">9,500,000</div>
+        <div class="col-sm-2">9,300,000</div>
+        <div class="col-sm-2">8,600,000</div>
+        <div class="col-sm-2">8,200,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+    </div>
+
+    <h5 class="top-header-body">Giá kim cương phổ thông 6ly8</h5>
+
+    <div class="container mb-5">
+      <div class="row rowheader">
+        <div class="col-sm-2">4.1 MM</div>
+        <div class="col-sm-2">IF</div>
+        <div class="col-sm-2">VVS1</div>
+        <div class="col-sm-2">VVS2</div>
+        <div class="col-sm-2">VS1</div>
+        <div class="col-sm-2">VS2</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">D</div>
+        <div class="col-sm-2">12,900,000</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">11,000,000</div>
+        <div class="col-sm-2">10,600,000</div>
+        <div class="col-sm-2">9,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">E</div>
+        <div class="col-sm-2">12,400,000</div>
+        <div class="col-sm-2">10,800,000</div>
+        <div class="col-sm-2">10,300,000</div>
+        <div class="col-sm-2">8,800,000</div>
+        <div class="col-sm-2">7,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">F</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">10,100,000</div>
+        <div class="col-sm-2">9,200,000</div>
+        <div class="col-sm-2">8,000,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">G</div>
+        <div class="col-sm-2">9,500,000</div>
+        <div class="col-sm-2">9,300,000</div>
+        <div class="col-sm-2">8,600,000</div>
+        <div class="col-sm-2">8,200,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+    </div>
+
+    <h5 class="top-header-body">Giá kim cương 7ly2</h5>
+
+    <div class="container mb-5">
+      <div class="row rowheader">
+        <div class="col-sm-2">4.1 MM</div>
+        <div class="col-sm-2">IF</div>
+        <div class="col-sm-2">VVS1</div>
+        <div class="col-sm-2">VVS2</div>
+        <div class="col-sm-2">VS1</div>
+        <div class="col-sm-2">VS2</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">D</div>
+        <div class="col-sm-2">12,900,000</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">11,000,000</div>
+        <div class="col-sm-2">10,600,000</div>
+        <div class="col-sm-2">9,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">E</div>
+        <div class="col-sm-2">12,400,000</div>
+        <div class="col-sm-2">10,800,000</div>
+        <div class="col-sm-2">10,300,000</div>
+        <div class="col-sm-2">8,800,000</div>
+        <div class="col-sm-2">7,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">F</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">10,100,000</div>
+        <div class="col-sm-2">9,200,000</div>
+        <div class="col-sm-2">8,000,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">G</div>
+        <div class="col-sm-2">9,500,000</div>
+        <div class="col-sm-2">9,300,000</div>
+        <div class="col-sm-2">8,600,000</div>
+        <div class="col-sm-2">8,200,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+    </div>
+    <h5 class="top-header-body">Giá kim cương 8ly1</h5>
+
+    <div class="container mb-5">
+      <div class="row rowheader">
+        <div class="col-sm-2">4.1 MM</div>
+        <div class="col-sm-2">IF</div>
+        <div class="col-sm-2">VVS1</div>
+        <div class="col-sm-2">VVS2</div>
+        <div class="col-sm-2">VS1</div>
+        <div class="col-sm-2">VS2</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">D</div>
+        <div class="col-sm-2">12,900,000</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">11,000,000</div>
+        <div class="col-sm-2">10,600,000</div>
+        <div class="col-sm-2">9,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">E</div>
+        <div class="col-sm-2">12,400,000</div>
+        <div class="col-sm-2">10,800,000</div>
+        <div class="col-sm-2">10,300,000</div>
+        <div class="col-sm-2">8,800,000</div>
+        <div class="col-sm-2">7,500,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">F</div>
+        <div class="col-sm-2">11,500,000</div>
+        <div class="col-sm-2">10,100,000</div>
+        <div class="col-sm-2">9,200,000</div>
+        <div class="col-sm-2">8,000,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">G</div>
+        <div class="col-sm-2">9,500,000</div>
+        <div class="col-sm-2">9,300,000</div>
+        <div class="col-sm-2">8,600,000</div>
+        <div class="col-sm-2">8,200,000</div>
+        <div class="col-sm-2">7,600,000</div>
+      </div>
+    </div>
+    <h5 class="top-header-body">Giá kim cương 9ly<i class="fa-solid fa-less-than"></i>3CT</h5>
 
     <div class="container mb-5">
       <div class="row rowheader">
