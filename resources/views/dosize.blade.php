@@ -1,142 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Brilliance</title>
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/dosize.css') }}">
 
     <title>Brilliance</title>
-    <link rel="stylesheet" href="{{ asset('css/Header.css') }}">
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
+
 </head>
+
 <body>
-    <header>
-      <div class="top-header">
-        <div class="left">
-          <img src="/Picture/Diamond.jpg" alt="Brilliance Logo" class="logo" />
-          <div class="address">
-            <p>Hệ thống showrooms</p>
-            <p>CN HCM: 35 Trần Phú, Phường 4, quận 5, TP.HCM</p>
-            <p>CN CT: 53 Trần Phú, Ninh Kiều, Cần Thơ</p>
-          </div>
-        </div>
-        <div class="center">
-          <h1>Brilliance</h1>
-        </div>
-        <div class="right">
-          <div class="cart-login">
-            <button class="cart-btn">
-              <i class="bx bxs-cart"> GIỎ HÀNG</i>
-            </button>
-            <button class="login-btn">ĐĂNG NHẬP</button>
-          </div>
-          <div>
-            <form class="search">
-              <input
-                class="search-input"
-                type="text"
-                placeholder="Tìm kiếm..."
-              />
-              <button class="search-btn"><i class="bx bx-search"></i></button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#">Trang Chủ</a></li>
-          <li>
-            <a href="#">Kim Cương Tự Nhiên <i class='bx bx-chevron-down'></i></a>
-            <ul class="sub-menu">
-              <li><a href="#">Round</a></li>
-              <li><a href="#">Princess</a></li>
-              <li><a href="#">Cushion</a></li>
-              <li><a href="#">Oval</a></li>
-              <li><a href="#">Emerald</a></li>
-              <li><a href="#">Heard</a></li>
-              <li><a href="#">Pear</a></li>
-              <li><a href="#">Marquise</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">Kim Cương Nhân Tạo <i class='bx bx-chevron-down'></i></a>
-            <ul class="sub-menu">
-              <li><a href="#">Round</a></li>
-              <li><a href="#">Princess</a></li>
-              <li><a href="#">Cushion</a></li>
-              <li><a href="#">Oval</a></li>
-              <li><a href="#">Emerald</a></li>
-              <li><a href="#">Heard</a></li>
-              <li><a href="#">Pear</a></li>
-              <li><a href="#">Marquise</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Nhẫn Kim Cương <i class='bx bx-chevron-down'></i></a>
-            <ul class="sub-menu">
-              <li><a href="#">Nhẫn Kim Cương Nam</a></li>
-              <li><a href="#">Nhẫn Kim Cương Nữ</a></li>
-            </ul>
-        </li>
-          <li><a href="#">Nhẫn Cưới</a></li>
-          <li><a href="#">Nhẫn Cầu Hôn</a></li>
-          <li><a href="#">Dịch Vụ <i class='bx bx-chevron-down'></i></a>
-            <ul class="sub-menu">
-              <li><a href="#">Chính Sách Bảo Hành, Thu Hồi & Đổi Trả</a></li>
-              <li><a href="#">Chính Sách Bảo Mật Thông Tin</a></li>
-              <li><a href="#">Phương Thức Thanh Toán</a></li>
-            </ul>
-        </li>
-          <li><a href="#">Tin Tức</a></li>
-          <li><a href="#">Liên Hệ</a></li>
-        </ul>
-      </nav>
-    </header>
+    @include('Header/Header')
     <div class="container">
         <h1>Hướng Dẫn Đo Size Nhẫn</h1>
-        <p>Nhẫn cưới, nhẫn đính hôn hay nhẫn trang sức đều là những món đồ quan trọng, mang tính cá nhân cao, cần phải phù hợp và vừa vặn với chủ nhân. Đôi khi, sự không thuận tiện về khoảng cách địa lý, thời gian gây khó khăn cho việc thử nhẫn trực tiếp tại cửa hàng. Cùng Brilliance khám phá cách đo chuẩn xác nhất tại nhà, đảm bảo sự ưng ý tuyệt đối dành cho món trang sức quý giá.</p>
+        <p>Nhẫn cưới, nhẫn đính hôn hay nhẫn trang sức đều là những món đồ quan trọng, mang tính cá nhân cao, cần phải
+            phù hợp và vừa vặn với chủ nhân. Đôi khi, sự không thuận tiện về khoảng cách địa lý, thời gian gây khó khăn
+            cho việc thử nhẫn trực tiếp tại cửa hàng. Cùng Brilliance khám phá cách đo chuẩn xác nhất tại nhà, đảm bảo
+            sự ưng ý tuyệt đối dành cho món trang sức quý giá.</p>
         <div class="step">
             <h4>1.Đo đường kính của chiếc nhẫn có sẵn</h4>
-            <p>Nếu ở nhà bạn đã có sẵn chiếc nhẫn vừa vặn, thoải mái khi đeo, hãy tiến hành cách đo đơn giản: lấy thước kẻ đo đường kính lòng trong của chiếc nhẫn (Không tính độ dày nhẫn của phần thân nhẫn) để dựa vào đó tìm được size nhẫn phù hợp. Bảng size nhẫn quy chuẩn, cơ bản trên toàn thế giới đều được quy định dựa trên độ dài đường kính đường tròn, vậy nên bạn có thể yên tâm gửi số đo chính xác cho chúng tôi và nói rõ đó là đường kính lòng trong nhẫn (tránh nhầm chu vi hay size tay)</p>
+            <p>Nếu ở nhà bạn đã có sẵn chiếc nhẫn vừa vặn, thoải mái khi đeo, hãy tiến hành cách đo đơn giản: lấy thước
+                kẻ đo đường kính lòng trong của chiếc nhẫn (Không tính độ dày nhẫn của phần thân nhẫn) để dựa vào đó tìm
+                được size nhẫn phù hợp. Bảng size nhẫn quy chuẩn, cơ bản trên toàn thế giới đều được quy định dựa trên
+                độ dài đường kính đường tròn, vậy nên bạn có thể yên tâm gửi số đo chính xác cho chúng tôi và nói rõ đó
+                là đường kính lòng trong nhẫn (tránh nhầm chu vi hay size tay)</p>
             <img src="{{ asset('img/image/image 243.png') }}" alt="thước đo đường kính nhẫn">
             <p class="text-center">Thước đo đường kính nhẫn</p>
-            <p>Nếu nhà bạn không có sẵn thước kẻ, bạn có thể tải ứng dụng thước kẻ online trên điện thoại của mình, đặt nhẫn trên một phẳng và để điện thoại song song với mặt phẳng đó. Khi mở camera, ứng dụng sẽ quét 3D cảnh vật mà nó thu được và ước tính kích thước tương đối chính xác của vật thể, dựa vào tỉ lệ bối cảnh. Bạn có thể đo và ghi lại kết quả của 3 lần đo sát nhau và gửi cho cửa hàng để nhờ tư vấn viên hỗ trợ chi tiết.</p>
+            <p>Nếu nhà bạn không có sẵn thước kẻ, bạn có thể tải ứng dụng thước kẻ online trên điện thoại của mình, đặt
+                nhẫn trên một phẳng và để điện thoại song song với mặt phẳng đó. Khi mở camera, ứng dụng sẽ quét 3D cảnh
+                vật mà nó thu được và ước tính kích thước tương đối chính xác của vật thể, dựa vào tỉ lệ bối cảnh. Bạn
+                có thể đo và ghi lại kết quả của 3 lần đo sát nhau và gửi cho cửa hàng để nhờ tư vấn viên hỗ trợ chi
+                tiết.</p>
         </div>
         <div class="step">
             <h4>2.Quấn Dây Quanh Ngón Tay</h4>
-            <p>Trong trường hợp bạn không tìm được chiếc nhẫn mẫu, có thể tham khảo cách đo thủ công khác: lấy một sợi dây hoặc một mảnh giấy dạng thuôn, dài quấn quanh ngón tay đeo nhẫn mong muốn. Sau đó, dùng một chiếc bút đánh dấu kĩ điểm giao nhau của sợi dây/ mảnh giấy và lấy thước kẻ đo chiều dài của đoạn thẳng vừa tạo.</p>
+            <p>Trong trường hợp bạn không tìm được chiếc nhẫn mẫu, có thể tham khảo cách đo thủ công khác: lấy một sợi
+                dây hoặc một mảnh giấy dạng thuôn, dài quấn quanh ngón tay đeo nhẫn mong muốn. Sau đó, dùng một chiếc
+                bút đánh dấu kĩ điểm giao nhau của sợi dây/ mảnh giấy và lấy thước kẻ đo chiều dài của đoạn thẳng vừa
+                tạo.</p>
             <img src="{{ asset('img/image/image 248.png') }}" alt="Quấn dây quanh ngón tay">
             <p class="text-center">Đo Size nhẫn bằng sợi dây đơn giản </p>
-            <p>Bằng cách này, thay vì có đường kính trực tiếp, chúng ta đã có được chu vi ngón tay. Bạn nên đo lại 2-3 lần một cách cẩn thận để tránh sai số, đảm bảo vị trí cần đeo nhẫn cảm thấy thoải mái và vừa vặn nhất. Từ chu vi ngón tay, chia cho số Pi 3,14 ta có thể có được đường kính lòng trong của nhẫn; bạn có thể gửi cả 2 kết quả này cho tiệm kim hoàn và nói rõ đâu là đường kính, đâu là chu vi để cửa hàng có thể tư vấn chính xác. </p>
+            <p>Bằng cách này, thay vì có đường kính trực tiếp, chúng ta đã có được chu vi ngón tay. Bạn nên đo lại 2-3
+                lần một cách cẩn thận để tránh sai số, đảm bảo vị trí cần đeo nhẫn cảm thấy thoải mái và vừa vặn nhất.
+                Từ chu vi ngón tay, chia cho số Pi 3,14 ta có thể có được đường kính lòng trong của nhẫn; bạn có thể gửi
+                cả 2 kết quả này cho tiệm kim hoàn và nói rõ đâu là đường kính, đâu là chu vi để cửa hàng có thể tư vấn
+                chính xác. </p>
         </div>
         <div class="step">
             <h4>3. Một số lưu ý khi đo Size nhẫn</h4>
             <h6>3.1, Nhiệt độ</h6>
-            <p>Thực tế, nhiệt độ môi trường xung quanh có thể tác động đến kích cỡ tương đối của ngón tay. Khi trời lạnh, ngón tay có thể bị co lại một chút, nên bạn có thể cộng thêm 1mm vào kết quả chu vi ngón tay và trừ ngược lại 1mm khi trời nóng. </p>
+            <p>Thực tế, nhiệt độ môi trường xung quanh có thể tác động đến kích cỡ tương đối của ngón tay. Khi trời
+                lạnh, ngón tay có thể bị co lại một chút, nên bạn có thể cộng thêm 1mm vào kết quả chu vi ngón tay và
+                trừ ngược lại 1mm khi trời nóng. </p>
             <img src="{{ asset('img/image/image 250.png') }}" alt="Lưu ý đo size">
             <p class="text-center">Một số lưu ý khi đo để tìm Size nhẫn phù hợp</p>
             <h6>3.2, Khớp tay </h6>
-            <p>Phần khớp xương tay có thể có chiều rộng lớn hơn phần gốc ngón tay nối liền với bàn tay. Bạn nên đo cả phần gốc và khớp tay rồi chọn kết quả tương đối giữa 2 số đo, cũng như lưu ý khi đo khớp thì nên đo cách xương khớp vài mm thay vì đo trực tiếp trên đoạn xương gồ lên, để đảm bảo nhẫn vẫn đeo vào dễ dàng nhưng không dễ bị rơi, tuột.</p>
+            <p>Phần khớp xương tay có thể có chiều rộng lớn hơn phần gốc ngón tay nối liền với bàn tay. Bạn nên đo cả
+                phần gốc và khớp tay rồi chọn kết quả tương đối giữa 2 số đo, cũng như lưu ý khi đo khớp thì nên đo cách
+                xương khớp vài mm thay vì đo trực tiếp trên đoạn xương gồ lên, để đảm bảo nhẫn vẫn đeo vào dễ dàng nhưng
+                không dễ bị rơi, tuột.</p>
             <h6>3.3, Độ dày nhẫn </h6>
-            <p>Mỗi thiết kế nhẫn khác nhau sẽ có sự khác biệt về kết cấu và độ dày của đai nhẫn. Nếu bạn ưa chuộng những mẫu nhẫn thân tết kim cương cầu kỳ, cá tính hơn nhẫn mảnh, trơn đơn giản, bạn cần xác định rõ mẫu nhẫn mong muốn và hỏi kỹ tư vấn viên về yếu tố này. Việc đeo một chiếc nhẫn không vừa vặn sẽ gây vướng víu, gò bò khi sử dụng, làm giảm đi giá trị và sự yêu thích dành cho món trang sức quý giá.</p>
-            <p>Với những chia sẻ hữu của Brilliance về cách đo size nhẫn, hi vọng bạn sẽ tìm được một chiếc nhẫn ưng ý, vừa vặn, toát lên khí chất và phong thái riêng biệt! </p>
+            <p>Mỗi thiết kế nhẫn khác nhau sẽ có sự khác biệt về kết cấu và độ dày của đai nhẫn. Nếu bạn ưa chuộng những
+                mẫu nhẫn thân tết kim cương cầu kỳ, cá tính hơn nhẫn mảnh, trơn đơn giản, bạn cần xác định rõ mẫu nhẫn
+                mong muốn và hỏi kỹ tư vấn viên về yếu tố này. Việc đeo một chiếc nhẫn không vừa vặn sẽ gây vướng víu,
+                gò bò khi sử dụng, làm giảm đi giá trị và sự yêu thích dành cho món trang sức quý giá.</p>
+            <p>Với những chia sẻ hữu của Brilliance về cách đo size nhẫn, hi vọng bạn sẽ tìm được một chiếc nhẫn ưng ý,
+                vừa vặn, toát lên khí chất và phong thái riêng biệt! </p>
 
         </div>
         <div class="step">
@@ -145,7 +81,7 @@
             <table>
                 <thead>
                     <tr>
-                            <th>Chiều dài (mm)</th>
+                        <th>Chiều dài (mm)</th>
                         <th>Size nhẫn</th>
                     </tr>
                 </thead>
@@ -198,91 +134,6 @@
             </table>
         </div>
     </div>
-    <footer class="text-center text-lg-start bg-body-tertiary line">
-        <section class="">
-          <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3">
-              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                <h6 class="text-uppercase fw-bold mb-4">
-                  <i class="fas fa-gem me-3"></i>Brilliance
-                </h6>
-                <div class="link-icons">
-                  <a href="" class="me-4 text-reset">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="" class="me-4 text-reset">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a href="" class="me-4 text-reset">
-                    <i class="fab fa-google"></i>
-                  </a>
-                  <a href="" class="me-4 text-reset">
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                  <a href="" class="me-4 text-reset">
-                    <i class="fab fa-linkedin"></i>
-                  </a>
-                </div>
-                <div>
-                  <i class="bx bxs-phone-call"></i> 0933 1977 55 - 0877 0566 88
-                </div>
-              </div>
-              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                <h6 class="text-uppercase fw-bold mb-4">Về chúng tôi</h6>
-                <p>
-                  <a href="#!" class="text-reset">Giới thiệu</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Giấy chứng nhận</a>
-                </p>
-              </div>
-              <!-- Grid column -->
-  
-              <!-- Grid column -->
-              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase fw-bold mb-4">Hướng dẫn sử dụng</h6>
-                <p>
-                  <a href="#!" class="text-reset">Đo size</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Bảo quản trang sức</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Hướng dẫn chọn nhẫn cưới</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Cẩm nang kim cương</a>
-                </p>
-              </div>
-              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                <h6 class="text-uppercase fw-bold mb-4">Hỗ trợ</h6>
-                <p>
-                  <a href="#!" class="text-reset">Chính sách mua hàng</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Chính sách thu hồi</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Bảo mật thông tin</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Giá vàng hôm nay</a>
-                </p>
-                <p>
-                  <a href="#!" class="text-reset">Phương thức thanh toán</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-  
-        <div
-          class="text-center p-4"
-          style="background-color: rgba(0, 0, 0, 0.05)"
-        >
-          © 2021 Copyright
-        </div>
-      </footer>
+    @include('Footer/Footer')
 </body>
 </html>
