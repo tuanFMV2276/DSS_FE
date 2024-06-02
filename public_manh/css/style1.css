@@ -1,0 +1,60 @@
+header{
+    color: black;
+    background-color: white;
+    
+}
+.divheader{
+    align-items: center;
+    padding: 10px 20px 5px 20px;
+    
+}
+.iconheader-10{
+    width: 10%;
+}
+.iconheader-7{
+    width: 7%;
+}
+.divheadershowroom{
+    justify-self: start;
+}
+.divheadercontact{
+    
+    justify-content: center;
+    
+}
+.pheader{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.search-box{
+    background-color: black;
+    border-radius: 3px;
+    border-style: double;
+    border-color: black;
+    width: 290px;
+    height: auto;
+    position: relative;
+}
+.search-box__input{
+    width: 250px;
+    height: auto;
+}
+.search-box__btn{
+    background-color: black;
+    color: white;
+    position: absolute;
+    border: none;
+    margin-left: 5px;
+    width: 25px;
+    height: auto;
+}
+.loginheader{
+    color: white;
+    background-color: #e3b63a;
+    border-radius: 10px;
+}
+.textloginheader{
+    text-align: center;
+    
+}
