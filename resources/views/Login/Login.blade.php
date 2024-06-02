@@ -193,7 +193,7 @@ p {
                     <div class="card-body p-md-5 mx-md-4">
       
                       <div class="text-center">
-                        <img src="{{asset('Picture/Diamond.jpg')}}"
+                        <img src="{{asset('/Picture/Diamond.jpg')}}"
                           style="width: 140px;" alt="logo">
                         <h4 class="name mt-1 mb-5 pb-1">Brilliance</h4>
                       </div>
