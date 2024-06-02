@@ -27,7 +27,7 @@
     justify-content: space-between; /* Các phần tử sẽ dãn đều ra cả hai phía */
 }
 
-//* Style cho container */
+
 .extend {
     display: flex;
     flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không đủ chỗ */
