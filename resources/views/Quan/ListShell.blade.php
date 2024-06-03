@@ -25,7 +25,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="{{ asset('css/example3.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/css_QUAN_main.css') }}">
   </head>
   <body>
     <header>
@@ -118,13 +118,12 @@
       </div>
     </div>
 
-    <main class="dark dark-page-wrappe">
+    <main class="">
       <div class="row category-page-row">
-        <div class="col large-12">
+        <div class="col-lg-5 large-12">
           <div class="shop-container">
-          <div class=""></div>
           <div class="products row row-small large-columns-4 medium-columns-3 small-columns-2 has-equal-box-heights equalize-box">
-              <div class="product-small col has-hover product type-product post-4548 status-publish first instock product_cat-nhan-nam product_cat-nhan-kim-cuong product_cat-trang-suc-kim-cuong has-post-thumbnail shipping-taxable purchasable product-type-simple">
+              <div class="block-brl gallery-item col">
                 <div class="col-inner">
                   <div class="badge-container absolute left top z-1"></div>
                   <div class="product-small box">

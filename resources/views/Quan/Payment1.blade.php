@@ -25,8 +25,8 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/css_Quan_main.css') }}">
-
   </head>
   <body>
     <header>
@@ -111,14 +111,14 @@
       </nav>
     </header>
 
-    <main>
-    <div class="region region-content-top">
+    <main class="dark dark-page-wrapper">
+      <div class="region region-content-top">
         <div class="block block-brl-blocks" id="block-brl-blocks-brl-cart-nav">
           <div class="content">
             <div class="container">
               <h1>Địa chỉ và Thanh toán</h1>
               <ul id="cart-tabs" class="tabs__ list-unstyled text-center clearfix">
-                <li class="tabs__tab done" id="cart-tab-1">
+                <li class="tabs__tab tab-1-return active" id="cart-tab-1">
                   <span>
                     <b>1</b>
                     "Vận chuyển"
@@ -130,7 +130,7 @@
                     "Thanh toán"
                   </span>
                 </li>
-                <li class="tabs__tab active" id="cart-tab-3">
+                <li class="tabs__tab" id="cart-tab-3">
                   <span>
                     <b>3</b>
                     "Xem lại & Xác nhận"
@@ -141,95 +141,143 @@
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="container">
-      <div calss="row">
-        <div class="col-md-7 col-lg-8">
-          <legend style="margin-bottom: 0;">Chi tiết đơn hàng</legend>
-          <div id="cart__summary-wrap">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="cart__item-wrap cart__item-wrap-alt">
-                  <div class="row">
-                    <div class="col-xs-3 col-sm-2 text-center">
+
+      <div class="container" style="min-height: 100vmin;">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+          <section class="brl-cart-checkout-wrap">
+            <div class="region region-content">
+              <form class="uc-cart-checkout-form">
+                <div>
+                  <fieldset class="form-wrapper">
+                    <legend>
+                      <span class="fieldset-legend">
+                        <h2 class="cart-headline">Thông tin khách hàng</h2>
+                      </span> 
+                    </legend>
+                    <div class="fieldset-wrapper">
                       <div>
-                        <img width="500" height="500" src="https://www.brilliance.com/images.brilliance.com/images/loose-diamonds/hd-images/oval-500x500.jpg" class="img-responsive center-block">
+                        <label>
+                          E-mail address
+                        </label>
+                        <input type="text" id="" name="" value size="32" maxlength="64" class="form-text">
                       </div>
                     </div>
-                    <div class="col-xs-9 col-sm-10">
-                      <div class="row">
-                        <div class="col-sm-5 col-md-8">
-                          1.30 Carat Oval Loose Diamond, E, VVS1, Ideal, GIA Certified
-                        </div>
-                        <div class="col-xs-12 col-sm-4 product__title-item">
-                          <div>
-                            <a>19,000,000VND</a>
+                  </fieldset>
+                  <fieldset class="form-wrapper" id="customer-pane">
+                    <legend>
+                      <span class="feildset-legend">
+                        <h2 class="cart-headline">Thông tin vận chuyển</h2>
+                      </span>
+                    </legend>
+                    <div class="fieldset-wrapper">
+                      <div class="fieldset-description">Nhập thông tin giao hàng tại đây</div>
+                      <div class="">
+                            <label for="">
+                                <span class="form-required" title="This field is required.">*</span>
+                                Tên
+                            </label>
+                          <input type="text" id="" name="" value size="32" maxlength="32" class="form-text"/>
+                      </div>
+                      <div class="">
+                            <label for="">
+                                <span class="form-required" title="This field is required.">*</span>
+                                Họ và tên đệm
+                            </label>
+                          <input type="text" id="" name="" value size="32" maxlength="32" class="form-text"/>
+                      </div>
+                      <div class="">
+                            <label for="">
+                                <span class="form-required" title="This field is required.">*</span>
+                                Địa chỉ 
+                            </label>
+                          <input type="text" id="" name="" value size="32" maxlength="128" class="form-text"/>
+                      </div>
+                      <div class="">
+                            <label for="">
+                                <span class="form-required" title="This field is required.">*</span>
+                                Thành phố
+                            </label>
+                          <input type="text" id="" name="" value size="32" maxlength="128" class="form-text"/>
+                      </div>
+                      <div class="">
+                            <label for="">
+                                <span class="form-required" title="This field is required.">*</span>
+                                Mã bưu chính
+                            </label>
+                          <input type="text" id="" name="" value size="32" maxlength="6" class="form-text"/>
+                      </div>
+                      <div class="">
+                            <label for="">
+                                <span class="form-required" title="This field is required.">*</span>
+                                Số điện thoại
+                            </label>
+                          <input type="text" id="" name="" value size="32" maxlength="12" class="form-text"/>
+                      </div>
+                        <div style="margin-bottom: 12px;">
+                          <div class="">
+                              <input type="checkbox" id="" name="" value="1" checked="checked" class="form-checkbox"/>
+                              <label class="option" for="">Đăng ký nhận ưu đãi độc quyền từ Brilliance</label>
                           </div>
                         </div>
+                    </div>
+
+                  </fieldset>
+                  <fieldset class="form-wrapper" id="delivery-pane">
+                  </fieldset>
+                  <fieldset class="form-wrapper" id="billing-pane">
+                    <legend>
+                      <span class="fieldset-legend">Thông tin thanh toán</span>
+                    </legend>
+                    <div class="fieldset-wrapper">
+                      <div class="fieldset-description">Nhập địa chỉ thanh toán và thông tin của bạn tại đây</div>
+                      <div class="">
+                        <input type="checkbox" id="" name="" value="1" checked="checked" class="form-checkbox"/>
+                        <label class="option" for="">Thông tin thanh toán của tôi giống với thông tin giao hàng </label>
                       </div>
                     </div>
-                  </div>
+                  </fieldset>
                 </div>
-                <div class="row" style="font-size: 1.6rem">
-                  <div class="col-sm-6" style="margin-top: 30px">
-                    <legend style="font-size: 21px">Địa chỉ giao hàng/thanh toán</legend>
-                    <ul class="list-unstyled" style="padding-left: 30px; font-size: 15px">
-                      <li>Nhà văn hóa</li>
-                      <li>Quân 9</li>
-                      <li>TP HCM</li>
-                    </ul>
-                  </div>
+              </form>
+            </div>
+          </section>
+          <br>
+          <br>
+          <br>
+        </div>
+        <div class="col-md-4 hidden-sx hidden-sm">
+          <section class="brl-cart-checkout-aside-wrap" id="side-cart">
+            <div class="row">
+              <div class="col-xs-12">
+                <div id="cart-promo-code">
+                    <a href="#" class="cart__btn btn btn-br1 btn-lg btn-orange center">
+                      <span>
+                        Tiếp tục thanh toán
+                      </span>
+                    </a>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <h2 style="text-align: center;">Đơn hàng</h2>
+              </div>
+              <div class="col-xs-12">
+                
+              </div>
+              <div class="col-xs-12">
+                <div id="cart-promo-code">
+                    <a href="#" class="cart__btn btn btn-br1 btn-lg btn-orange center">
+                      <span>
+                        Tiếp tục thanh toán
+                      </span>
+                    </a>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
+
       </div>
-    </div>
-    <div class="col-md-5 col-lg-4">
-      <div id="cart__totals-inner">
-        <legend style="margin-bottom: 0;">Tổng số đơn hàng</legend>
-        <ul class="brl-cart-total list-unstyled">
-          <li>
-            <div class="brl-cart-total-label">
-              <span>Tổng phụ</span>
-            </div>
-            <div class="brl-cart-total-value">
-              <span>39,000,000VND</span>
-            </div>
-          </li>
-          <li>
-            <div class="brl-cart-total-label">
-              <span>Vận chuyển</span>
-            </div>
-            <div class="brl-cart-total-value">
-              <span>0VND</span>
-            </div>
-          </li>
-          <li>
-            <div class="brl-cart-total-label">
-              <span>Tất cả</span>
-            </div>
-            <div class="brl-cart-total-value">
-              <span>39,000,000VND</span>
-            </div>
-          </li>
-        </ul>
-        <div class="" id="" style="display: block;">
-          <button class="cart__btn btn btn-br1 btn-lg btn-orange center">
-            <span class="">
-              Tiếp tục PayPal
-            </span>
-          </button>
-        </div>
-        <div class="order-legal-term" style="margin-bottom: 30px">
-          <small>Bằng cách gửi đơn đặt hàng, bạn đòng ý với các điều khoản & điều kiện sử dụng của Brilliance</small>
-        </div>
-      </div>
-    </div>
-    
-      
+
+
     </main>
 
 
