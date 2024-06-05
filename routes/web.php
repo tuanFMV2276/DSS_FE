@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +14,9 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function(){
-    return view('Quan/Payment3');
+    return view('Quan_CartPage/CartPage');
 });
+Route::get('/cartpage', [PaymentController::class, 'CartPage'])->name('CartPage');
+Route::get('/cartpage/payment1', [PaymentController::class, 'Payment1'])->name('Payment1');
+Route::get('/cartpage/payment2', [PaymentController::class, 'Payment2'])->name('Payment2');
+Route::get('/cartpage/payment3', [PaymentController::class, 'Payment3'])->name('Payment3');

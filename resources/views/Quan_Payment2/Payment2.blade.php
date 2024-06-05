@@ -242,7 +242,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <div id="cart-promo-code">
-                    <a href="#" class="cart__btn btn btn-br1 btn-lg btn-orange center">
+                    <a href="{{ route('CartPage') }}" class="cart__btn btn btn-br1 btn-lg btn-orange center">
                       <span>
                         Xem lại đơn đặt hàng của bạn
                       </span>
@@ -253,13 +253,28 @@
                 <h2 style="text-align: center;">Đơn hàng</h2>
               </div>
               <div class="col-xs-12">
-                
+              <table>
+                  <tbody>
+                    <tr>
+                      <td>Tổng phụ</td>
+                      <td class="text-right">39,000,000VND</td>
+                    </tr>
+                    <tr>
+                      <td>Vận chuyển</td>
+                      <td class="text-right">0VND</td>
+                    </tr>
+                    <tr>
+                      <td>Tất cả</td>
+                      <td class="text-right">39,000,000VND</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div class="col-xs-12">
                 <div id="cart-promo-code">
-                    <a href="#" class="cart__btn btn btn-br1 btn-lg btn-orange center">
+                    <a href="{{ route('Payment3') }}" class="cart__btn btn btn-br1 btn-lg btn-orange center">
                       <span>
-                        Xem lại đơn đặt hàng của bạn
+                        Tiếp tục thanh toán
                       </span>
                     </a>
                 </div>

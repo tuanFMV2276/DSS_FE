@@ -181,7 +181,7 @@
               </div>
               <div class="col-xs-12">
                 <div id="cart-promo-code">
-                  <a href="" class="cart__btn_checkout_mobile cart__btn btn btn-brl btn-lg btn-orange fb-click-secure-checkout" onlick="" style="margin: auto">
+                  <a href="{{ route('Payment1') }}" class="cart__btn_checkout_mobile cart__btn btn btn-brl btn-lg btn-orange fb-click-secure-checkout" onlick="" style="margin: auto">
                     <span class="fb-click-secure-checkout">
                       Thanh Toán Ngay
                     </span>
