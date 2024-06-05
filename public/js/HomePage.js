@@ -53,9 +53,7 @@ const handleChangeSlideTab1 = () => {
 
     }
     const width = imgsTab1[0].offsetWidth;
-    listImagesTab1.style.transform = `translateX(${-width * current/3}px)`;
-    document.querySelector('.active').classList.remove('active');
-    document.querySelector(`.index-item-${current}`).classList.add('active');
+    listImagesTab1.style.transform = `translateX(${-width * current/6}px)`;
 };
 
 let handleEventChangeSlideTab1 = setInterval(handleChangeSlideTab1, 4000);
@@ -74,9 +72,7 @@ btnLeft.addEventListener('click', () => {
         current--;
     }
     const width = imgsTab1[0].offsetWidth;
-    listImagesTab1.style.transform = `translateX(${-width * current/3}px)`;
-    document.querySelector('.active').classList.remove('active');
-    document.querySelector(`.index-item-${current}`).classList.add('active');
+    listImagesTab1.style.transform = `translateX(${-width * current/6}px)`;
     handleEventChangeSlideTab1 = setInterval(handleChangeSlideTab1, 4000);
 });
 
@@ -88,9 +84,7 @@ const handleChangeSlideTab2 = () => {
 
     }
     const width = imgsTab2[0].offsetWidth;
-    listImagesTab2.style.transform = `translateX(${-width * current/3}px)`;
-    document.querySelector('.active').classList.remove('active');
-    document.querySelector(`.index-item-${current}`).classList.add('active');
+    listImagesTab2.style.transform = `translateX(${-width * current/6}px)`;
 };
 
 let handleEventChangeSlideTab2 = setInterval(handleChangeSlideTab2, 4000);
@@ -109,9 +103,7 @@ btnLeft.addEventListener('click', () => {
         current--;
     }
     const width = imgsTab2[0].offsetWidth;
-    listImagesTab2.style.transform = `translateX(${-width * current/3}px)`;
-    document.querySelector('.active').classList.remove('active');
-    document.querySelector(`.index-item-${current}`).classList.add('active');
+    listImagesTab2.style.transform = `translateX(${-width * current/6}px)`;
     handleEventChangeSlideTab2 = setInterval(handleChangeSlideTab2, 4000);
 });
 
@@ -123,9 +115,7 @@ const handleChangeSlideTab3 = () => {
 
     }
     const width = imgsTab3[0].offsetWidth;
-    listImagesTab3.style.transform = `translateX(${-width * current/3}px)`;
-    document.querySelector('.active').classList.remove('active');
-    document.querySelector(`.index-item-${current}`).classList.add('active');
+    listImagesTab3.style.transform = `translateX(${-width * current/6}px)`;
 };
 
 let handleEventChangeSlideTab3 = setInterval(handleChangeSlideTab3, 4000);
@@ -144,8 +134,6 @@ btnLeft.addEventListener('click', () => {
         current--;
     }
     const width = imgsTab3[0].offsetWidth;
-    listImagesTab3.style.transform = `translateX(${-width * current/3}px)`;
-    document.querySelector('.active').classList.remove('active');
-    document.querySelector(`.index-item-${current}`).classList.add('active');
+    listImagesTab3.style.transform = `translateX(${-width * current/6}px)`;
     handleEventChangeSlideTab3 = setInterval(handleChangeSlideTab3, 4000);
 });

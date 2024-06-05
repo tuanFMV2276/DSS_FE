@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brilliance</title>
-    <link rel="stylesheet" href="{{ asset('css/Header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_Hoa/Header.css') }}">
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -27,9 +27,9 @@
         <div class="right">
           <div class="cart-login">
             <button class="cart-btn">
-              <i class="bx bxs-cart"> GIỎ HÀNG</i>
+              <a href="/NaturalDiamondPage"><i class="bx bxs-cart"> GIỎ HÀNG</i></a>
             </button>
-            <button class="login-btn">ĐĂNG NHẬP</button>
+            <button class="login-btn"><a href="/Login"><i class="bx bx-user"> ĐĂNG NHẬP</i></a></button>
           </div>
           <div>
             <form class="search">
@@ -47,7 +47,7 @@
         <ul>
           <li><a href="#">Trang Chủ</a></li>
           <li>
-            <a href="#">Kim Cương Tự Nhiên <i class='bx bx-chevron-down'></i></a>
+            <a href="/NaturalDiamondPage">Kim Cương Tự Nhiên <i class='bx bx-chevron-down'></i></a>
             <ul class="sub-menu">
               <li><a href="#">Round</a></li>
               <li><a href="#">Princess</a></li>
@@ -60,7 +60,7 @@
             </ul>
           </li>
           <li>
-            <a href="#">Kim Cương Nhân Tạo <i class='bx bx-chevron-down'></i></a>
+            <a href="/LabDiamondPage">Kim Cương Nhân Tạo <i class='bx bx-chevron-down'></i></a>
             <ul class="sub-menu">
               <li><a href="#">Round</a></li>
               <li><a href="#">Princess</a></li>

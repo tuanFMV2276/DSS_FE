@@ -13,6 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('HomePage_Hoa/HomePage');
+// });
+
+// Route::get('/Login', function () {
+//     return view('Login_Hoa/Login');
+// });
+
+
+// Route::get('/NaturalDiamondPage', function () {
+//     return view('NaturalDiamondPage_Hoa/NaturalDiamondPage');
+// });
+
+// Route::get('/LabDiamondPage', function () {
+//     return view('LabDiamondPage_Hoa/LabDiamondPage');
+// });
+
+// Route::get('/DetailDiamondPage', function () {
+//     return view('DetailDiamond_Hoa/DetailDiamondPage');
+// });
+
+// Route::get('/Register', function () {
+//     return view('Register_Hoa/Register');
+// });
+
 Route::get('/', function () {
-    return view('HomePage/HomePage');
+    return view('DeliveryStaffPage_Hoa/DeliveryStaffPage');
 });

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kim Cương Tự Nhiên</title>
-    <link rel="stylesheet" href="{{ asset('css/NaturalDiamondPage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_Hoa/LabDiamondPage.css') }}">
   </head>
   <body>
-    @include('Header/Header')
+    @include('Header_Hoa/Header')
     <div class="container">
       <div class="filter">
         <div class="title">
@@ -20,17 +20,64 @@
           <div class="filter-diamond-area"></div>
           <div class="filter-diamond-milimetres"></div>
         </div>
-        <div class="title-top">
-          <ul class="tab-title">
-            <li class="active">Viên kim cương</li>
-            <li class data-type="is-new">
-              <span>Mới</span>
-            </li>
-            <li class data-type="is-hot">
-              <span>Hot</span>
-            </li>
-          </ul>
-        </div>
+      </div>
+        <div class="table-container">
+          <table class="table-diamond">
+            <tr class="diamond-row">
+              <td>Shape</td>
+              <td>Giá Tham Khảo(VNĐ)</td>
+              <td>Milimetre(mm)</td>
+              <td>Carat</td>
+              <td>Cut</td>
+              <td>Color</td>
+              <td>Calarity</td>
+            </tr>
+            <tr class="diamond-row clickable" data-url="/DetailDiamondPage">
+              <td>Oval</td>
+              <td>12,700,000</td>
+              <td>7.15 - 4.92 3.02</td>
+              <td>0.66</td>
+              <td>Very Good</td>
+              <td>D</td>
+              <td>VVS1</td>
+            </tr>
+            <tr class="diamond-row clickable" data-url="/DetailDiamondPage">
+              <td>Oval</td>
+              <td>11,300,000</td>
+              <td>7.01 - 4.88 2.91</td>
+              <td>0.62</td>
+              <td>Very Good</td>
+              <td>D</td>
+              <td>VS1</td>
+            </tr>
+            <tr class="diamond-row clickable" data-url="/DetailDiamondPage">
+              <td>Oval</td>
+              <td>12,100,000</td>
+              <td>6.55 - 4.88 2.98</td>
+              <td>0.6</td>
+              <td>Very Good</td>
+              <td>D</td>
+              <td>VVS1</td>
+            </tr>
+            <tr class="diamond-row clickable" data-url="/DetailDiamondPage">
+              <td>Marquise</td>
+              <td>11,900,000</td>
+              <td>9.20 - 4.46 2.56</td>
+              <td>0.63</td>
+              <td>Very Good</td>
+              <td>D</td>
+              <td>VVS2</td>
+            </tr>
+            <tr class="diamond-row clickable" data-url="/DetailDiamondPage">
+              <td>Princess</td>
+              <td>13,200,000</td>
+              <td>4.68 - 4.65 3.40</td>
+              <td>0.63</td>
+              <td>Very Good</td>
+              <td>D</td>
+              <td>VVS2</td>
+            </tr>
+          </table>
       </div>
       <div class="introduce">
         <div class="summary-content">
@@ -48,7 +95,7 @@
             giấy chứng nhận <strong>Kim Cương GIA</strong> được ra đời như một
             chuẩn mực về chất lượng của kim cương để giúp mọi người dễ dàng phân
             biệt được ''hàng thật'' và ''những kẻ mạo danh''. Hãy cùng
-            <a href="#" target="_blank"> Brillian</a>
+            <a href="https://trangkimluxury.vn/" target="_blank"> Brillian</a>
             tìm hiểu về loại giấy chứng nhận quyền lực số 1 thế giới dành cho
             kim cương qua bài viết sau.
           </p>
@@ -80,7 +127,7 @@
           <div style="text-align: center">
             <figure class="image" style="display: inline-block">
               <img
-              src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-1-1.jpg')}}"
+              src="{{asset('/Picture/LabDiamondPage/LabPage-1-1.jpg')}}"
                 alt="Giấy chứng nhận GIA về chất lượng của kim cương"
                 width="770"
               />
@@ -114,7 +161,7 @@
           <div style="text-align: center">
             <figure class="image" style="display: inline-block">
               <img
-              src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-1-2.jpg')}}"
+              src="{{asset('/Picture/LabDiamondPage/LabPage-1-2.jpg')}}"
                 alt="Tiêu chuẩn 4C của Kim Cương GIA"
                 width="800"
               />
@@ -207,7 +254,7 @@
           <div style="text-align: center">
             <figure class="image" style="display: inline-block">
               <img
-              src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-3-1.jpg')}}"
+              src="{{asset('/Picture/LabDiamondPage/LabPage-3-1.jpg')}}"
                 alt="Các nước màu của kim cương theo tiêu chuẩn GIA"
                 width="800"
               />
@@ -248,7 +295,7 @@
           <div style="text-align: center">
             <figure class="image" style="display: inline-block">
               <img
-              src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-3-2.jpg')}}"
+              src="{{asset('/Picture/LabDiamondPage/LabPage-3-2.jpg')}}"
                 alt="Các cấp bậc về độ tinh khiết của kim cương theo tiêu chuẩn GIA"
                 width="800"
               />
@@ -314,7 +361,7 @@
           <div style="text-align: center">
             <figure class="image" style="display: inline-block">
               <img
-              src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-3-3.jpg')}}"
+              src="{{asset('/Picture/LabDiamondPage/LabPage-3-3.jpg')}}"
                 alt="Các thông số quan trọng trong việc đánh giá giác cắt của Kim Cương GIA"
                 width="800"
               />
@@ -345,7 +392,7 @@
           <div style="text-align: center">
             <figure class="image" style="display: inline-block">
               <img
-              src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-3-4.jpg')}}"
+              src="{{asset('/Picture/LabDiamondPage/LabPage-3-4.jpg')}}"
                 alt="Carat (ct) là đơn vị đo trọng lượng của kim cương"
                 width="800"
               />
@@ -357,6 +404,13 @@
         </div>
       </div>
     </div>
-    @include('Footer/Footer')
+    @include('Footer_Hoa/Footer')
+    <script>
+      document.querySelectorAll('.diamond-row.clickable').forEach(row => {
+        row.addEventListener('click', () => {
+          location.assign(row.dataset.url);
+        });
+      });
+    </script>
   </body>
 </html>

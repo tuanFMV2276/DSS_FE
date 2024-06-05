@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
-    <link rel="stylesheet" href="{{ asset('css/HomePage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_Hoa/HomePage.css') }}">
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -17,7 +17,7 @@
     />
   </head>
   <body>
-    @include('Header/Header')
+    @include('Header_Hoa/Header')
     <div class="container-xxl">
       <div class="slide-show">
         <div class="list-images">
@@ -244,21 +244,6 @@
         </div>
       </div>
     </div>
-    <div class="pos4">
-      <div class="certificate-block row">
-        <div class="cerfiticate-title col">
-          <div class="title">Giấy chứng nhận</div>
-          <div class="content">
-            Giấy chứng nhận kim cương GIA - Chứng nhận Uy Tín Số 1 Thế giới. Kim
-            cương GIA có khả năng giao dịch và mua bán trên toàn cầu.
-          </div>
-          <a href="#"><button class="view-all-cerfiticate">XEM THÊM</button></a>
-        </div>
-        <div class="certifications col">
-          <img src="{{asset('/Picture/HomePage/Certificate-1.jpg')}}" alt="Certificate" />
-        </div>
-      </div>
-    </div>
     <div class="pos5">
       <div class="container">
         <div class="title-special">
@@ -307,7 +292,7 @@
         </div>
       </div>
     </div>
-    @include('Footer/Footer')
+    @include('Footer_Hoa/Footer')
     <script src="{{asset('js/HomePage.js')}}"></script>
   </body>
 </html>
