@@ -30,13 +30,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('LabDiamondPage_Hoa/LabDiamondPage');
 // });
 
-// Route::get('/DetailDiamondPage', function () {
-//     return view('DetailDiamond_Hoa/DetailDiamondPage');
-// });
+Route::get('/DetailDiamondPage', function () {
+    return view('DetailDiamond_Hoa/DetailDiamondPage');
+});
 
-// Route::get('/Register', function () {
-//     return view('Register_Hoa/Register');
-// });
 
 Route::get('/', function () {
     return view('DeliveryStaffPage_Hoa/DeliveryStaffPage');

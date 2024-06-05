@@ -43,7 +43,7 @@
                 </div>
                 <div class="text-center mt-30">
                     <div class="btn-complete">
-                        <button>Thêm vào giỏ</button>
+                        <a href="#"><button>Thêm vào giỏ</button></a>
                     </div>
                 </div>
                 <div class="complete-icons-wrapper row">
