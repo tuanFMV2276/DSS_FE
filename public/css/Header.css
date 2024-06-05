@@ -27,12 +27,22 @@ header {
 
 .left .address p {
     margin: 0;
+<<<<<<< HEAD
     font-size: 12px;
 }
 
 .center h1 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 36px;
+=======
+    font-size: 15px;
+}
+
+.center h1 {
+    font-family: 'Times New Roman', cursive;
+    font-style: italic;
+    font-size: 50px;
+>>>>>>> 0a4c256a3f3ab57b1f6eb28a5f6688b2a7d58aed
     margin: 0;
 }
 

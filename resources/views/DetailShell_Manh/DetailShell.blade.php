@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    @include('Header/Header')
+    @include('Header_Hoa/Header')
     
     <div class="container mt-5">
         <div class="row">
@@ -160,7 +160,7 @@
             </tr>
         </table>
     </div>
-    @include('Footer/Footer')
+    @include('Footer_Hoa/Footer')
     
 </body>
 

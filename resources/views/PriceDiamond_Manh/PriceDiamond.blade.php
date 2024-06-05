@@ -14,7 +14,7 @@
     
 </head>
 <body>
-  @include('Header/Header')
+  @include('Header_Hoa/Header')
 
     <div class="top-header-body">
         <p>Trang chủ / Bảng giá kim cương</p>
@@ -696,7 +696,7 @@
 
     
     
-    @include('Footer/Footer')
+    @include('Footer_Hoa/Footer')
       
       <script src="https://kit.fontawesome.com/a5f04f16e7.js" crossorigin="anonymous"></script>
     </body>
