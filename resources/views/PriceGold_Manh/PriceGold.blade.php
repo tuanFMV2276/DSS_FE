@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    @include('Header/Header')
+    @include('Header_Hoa/Header')
     <div class="container mt-5">
         <div class="dashboardgold-header">
             <h1>BẢNG GIÁ VÀNG</h1>
@@ -361,7 +361,7 @@
     </div>
 
 
-    @include('Footer/Footer')
+    @include('Footer_Hoa/Footer')
 
     <script src="https://kit.fontawesome.com/a5f04f16e7.js" crossorigin="anonymous"></script>
 </body>
