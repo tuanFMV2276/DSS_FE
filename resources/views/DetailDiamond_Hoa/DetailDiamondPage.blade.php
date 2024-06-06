@@ -28,7 +28,7 @@
                         <img
                             width="100%"
                             height="100%"
-                            src="{{asset('/Picture/DetailDiamondPage/DetailDiamond.jpg')}}"
+                            src="{{asset('/Picture_Hoa/DetailDiamondPage/DetailDiamond.jpg')}}"
                             alt="0.35 Carat Emerald Loose Diamond, D, VS2, Super Ideal, GIA Certified"
                         />
                     </figure>
@@ -66,6 +66,7 @@
                     </div>
                     <div style="display: inline" class="btn text-center">
                         <div class="btn-1">
+
                             <a href="{{ URL::to('/ListShell') }}">
                                 <button>
                                     <span style="text-transform: none"
@@ -112,7 +113,7 @@
                 <div class="banner">
                     <div class="feature">
                         <img
-                            src="{{asset('/Picture/DetailDiamondPage/pos2-1.jpg')}}"
+                            src="{{asset('/Picture_Hoa/DetailDiamondPage/pos2-1.jpg')}}"
                             alt="Dịch vụ VIP"
                         />
                         <h3>DỊCH VỤ VIP</h3>
@@ -123,7 +124,7 @@
                     </div>
                     <div class="feature">
                         <img
-                            src="{{asset('/Picture/DetailDiamondPage/pos2-2.jpg')}}"
+                            src="{{asset('/Picture_Hoa/DetailDiamondPage/pos2-2.jpg')}}"
                             alt="Chứng nhận quốc tế"
                         />
                         <h3>CHỨNG NHẬN QUỐC TẾ</h3>
@@ -134,7 +135,7 @@
                     </div>
                     <div class="feature">
                         <img
-                            src="{{asset('/Picture/DetailDiamondPage/pos2-3.jpg')}}"
+                            src="{{asset('/Picture_Hoa/DetailDiamondPage/pos2-3.jpg')}}"
                             alt="Độc đáo & đẳng cấp"
                         />
                         <h3>ĐỘC ĐÁO & ĐẲNG CẤP</h3>
@@ -207,8 +208,9 @@
                                 <div class="col-md-3 col-sm-6 related-item">
                                     <a href="#">
                                         <img
-                                        src="{{asset('/Picture/DetailDiamondPage/Similar1.jpg')}}""
-                                        alt="Diamond 1" />
+                                            src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar1.jpg')}}"
+                                            alt="Diamond 1"
+                                        />
                                         <p>
                                             0.37 Carat Emerald Loose Diamond, D,
                                             IF, Super Ideal, GIA Certified
@@ -221,8 +223,7 @@
                                 <div class="col-md-3 col-sm-6 related-item">
                                     <a href="#">
                                         <img
-                                            src="{{asset('/Picture/DetailDiamondPage/Similar2.jpg')}}"
-                                            v
+                                            src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar2.jpg')}}"
                                             alt="Diamond 2"
                                         />
                                         <p>
@@ -237,7 +238,7 @@
                                 <div class="col-md-3 col-sm-6 related-item">
                                     <a href="#">
                                         <img
-                                            src="{{asset('/Picture/DetailDiamondPage/Similar3.jpg')}}"
+                                            src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar3.jpg')}}"
                                             alt="Diamond 3"
                                         />
                                         <p>
@@ -252,7 +253,7 @@
                                 <div class="col-md-3 col-sm-6 related-item">
                                     <a href="#">
                                         <img
-                                            src="{{asset('/Picture/DetailDiamondPage/Similar4.jpg')}}"
+                                            src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar4.jpg')}}"
                                             alt="Diamond 4"
                                         />
                                         <p>

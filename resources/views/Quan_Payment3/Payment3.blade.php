@@ -137,11 +137,13 @@
           </li>
         </ul>
         <div class="" id="" style="display: block;">
-          <button class="cart__btn btn btn-br1 btn-lg btn-orange center">
-            <span class="">
-              Tiếp tục PayPal
-            </span>
-          </button>
+          <a href="{{ URL::to('/PaymentSuccessful') }}">
+            <button class="cart__btn btn btn-br1 btn-lg btn-orange center">
+              <span class="">
+                Tiếp tục PayPal
+              </span>
+            </button>
+          </a>
         </div>
         <div class="order-legal-term" style="margin-bottom: 30px">
           <small>Bằng cách gửi đơn đặt hàng, bạn đòng ý với các điều khoản & điều kiện sử dụng của Brilliance</small>

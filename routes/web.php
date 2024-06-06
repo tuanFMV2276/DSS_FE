@@ -14,6 +14,7 @@ use App\Http\Controllers\PaymentController;
 */
 // Các route đã được sắp xếp theo thứ tự coreflow
 
+
 //(optional)
 Route::get('/Login', function () {
     return view('Login_Hoa/Login');
@@ -63,7 +64,9 @@ Route::get('/cartpage/payment1', [PaymentController::class, 'Payment1'])->name('
 Route::get('/cartpage/payment2', [PaymentController::class, 'Payment2'])->name('Payment2');
 Route::get('/cartpage/payment3', [PaymentController::class, 'Payment3'])->name('Payment3');
 
-
+Route::get('/PaymentSuccessful', function () {
+    return view('PaymentSuccessful_Hoa/PaymentSuccessful');
+});
 // route của sale staff
 Route::get('/HomeSaleStaff', function () {
     return view('HomeSaleStaff_Manh/HomeSaleStaff');
@@ -83,4 +86,5 @@ Route::get('/PriceGold', function () {
 Route::get('/PriceDiamond', function () {
     return view('PriceDiamond_Manh/PriceDiamond');
 });
+
 

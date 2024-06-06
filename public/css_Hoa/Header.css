@@ -6,6 +6,8 @@ body {
 
 header {
     border-bottom: 1px solid #ccc;
+    position: relative;
+    z-index: 1000;
 }
 
 .top-header {
@@ -78,7 +80,7 @@ header {
     border: none;
 }
 
-.search-btn{
+.search-btn {
     width: 45px;
     height: 30px;
     border: none;
@@ -89,6 +91,8 @@ header {
 nav {
     background-color: #fff;
     border-color: #000;
+    position: relative;
+    z-index: 1000;
 }
 
 nav ul {
@@ -104,7 +108,7 @@ nav ul li {
     position: relative;
 }
 
-nav ul li a {
+nav ul li>a {
     color: #000;
     text-decoration: none;
     padding: 15px 20px;
@@ -122,6 +126,10 @@ nav ul li a:hover {
     list-style: none;
     width: 200px;
     display: none;
+    top: 100%;
+    left: 0;
+    z-index: 1000; /* Ensures submenu is on top */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 nav ul li:hover .sub-menu {
@@ -133,10 +141,21 @@ nav ul li:hover .sub-menu {
     border-bottom: 1px solid #646464;
 }
 
-.sub-menu li:hover a{
+.sub-menu li:hover a {
     border-bottom: 1px solid #8d8c8c;
 }
 
 .sub-menu li:last-child a {
     border: none;
+}
+
+/* Additional styles to ensure overlapping */
+.container-xxl {
+    position: relative;
+    z-index: 1;
+}
+
+.pos1, .pos2, .pos3, .pos5, .pos6 {
+    position: relative;
+    z-index: 1;
 }
