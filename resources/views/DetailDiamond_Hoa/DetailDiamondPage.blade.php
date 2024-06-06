@@ -60,7 +60,7 @@
                     >
                         Giá tiền:
                         <span class="vnd">
-                            <span itemprop="price">12,700,000</span>
+                            <span itemprop="price">34,800,000</span>
                             <span itemprop="priceCurrency">VND</span>
                         </span>
                     </div>

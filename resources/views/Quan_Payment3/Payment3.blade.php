@@ -80,14 +80,36 @@
                     <div class="col-xs-9 col-sm-10">
                       <div class="row">
                         <div class="col-sm-5 col-md-8">
-                          1.30 Carat Oval Loose Diamond, E, VVS1, Ideal, GIA Certified
+                          0.35 Carat Emerald Loose Diamond, D, VS2, Super Ideal,
+                        GIA Certified
                         </div>
                         <div class="col-xs-12 col-sm-4 product__title-item">
                           <div>
-                            <a>19,000,000VND</a>
+                            <a>34,800,000VND</a>
                           </div>
                         </div>
                       </div>
+                      
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col-xs-3 col-sm-2 text-center">
+                      <div>
+                        <img width="500" height="500" src="{{ asset('img_Manh/image/ring.png') }}" class="img-responsive center-block">
+                      </div>
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-5 col-md-8">
+                          Nhẫn Kim Cương Nữ R.2235
+                        </div>
+                        <div class="col-xs-12 col-sm-4 product__title-item">
+                          <div>
+                            <a>4,200,000VND</a>
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                   </div>
                 </div>

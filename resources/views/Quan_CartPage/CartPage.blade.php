@@ -43,7 +43,7 @@
                                                   <li><strong>Mã chứng khoán:</strong> D123138308</li>
                                               </ul>
                                               <div class="cart-item-price">
-                                                  <b>19,000,000VND</b>
+                                                  <b>34,800,000VND</b>
                                               </div>
                                           </div>
                                           
@@ -52,20 +52,20 @@
                                     <div class="mt-2">
                                       <div class="col-md-3 text-center">
                                           <a href="#">
-                                              <img src="{{asset('/Picture/DetailDiamondPage/DetailDiamond.jpg')}}" alt="Product Image" class="img-responsive center-block" style="height: 150px; width: 150px;">
+                                              <img src="{{ asset('img_Manh/image/ring.png') }}" alt="ring Image" class="img-responsive center-block" style="height: 150px; width: 150px;">
                                           </a>
                                           <span class="cart-remove" onclick="#">Xoá</span>
                                       </div>
                                       <div class="col-md-9">
                                           <div class="cart-item-details">
                                               <h4 class="cart-item-title h4_Manh">
-                                                  <a href="#" style="text-decoration: none; font-weight: 700">0.30 carat Oval Loose Diamond, E, VVS2, Super Ideal, GIA Certified</a>
+                                                  <a href="#" style="text-decoration: none; font-weight: 700">Nhẫn Kim Cương Nữ R.2235</a>
                                               </h4>
                                               <ul class="list-unstyled">
                                                   <li><strong>Mã chứng khoán:</strong> D123138308</li>
                                               </ul>
                                               <div class="cart-item-price">
-                                                  <b>19,000,000VND</b>
+                                                  <b>4,200,000VND</b>
                                               </div>
                                           </div>
                                           

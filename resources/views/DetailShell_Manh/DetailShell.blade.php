@@ -22,8 +22,8 @@
                 <img src="{{ asset('img_Manh/image/ring.png') }}" alt="ring">
             </div>
             <div class="col-sm-5 text-center">
-                <h3>Classic Solitaire Engagement Ring In White Gold</h3>
-                <h4>Giá của chúng tôi 18,000,000</h4>
+                <h3>Nhẫn Kim Cương Nữ R.2235</h3>
+                <h4>Giá của chúng tôi 4,200,000</h4>
                 <div class="col-sm-12 attribute flex-center last-no-margin" style="flex-wrap: wrap;"
                     radio-name="attributes[13]">
                     <label onclick="radioChange(this, '14K White Gold', 13, 54)" class="text-center active">
@@ -107,7 +107,7 @@
             </tr>
             <tr>
                 <td>Đường kính</td>
-                <td>4.5mm</td>
+                <td>4mm</td>
             </tr>
 
         </table>

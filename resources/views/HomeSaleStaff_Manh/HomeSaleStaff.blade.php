@@ -116,33 +116,37 @@
                             <th>Address</th>
                             <th>Price</th>
                             <th>Note</th>
+                            <th>Detail</th>
                         </tr>
                         <tr>
-                            <td>07</td>
-                            <td>07</td>
+                            <td>01</td>
+                            <td>01</td>
                             <td>Manh</td>
                             <td>0946381264</td>
                             <td>365 Le Van Viet Street</td>
                             <td>13,000,000đ</td>
                             <td>Giao hàng trước ngày 09/6</td>
+                            <td><button>Detail</button></td>
                         </tr>
                         <tr>
-                            <td>08</td>
-                            <td>08</td>
+                            <td>02</td>
+                            <td>02</td>
                             <td>Quan</td>
                             <td>0947392164</td>
                             <td>365 Le Van Viet Street</td>
                             <td>23,000,000đ</td>
                             <td></td>
+                            <td><button>Detail</button></td>
                         </tr>
                         <tr>
-                            <td>09</td>
-                            <td>09</td>
+                            <td>03</td>
+                            <td>03</td>
                             <td>Tuan</td>
                             <td>0947261455</td>
                             <td>832 Hoang Dieu 2 Street</td>
                             <td>26,900,000đ</td>
                             <td></td>
+                            <td><button>Detail</button></td>
                         </tr>
                     </table>
                 </div>
