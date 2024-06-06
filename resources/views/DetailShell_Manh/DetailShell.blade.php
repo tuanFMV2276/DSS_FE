@@ -64,13 +64,13 @@
                 <div class="display_btn mt-3">
                     <div>
                         <div class="abtn">
-                            <a href="dosize.blade.php" class="btn btn-lg custom-btn">Xem thành phẩm</a>
+                            <a href="{{ URL::to('/CompletedProduct') }}" class="btn btn-lg custom-btn">Xem thành phẩm</a>
                         </div>
                         
                     </div>
                     <div>
                         <div class="abtn">
-                            <a href="dosize.blade.php" class="btn btn-lg custom-btn">Tới giỏ hàng</a>
+                            <a href="{{ URL::to('/cartpage') }}" class="btn btn-lg custom-btn">Tới giỏ hàng</a>
                         </div>
                         
                     </div>

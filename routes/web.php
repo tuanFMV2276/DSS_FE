@@ -19,6 +19,8 @@ Route::get('/Login', function () {
     return view('Login_Hoa/Login');
 });
 
+
+
 //từ trang này sẽ qua được  2 trang NaturalDiamondPage,LabDiamondPage
 Route::get('/', function () {
     return view('HomePage_Hoa/HomePage');

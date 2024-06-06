@@ -42,9 +42,11 @@
                     <strong>Tổng giá: <span>26,700,000đ</span></strong>
                 </div>
                 <div class="text-center mt-30">
-                    <div class="btn-complete">
-                        <button>Thêm vào giỏ</button>
-                    </div>
+                    <a href="{{ URL::to('/cartpage') }}">
+                        <div class="btn-complete">
+                            <button>Thêm vào giỏ</button>
+                        </div>
+                    </a>
                 </div>
                 <div class="complete-icons-wrapper row">
                     <div class="complete-icons-block col-4">

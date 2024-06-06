@@ -66,24 +66,28 @@
                     </div>
                     <div style="display: inline" class="btn text-center">
                         <div class="btn-1">
-                            <button>
-                                <span style="text-transform: none"
-                                    >Chọn vỏ nhẫn
-                                    <img
-                                        style="width: 17px; margin-left: 5px"
-                                        src="{{asset('/Picture/DetailDiamondPage/big-ring-setting-icon.jpg')}}"
-                                /></span>
-                            </button>
+                            <a href="{{ URL::to('/ListShell') }}">
+                                <button>
+                                    <span style="text-transform: none"
+                                        >Chọn vỏ nhẫn
+                                        <img
+                                            style="width: 17px; margin-left: 5px"
+                                            src="{{asset('/Picture/DetailDiamondPage/big-ring-setting-icon.jpg')}}"
+                                    /></span>
+                                </button>
+                            </a>
                         </div>
                         <div class="btn-2">
-                            <button>
-                                <span
-                                    >Vào giỏ hàng<i
-                                        class="bx bxs-cart"
-                                        style="color: #1c6392"
-                                    ></i
-                                ></span>
-                            </button>
+                            <a href="{{ URL::to('/cartpage') }}">
+                                <button>
+                                    <span
+                                        >Vào giỏ hàng<i
+                                            class="bx bxs-cart"
+                                            style="color: #1c6392"
+                                        ></i
+                                    ></span>
+                                </button>
+                            </a>
                         </div>
                     </div>
                     <div class="row mx-0">
