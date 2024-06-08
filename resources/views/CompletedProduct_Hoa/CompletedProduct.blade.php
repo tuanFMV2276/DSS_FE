@@ -19,27 +19,30 @@
         @include('Header_Hoa/Header')
         <div class="row">
             <div class="col-md-6">
-                <img
+                {{-- <img
                     class="img-product"
                     width="100%"
                     height="100%"
                     src="{{asset('/Picture/CompletedProduct/CompletedProduct.jpg')}}"
                     alt="Nhẫn đính hôn Solitaire sáu chấu bằng vàng vàng"
-                />
+                /> --}}
+                <img class="img-product ml-5 pl-5"
+                width="100%"
+                height="100%" src="{{ asset('img_Manh/image/ring.png') }}" alt="ring">
             </div>
             <div class="col-md-6 text-center content">
                 <h2 class="title">Chiếc nhẫn của bạn đã hoàn thành</h2>
                 <div class="complete-setting-title">
-                    Nhẫn đính hôn Solitaire sáu chấu bằng vàng vàng
+                    Nhẫn Kim Cương Nữ R.2235
                 </div>
-                <div class="complete-setting-price">Giá:14,000,000đ</div>
+                <div class="complete-setting-price">Giá:4,200,000đ</div>
                 <div class="complete-diamond-title">
                     0.35 Carat Emerald Loose Diamond, D, VS2, Super Ideal, GIA
                     Certified
                 </div>
-                <div class="complete-diamond-price">Giá: 12,700,000</div>
+                <div class="complete-diamond-price">Giá: 34,800,000</div>
                 <div class="complete-total-price">
-                    <strong>Tổng giá: <span>26,700,000đ</span></strong>
+                    <strong>Tổng giá: <span>39,000,000đ</span></strong>
                 </div>
                 <div class="text-center mt-30">
                     <a href="{{ URL::to('/cartpage') }}">
@@ -148,9 +151,9 @@
             <div class="tab-content col-sm-12">
                 <div class="tabpanel">
                     <h2 class="d-flex">
-                        Nhẫn đính hôn Solitaire sáu chấu bằng vàng vàng
+                        Nhẫn Kim Cương Nữ R.2235
                     </h2>
-                    <div class="tab-price text-center">Giá: 14,000,000đ</div>
+                    <div class="tab-price text-center">Giá: 4,200,000đ</div>
                 </div>
                 <div class="description-shell">
                     <table class="shell-details">
