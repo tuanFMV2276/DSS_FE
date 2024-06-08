@@ -44,6 +44,73 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    .invoice {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        font-family: Arial, sans-serif;
+    }
+
+    .invoice h2 {
+        text-align: center;
+    }
+
+    .invoice .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .invoice .header p {
+        margin: 5px 0;
+    }
+
+    .invoice table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .invoice .info {
+        margin: 20px;
+        border: none;
+    }
+
+    .invoice .header .info table,
+    .invoice .header .info th,
+    .invoice .header .info td {
+        border: none;
+        text-align: left;
+    }
+
+    .invoice table,
+    .invoice th,
+    .invoice td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .invoice th {
+        background-color: #f4f4f4;
+    }
+
+    .invoice .totals {
+        text-align: right;
+    }
+
+    .invoice .totals td {
+        border: none;
+    }
+
+    .invoice .footer {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .invoice .footer p {
+        font-size: 18px;
+        font-weight: bold;
+    }
     </style>
 </head>
 
@@ -69,7 +136,7 @@
             <div class="header">
                 <h1>Delivery Staff Dashboard</h1>
             </div>
-            <div id="order-pending" class="table-container">
+            <div id="order-pending" class="table-container" style="display: block;">
                 <table>
                     <tr>
                         <th>OrderID</th>
@@ -89,9 +156,10 @@
                         <td>365 Le Van Viet Street</td>
                         <td>13,000,000đ</td>
                         <td>Giao hàng trước ngày 09/6</td>
-                        <td><a href="#"
-                                onclick="showDetails('01', '01', 'Manh', '0946381264', '365 Le Van Viet Street', '13,000,000đ', 'Giao hàng trước ngày 09/6')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('01', 'Manh', '0946381264', '365 Le Van Viet Street', 'Giao hàng trước ngày 09/6', [
+                                {productID: '01', price: 13000000, quantity: 3},
+                                {productID: '02', price: 15000000, quantity: 2}
+                            ])">Detail</a></td>
                     </tr>
                     <tr>
                         <td>02</td>
@@ -101,9 +169,10 @@
                         <td>365 Le Van Viet Street</td>
                         <td>23,000,000đ</td>
                         <td></td>
-                        <td><a href="#"
-                                onclick="showDetails('02', '02', 'Quan', '0947392164', '365 Le Van Viet Street', '23,000,000đ', '')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('02', 'Quan', '0947392164', '365 Le Van Viet Street', '', [
+                                {productID: '03', price: 23000000, quantity: 1},
+                                {productID: '04', price: 25000000, quantity: 1}
+                            ])">Detail</a></td>
                     </tr>
                     <tr>
                         <td>03</td>
@@ -113,9 +182,10 @@
                         <td>832 Hoang Dieu 2 Street</td>
                         <td>26,900,000đ</td>
                         <td></td>
-                        <td><a href="#"
-                                onclick="showDetails('03', '03', 'Tuan', '0947261455', '832 Hoang Dieu 2 Street', '26,900,000đ', '')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('03', 'Tuan', '0947261455', '832 Hoang Dieu 2 Street', '', [
+                                {productID: '05', price: 26900000, quantity: 1},
+                                {productID: '06', price: 10000000, quantity: 3}
+                            ])">Detail</a></td>
                     </tr>
                 </table>
             </div>
@@ -139,9 +209,10 @@
                         <td>365 Le Van Viet Street</td>
                         <td>13,000,000đ</td>
                         <td>Giao hàng trước ngày 09/6</td>
-                        <td><a href="#"
-                                onclick="showDetails('04', '04', 'Manh', '0946381264', '365 Le Van Viet Street', '13,000,000đ', 'Giao hàng trước ngày 09/6')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('04', 'Manh', '0946381264', '365 Le Van Viet Street', 'Giao hàng trước ngày 09/6', [
+                                {productID: '01', price: 13000000, quantity: 3},
+                                {productID: '02', price: 15000000, quantity: 2}
+                            ])">Detail</a></td>
                     </tr>
                     <tr>
                         <td>05</td>
@@ -151,9 +222,10 @@
                         <td>365 Le Van Viet Street</td>
                         <td>23,000,000đ</td>
                         <td></td>
-                        <td><a href="#"
-                                onclick="showDetails('05', '05', 'Quan', '0947392164', '365 Le Van Viet Street', '23,000,000đ', '')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('05', 'Quan', '0947392164', '365 Le Van Viet Street', '', [
+                                {productID: '03', price: 23000000, quantity: 1},
+                                {productID: '04', price: 25000000, quantity: 1}
+                            ])">Detail</a></td>
                     </tr>
                     <tr>
                         <td>06</td>
@@ -163,9 +235,10 @@
                         <td>832 Hoang Dieu 2 Street</td>
                         <td>26,900,000đ</td>
                         <td></td>
-                        <td><a href="#"
-                                onclick="showDetails('06', '06', 'Tuan', '0947261455', '832 Hoang Dieu 2 Street', '26,900,000đ', '')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('06', 'Tuan', '0947261455', '832 Hoang Dieu 2 Street', '', [
+                                {productID: '05', price: 26900000, quantity: 1},
+                                {productID: '06', price: 10000000, quantity: 3}
+                            ])">Detail</a></td>
                     </tr>
                 </table>
             </div>
@@ -189,9 +262,10 @@
                         <td>365 Le Van Viet Street</td>
                         <td>13,000,000đ</td>
                         <td>Giao hàng trước ngày 09/6</td>
-                        <td><a href="#"
-                                onclick="showDetails('07', '07', 'Manh', '0946381264', '365 Le Van Viet Street', '13,000,000đ', 'Giao hàng trước ngày 09/6')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('07', 'Manh', '0946381264', '365 Le Van Viet Street', 'Giao hàng trước ngày 09/6', [
+                                {productID: '01', price: 13000000, quantity: 3},
+                                {productID: '02', price: 15000000, quantity: 2}
+                            ])">Detail</a></td>
                     </tr>
                     <tr>
                         <td>08</td>
@@ -201,9 +275,10 @@
                         <td>365 Le Van Viet Street</td>
                         <td>23,000,000đ</td>
                         <td></td>
-                        <td><a href="#"
-                                onclick="showDetails('08', '08', 'Quan', '0947392164', '365 Le Van Viet Street', '23,000,000đ', '')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('08', 'Quan', '0947392164', '365 Le Van Viet Street', '', [
+                                {productID: '03', price: 23000000, quantity: 1},
+                                {productID: '04', price: 25000000, quantity: 1}
+                            ])">Detail</a></td>
                     </tr>
                     <tr>
                         <td>09</td>
@@ -213,9 +288,10 @@
                         <td>832 Hoang Dieu 2 Street</td>
                         <td>26,900,000đ</td>
                         <td></td>
-                        <td><a href="#"
-                                onclick="showDetails('09', '09', 'Tuan', '0947261455', '832 Hoang Dieu 2 Street', '26,900,000đ', '')">Detail</a>
-                        </td>
+                        <td><a href="#" onclick="showDetails('09', 'Tuan', '0947261455', '832 Hoang Dieu 2 Street', '', [
+                                {productID: '05', price: 26900000, quantity: 1},
+                                {productID: '06', price: 10000000, quantity: 3}
+                            ])">Detail</a></td>
                     </tr>
                 </table>
             </div>
@@ -223,50 +299,98 @@
     </div>
 
     <!-- The Modal -->
-    <div id="orderDetailModal" class="modal">
+    <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Order Detail</h2>
-            <div class="table-container-detail">
-                <table>
-                    <tr>
-                        <td><strong>OrderID: </strong><span id="modalOrderID"></span></td>
-                        <td><strong>Delivery Name: </strong><span id="delivertName">Hoa</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Product Name: </strong></td>
-                        <td><span id="modalProductID"></td>
-                    </tr>
-                </table>
-            </div>
+            <div id="details"></div>
         </div>
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        showTable('order-pending');
-    });
+    function showDetails(orderID, customerName, phone, address, note, products) {
+        const detailsDiv = document.getElementById("details");
 
-    function showTable(tableId) {
-        const tables = document.querySelectorAll('.table-container');
-        tables.forEach(table => table.style.display = 'none');
-        document.getElementById(tableId).style.display = 'block';
-    }
+        // Clear any previous content
+        detailsDiv.innerHTML = "";
 
-    function showDetails(orderID, productID, customerName, phone, address, price, note) {
-        document.getElementById('modalOrderID').innerText = orderID;
-        document.getElementById('modalProductID').innerText = productID;
-        document.getElementById('modalCustomerName').innerText = customerName;
-        document.getElementById('modalPhone').innerText = phone;
-        document.getElementById('modalAddress').innerText = address;
-        document.getElementById('modalPrice').innerText = price;
-        document.getElementById('modalNote').innerText = note;
+        // Calculate total price
+        let totalPrice = 0;
+        products.forEach(product => {
+            totalPrice += product.price * product.quantity;
+        });
 
-        document.getElementById('orderDetailModal').style.display = 'block';
+        // Create invoice layout
+        const invoiceHTML = `
+                <div class="invoice">
+                    <div class="header">
+                        <h2>Luxury Diamond</h2>
+                        <table class="info">
+                            <tr>
+                                <td><strong>Order ID: </strong>${orderID}</td>
+                                <td><strong>Customer Name: </strong>${customerName}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phone: </strong>${phone}</td>
+                                <td><strong>Address: </strong>${address}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Note: </strong>${note}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${products.map(product => `
+                            <tr>
+                                <td>${product.productID}</td>
+                                <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                <td>${product.quantity}</td>
+                                <td>${(product.price * product.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                            </tr>`).join('')}
+                        </tbody>
+                    </table>
+                    <div class="footer">
+                        <p>Total: ${totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                    </div>
+                </div>
+            `;
+
+        // Append the invoice to the modal content
+        detailsDiv.innerHTML = invoiceHTML;
+
+        // Display the modal
+        const modal = document.getElementById("myModal");
+        modal.style.display = "block";
     }
 
     function closeModal() {
-        document.getElementById('orderDetailModal').style.display = 'none';
+        const modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    function showTable(tableId) {
+        const tables = document.getElementsByClassName("table-container");
+        for (let i = 0; i < tables.length; i++) {
+            tables[i].style.display = "none";
+        }
+        const tableToShow = document.getElementById(tableId);
+        tableToShow.style.display = "block";
+    }
+
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        const modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
     </script>
 </body>
