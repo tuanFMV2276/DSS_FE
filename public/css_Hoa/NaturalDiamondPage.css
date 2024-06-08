@@ -13,6 +13,10 @@ body {
   background: #fff;
 }
 
+.pagination .page-item .page-link {
+  color: #000;
+}
+
 .introduce {
     line-height: 24px;
     font-weight: 500;

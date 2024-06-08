@@ -41,19 +41,6 @@
                         0.35 Carat Emerald Loose Diamond, D, VS2, Super Ideal,
                         GIA Certified
                     </h1>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="product-availability text-center">
-                                <strong>Sẵn có:</strong>
-                                <small
-                                    ><span class="product-available"
-                                        >Còn hàng</span
-                                    >
-                                    (có sẵn 1)</small
-                                >
-                            </div>
-                        </div>
-                    </div>
                     <div
                         class="product-pricing text-center"
                         style="border-top: none; margin-top: 15px"
@@ -101,7 +88,7 @@
             <div class="content-page">
                 <div class="title text-center">
                     <h2>
-                        <span>Brilliance</span><br />
+                        <span>Luxury Diamond</span><br />
                         Điểm đến của Người Sành Kim Cương
                     </h2>
                 </div>

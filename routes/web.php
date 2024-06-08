@@ -17,9 +17,13 @@ Route::get('/', function () {
     return view('HomePage_Hoa/HomePage');
 });
 
-// Route::get('/Login', function () {
-//     return view('Login_Hoa/Login');
-// });
+Route::get('/Login', function () {
+    return view('Login_Hoa/Login');
+});
+
+Route::get('/Register', function () {
+    return view('Register_Hoa/Register');
+});
 
 
 Route::get('/NaturalDiamondPage', function () {
@@ -30,14 +34,14 @@ Route::get('/LabDiamondPage', function () {
     return view('LabDiamondPage_Hoa/LabDiamondPage');
 });
 
-// Route::get('/DetailDiamondPage', function () {
-//     return view('DetailDiamond_Hoa/DetailDiamondPage');
-// });
+Route::get('/DetailDiamondPage', function () {
+    return view('DetailDiamond_Hoa/DetailDiamondPage');
+});
 
 
-// Route::get('/CompletedProduct', function () {
-//     return view('CompletedProduct_Hoa/CompletedProduct');
-// });
+Route::get('/CompletedProduct', function () {
+    return view('CompletedProduct_Hoa/CompletedProduct');
+});
 
 // Route::get('/', function () {
 //     return view('DeliveryStaffPage_Hoa/DeliveryStaffPage');
@@ -45,4 +49,8 @@ Route::get('/LabDiamondPage', function () {
 
 Route::get('/PaymentSuccessful', function () {
     return view('PaymentSuccessful_Hoa/PaymentSuccessful');
+});
+
+Route::get('/IntroduceDiamondGIA', function () {
+    return view('IntroduceDiamondGIA_Hoa/IntroduceDiamondGIA');
 });
