@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 /*
@@ -87,4 +88,16 @@ Route::get('/PriceDiamond', function () {
     return view('PriceDiamond_Manh/PriceDiamond');
 });
 
+ Route::get('/customer', [Customer::class, 'index']);
 
+// Route::get('/author', [ViewsController::class, 'index'])->name('author.index');
+
+// Route::get('/author/create', [ViewsController::class, 'create'])->name('author.create');
+
+// Route::get('/author/{id}/edit', [ViewsController::class, 'edit'])->name('author.edit');
+
+// Route::Post('/author/store', [ViewsController::class, 'store'])->name('author.store');
+
+// Route::put('/author/{id}}', [ViewsController::class, 'update'])->name('author.update');
+
+// Route::delete('/author/{id}}', [ViewsController::class, 'destroy'])->name('author.destroy');

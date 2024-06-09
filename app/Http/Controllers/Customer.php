@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class Customer extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +16,10 @@ class Customer extends Controller
      */
     public function index()
     {
-        //
+        $customer = Http::get('http://127.0.0.1:8000/api/customer')->json();
+        $employee = Http::get('http://127.0.0.1:8000/api/employee')->json();
+        return view('Tuan/Customer',['customer' => $customer, 'employee' => $employee]);
+        
     }
 
     /**

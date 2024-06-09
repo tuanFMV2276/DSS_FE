@@ -11,7 +11,7 @@ class BaseRepository implements BaseRepositoryInterface
     // Constructor
     public function __construct() {
         $customer = Http::get('http://127.0.0.1:8000/api/customer')->json();
-        $diamondShell = Http::get('http://127.0.0.1:8000/api/diamondShell')->json();
+        $diamondShell = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
         $employee = Http::get('http://127.0.0.1:8000/api/employee')->json();
         $diamondPriceList = Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json();
         $exDiamond = Http::get('http://127.0.0.1:8000/api/exdiamond')->json();
