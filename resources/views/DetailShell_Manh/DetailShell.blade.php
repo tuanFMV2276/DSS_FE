@@ -29,9 +29,6 @@
                     <label onclick="radioChange(this, '14K White Gold', 13, 54)" class="text-center active">
                         <input type="radio" name="attributes[13]" value="54" checked="">
                         14K White Gold </label>
-                    <label onclick="radioChange(this, '18K White Gold, +2,600,000', 13, 55)" class="text-center">
-                        <input type="radio" name="attributes[13]" value="55">
-                        18K White Gold + 2,600,000 đ </label>
                 </div>
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
@@ -98,12 +95,8 @@
                 <th>Giá trị</th>
             </tr>
             <tr>
-                <td>Số lượng tồn kho</td>
-                <td>17072</td>
-            </tr>
-            <tr>
                 <td>Kim loại</td>
-                <td>Vàng trắng 14k hoặc 18k</td>
+                <td>Vàng trắng 14k</td>
             </tr>
             <tr>
                 <td>Đường kính</td>

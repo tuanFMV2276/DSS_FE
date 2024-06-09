@@ -20,12 +20,15 @@ Route::get('/Login', function () {
     return view('Login_Hoa/Login');
 });
 
+Route::get('/', function () {
+    return view('HomeSaleStaffV2_Manh/HomeSaleStaff');
+});
 
 
 //từ trang này sẽ qua được  2 trang NaturalDiamondPage,LabDiamondPage
-Route::get('/', function () {
-    return view('HomePage_Hoa/HomePage');
-});
+// Route::get('/', function () {
+//     return view('HomePage_Hoa/HomePage');
+// });
 
 //từ trang này sẽ qua được DetailDiamondPage
 Route::get('/NaturalDiamondPage', function () {
