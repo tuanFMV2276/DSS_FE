@@ -58,12 +58,22 @@ Route::get('/CompletedProduct', function () {
     return view('CompletedProduct_Hoa/CompletedProduct');
 });
 
+//từ trang này sẽ qua được payment
+Route::get('/Cart', function () {
+    return view('Cart_Hoa/CartPage');
+});
 
-//các trang này để coi giỏ hàng và tiến hành thanh toán
-Route::get('/cartpage', [PaymentController::class, 'CartPage'])->name('CartPage');
-Route::get('/cartpage/payment1', [PaymentController::class, 'Payment1'])->name('Payment1');
-Route::get('/cartpage/payment2', [PaymentController::class, 'Payment2'])->name('Payment2');
-Route::get('/cartpage/payment3', [PaymentController::class, 'Payment3'])->name('Payment3');
+//từ trang này sẽ qua này PaymentSuccessful
+Route::get('/Payment', function () {
+    return view('Payment_Hoa/Payment');
+});
+
+
+// //các trang này để coi giỏ hàng và tiến hành thanh toán
+// Route::get('/cartpage', [PaymentController::class, 'CartPage'])->name('CartPage');
+// Route::get('/cartpage/payment1', [PaymentController::class, 'Payment1'])->name('Payment1');
+// Route::get('/cartpage/payment2', [PaymentController::class, 'Payment2'])->name('Payment2');
+// Route::get('/cartpage/payment3', [PaymentController::class, 'Payment3'])->name('Payment3');
 
 Route::get('/PaymentSuccessful', function () {
     return view('PaymentSuccessful_Hoa/PaymentSuccessful');
