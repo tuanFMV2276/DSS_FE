@@ -3,6 +3,7 @@
 use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\HomePage;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,89 +17,39 @@ use App\Http\Controllers\PaymentController;
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
-//(optional)
-Route::get('/Login', function () {
-    return view('Login_Hoa/Login');
-});
+// Route::get('/Login', [Login::class, 'login']);
 
+Route::get('/', [HomePage::class, 'index']);
 
+// Route::get('/NaturalDiamondPage', [PageController::class, 'naturalDiamond']);
 
-//từ trang này sẽ qua được  2 trang NaturalDiamondPage,LabDiamondPage
-Route::get('/', function () {
-    return view('HomePage_Hoa/HomePage');
-});
+// Route::get('/LabDiamondPage', [PageController::class, 'labDiamond']);
 
-//từ trang này sẽ qua được DetailDiamondPage
-Route::get('/NaturalDiamondPage', function () {
-    return view('NaturalDiamondPage_Hoa/NaturalDiamondPage');
-});
+// Route::get('/DetailDiamondPage', [PageController::class, 'detailDiamond']);
 
-//từ trang này sẽ qua được DetailDiamondPage
-Route::get('/LabDiamondPage', function () {
-    return view('LabDiamondPage_Hoa/LabDiamondPage');
-});
+// Route::get('/ListShell', [PageController::class, 'listShell']);
 
-//từ trang này sẽ qua được 2 trang cartpage,ListShell
-Route::get('/DetailDiamondPage', function () {
-    return view('DetailDiamond_Hoa/DetailDiamondPage');
-});
+// Route::get('/DetailShell', [PageController::class, 'detailShell']);
 
-//từ trang này sẽ qua được DetailShell
-Route::get('/ListShell', function(){
-    return view('Quan_ListShell/ListShell');
-});
+// Route::get('/CompletedProduct', [PageController::class, 'completedProduct']);
 
-//từ trang này sẽ qua được CompletedProduct
-Route::get('/DetailShell', function () {
-    return view('DetailShell_Manh/DetailShell');
-});
+// Route::get('/Cart', [PageController::class, 'cart']);
 
-//từ trang này sẽ qua được cartpage
-Route::get('/CompletedProduct', function () {
-    return view('CompletedProduct_Hoa/CompletedProduct');
-});
+// Route::get('/Payment', [PageController::class, 'payment']);
 
-//từ trang này sẽ qua được payment
-Route::get('/Cart', function () {
-    return view('Cart_Hoa/CartPage');
-});
+// Route::get('/PaymentSuccessful', [PageController::class, 'paymentSuccessful']);
 
-//từ trang này sẽ qua này PaymentSuccessful
-Route::get('/Payment', function () {
-    return view('Payment_Hoa/Payment');
-});
+// Route::get('/HomeSaleStaff', [PageController::class, 'homeSaleStaff']);
 
+// Route::get('/DeliveryStaffPage', [PageController::class, 'deliveryStaff']);
 
-// //các trang này để coi giỏ hàng và tiến hành thanh toán
-// Route::get('/cartpage', [PaymentController::class, 'CartPage'])->name('CartPage');
-// Route::get('/cartpage/payment1', [PaymentController::class, 'Payment1'])->name('Payment1');
-// Route::get('/cartpage/payment2', [PaymentController::class, 'Payment2'])->name('Payment2');
-// Route::get('/cartpage/payment3', [PaymentController::class, 'Payment3'])->name('Payment3');
+// Route::get('/DoNi', [PageController::class, 'doNi']);
 
-Route::get('/PaymentSuccessful', function () {
-    return view('PaymentSuccessful_Hoa/PaymentSuccessful');
-});
-// route của sale staff
-Route::get('/HomeSaleStaff', function () {
-    return view('HomeSaleStaff_Manh/HomeSaleStaff');
-});
-// route của delivery staff
-Route::get('/DeliveryStaffPage', function () {
-    return view('DeliveryStaffPage_Hoa/DeliveryStaffPage');
-});
+// Route::get('/PriceGold', [PageController::class, 'priceGold']);
 
-//route phụ của customer
-Route::get('/DoNi', function () {
-    return view('DoNi_Manh/DoNi');
-});
-Route::get('/PriceGold', function () {
-    return view('PriceGold_Manh/PriceGold');
-});
-Route::get('/PriceDiamond', function () {
-    return view('PriceDiamond_Manh/PriceDiamond');
-});
+// Route::get('/PriceDiamond', [PageController::class, 'priceDiamond']);
 
- Route::get('/customer', [Customer::class, 'index']);
+// Route::get('/customer', [Customer::class, 'index']);
 
 // Route::get('/author', [ViewsController::class, 'index'])->name('author.index');
 
