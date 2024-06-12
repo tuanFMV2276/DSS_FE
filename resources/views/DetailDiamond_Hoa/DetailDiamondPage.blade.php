@@ -238,14 +238,14 @@
                 <div class="product-pricing text-center" style="border-top: none; margin-top: 15px">
                     Giá tiền:
                     <span class="vnd">
-                        <span itemprop="price">{{ number_format($diamond['price'], 0, ',', '.') }}</span>
+                        {{-- <span itemprop="price">{{ number_format($diamond['price'], 0, ',', '.') }}</span> --}}
                         <span itemprop="priceCurrency">₫</span>
                     </span>
                 </div>
                 <!-- Rest of your HTML code for buttons and other information -->
             </div>
         </div>
-        <div class="description-diamond col-sm-12">
+        {{-- <div class="description-diamond col-sm-12">
             <h2 class="title text-center">Chi tiết kim cương</h2>
             <table class="diamond-details">
                 <tr>
@@ -296,9 +296,10 @@
                     <td>Table %:</td>
                     <td>{{ $diamond['table'] }} %</td>
                 </tr>
-            </table>
+            </table> --}}
         </div>
     </div>
+
 
     @include('Footer_Hoa/Footer')
 </body>

@@ -48,7 +48,7 @@ class DetailDiamond extends Controller
      */
     public function show($id)
     {
-        $response = Http::get("http://127.0.0.1:8000/api/maindiamond/{$id}");
+        $response = Http::get("http://127.0.0.1:8000/api/maindiamond/1");
         $diamond = $response->json();
 
         return view('DetailDiamond_Hoa/DetailDiamondPage', ['diamond' => $diamond]);

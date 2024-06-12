@@ -35,18 +35,18 @@
                             {{ $diamond['cara_weight'] }} Carat {{ $diamond['diamond_name'] }} Loose Diamond
                             {{ $diamond['color'] }} {{ $diamond['clarity'] }} {{ $diamond['cut'] }}
                         </p>
-                        <h6 class="card-title text-center">{{ $diamond['price'] }}₫</h6>
+                        <h6 class="card-title text-center">{{ $diamond->price }}₫</h6>
                     </div>
                 </div>
             </a>
             @endforeach
         </div>
 
-        <nav aria-label="Page navigation example">
+        {{-- <nav aria-label="Page navigation example">
             <ul class="pagination mb-3 justify-content-center">
                 {{ $diamonds->links() }}
             </ul>
-        </nav>
+        </nav> --}}
     </div>
     @include('Footer_Hoa/Footer')
     <script>

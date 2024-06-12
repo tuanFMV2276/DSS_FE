@@ -19,26 +19,28 @@ class NaturalDiamondPage extends Controller
         $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
 
         // Filter the Natural Diamonds
-        $naturalDiamonds = $mainDiamonds->filter(function ($diamond) {
-            return $diamond['origin'] === 'Natural';
-        });
+        // $naturalDiamonds = $mainDiamonds->filter(function ($diamond) {
+        //     return $diamond['origin'] === 'Natural';
+        // });
 
-        // Paginate the filtered diamonds
-        $perPage = 20;
-        $page = $request->get('page', 1);
-        $offset = ($page - 1) * $perPage;
+        // // Paginate the filtered diamonds
+        // $perPage = 20;
+        // $page = $request->get('page', 1);
+        // $offset = ($page - 1) * $perPage;
         
-        $paginatedDiamonds = new LengthAwarePaginator(
-            $naturalDiamonds->slice($offset, $perPage)->values(),
-            $naturalDiamonds->count(),
-            $perPage,
-            $page,
-            ['path' => $request->url(), 'query' => $request->query()]
-        );
+        // $paginatedDiamonds = new LengthAwarePaginator(
+        //     $naturalDiamonds->slice($offset, $perPage)->values(),
+        //     $naturalDiamonds->count(),
+        //     $perPage,
+        //     $page,
+        //     ['path' => $request->url(), 'query' => $request->query()]
+        // );
 
+        // return view('NaturalDiamondPage_Hoa/NaturalDiamondPage', [
+        //     'diamonds' => $paginatedDiamonds
+        // ]);
         return view('NaturalDiamondPage_Hoa/NaturalDiamondPage', [
-            'diamonds' => $paginatedDiamonds
-        ]);
+                 'diamonds' => $mainDiamonds]);
     }
 
 
