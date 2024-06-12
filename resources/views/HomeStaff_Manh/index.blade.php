@@ -6,14 +6,50 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Update employee</h3>
+                    <h3>Manage order</h3>
                 </div>
                 <div class="col-md-6">
-                    <a href="{{ route('employees.index') }}" class="btn btn-primary float-end">Employees list</a>
+                    <a href="{{ route('order.create') }}" class="btn btn-primary float-end">add</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
+            @if(Session::has('notification'))
+                <div class="alert alert-success">
+                    {{ Session::get('notification') }}
+                </div>
+            @endsession
+
+            @endif
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+
+                            <th>customer id</th>
+                            <th>order date</th>
+                            <th>total price</th>
+                            <th>status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($order as $order)
+                    <tr>
+                        <th>{{$order->customer_id}}</th>
+                        <th>{{$order->order_date}}</th>
+                        <th>{{$order->total_price}}</th>
+                        <th>{{$order->status}}</th>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+@endsection
+{{-- <div class="card-body">
             <form action="{{ route('employees.update', $employee->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -67,8 +103,4 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
-        </div>
-    </div>
-</div>
-
-@endsection
+        </div> --}}

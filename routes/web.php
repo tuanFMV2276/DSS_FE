@@ -14,6 +14,8 @@ use App\Http\Controllers\Cart;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +26,7 @@ use App\Http\Controllers\PaymentSuccessful;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
