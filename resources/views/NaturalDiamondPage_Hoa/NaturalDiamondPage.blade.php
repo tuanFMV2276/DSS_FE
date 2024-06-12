@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kim Cương Tự Nhiên</title>
     <link rel="stylesheet" href="{{ asset('css_Hoa/NaturalDiamondPage.css') }}">
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,191 +24,35 @@
                 <div class="filter-diamond-milimetres"></div>
             </div>
         </div>
-        <div class="container mt-3 mb-3">
-            <div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image1.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
+        <div class="diamond-grid mt-3 mb-3">
+            @foreach ($diamonds as $diamond)
+            <a href="{{route('diamond.show', $diamond['id'])}}">
+                <div class="card h-100 clickable">
+                    <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image' . $loop->iteration . '.jpg') }}"
+                        alt="Diamond" class="card-img-top">
+                    <div class="card-body">
+                        <p class="card-text text-center">
+                            {{ $diamond['cara_weight'] }} Carat {{ $diamond['diamond_name'] }} Loose Diamond
+                            {{ $diamond['color'] }} {{ $diamond['clarity'] }} {{ $diamond['cut'] }}
+                        </p>
+                        <h6 class="card-title text-center">{{ $diamond->price }}₫</h6>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image2.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image3.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image4.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image5.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image6.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image7.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image8.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image9.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image10.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image11.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-70 clickable" data-url="/DetailShell">
-                        <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image12.jpg') }}" alt="Diamond"
-                            class="card-img-top">
-                        <div class="card-body">
-
-                            <p class="card-text">
-                                Nhẫn Kim Cương Nữ R.2235
-                            </p>
-                            <h6 class="card-title text-center">4.200.000₫</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </a>
+            @endforeach
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination mb-3">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
 
+        {{-- <nav aria-label="Page navigation example">
+            <ul class="pagination mb-3 justify-content-center">
+                {{ $diamonds->links() }}
+            </ul>
+        </nav> --}}
     </div>
     @include('Footer_Hoa/Footer')
     <script>
-    document.querySelectorAll('.diamond-row.clickable').forEach(row => {
-        row.addEventListener('click', () => {
-            location.assign(row.dataset.url);
+    document.querySelectorAll('.card.clickable').forEach(card => {
+        card.addEventListener('click', () => {
+            location.assign(card.dataset.url);
         });
     });
     </script>

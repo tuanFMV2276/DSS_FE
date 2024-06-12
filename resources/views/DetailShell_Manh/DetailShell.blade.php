@@ -15,7 +15,7 @@
 
 <body>
     @include('Header_Hoa/Header')
-    
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-7">
@@ -60,23 +60,24 @@
                         <option value="I Don't Know">I Don't Know</option>
                     </select>
                 </div>
-                
+
                 <div class="display_btn mt-3">
                     <div>
                         <div class="abtn">
-                            <a href="{{ URL::to('/CompletedProduct') }}" class="btn btn-lg custom-btn">Xem thành phẩm</a>
+                            <a href="{{ URL::to('/CompletedProduct') }}" class="btn btn-lg custom-btn">Xem thành
+                                phẩm</a>
                         </div>
-                        
+
                     </div>
                     <div>
                         <div class="abtn">
-                            <a href="{{ URL::to('/cartpage') }}" class="btn btn-lg custom-btn">Tới giỏ hàng</a>
+                            <a href="{{ URL::to('/Cart') }}" class="btn btn-lg custom-btn">Tới giỏ hàng</a>
                         </div>
-                        
+
                     </div>
 
                 </div>
-                
+
                 <p class="text-center">Dự kiến giao hàng ngày 7/6/2024</p>
                 <div class="extend">
                     <div><i class="fas fa-lightbulb"></i> Đưa ra gợi ý</div>
@@ -161,7 +162,7 @@
         </table>
     </div>
     @include('Footer_Hoa/Footer')
-    
+
 </body>
 
 </html>

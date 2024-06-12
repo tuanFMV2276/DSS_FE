@@ -84,8 +84,6 @@
                         <li><a href="#">Nhẫn Kim Cương Nữ</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Nhẫn Cưới</a></li>
-                <li><a href="#">Nhẫn Cầu Hôn</a></li>
                 <li><a href="#">Dịch Vụ <i class='bx bx-chevron-down'></i></a>
                     <ul class="sub-menu">
                         <li><a href="#">Chính Sách Bảo Hành, Thu Hồi & Đổi Trả</a></li>

@@ -3,8 +3,17 @@
 use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\HomePage;
+use App\Http\Controllers\NaturalDiamondPage;
+use App\Http\Controllers\LabDiamondPage;
+use App\Http\Controllers\DetailDiamond;
+use App\Http\Controllers\ListShell;
+use App\Http\Controllers\DetailShell;
+use App\Http\Controllers\CompletedProduct;
+use App\Http\Controllers\Cart;
+use App\Http\Controllers\Payment;
+use App\Http\Controllers\Login;
+use App\Http\Controllers\PaymentSuccessful;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,121 +27,41 @@ use App\Http\Controllers\OrderController;
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
+// Route::get('/Login', [Login::class, 'login']);
 
-//(optional)
-Route::get('/Login', function () {
-    return view('Login_Hoa/Login');
-});
+Route::get('/', [HomePage::class, 'index']);
 
-// Đăng ký route resource cho employees
-Route::resource('employees', EmployeeController::class)->except([
-    'update' // Loại bỏ phương thức update mặc định của resource controller
-]);
+Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
-// Đăng ký route riêng cho phương thức update của EmployeeController
-Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
+Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
 
-Route::resource('/orders', OrderController::class);
+// Route::get('/DetailDiamondPage/{id}', [DetailDiamond::class, 'index']);
 
+Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
 
+Route::get('/ListShell', [ListShell::class, 'index']);
 
+Route::get('/DetailShell', [DetailShell::class, 'index']);
 
-//từ trang này sẽ qua được  2 trang NaturalDiamondPage,LabDiamondPage
-// Route::get('/', function () {
-//     return view('HomePage_Hoa/HomePage');
-// });
+Route::get('/CompletedProduct', [CompletedProduct::class, 'index']);
 
-//từ trang này sẽ qua được DetailDiamondPage
-Route::get('/NaturalDiamondPage', function () {
-    return view('NaturalDiamondPage_Hoa/NaturalDiamondPage');
-});
+Route::get('/Cart', [Cart::class, 'index']);
 
-//từ trang này sẽ qua được DetailDiamondPage
-Route::get('/LabDiamondPage', function () {
-    return view('LabDiamondPage_Hoa/LabDiamondPage');
-});
+Route::get('/Payment', [Payment::class, 'index']);
 
-// Route::get('/', function () {
-//     return view('HomePage_Hoa/HomePage');
-// });
+Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 
-// Route::get('/Login', function () {
-//     return view('Login_Hoa/Login');
-// });
+// Route::get('/HomeSaleStaff', [PageController::class, 'homeSaleStaff']);
 
-// Route::get('/Register', function () {
-//     return view('Register_Hoa/Register');
-// });
+// Route::get('/DeliveryStaffPage', [PageController::class, 'deliveryStaff']);
 
+// Route::get('/DoNi', [PageController::class, 'doNi']);
 
-// Route::get('/NaturalDiamondPage', function () {
-//     return view('NaturalDiamondPage_Hoa/NaturalDiamondPage');
-// });
+// Route::get('/PriceGold', [PageController::class, 'priceGold']);
 
-// Route::get('/LabDiamondPage', function () {
-//     return view('LabDiamondPage_Hoa/LabDiamondPage');
-// });
+// Route::get('/PriceDiamond', [PageController::class, 'priceDiamond']);
 
-
-//từ trang này sẽ qua được 2 trang cartpage,ListShell
-Route::get('/DetailDiamondPage', function () {
-    return view('DetailDiamond_Hoa/DetailDiamondPage');
-});
-
-//từ trang này sẽ qua được DetailShell
-Route::get('/ListShell', function(){
-    return view('Quan_ListShell/ListShell');
-});
-
-//từ trang này sẽ qua được CompletedProduct
-Route::get('/DetailShell', function () {
-    return view('DetailShell_Manh/DetailShell');
-});
-
-//từ trang này sẽ qua được cartpage
-Route::get('/CompletedProduct', function () {
-    return view('CompletedProduct_Hoa/CompletedProduct');
-});
-
-//từ trang này sẽ qua được payment
-Route::get('/Cart', function () {
-    return view('Cart_Hoa/CartPage');
-});
-
-//từ trang này sẽ qua này PaymentSuccessful
-Route::get('/Payment', function () {
-    return view('Payment_Hoa/Payment');
-});
-
-
-
-// //các trang này để coi giỏ hàng và tiến hành thanh toán
-// Route::get('/cartpage', [PaymentController::class, 'CartPage'])->name('CartPage');
-// Route::get('/cartpage/payment1', [PaymentController::class, 'Payment1'])->name('Payment1');
-// Route::get('/cartpage/payment2', [PaymentController::class, 'Payment2'])->name('Payment2');
-// Route::get('/cartpage/payment3', [PaymentController::class, 'Payment3'])->name('Payment3');
-
-Route::get('/PaymentSuccessful', function () {
-    return view('PaymentSuccessful_Hoa/PaymentSuccessful');
-});
-
-// route của delivery staff
-Route::get('/DeliveryStaffPage', function () {
-    return view('DeliveryStaffPage_Hoa/DeliveryStaffPage');
-});
-
-//route phụ của customer
-Route::get('/DoNi', function () {
-    return view('DoNi_Manh/DoNi');
-});
-Route::get('/PriceGold', function () {
-    return view('PriceGold_Manh/PriceGold');
-});
-Route::get('/PriceDiamond', function () {
-    return view('PriceDiamond_Manh/PriceDiamond');
-});
-
- Route::get('/customer', [Customer::class, 'index']);
+// Route::get('/customer', [Customer::class, 'index']);
 
 // Route::get('/author', [ViewsController::class, 'index'])->name('author.index');
 
@@ -145,20 +74,3 @@ Route::get('/PriceDiamond', function () {
 // Route::put('/author/{id}}', [ViewsController::class, 'update'])->name('author.update');
 
 // Route::delete('/author/{id}}', [ViewsController::class, 'destroy'])->name('author.destroy');
-
-// Route::get('/CompletedProduct', function () {
-//     return view('CompletedProduct_Hoa/CompletedProduct');
-// });
-
-// Route::get('/', function () {
-//     return view('DeliveryStaffPage_Hoa/DeliveryStaffPage');
-// });
-
-// Route::get('/PaymentSuccessful', function () {
-//     return view('PaymentSuccessful_Hoa/PaymentSuccessful');
-// });
-
-// Route::get('/IntroduceDiamondGIA', function () {
-//     return view('IntroduceDiamondGIA_Hoa/IntroduceDiamondGIA');
-// });
-
