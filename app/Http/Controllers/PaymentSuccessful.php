@@ -4,31 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
-class HomePage extends Controller
+class PaymentSuccessful extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    // Fetch data from the DiamondShell API endpoint
-    $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
-
-    // Format the price for each diamond shell
-    $diamondShells = $diamondShells->map(function ($diamondShell) {
-        $diamondShell['price'] = number_format($diamondShell['price'], 0, ',', '.');
-        return $diamondShell;
-    });
-    
-    // Return the diamond shells to the view
-    return view('HomePage_Hoa/HomePage', ['diamondShells' => $diamondShells]);
-}
-
+    {
+        return view('PaymentSuccessful_Hoa/PaymentSuccessful');
+    }
 
     /**
      * Show the form for creating a new resource.

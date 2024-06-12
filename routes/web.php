@@ -4,6 +4,16 @@ use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\HomePage;
+use App\Http\Controllers\NaturalDiamondPage;
+use App\Http\Controllers\LabDiamondPage;
+use App\Http\Controllers\DetailDiamond;
+use App\Http\Controllers\ListShell;
+use App\Http\Controllers\DetailShell;
+use App\Http\Controllers\CompletedProduct;
+use App\Http\Controllers\Cart;
+use App\Http\Controllers\Payment;
+use App\Http\Controllers\Login;
+use App\Http\Controllers\PaymentSuccessful;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,23 +31,25 @@ use App\Http\Controllers\HomePage;
 
 Route::get('/', [HomePage::class, 'index']);
 
-// Route::get('/NaturalDiamondPage', [PageController::class, 'naturalDiamond']);
+Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
-// Route::get('/LabDiamondPage', [PageController::class, 'labDiamond']);
+Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
 
-// Route::get('/DetailDiamondPage', [PageController::class, 'detailDiamond']);
+// Route::get('/DetailDiamondPage/{id}', [DetailDiamond::class, 'index']);
 
-// Route::get('/ListShell', [PageController::class, 'listShell']);
+Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
 
-// Route::get('/DetailShell', [PageController::class, 'detailShell']);
+Route::get('/ListShell', [ListShell::class, 'index']);
 
-// Route::get('/CompletedProduct', [PageController::class, 'completedProduct']);
+Route::get('/DetailShell', [DetailShell::class, 'index']);
 
-// Route::get('/Cart', [PageController::class, 'cart']);
+Route::get('/CompletedProduct', [CompletedProduct::class, 'index']);
 
-// Route::get('/Payment', [PageController::class, 'payment']);
+Route::get('/Cart', [Cart::class, 'index']);
 
-// Route::get('/PaymentSuccessful', [PageController::class, 'paymentSuccessful']);
+Route::get('/Payment', [Payment::class, 'index']);
+
+Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 
 // Route::get('/HomeSaleStaff', [PageController::class, 'homeSaleStaff']);
 

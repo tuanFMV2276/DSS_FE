@@ -4,30 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Modules\Admin\Repositories\BaseRepository\BaseRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
-class HomePage extends Controller
+class NaturalDiamondPage extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-{
-    // Fetch data from the DiamondShell API endpoint
-    $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
+    public function index(Request $request)
+    {
+        $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
 
-    // Format the price for each diamond shell
-    $diamondShells = $diamondShells->map(function ($diamondShell) {
-        $diamondShell['price'] = number_format($diamondShell['price'], 0, ',', '.');
-        return $diamondShell;
-    });
-    
-    // Return the diamond shells to the view
-    return view('HomePage_Hoa/HomePage', ['diamondShells' => $diamondShells]);
-}
+        // Filter the Natural Diamonds
+        $naturalDiamonds = $mainDiamonds->filter(function ($diamond) {
+            return $diamond['origin'] === 'Natural';
+        });
+
+        // Paginate the filtered diamonds
+        $perPage = 20;
+        $page = $request->get('page', 1);
+        $offset = ($page - 1) * $perPage;
+        
+        $paginatedDiamonds = new LengthAwarePaginator(
+            $naturalDiamonds->slice($offset, $perPage)->values(),
+            $naturalDiamonds->count(),
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        return view('NaturalDiamondPage_Hoa/NaturalDiamondPage', [
+            'diamonds' => $paginatedDiamonds
+        ]);
+    }
 
 
     /**

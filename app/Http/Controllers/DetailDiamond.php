@@ -4,31 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
-class HomePage extends Controller
+class DetailDiamond extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    // Fetch data from the DiamondShell API endpoint
-    $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
+    {
+        $mainDiamond =Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
 
-    // Format the price for each diamond shell
-    $diamondShells = $diamondShells->map(function ($diamondShell) {
-        $diamondShell['price'] = number_format($diamondShell['price'], 0, ',', '.');
-        return $diamondShell;
-    });
-    
-    // Return the diamond shells to the view
-    return view('HomePage_Hoa/HomePage', ['diamondShells' => $diamondShells]);
-}
-
+        return view('DetailDiamond_Hoa/DetailDiamondPage',['mainDiamond' => $mainDiamond]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -59,7 +48,10 @@ class HomePage extends Controller
      */
     public function show($id)
     {
-        //
+        $response = Http::get("http://127.0.0.1:8000/api/maindiamond/{$id}");
+        $diamond = $response->json();
+
+        return view('DetailDiamond_Hoa/DetailDiamondPage', ['diamond' => $diamond]);
     }
 
     /**
@@ -70,7 +62,7 @@ class HomePage extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

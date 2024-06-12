@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
-class NaturalDiamondList extends Controller
+class CompletedProduct extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,52 +14,11 @@ class NaturalDiamondList extends Controller
      */
     public function index()
     {
+        $diamondShell = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
         $mainDiamond =Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
         $diamondPriceList = Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json();
 
-        $ListDiamond = [];
-
-        foreach ($mainDiamonds as $mainDiamond) {
-            foreach ($diamondPriceLists as $diamondPrice) {
-                if ($mainDiamond['cut'] === $diamondPrice['cut'] &&
-                    $mainDiamond['color'] === $diamondPrice['color'] &&
-                    $mainDiamond['clarity'] === $diamondPrice['clarity'] &&
-                    $mainDiamond['carat_weight'] === $diamondPrice['carat_weight']) {
-    
-                    // Add the matched diamond to the list
-                    $mainDiamond['price'] = $diamondPrice['price'];
-                    $ListDiamond[] = $mainDiamond;
-                }
-            }
-        }
-    
-        return view('join.index', compact('ListDiamond'));
-
-        // Fetch data from API endpoints
-        $customersResponse = Http::get('http://127.0.0.1:8000/api/customers');
-        $ordersResponse = Http::get('http://127.0.0.1:8000/api/orders');
-
-        // Extract data from responses
-        $customers = $customersResponse->json();
-        $orders = $ordersResponse->json();
-
-        // Join data as needed
-        $joinedData = [];
-
-        foreach ($customers as $customer) {
-            $customerOrders = [];
-
-            foreach ($orders as $order) {
-                if ($order['customer_id'] === $customer['id']) {
-                    $customerOrders[] = $order;
-                }
-            }
-
-            $customer['orders'] = $customerOrders;
-            $joinedData[] = $customer;
-        }
-
-        return view('join.index', compact('joinedData'));
+        return view('CompletedProduct_Hoa/CompletedProduct',['diamondShell' => $diamondShell, 'mainDiamond' => $mainDiamond]);
     }
 
     /**
