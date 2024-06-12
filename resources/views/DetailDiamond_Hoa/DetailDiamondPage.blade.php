@@ -238,25 +238,85 @@
                 <div class="product-pricing text-center" style="border-top: none; margin-top: 15px">
                     Giá tiền:
                     <span class="vnd">
-                        {{-- <span itemprop="price">{{ number_format($diamond['price'], 0, ',', '.') }}</span> --}}
+                        <span itemprop="price">{{ number_format($diamond['price'], 0, ',', '.') }}</span>
                         <span itemprop="priceCurrency">₫</span>
                     </span>
                 </div>
-                <!-- Rest of your HTML code for buttons and other information -->
+                <div style="display: inline" class="btn text-center">
+                    <div class="btn-1">
+
+                        <a href="{{ URL::to('/ListShell') }}">
+                            <button>
+                                <span style="text-transform: none">Chọn vỏ nhẫn
+                                    <img style="width: 17px; margin-left: 5px"
+                                        src="{{asset('/Picture/DetailDiamondPage/big-ring-setting-icon.jpg')}}" /></span>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="btn-2">
+                        <a href="{{ URL::to('/cartpage') }}">
+                            <button>
+                                <span>Vào giỏ hàng<i class="bx bxs-cart" style="color: #1c6392"></i></span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-sm-12 text-center">
+                        <div class="shipping-estimate">
+                            <i class="bx bxs-truck"></i>Dự kiến giao hàng:
+                            <span class="shipping-estimate-text">Thứ 4, ngày 12 tháng 6</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        {{-- <div class="description-diamond col-sm-12">
+        <div class="content-page">
+            <div class="title text-center">
+                <h2>
+                    <span>Brilliance</span><br />
+                    Điểm đến của Người Sành Kim Cương
+                </h2>
+            </div>
+            <div class="banner">
+                <div class="feature">
+                    <img src="{{asset('/Picture_Hoa/DetailDiamondPage/pos2-1.jpg')}}" alt="Dịch vụ VIP" />
+                    <h3>DỊCH VỤ VIP</h3>
+                    <p>
+                        Dịch vụ chăm sóc khách hàng Private trọn đời dành
+                        cho VIP
+                    </p>
+                </div>
+                <div class="feature">
+                    <img src="{{asset('/Picture_Hoa/DetailDiamondPage/pos2-2.jpg')}}" alt="Chứng nhận quốc tế" />
+                    <h3>CHỨNG NHẬN QUỐC TẾ</h3>
+                    <p>
+                        100% Kim cương đạt chứng nhận GIA - Chứng nhận uy
+                        tín số 1 thế giới về kim cương tự nhiên
+                    </p>
+                </div>
+                <div class="feature">
+                    <img src="{{asset('/Picture_Hoa/DetailDiamondPage/pos2-3.jpg')}}" alt="Độc đáo & đẳng cấp" />
+                    <h3>ĐỘC ĐÁO & ĐẲNG CẤP</h3>
+                    <p>
+                        Thể hiện chất riêng độc nhất với những viên kim
+                        cương độc bản và Bộ sưu tập giới hạn
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="description-diamond col-sm-12">
             <h2 class="title text-center">Chi tiết kim cương</h2>
             <table class="diamond-details">
                 <tr>
                     <td>Stock Number:</td>
-                    <td>{{ $diamond['stock_number'] }}</td>
+                    <td></td>
                     <td>Polish:</td>
                     <td>{{ $diamond['polish'] }}</td>
                 </tr>
                 <tr>
                     <td>Shape:</td>
-                    <td>{{ $diamond['shape'] }}</td>
+                    <td>{{ $diamond['diamond_name'] }}</td>
                     <td>Symmetry:</td>
                     <td>{{ $diamond['symmetry'] }}</td>
                 </tr>
@@ -270,13 +330,13 @@
                     <td>Color:</td>
                     <td>{{ $diamond['color'] }}</td>
                     <td>Length to Width:</td>
-                    <td>{{ $diamond['length_to_width'] }}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Clarity:</td>
                     <td>{{ $diamond['clarity'] }}</td>
                     <td>Girdle:</td>
-                    <td>{{ $diamond['girdle'] }}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Cut:</td>
@@ -286,17 +346,80 @@
                 </tr>
                 <tr>
                     <td>Certification:</td>
-                    <td>{{ $diamond['certification'] }}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Depth %:</td>
-                    <td>{{ $diamond['depth'] }} %</td>
+                    <td> %</td>
                 </tr>
                 <tr>
                     <td>Table %:</td>
-                    <td>{{ $diamond['table'] }} %</td>
+                    <td> %</td>
                 </tr>
-            </table> --}}
+            </table>
+        </div>
+        <div class="related-diamoonds-outer">
+            <div class="container">
+                <section class="related-products">
+                    <h2 class="text-center">Similar Diamonds</h2>
+                    <div class="similar-diamond">
+                        <div class="row related-inner">
+                            <div class="col-md-3 col-sm-6 related-item">
+                                <a href="#">
+                                    <img src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar1.jpg')}}"
+                                        alt="Diamond 1" />
+                                    <p>
+                                        0.37 Carat Emerald Loose Diamond, D,
+                                        IF, Super Ideal, GIA Certified
+                                    </p>
+                                    <p class="price">
+                                        Giá tiền: 12,100,000đ
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 related-item">
+                                <a href="#">
+                                    <img src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar2.jpg')}}"
+                                        alt="Diamond 2" />
+                                    <p>
+                                        0.36 Carat Emerald Loose Diamond, D,
+                                        VVS2, Super Ideal, GIA Certified
+                                    </p>
+                                    <p class="price">
+                                        Giá tiền: 12,000,000đ
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 related-item">
+                                <a href="#">
+                                    <img src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar3.jpg')}}"
+                                        alt="Diamond 3" />
+                                    <p>
+                                        0.35 Carat Emerald Loose Diamond, D,
+                                        SI1, Ideal, GIA Certified
+                                    </p>
+                                    <p class="price">
+                                        Giá tiền: 12,100,000đ
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 related-item">
+                                <a href="#">
+                                    <img src="{{asset('/Picture_Hoa/DetailDiamondPage/Similar4.jpg')}}"
+                                        alt="Diamond 4" />
+                                    <p>
+                                        0.38 Carat Emerald Loose Diamond, E,
+                                        VVS1, Ideal, GIA Certified
+                                    </p>
+                                    <p class="price">
+                                        Giá tiền: 13,400,000đ
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 

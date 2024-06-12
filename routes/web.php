@@ -39,9 +39,13 @@ Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
 
 Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
 
+Route::get('/LabDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('labdiamond.show');
+
 Route::get('/ListShell', [ListShell::class, 'index']);
 
-Route::get('/DetailShell', [DetailShell::class, 'index']);
+Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.show');
+
+// Route::get('/DetailShell', [DetailShell::class, 'index']);
 
 Route::get('/CompletedProduct', [CompletedProduct::class, 'index']);
 

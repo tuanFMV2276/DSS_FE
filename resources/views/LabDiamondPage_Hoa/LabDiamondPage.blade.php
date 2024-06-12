@@ -25,17 +25,19 @@
         </div>
         <div class="diamond-grid mt-3 mb-3">
             @foreach ($diamonds as $diamond)
-            <div class="card h-100 clickable" data-url="/DetailDiamondPage">
-                <img src="{{ asset('/Picture_Hoa/LabDiamondPage/image' . $loop->iteration . '.jpg') }}" alt="Diamond"
-                    class="card-img-top">
-                <div class="card-body">
-                    <p class="card-text text-center">
-                        {{ $diamond['cara_weight'] }} Carat {{ $diamond['diamond_name'] }} Loose Diamond
-                        {{ $diamond['color'] }} {{ $diamond['clarity'] }} {{ $diamond['cut'] }}
-                    </p>
-                    <h6 class="card-title text-center">{{ $diamond['price'] }}₫</h6>
+            <a class="link" href="{{route('labdiamond.show', $diamond['id'])}}">
+                <div class="card h-100 clickable" data-url="/DetailDiamondPage">
+                    <img src="{{ asset('/Picture_Hoa/LabDiamondPage/image' . $loop->iteration . '.jpg') }}"
+                        alt="Diamond" class="card-img-top">
+                    <div class="card-body">
+                        <p class="card-text text-center">
+                            {{ $diamond['cara_weight'] }} Carat {{ $diamond['diamond_name'] }} Loose Diamond
+                            {{ $diamond['color'] }} {{ $diamond['clarity'] }} {{ $diamond['cut'] }}
+                        </p>
+                        <h6 class="card-title text-center">{{ number_format($diamond['price'], 0, ',', '.') }}₫</h6>
+                    </div>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
     </div>

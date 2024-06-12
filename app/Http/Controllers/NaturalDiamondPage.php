@@ -19,9 +19,9 @@ class NaturalDiamondPage extends Controller
         $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
 
         // Filter the Natural Diamonds
-        // $naturalDiamonds = $mainDiamonds->filter(function ($diamond) {
-        //     return $diamond['origin'] === 'Natural';
-        // });
+        $naturalDiamonds = $mainDiamonds->filter(function ($diamond) {
+            return $diamond['origin'] === 'Natural';
+        });
 
         // // Paginate the filtered diamonds
         // $perPage = 20;
@@ -40,7 +40,7 @@ class NaturalDiamondPage extends Controller
         //     'diamonds' => $paginatedDiamonds
         // ]);
         return view('NaturalDiamondPage_Hoa/NaturalDiamondPage', [
-                 'diamonds' => $mainDiamonds]);
+                 'diamonds' => $naturalDiamonds]);
     }
 
 

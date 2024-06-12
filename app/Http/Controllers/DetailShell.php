@@ -48,7 +48,10 @@ class DetailShell extends Controller
      */
     public function show($id)
     {
-        //
+        $response = Http::get("http://127.0.0.1:8000/api/diamondshell/{$id}");
+        $shell = $response->json();
+
+        return view('DetailShell_Manh/DetailShell', ['shell' => $shell]);
     }
 
     /**

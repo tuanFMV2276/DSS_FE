@@ -26,7 +26,7 @@
         </div>
         <div class="diamond-grid mt-3 mb-3">
             @foreach ($diamonds as $diamond)
-            <a href="{{route('diamond.show', $diamond['id'])}}">
+            <a class="link" href="{{route('diamond.show', $diamond['id'])}}">
                 <div class="card h-100 clickable">
                     <img src="{{ asset('/Picture_Hoa/NaturalDiamondPage/image' . $loop->iteration . '.jpg') }}"
                         alt="Diamond" class="card-img-top">
@@ -35,7 +35,7 @@
                             {{ $diamond['cara_weight'] }} Carat {{ $diamond['diamond_name'] }} Loose Diamond
                             {{ $diamond['color'] }} {{ $diamond['clarity'] }} {{ $diamond['cut'] }}
                         </p>
-                        <h6 class="card-title text-center">{{ $diamond->price }}₫</h6>
+                        <h6 class="card-title text-center">{{ number_format($diamond['price'], 0, ',', '.') }}₫</h6>
                     </div>
                 </div>
             </a>
@@ -45,7 +45,7 @@
         {{-- <nav aria-label="Page navigation example">
             <ul class="pagination mb-3 justify-content-center">
                 {{ $diamonds->links() }}
-            </ul>
+        </ul>
         </nav> --}}
     </div>
     @include('Footer_Hoa/Footer')
