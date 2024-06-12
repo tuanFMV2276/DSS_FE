@@ -25,9 +25,9 @@ Route::get('/Login', function () {
 
 
 //từ trang này sẽ qua được  2 trang NaturalDiamondPage,LabDiamondPage
-Route::get('/', function () {
-    return view('HomePage_Hoa/HomePage');
-});
+// Route::get('/', function () {
+//     return view('HomePage_Hoa/HomePage');
+// });
 
 //từ trang này sẽ qua được DetailDiamondPage
 Route::get('/NaturalDiamondPage', function () {
@@ -103,8 +103,8 @@ Route::get('/PaymentSuccessful', function () {
     return view('PaymentSuccessful_Hoa/PaymentSuccessful');
 });
 // route của sale staff
-Route::get('/HomeSaleStaff', function () {
-    return view('HomeSaleStaff_Manh/HomeSaleStaff');
+Route::get('/', function () {
+    return view('HomeStaff_Manh/HomeSaleStaff');
 });
 // route của delivery staff
 Route::get('/DeliveryStaffPage', function () {
