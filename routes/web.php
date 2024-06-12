@@ -115,10 +115,7 @@ Route::get('/Payment', function () {
 Route::get('/PaymentSuccessful', function () {
     return view('PaymentSuccessful_Hoa/PaymentSuccessful');
 });
-// route của sale staff
-Route::get('/', function () {
-    return view('HomeStaff_Manh/HomeManager');
-});
+
 // route của delivery staff
 Route::get('/DeliveryStaffPage', function () {
     return view('DeliveryStaffPage_Hoa/DeliveryStaffPage');
