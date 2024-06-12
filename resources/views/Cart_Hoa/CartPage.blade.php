@@ -220,7 +220,8 @@
                         <button class="apply-voucher-btn">Áp dụng</button>
                     </div>
                     <div class="checkout-button">
-                        <a href="/Payment" class="btn btn-orange">Thanh Toán Ngay</a>
+                        <a href="{{ route('Payment1') }}" class="btn btn-orange">Thanh Toán Ngay</a>
+
                     </div>
                 </div>
             </div>

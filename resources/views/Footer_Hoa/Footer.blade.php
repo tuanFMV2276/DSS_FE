@@ -27,7 +27,7 @@
           <div class="row mt-3">
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
               <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fas fa-gem me-3"></i>Brilliance
+                <i class="fas fa-gem me-3"></i>Luxury Diamond
               </h6>
               <div class="link-icons">
                 <a href="" class="me-4 text-reset">

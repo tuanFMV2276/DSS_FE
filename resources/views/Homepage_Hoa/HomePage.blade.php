@@ -49,7 +49,7 @@
     <div class="pos1">
       <div class="title">
         <h2>
-          <span>Brilliance</span><br />
+          <span>Luxury Diamond</span><br />
           Điểm đến của Người Sành Kim Cương
         </h2>
       </div>
@@ -99,7 +99,7 @@
     <div class="pos3">
       <h2>Sản Phẩm Nổi Bật</h2>
       <div class="tab tab-1">
-        <div class="title">Kim Cương Tự Nhiên</div>
+        <div class="title">Nhẫn cầu hôn</div>
         <div class="carousel-inner">
           <div class="product">
             <img src="{{asset('/Picture/HomePage/pos3-1-1.jpg')}}" alt="Diamond 1" />
@@ -151,7 +151,7 @@
         </div>
       </div>
       <div class="tab tab-2">
-        <div class="title">Kim Cương Nhân Tạo</div>
+        <div class="title">Nhẫn Kim cương</div>
         <div class="carousel-inner">
           <div class="product">
             <img src="{{asset('/Picture/HomePage/pos3-2-1.jpg')}}" alt="Diamond 1" />

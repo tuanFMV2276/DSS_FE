@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="{{ asset('css_Hoa/Login.css') }}"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Login</title>
     <style>
 * {
@@ -64,9 +65,9 @@ body {
 }
 
 .form-label {
+    font-weight: 600;
     display: block;
     margin-bottom: 0.5rem;
-    color: #6c757d;
 }
 
 .btn {
@@ -183,7 +184,7 @@ p {
     </style>
 </head>
 <body>
-    <section class="h-100 gradient-form" style="background-color: #eee;">
+    <section class=" gradient-form" style="background-color: #eee;">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
@@ -191,11 +192,11 @@ p {
                 <div class="row g-0">
                   <div class="col-lg-6">
                     <div class="card-body p-md-5 mx-md-4">
-      
+                        <div class="icon" onclick="goBack()"><button class="btn btn-outline-danger"><i class="fa-solid fa-arrow-left"></i> Back</button></div>
                       <div class="text-center">
                         <img src="{{asset('/Picture/Diamond.jpg')}}"
                           style="width: 140px;" alt="logo">
-                        <h4 class="name mt-1 mb-5 pb-1">Brilliance</h4>
+                        <h4 class="name mt-1 mb-5 pb-1">Luxury Gems</h4>
                       </div>
       
                       <form>
@@ -213,16 +214,21 @@ p {
                         </div>
       
                         <div class="text-center pt-1 mb-5 pb-1">
+<<<<<<< HEAD
                           <a href="{{ URL::to('/') }}">
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Log
                                 in</button>
                           </a>
+=======
+                          <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block gradient-custom-2 mb-3" type="button">Log
+                            in</button>
+>>>>>>> e76cb44a255e115f8e96508a550c570a17206713
                           <a class="text-muted" href="#!">Forgot password?</a>
                         </div>
       
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Don't have an account?</p>
-                          <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger">Create new</button>
+                          <a href="/Register"><button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger">Create new</button></a>
                         </div>
       
                       </form>
@@ -241,5 +247,10 @@ p {
           </div>
         </div>
       </section>
+      <script>
+        function goBack() {
+          window.history.back();
+        }
+      </script>
 </body>
 </html>

@@ -95,7 +95,7 @@
             giấy chứng nhận <strong>Kim Cương GIA</strong> được ra đời như một
             chuẩn mực về chất lượng của kim cương để giúp mọi người dễ dàng phân
             biệt được ''hàng thật'' và ''những kẻ mạo danh''. Hãy cùng
-            <a href="https://trangkimluxury.vn/" target="_blank"> Brillian</a>
+            <a href="https://trangkimluxury.vn/" target="_blank"> Luxury Diamond</a>
             tìm hiểu về loại giấy chứng nhận quyền lực số 1 thế giới dành cho
             kim cương qua bài viết sau.
           </p>
