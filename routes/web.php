@@ -3,6 +3,8 @@
 use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,17 @@ use App\Http\Controllers\PaymentController;
 Route::get('/Login', function () {
     return view('Login_Hoa/Login');
 });
+
+// Đăng ký route resource cho employees
+Route::resource('employees', EmployeeController::class)->except([
+    'update' // Loại bỏ phương thức update mặc định của resource controller
+]);
+
+// Đăng ký route riêng cho phương thức update của EmployeeController
+Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
+
+Route::resource('/orders', OrderController::class);
+
 
 
 
@@ -104,7 +117,7 @@ Route::get('/PaymentSuccessful', function () {
 });
 // route của sale staff
 Route::get('/', function () {
-    return view('HomeStaff_Manh/HomeSaleStaff');
+    return view('HomeStaff_Manh/HomeManager');
 });
 // route của delivery staff
 Route::get('/DeliveryStaffPage', function () {

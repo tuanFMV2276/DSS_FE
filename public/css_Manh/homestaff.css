@@ -33,7 +33,9 @@ body {
 
 .container {
     display: flex;
-    height: 100vh;
+    justify-content: center;
+    
+    height: 95vh;
 }
 
 .sidebar {
@@ -93,7 +95,7 @@ body {
 
 .main-content {
     flex: 1;
-    padding: 40px;
+    padding: 0px;
     text-align: center;
 }
 
