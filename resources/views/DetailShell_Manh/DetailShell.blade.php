@@ -22,17 +22,9 @@
                 <img src="{{ asset('img_Manh/image/ring.png') }}" alt="ring">
             </div>
             <div class="col-sm-5 text-center">
-                <h3>Nhẫn Kim Cương Nữ R.2235</h3>
-                <h4>Giá của chúng tôi 4,200,000</h4>
-                <div class="col-sm-12 attribute flex-center last-no-margin" style="flex-wrap: wrap;"
-                    radio-name="attributes[13]">
-                    <label onclick="radioChange(this, '14K White Gold', 13, 54)" class="text-center active">
-                        <input type="radio" name="attributes[13]" value="54" checked="">
-                        14K White Gold </label>
-                    <label onclick="radioChange(this, '18K White Gold, +2,600,000', 13, 55)" class="text-center">
-                        <input type="radio" name="attributes[13]" value="55">
-                        18K White Gold + 2,600,000 đ </label>
-                </div>
+                <h3>{{ $shell['name'] }}</h3>
+                <h4>Giá: {{ number_format($shell['price'], 0, ',', '.') }}₫</h4>
+                <h5>Chất Liệu: Vàng trắng 14K</h5>
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
                     <select id="ringSizeSelect">
@@ -78,7 +70,7 @@
 
                 </div>
 
-                <p class="text-center">Dự kiến giao hàng ngày 7/6/2024</p>
+                <p class="text-center mt-3">Dự kiến giao hàng ngày 20/6/2024</p>
                 <div class="extend">
                     <div><i class="fas fa-lightbulb"></i> Đưa ra gợi ý</div>
                     <div><i class="fas fa-comments"></i> Trò chuyện ngay</div>
@@ -104,7 +96,7 @@
             </tr>
             <tr>
                 <td>Kim loại</td>
-                <td>Vàng trắng 14k hoặc 18k</td>
+                <td>Vàng trắng 14k</td>
             </tr>
             <tr>
                 <td>Đường kính</td>

@@ -27,7 +27,7 @@
         <div class="col-md-6 text-center content">
             <h2 class="title">Chiếc nhẫn của bạn đã hoàn thành</h2>
             <div class="complete-setting-title">
-                Nhẫn Kim Cương Nữ R.2235
+                Nhẫn Kim Cương Nữ R1
             </div>
             <div class="complete-setting-price">Giá:4,200,000đ</div>
             <div class="complete-diamond-title">

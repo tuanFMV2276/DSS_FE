@@ -14,6 +14,8 @@ use App\Http\Controllers\Cart;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -26,6 +28,11 @@ use App\Http\Controllers\PaymentSuccessful;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
+Route::get('/employees/destroy/{id}', [EmployeeController::class, 'destroy']);
+Route::resource('products', 'ProductController');
+// Route::get('/products', 'ProductController@index')->name('products.index');
+Route::get('/products', [ProductController::class, 'index']);
 
 // Các route đã được sắp xếp theo thứ tự coreflow
 
@@ -42,9 +49,13 @@ Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
 
 Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
 
+Route::get('/LabDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('labdiamond.show');
+
 Route::get('/ListShell', [ListShell::class, 'index']);
 
-Route::get('/DetailShell', [DetailShell::class, 'index']);
+Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.show');
+
+// Route::get('/DetailShell', [DetailShell::class, 'index']);
 
 Route::get('/CompletedProduct', [CompletedProduct::class, 'index']);
 
