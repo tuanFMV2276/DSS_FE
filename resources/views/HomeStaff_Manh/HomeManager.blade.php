@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Home manager </title>
     <link rel="stylesheet" href="{{ asset('css_Manh/homestaff.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/homestaffv2.css') }}">
@@ -115,35 +116,40 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                
                                 <th>Gender</th>
+                                <th>Role</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             @foreach ($employees as $employee)
                                 <tr>
-                                    <td>{{ $employee->user_name }}</td>
-                                    <td>{{ $employee->email }}</td>
+                                    <td>{{ $employee['user_name'] }}</td>
+                                    <td>{{ $employee['gender'] }}</td>
                                     <td>
-                                        @if ($employee->role_id == 3)
-                                            Sale staff
-                                        @elseif ($employee->role_id == 4)
-                                            Support staff
-                                        @elseif ($employee->role_id == 5)
-                                            Technician
-                                        @endif
+                                        <form action="{{ route('employees.updateRole', $employee['id']) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="role_id" onchange="this.form.submit()">
+                                                <option value="2" {{ $employee['role_id'] == 2 ? 'selected' : '' }}>Sale staff</option>
+                                                <option value="4" {{ $employee['role_id'] == 4 ? 'selected' : '' }}>Delivery staff</option>
+                                            </select>
+                                        </form>
                                     </td>
-                                    <td>{{ $employee->gender }}</td>
-                                    <td>{{ $employee->status == 1 ? 'Active' : 'Inactive' }}</td>
-                                    <td><form action="{{ route('employees.destroy', $employee->id) }}" method="POST" style="display: inline;">
-                                        <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-ibfo">Update</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</button>
-                                    </form></td>
+                                    <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
+                                    <td>
+                                        <button>Detail</button>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('employees.destroy', $employee['id']) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -151,11 +157,8 @@
                 </div>
             </div>
         </div>
+        
     </section>
-
-
-
-
 
     <script>
         let sidebar = document.querySelector(".sidebar");
@@ -187,7 +190,7 @@
             document.getElementById(tableId).style.display = 'block';
         }
     </script>
-    
+
 </body>
 
 </html>
