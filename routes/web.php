@@ -14,7 +14,9 @@ use App\Http\Controllers\Cart;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 
 
 /*
@@ -27,11 +29,22 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
-Route::get('/employees/destroy/{id}', [EmployeeController::class, 'destroy']);
+Route::resource('employees', EmployeeController::class)->except(['index']);
+
+// Route::get('/employees/destroy/{id}', [EmployeeController::class, 'destroy']);
 Route::resource('products', 'ProductController');
 // Route::get('/products', 'ProductController@index')->name('products.index');
 Route::get('/products', [ProductController::class, 'index']);
+
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+Route::get('/employees/{id}', [EmployeeController::class, 'show']);
+Route::put('/employees/update/{id}', [EmployeeController::class, 'updateRole'])->name('employees.updateRole');
+
+Route::delete('/employees/delete/{id}', [EmployeeController::class, 'deleteEmployee'])->name('employees.destroy');
+
+
+//route Admin
+Route::resource('roles', RoleController::class);
 
 // Các route đã được sắp xếp theo thứ tự coreflow
 
