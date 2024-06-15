@@ -26,7 +26,7 @@
                 <span class="tooltip">Search</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('manager.dashboard') }}">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="links_name">Dashboard</span>
                 </a>

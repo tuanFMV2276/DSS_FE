@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class EmployeeController extends Controller
     {
         $employees = Http::get('http://127.0.0.1:8000/api/employee')->json();
         $employees = collect($employees)->whereNotIn('role_id', [1, 3]);
-        return view('HomeStaff_Manh/HomeManager', ['employees' => $employees]);
+        return view('HomeStaff_Manh\manager\staff_management', ['employees' => $employees]);
     }
 
     public function store(Request $request)
@@ -24,8 +24,8 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-        $employee = Http::get("http://127.0.0.1:8000/api/employee/{$id}")->json();
-        return view('HomeStaff_Manh.EmployeeDetail', ['employee' => $employee]);
+        // $employee = Http::get("http://127.0.0.1:8000/api/employee/{$id}")->json();
+        // return view('HomeStaff_Manh.EmployeeDetail', ['employees' => $employee]);
     }
 
     public function updateRole(Request $request, $id)
@@ -49,3 +49,4 @@ class EmployeeController extends Controller
     }
 
 }
+
