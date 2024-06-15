@@ -20,13 +20,8 @@
             <i class='bx bx-menu' id="btn"></i>
         </div>
         <ul class="nav-list">
-            <li style="display: none;">
-                <i class='bx bx-search'></i>
-                <input type="text" placeholder="Search...">
-                <span class="tooltip">Search</span>
-            </li>
             <li>
-                <a href="#">
+                <a href="#" onclick="showTable('dashboard')">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="links_name">Dashboard</span>
                 </a>
@@ -40,7 +35,7 @@
                 <span class="tooltip">Order</span>
             </li>
             <li>
-                <a href="#">
+                <a href="#" onclick="showTable('product-management')">
                     <i class='bx bx-grid-alt'></i>
                     <span class="links_name">Product Management</span>
                 </a>
@@ -63,60 +58,159 @@
     </div>
     <section class="home-section">
         <div>
-            <div class="main-content">
+            <div class="main-content ">
+                <div id="dashboard" class="table-container" style="display:contents;">
+                    <h1>Dashboard</h1>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Statistics</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Total Products</h5>
+                                            <p class="card-text">{{ $productCount }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Total Orders</h5>
+                                            <p class="card-text">{{ $orderCount }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Total Users</h5>
+                                            <p class="card-text">{{ $customerCount }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="bill-management" class="table-container" style="display: none;">
-                    <table>
-                        <tr>
-                            <th>OrderID</th>
-                            <th>ProductID</th>
-                            <th>CustomerName</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Price</th>
-                            <th>Note</th>
-                            <th>Detail</th>
-                        </tr>
-                        <tr>
-                            <td>01</td>
-                            <td>01</td>
-                            <td>Manh</td>
-                            <td>0946381264</td>
-                            <td>365 Le Van Viet Street</td>
-                            <td>13,000,000đ</td>
-                            <td>Giao hàng trước ngày 09/6</td>
-                            <td><button>Detail</button></td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>02</td>
-                            <td>Quan</td>
-                            <td>0947392164</td>
-                            <td>365 Le Van Viet Street</td>
-                            <td>23,000,000đ</td>
-                            <td></td>
-                            <td><button>Detail</button></td>
-                        </tr>
-                        <tr>
-                            <td>03</td>
-                            <td>03</td>
-                            <td>Tuan</td>
-                            <td>0947261455</td>
-                            <td>832 Hoang Dieu 2 Street</td>
-                            <td>26,900,000đ</td>
-                            <td></td>
-                            <td><button>Detail</button></td>
-                        </tr>
+                    <h1>List Orders</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>Customer ID</th>
+                                <th>Order Date</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($orders as $order)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $order['id'] }}</td>
+                                    <td>{{ $order['customer_id'] }}</td>
+                                    <td>{{ $order['order_date'] }}</td>
+                                    <td>{{ $order['total_price'] }}</td>
+                                    <td>
+                                        <form action="{{ route('orders.updateStatus', $order['id']) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="status" onchange="this.form.submit()">
+                                                <option value="pending"
+                                                    {{ $order['status'] == 'pending' ? 'selected' : '' }}>Pending
+                                                </option>
+                                                <option value="processing"
+                                                    {{ $order['status'] == 'processing' ? 'selected' : '' }}>Processing
+                                                </option>
+                                                <option value="completed"
+                                                    {{ $order['status'] == 'completed' ? 'selected' : '' }}>Completed
+                                                </option>
+                                                <option value="cancelled"
+                                                    {{ $order['status'] == 'cancelled' ? 'selected' : '' }}>Cancelled
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('orders.destroy', $order['id']) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this order?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div id="product-management" class="table-container" style="display: none;">
+                    <h1>List Products</h1>
+                    <a href="{{ route('products.create') }}">Create New Product</a>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Code</th>
+                                <th>Product Name</th>
+                                <th>Main Diamond ID</th>
+                                <th>Image</th>
+                                <th>Extra Diamond ID</th>
+                                <th>Number Ex Diamond</th>
+                                <th>Number</th>
+                                <th>Diamond Shell ID</th>
+                                <th>Size</th>
+                                <th>Price Rate</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td>{{ $product['id'] }}</td>
+                                    <td>{{ $product['product_code'] }}</td>
+                                    <td>{{ $product['product_name'] }}</td>
+                                    <td>{{ $product['main_diamond_id'] }}</td>
+                                    <td>{{ $product['image'] }}</td>
+                                    <td>{{ $product['extra_diamond_id'] }}</td>
+                                    <td>{{ $product['number_ex_diamond'] }}</td>
+                                    <td>{{ $product['number'] }}</td>
+                                    <td>{{ $product['diamond_shell_id'] }}</td>
+                                    <td>{{ $product['size'] }}</td>
+                                    <td>{{ $product['price_rate'] }}</td>
+                                    <td>{{ $product['quantity'] }}</td>
+                                    <td>{{ $product['status'] }}</td>
+                                    <td>
+                                        <a href="{{ route('products.edit', $product['id']) }}">Edit</a>
+                                        <form action="{{ route('products.destroy', $product['id']) }}" method="POST"
+                                            style="display:inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
 
-                <div id="staff-management" class="table-container">
+
+                <div id="staff-management" class="table-container" style="display: none;">
                     <h1>Employee List</h1>
                     <table border="1">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                
+
                                 <th>Gender</th>
                                 <th>Role</th>
                                 <th>Status</th>
@@ -130,12 +224,17 @@
                                     <td>{{ $employee['user_name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
                                     <td>
-                                        <form action="{{ route('employees.updateRole', $employee['id']) }}" method="POST">
+                                        <form action="{{ route('employees.updateRole', $employee['id']) }}"
+                                            method="POST">
                                             @csrf
                                             @method('PUT')
                                             <select name="role_id" onchange="this.form.submit()">
-                                                <option value="2" {{ $employee['role_id'] == 2 ? 'selected' : '' }}>Sale staff</option>
-                                                <option value="4" {{ $employee['role_id'] == 4 ? 'selected' : '' }}>Delivery staff</option>
+                                                <option value="2"
+                                                    {{ $employee['role_id'] == 2 ? 'selected' : '' }}>Sale staff
+                                                </option>
+                                                <option value="4"
+                                                    {{ $employee['role_id'] == 4 ? 'selected' : '' }}>Delivery staff
+                                                </option>
                                             </select>
                                         </form>
                                     </td>
@@ -144,7 +243,8 @@
                                         <button>Detail</button>
                                     </td>
                                     <td>
-                                        <form action="{{ route('employees.destroy', $employee['id']) }}" method="POST">
+                                        <form action="{{ route('employees.destroy', $employee['id']) }}"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit">Delete</button>
@@ -157,7 +257,7 @@
                 </div>
             </div>
         </div>
-        
+
     </section>
 
     <script>
