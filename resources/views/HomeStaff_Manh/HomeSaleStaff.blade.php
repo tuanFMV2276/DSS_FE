@@ -17,14 +17,11 @@
 <body>
     <div class="sidebar">
         <div class="logo-details">
+            
             <i class='bx bx-menu' id="btn"></i>
+            <span class="links_name"></span>
         </div>
         <ul class="nav-list">
-            <li style="display: none;">
-                <i class='bx bx-search'></i>
-                <input type="text" placeholder="Search...">
-                <span class="tooltip">Search</span>
-            </li>
             <li>
                 <a href="#" onclick="showTable('chat-with-customer')">
                     <i class='bx bx-chat'></i>
@@ -144,56 +141,61 @@
                     </script>
                 </div>
                 <div id="bill-management" class="table-container" style="display: none;">
-                    <table>
-                        <tr>
-                            <th>OrderID</th>
-                            <th>ProductID</th>
-                            <th>CustomerName</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Price</th>
-                            <th>Note</th>
-                            <th>Detail</th>
-                        </tr>
-                        <tr>
-                            <td>01</td>
-                            <td>01</td>
-                            <td>Manh</td>
-                            <td>0946381264</td>
-                            <td>365 Le Van Viet Street</td>
-                            <td>13,000,000đ</td>
-                            <td>Giao hàng trước ngày 09/6</td>
-                            <td><button id="myButton">Detail</button></td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>02</td>
-                            <td>Quan</td>
-                            <td>0947392164</td>
-                            <td>365 Le Van Viet Street</td>
-                            <td>23,000,000đ</td>
-                            <td></td>
-                            <td><button id="myButton1">Detail</button></td>
-                        </tr>
-                        <tr>
-                            <td>03</td>
-                            <td>03</td>
-                            <td>Tuan</td>
-                            <td>0947261455</td>
-                            <td>832 Hoang Dieu 2 Street</td>
-                            <td>26,900,000đ</td>
-                            <td></td>
-                            <td><button id="myButton2">Detail</button></td>
-                        </tr>
+                    <h1>List Orders</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>Customer ID</th>
+                                <th>Order Date</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($orders as $order)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $order['id'] }}</td>
+                                    <td>{{ $order['customer_id'] }}</td>
+                                    <td>{{ $order['order_date'] }}</td>
+                                    <td>{{ $order['total_price'] }}</td>
+                                    <td>
+                                        <form action="{{ route('orders.updateStatus', $order['id']) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="status" onchange="this.form.submit()">
+                                                <option value="pending"
+                                                    {{ $order['status'] == 'pending' ? 'selected' : '' }}>Pending
+                                                </option>
+                                                <option value="processing"
+                                                    {{ $order['status'] == 'processing' ? 'selected' : '' }}>Processing
+                                                </option>
+                                                <option value="completed"
+                                                    {{ $order['status'] == 'completed' ? 'selected' : '' }}>Completed
+                                                </option>
+                                                <option value="cancelled"
+                                                    {{ $order['status'] == 'cancelled' ? 'selected' : '' }}>Cancelled
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('orders.destroy', $order['id']) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this order?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
-                <!-- Popup -->
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <p>Some text in the Modal..</p>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -226,20 +228,6 @@
             tables.forEach(table => table.style.display = 'none');
             document.getElementById(tableId).style.display = 'block';
         }
-        // JavaScript để điều khiển popup
-        document.getElementById('myButton').addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'block';
-        });
-
-        document.getElementsByClassName('close')[0].addEventListener('click', function() {
-            document.getElementById('myModal').style.display = 'none';
-        });
-
-        window.addEventListener('click', function(event) {
-            if (event.target == document.getElementById('myModal')) {
-                document.getElementById('myModal').style.display = 'none';
-            }
-        });
     </script>
 </body>
 

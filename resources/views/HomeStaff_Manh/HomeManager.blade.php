@@ -61,38 +61,13 @@
             <div class="main-content ">
                 <div id="dashboard" class="table-container" style="display:contents;">
                     <h1>Dashboard</h1>
+                    <p>Chức năng chưa cập nhật</p>
+                    <form action="/employees/create"
+                        method="GET">
+                        @csrf
+                        <button type="submit">ADD</button>
+                    </form>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Statistics</h5>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Total Products</h5>
-                                            <p class="card-text">{{ $productCount }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Total Orders</h5>
-                                            <p class="card-text">{{ $orderCount }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Total Users</h5>
-                                            <p class="card-text">{{ $customerCount }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div id="bill-management" class="table-container" style="display: none;">
@@ -150,6 +125,7 @@
                         </tbody>
                     </table>
                 </div>
+
                 <div id="product-management" class="table-container" style="display: none;">
                     <h1>List Products</h1>
                     <a href="{{ route('products.create') }}">Create New Product</a>
@@ -223,24 +199,15 @@
                                 <tr>
                                     <td>{{ $employee['user_name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
-                                    <td>
-                                        <form action="{{ route('employees.updateRole', $employee['id']) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <select name="role_id" onchange="this.form.submit()">
-                                                <option value="2"
-                                                    {{ $employee['role_id'] == 2 ? 'selected' : '' }}>Sale staff
-                                                </option>
-                                                <option value="4"
-                                                    {{ $employee['role_id'] == 4 ? 'selected' : '' }}>Delivery staff
-                                                </option>
-                                            </select>
-                                        </form>
-                                    </td>
+                                    <td>{{ $employee['role_id'] == 2 ? 'Sales Staff' : 'Delivery Staff'}}</td>
                                     <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                     <td>
-                                        <button>Detail</button>
+                                        <form action="{{ route('employees.show', $employee['id']) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('GET')
+                                            <button type="submit">Detail</button>
+                                        </form>
                                     </td>
                                     <td>
                                         <form action="{{ route('employees.destroy', $employee['id']) }}"
@@ -254,6 +221,10 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+
+                <div>
+                    
                 </div>
             </div>
         </div>

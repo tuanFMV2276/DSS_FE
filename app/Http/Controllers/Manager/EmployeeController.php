@@ -23,6 +23,11 @@ class EmployeeController extends Controller
 
     }
 
+    public function create(Request $request)
+    {
+        return view('HomeStaff_Manh.EmployeeInsert');
+    }
+
     public function show($id)
     {
         $employee = Http::get("http://127.0.0.1:8000/api/employee/{$id}")->json();
@@ -31,16 +36,9 @@ class EmployeeController extends Controller
 
     public function updateRole(Request $request, $id)
     {
-        $request->validate([
-            'role_id' => 'required|integer',
-        ]);
         $response = Http::put("http://127.0.0.1:8000/api/employee/{$id}", $request->all());
 
-        if ($response->successful()) {
-            return redirect()->route('employees.index')->with('success', 'Role updated successfully.');
-        } else {
-            return redirect()->route('employees.index')->with('error', 'Failed to update role.');
-        }
+        return redirect()->route('employees.index');
     }
 
     public function deleteEmployee($id)

@@ -14,9 +14,11 @@ use App\Http\Controllers\Cart;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\EmployeeController;
 use App\Http\Controllers\Manager\ProductController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Manager\OrderController;
+
 
 
 /*
@@ -29,46 +31,49 @@ use App\Http\Controllers\RoleController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//------------------------------------------------------------------------------------------
+// Route của manager '/home-manager'
 Route::resource('employees', EmployeeController::class)->except(['index']);
 
 Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
-Route::get('/employees/{id}', [EmployeeController::class, 'show']);
-Route::put('/employees/update/{id}', [EmployeeController::class, 'updateRole'])->name('employees.updateRole');
+Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show');
+Route::get('/employees/create', [EmployeeController::class, 'create']);
+Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
+Route::put('/employees/update/{id}', [EmployeeController::class, 'updateRole'])->name('employees.update');
 Route::delete('/employees/delete/{id}', [EmployeeController::class, 'deleteEmployee'])->name('employees.destroy');
 
-Route::resource('products', 'ProductController'::class)->except(['index']);
+Route::resource('products', ProductController::class)->except(['index']);
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/products/edit{id}', [ProductController::class, 'edit'])->name('products.edit');
 Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-Route::resource('orders', 'ProductController'::class)->except(['index']);
+Route::resource('orders', OrderController::class)->except(['index']);
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
 
 Route::get('/home-manager', function () {
     $employees = Http::get('http://127.0.0.1:8000/api/employee')->json();
     $employees = collect($employees)->whereNotIn('role_id', [1, 3]);
     $products = Http::get('http://127.0.0.1:8000/api/product')->json();
     $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
-    // Gửi yêu cầu HTTP để lấy dữ liệu từ API product
-    $responseProduct = Http::get('http://127.0.0.1:8000/api/product');
-    $productCount = count($responseProduct->json()); // Số lượng sản phẩm
-    
-    // Gửi yêu cầu HTTP để lấy dữ liệu từ API order
-    $responseOrder = Http::get('http://127.0.0.1:8000/api/order');
-    $orderCount = count($responseOrder->json()); // Số lượng đơn hàng
-    
-    // Gửi yêu cầu HTTP để lấy dữ liệu từ API customer
-    $responseCustomer = Http::get('http://127.0.0.1:8000/api/customer');
-    $customerCount = count($responseCustomer->json()); // Số lượng khách hàng
 
-    return view('HomeStaff_Manh.HomeManager', compact('employees', 'products', 'orders', 'productCount', 'orderCount', 'customerCount'));
+    return view('HomeStaff_Manh.HomeManager', compact('employees', 'products', 'orders'));
 });
+// End route manager
+//------------------------------------------------------------------------------------------
+// Route của sale staff '/home-salestaff'
+Route::get('/home-salestaff', function () {
+    $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
+    $orders = collect($orders)->where('status', 1);
 
-
+    return view('HomeStaff_Manh.HomeSaleStaff', compact ('orders'));
+});
+// End route của sale staff
+//------------------------------------------------------------------------------------------
 //route Admin
 Route::resource('roles', RoleController::class);
 
