@@ -137,62 +137,45 @@
 </head>
 
 <body>
-    @include('Header_Hoa/Header')
+    @include('Header_Hoa.Header')
     <div class="container" id="cart-container">
         <div class="row">
             <!-- Cart Items Section -->
             <div class="col-md-8">
                 <div class="cart-items">
+                    @foreach($cart as $item)
                     <div class="cart-item">
                         <div class="text-center">
                             <a href="#">
-                                <img src="{{asset('/Picture/DetailDiamondPage/DetailDiamond.jpg')}}" alt="Product Image"
+                                <img src="{{ asset($item['image']) }}" alt="Product Image"
                                     style="width: 150px; height: 150px">
                             </a>
-                            <span class="cart-remove">Xoá</span>
+                            <form action="{{ route('cart.remove', $item['id']) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger cart-remove">Xoá</button>
+                            </form>
                         </div>
                         <div class="cart-item-details">
                             <h4 class="cart-item-title">
-                                <a href="#">0.30 carat Oval Loose Diamond, E, VVS2, Super Ideal, GIA Certified</a>
+                                <a href="#">{{ $item['name'] }}</a>
                             </h4>
                             <ul class="list-unstyled">
-                                <li><strong>Mã chứng khoán:</strong> D123138308</li>
+                                @if($item['type'] == 'diamond')
+                                <li><strong>Carat:</strong> {{ $item['carat'] }}</li>
+                                <li><strong>Color:</strong> {{ $item['color'] }}</li>
+                                <li><strong>Clarity:</strong> {{ $item['clarity'] }}</li>
+                                <li><strong>Cut:</strong> {{ $item['cut'] }}</li>
+                                @else
+                                <li><strong>Ring Size:</strong> {{ $item['ringsize'] }}</li>
+                                @endif
                             </ul>
                             <div class="cart-item-price">
-                                <b>19,000,000VND</b>
+                                <b>{{ number_format($item['price'], 0, ',', '.') }} VND</b>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Phí Gia Công Section -->
-                    <div class="cart-fee">
-                        <div class="text-center">
-                            <div class="cart-fee-title">Phí Gia Công</div>
-                            <span class="cart-fee-remove">Xoá</span>
-                        </div>
-                        <div class="cart-fee-amount">1,000,000VND</div>
-                    </div>
-
-                    <div class="cart-item">
-                        <div class="text-center">
-                            <a href="#">
-                                <img src="{{ asset('img_Manh/image/ring.png') }}" alt="Product Image"
-                                    style="width: 150px; height: 150px">
-                            </a>
-                            <span class="cart-remove">Xoá</span>
-                        </div>
-                        <div class="cart-item-details">
-                            <h4 class="cart-item-title">
-                                <a href="#">Nhẫn Kim Cương Nữ R.2235</a>
-                            </h4>
-                            <ul class="list-unstyled">
-                                <li><strong>Mã chứng khoán:</strong> D123138308</li>
-                            </ul>
-                            <div class="cart-item-price">
-                                <b>4,200,000VND</b>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <!-- Order Summary Section -->
@@ -203,15 +186,15 @@
                         <tbody>
                             <tr>
                                 <td>Tổng phụ</td>
-                                <td class="text-right">24,200,000VND</td>
+                                <td class="text-right">{{ number_format($totalPrice, 0, ',', '.') }} VND</td>
                             </tr>
                             <tr>
                                 <td>Vận chuyển</td>
-                                <td class="text-right">0VND</td>
+                                <td class="text-right">0 VND</td>
                             </tr>
                             <tr>
                                 <td>Tất cả</td>
-                                <td class="text-right">24,200,000VND</td>
+                                <td class="text-right">{{ number_format($totalPrice, 0, ',', '.') }} VND</td>
                             </tr>
                         </tbody>
                     </table>
@@ -220,13 +203,33 @@
                         <button class="apply-voucher-btn">Áp dụng</button>
                     </div>
                     <div class="checkout-button">
-                        <a href="/Payment" class="btn btn-orange">Thanh Toán Ngay</a>
+                        <button class="btn btn-orange" onclick="proceedToPayment()">Thanh Toán Ngay</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('Footer_Hoa/Footer')
+    @include('Footer_Hoa.Footer')
+    <script>
+    function proceedToPayment() {
+        const cartItems = [];
+        document.querySelectorAll('.cart-item').forEach(item => {
+            const id = item.querySelector('strong').innerText.split(': ')[1];
+            const name = item.querySelector('.cart-item-title a').innerText;
+            const price = item.querySelector('.cart-item-price b').innerText.replace(/\D/g, '');
+            const image = item.querySelector('img').src;
+            cartItems.push({
+                id,
+                name,
+                price,
+                image
+            });
+        });
+
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        window.location.href = '/Payment';
+    }
+    </script>
 </body>
 
 </html>

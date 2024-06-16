@@ -19,67 +19,38 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-7">
-                <img src="{{ asset('img_Manh/image/ring.png') }}" alt="ring">
+                <img src="{{ asset('/Picture_Hoa/ShellDiamond/' . $product['image']) }}" alt="ring">
             </div>
             <div class="col-sm-5 text-center">
-                <h3>{{ $shell['name'] }}</h3>
-                <h4>Giá: {{ number_format($shell['price'], 0, ',', '.') }}₫</h4>
+                <h3>{{ $product['product_name'] }}</h3>
+                <h4>Giá: {{ number_format($product['price_rate'], 0, ',', '.') }}₫</h4>
                 <h5>Chất Liệu: Vàng trắng 14K</h5>
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
-                    <select id="ringSizeSelect">
-                        <option value="4">4</option>
-                        <option value="4.25">4.25</option>
-                        <option value="4.5">4.5</option>
-                        <option value="4.75">4.75</option>
-                        <option value="5">5</option>
-                        <option value="5.25">5.25</option>
-                        <option value="5.5">5.5</option>
-                        <option value="5.75">5.75</option>
-                        <option value="6">6</option>
-                        <option value="6.25">6.25</option>
-                        <option value="6.5">6.5</option>
-                        <option value="6.75">6.75</option>
-                        <option value="7">7</option>
-                        <option value="7.25">7.25</option>
-                        <option value="7.5">7.5</option>
-                        <option value="7.75">7.75</option>
-                        <option value="8">8</option>
-                        <option value="8.25">8.25</option>
-                        <option value="8.5">8.5</option>
-                        <option value="8.75">8.75</option>
-                        <option value="9">9</option>
-                        <option value="I Don't Know">I Don't Know</option>
-                    </select>
                 </div>
-
                 <div class="display_btn mt-3">
                     <div>
-                        <div class="abtn">
-                            <a href="{{ URL::to('/CompletedProduct') }}" class="btn btn-lg custom-btn">Xem thành
-                                phẩm</a>
-                        </div>
+                        <form action="{{ route('cart.add') }}" method="post">
+                            @csrf
+                            <input type="number" name="ringsize" id="ringSizeInput" min="4" max="9" step="0.25"
+                                value="4">
+                            <input type="hidden" name="name" value="{{ $product['product_name'] }}">
+                            <input type="hidden" name="price" value="{{ $product['price_rate'] }}">
+                            <input type="hidden" name="image"
+                                value="{{ asset('/Picture_Hoa/ShellDiamond/' . $product['image']) }}">
+                            <input type="hidden" name="type" value="product"> <!-- Specify the type as product -->
+                            <input type="submit" name="addcart" value="Thêm vào giỏ hàng">
+                        </form>
 
                     </div>
-                    <div>
-                        <div class="abtn">
-                            <a href="{{ URL::to('/Cart') }}" class="btn btn-lg custom-btn">Tới giỏ hàng</a>
-                        </div>
-
-                    </div>
-
                 </div>
-
                 <p class="text-center mt-3">Dự kiến giao hàng ngày 20/6/2024</p>
                 <div class="extend">
                     <div><i class="fas fa-lightbulb"></i> Đưa ra gợi ý</div>
                     <div><i class="fas fa-comments"></i> Trò chuyện ngay</div>
                     <div><i class="fas fa-phone"></i> Gọi cho chúng tôi</div>
                 </div>
-
-
             </div>
-
         </div>
     </div>
 
@@ -154,7 +125,6 @@
         </table>
     </div>
     @include('Footer_Hoa/Footer')
-
 </body>
 
 </html>

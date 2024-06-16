@@ -13,17 +13,17 @@
     @include('Header_Hoa/Header')
     <div class="container">
         <div class="shell-grid mt-3 mb-3">
-            @foreach ($diamondShell as $diamondShell)
-            <a class="link" href="{{route('shell.show', $diamondShell['id'])}}">
+            @foreach ($products as $product)
+            <a class="link" href="{{route('shell.show', $product['id'])}}">
                 <div class="col">
                     <div class="card h-70 clickable">
-                        <img src="{{ asset('/Picture_Hoa/ShellDiamond/ShellDiamond' . $loop->iteration . '.jpg') }}"
-                            alt="ring" class="card-img-top">
+                        <img src="{{ asset('/Picture_Hoa/ShellDiamond/' . $product['image']) }}" alt="ring"
+                            class="card-img-top">
                         <div class="card-body">
                             <p class="card-text">
-                                {{ $diamondShell['name'] }}
+                                {{ $product['product_name'] }}
                             </p>
-                            <h6 class="card-title text-center">{{ number_format($diamondShell['price'], 0, ',', '.') }}₫
+                            <h6 class="card-title text-center">{{ number_format($product['price'], 0, ',', '.') }}₫
                             </h6>
                         </div>
                     </div>

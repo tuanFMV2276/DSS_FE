@@ -14,6 +14,7 @@ use App\Http\Controllers\Cart;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,11 +48,19 @@ Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.sh
 
 // Route::get('/DetailShell', [DetailShell::class, 'index']);
 
-Route::get('/CompletedProduct', [CompletedProduct::class, 'index']);
+Route::get('/CompletedProduct', [CompletedProduct::class, 'index'])->name('completed.product');
 
-Route::get('/Cart', [Cart::class, 'index']);
+// Route::get('/CompletedProduct/{id1}/{id2}/show', [CompletedProduct::class, 'show'])->name('completedproduct.show');
+
+Route::get('/Cart', [Cart::class, 'index']) -> name('cart.index');
+
+Route::post('/Cart/add', [Cart::class, 'add'])->name('cart.add');
+
+Route::delete('/Cart/remove/{index}', [Cart::class, 'remove'])->name('cart.remove');
 
 Route::get('/Payment', [Payment::class, 'index']);
+
+Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
 
 Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 

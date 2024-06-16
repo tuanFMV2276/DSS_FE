@@ -244,21 +244,35 @@
                 </div>
                 <div style="display: inline" class="btn text-center">
                     <div class="btn-1">
-
-                        <a href="{{ URL::to('/ListShell') }}">
+                        <!-- <a href="/ListShell?diamond_id={{ $diamond['id'] }}">
                             <button>
                                 <span style="text-transform: none">Chọn vỏ nhẫn
                                     <img style="width: 17px; margin-left: 5px"
                                         src="{{asset('/Picture/DetailDiamondPage/big-ring-setting-icon.jpg')}}" /></span>
                             </button>
-                        </a>
+                        </a> -->
                     </div>
                     <div class="btn-2">
-                        <a href="{{ URL::to('/cartpage') }}">
+                        <!-- <a href="{{ URL::to('/Cart') }}">
                             <button>
-                                <span>Vào giỏ hàng<i class="bx bxs-cart" style="color: #1c6392"></i></span>
+                                <span>Thêm vào giỏ hàng<i class="bx bxs-cart" style="color: #1c6392"></i></span>
                             </button>
-                        </a>
+                        </a> -->
+                        <div>
+                            <form action="{{ route('cart.add') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="image" value="{{ $diamond['image'] }}">
+                                <input type="hidden" name="carat" value="{{ $diamond['cara_weight'] }}">
+                                <input type="hidden" name="name" value="{{ $diamond['diamond_name'] }}">
+                                <input type="hidden" name="color" value="{{ $diamond['color'] }}">
+                                <input type="hidden" name="clarity" value="{{ $diamond['clarity'] }}">
+                                <input type="hidden" name="cut" value="{{ $diamond['cut'] }}">
+                                <input type="hidden" name="price" value="{{ $diamond['price'] }}">
+                                <input type="hidden" name="type" value="diamond"> <!-- Specify the type as diamond -->
+                                <input type="submit" name="addcart" value="Thêm vào giỏ hàng">
+                            </form>
+
+                        </div>
                     </div>
                 </div>
                 <div class="row mx-0">
