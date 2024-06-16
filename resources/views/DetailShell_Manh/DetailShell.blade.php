@@ -38,7 +38,7 @@
                             <input type="hidden" name="price" value="{{ $product['price_rate'] }}">
                             <input type="hidden" name="image"
                                 value="{{ asset('/Picture_Hoa/ShellDiamond/' . $product['image']) }}">
-                            <input type="hidden" name="type" value="product"> <!-- Specify the type as product -->
+                            <!-- <input type="hidden" name="type" value="product"> Specify the type as product -->
                             <input type="submit" name="addcart" value="Thêm vào giỏ hàng">
                         </form>
 

@@ -143,39 +143,34 @@
             <!-- Cart Items Section -->
             <div class="col-md-8">
                 <div class="cart-items">
-                    @foreach($cart as $item)
+                    @if(count($cart) > 0)
+                    @foreach($cart as $index => $item)
                     <div class="cart-item">
                         <div class="text-center">
                             <a href="#">
-                                <img src="{{ asset($item['image']) }}" alt="Product Image"
-                                    style="width: 150px; height: 150px">
+                                <img src="{{ $item['image'] }}" alt="Product Image" style="width: 150px; height: 150px">
                             </a>
-                            <form action="{{ route('cart.remove', $item['id']) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger cart-remove">Xoá</button>
+                            <form action="{{ route('cart.remove', $index) }}" method="POST" style="display:inline;">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="cart-remove btn btn-link">Xoá</button>
                             </form>
                         </div>
                         <div class="cart-item-details">
                             <h4 class="cart-item-title">
-                                <a href="#">{{ $item['name'] }}</a>
+                                <a href="#">{{ $item['product_name'] }}</a>
                             </h4>
-                            <ul class="list-unstyled">
-                                @if($item['type'] == 'diamond')
-                                <li><strong>Carat:</strong> {{ $item['carat'] }}</li>
-                                <li><strong>Color:</strong> {{ $item['color'] }}</li>
-                                <li><strong>Clarity:</strong> {{ $item['clarity'] }}</li>
-                                <li><strong>Cut:</strong> {{ $item['cut'] }}</li>
-                                @else
-                                <li><strong>Ring Size:</strong> {{ $item['ringsize'] }}</li>
-                                @endif
-                            </ul>
                             <div class="cart-item-price">
-                                <b>{{ number_format($item['price'], 0, ',', '.') }} VND</b>
+                                <b>{{ number_format($item['price_rate'], 0, ',', '.') }} VND</b>
+                            </div>
+                            <div class="cart-item-ringsize">
+                                <b>{{ $item['ringsize'] }}</b>
                             </div>
                         </div>
                     </div>
                     @endforeach
+                    @else
+                    <p>Giỏ hàng của bạn trống.</p>
+                    @endif
                 </div>
             </div>
             <!-- Order Summary Section -->
@@ -186,7 +181,9 @@
                         <tbody>
                             <tr>
                                 <td>Tổng phụ</td>
-                                <td class="text-right">{{ number_format($totalPrice, 0, ',', '.') }} VND</td>
+                                <td class="text-right">
+                                    {{ number_format(array_sum(array_column($cart, 'price_rate')), 0, ',', '.') }} VND
+                                </td>
                             </tr>
                             <tr>
                                 <td>Vận chuyển</td>
@@ -194,7 +191,9 @@
                             </tr>
                             <tr>
                                 <td>Tất cả</td>
-                                <td class="text-right">{{ number_format($totalPrice, 0, ',', '.') }} VND</td>
+                                <td class="text-right">
+                                    {{ number_format(array_sum(array_column($cart, 'price_rate')), 0, ',', '.') }} VND
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -203,33 +202,13 @@
                         <button class="apply-voucher-btn">Áp dụng</button>
                     </div>
                     <div class="checkout-button">
-                        <button class="btn btn-orange" onclick="proceedToPayment()">Thanh Toán Ngay</button>
+                        <a href="/Payment" class="btn btn-orange">Thanh Toán Ngay</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     @include('Footer_Hoa.Footer')
-    <script>
-    function proceedToPayment() {
-        const cartItems = [];
-        document.querySelectorAll('.cart-item').forEach(item => {
-            const id = item.querySelector('strong').innerText.split(': ')[1];
-            const name = item.querySelector('.cart-item-title a').innerText;
-            const price = item.querySelector('.cart-item-price b').innerText.replace(/\D/g, '');
-            const image = item.querySelector('img').src;
-            cartItems.push({
-                id,
-                name,
-                price,
-                image
-            });
-        });
-
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        window.location.href = '/Payment';
-    }
-    </script>
 </body>
 
 </html>

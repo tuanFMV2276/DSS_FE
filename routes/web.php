@@ -58,7 +58,8 @@ Route::post('/Cart/add', [Cart::class, 'add'])->name('cart.add');
 
 Route::delete('/Cart/remove/{index}', [Cart::class, 'remove'])->name('cart.remove');
 
-Route::get('/Payment', [Payment::class, 'index']);
+// Route::get('/Payment', [Payment::class, 'index']);
+Route::get('/Payment', [Cart::class, 'payment'])->name('payment.page');
 
 Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
 

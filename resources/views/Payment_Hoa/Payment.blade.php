@@ -11,10 +11,9 @@
 </head>
 
 <body>
-    @include('Header_Hoa/Header')
+    @include('Header_Hoa.Header')
     <div class="container mt-3">
         <h2 class="mb-4">Địa chỉ & Thanh toán</h2>
-        <!-- Stepper component -->
         <div class="md-stepper-horizontal orange mb-4">
             <div class="md-step active" id="step-1-stepper">
                 <div class="md-step-circle"><span>1</span></div>
@@ -38,8 +37,10 @@
 
         <form id="checkout-form" action="{{ route('orders.store') }}" method="POST">
             @csrf
-            <input type="hidden" name="total_price" id="total_price" value="0">
-            <input type="hidden" name="cartItems" id="cartItems" value="">
+            <!-- Order Fields -->
+            <input type="hidden" name="order_date" id="order_date">
+            <input type="hidden" name="total_price" id="total_price"
+                value="{{ array_sum(array_column($cartItems, 'price_rate')) }}">
 
             <div class="row">
                 <div class="col-md-8 mb-3">
@@ -91,134 +92,103 @@
                                 <label class="form-check-label" for="bankTransfer">Chuyển khoản ngân hàng</label>
                             </div>
                             <div id="paypal-info" class="payment-info" style="display: none;">
-                                <p>Thông tin về PayPal sẽ được hiển thị ở đây.</p>
+                                <p>Thông tin thanh toán qua PayPal.</p>
                             </div>
                             <div id="bank-info" class="payment-info" style="display: none;">
-                                <h4>Thông tin chuyển khoản ngân hàng</h4>
-                                <p>Vui lòng chuyển khoản theo thông tin dưới đây:</p>
-                                <ul>
-                                    <li><strong>Tên ngân hàng:</strong> Ngân hàng Vietcombank</li>
-                                    <li><strong>Số tài khoản:</strong> 123456789</li>
-                                    <li><strong>Chủ tài khoản:</strong> Công ty Luxury Diamond</li>
-                                </ul>
+                                <p>Thông tin chuyển khoản ngân hàng.</p>
                             </div>
-
-                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Thông tin vận
-                                chuyển</button>
-                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Xem lại & Xác
-                                nhận</button>
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Quay lại</button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Tiếp tục</button>
                         </div>
 
                         <div class="step" id="step-3" style="display: none;">
-                            <h4 class="mb-3">Xem lại & Xác nhận</h4>
-                            <div id="review-content">
-                                <!-- Add your review content here -->
-                            </div>
-                            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Xem lại đơn đặt
-                                hàng</button>
-                            <button type="submit" class="btn btn-success">Hoàn tất đặt hàng</button>
+                            <h4 class="mb-3">Xem lại đơn hàng</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th>Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($cartItems as $item)
+                                    <tr>
+                                        <td>{{ $item['product_name'] }}</td>
+                                        <td>{{ number_format($item['price_rate'], 0, ',', '.') }} VND</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Tổng cộng:</td>
+                                        <td>{{ number_format(array_sum(array_column($cartItems, 'price_rate')), 0, ',', '.') }}
+                                            VND</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Quay lại</button>
+                            <button type="submit" class="btn btn-primary">Đặt hàng</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="order-summary">
-                        <h3>Đơn hàng</h3>
-                        <div id="order-items"></div>
-                        <div class="order-summary-totals">
-                            <p id="subtotal">Tổng phụ: 0đ</p>
-                            <p>Vận chuyển: 0đ</p>
-                            <p id="total">Tất cả: 0đ</p>
-                        </div>
-                        <div class="voucher">
-                            <h4>Thêm mã khuyến mãi</h4>
-                            <input type="text" class="form-control" placeholder="Nhập mã khuyến mãi">
-                            <button class="btn btn-primary mt-2">Áp dụng</button>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">Thông tin đơn hàng</div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                @foreach ($cartItems as $item)
+                                <!-- Order Details Fields -->
+                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                <input type="hidden" name="unitprice" value="{{ $item['price_rate'] }}">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <img src="{{ $item['image'] }}" alt="{{ $item['product_name'] }}" width="50">
+                                        <strong>{{ $item['product_name'] }}</strong>
+                                    </div>
+                                    <span>{{ number_format($item['price_rate'], 0, ',', '.') }} VND</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-3">Tổng cộng:
+                                {{ number_format(array_sum(array_column($cartItems, 'price_rate')), 0, ',', '.') }} VND
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    @include('Footer_Hoa/Footer')
+    @include('Footer_Hoa.Footer')
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
     function nextStep(step) {
-        document.querySelectorAll('.step').forEach(function(el) {
-            el.style.display = 'none';
-        });
-        document.getElementById('step-' + step).style.display = 'block';
-
-        document.querySelectorAll('.md-step').forEach(function(el) {
-            el.classList.remove('active');
-        });
-        document.getElementById('step-' + step + '-stepper').classList.add('active');
+        $(".step").hide();
+        $("#step-" + step).show();
+        $(".md-step").removeClass("active");
+        $("#step-" + step + "-stepper").addClass("active");
     }
 
     function prevStep(step) {
-        document.querySelectorAll('.step').forEach(function(el) {
-            el.style.display = 'none';
-        });
-        document.getElementById('step-' + step).style.display = 'block';
-
-        document.querySelectorAll('.md-step').forEach(function(el) {
-            el.classList.remove('active');
-        });
-        document.getElementById('step-' + step + '-stepper').classList.add('active');
+        $(".step").hide();
+        $("#step-" + step).show();
+        $(".md-step").removeClass("active");
+        $("#step-" + step + "-stepper").addClass("active");
     }
 
-    // Initially display the first step
-    document.getElementById('step-1').style.display = 'block';
-    document.getElementById('step-1-stepper').classList.add('active');
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        const orderItemsContainer = document.getElementById('order-items');
-        let subtotal = 0;
-
-        cartItems.forEach(item => {
-            subtotal += parseInt(item.price, 10);
-
-            const orderItem = document.createElement('div');
-            orderItem.classList.add('order-item');
-
-            const img = document.createElement('img');
-            img.src = item.image;
-            img.alt = 'Product Image';
-
-            const details = document.createElement('div');
-            details.innerHTML = `<p>${item.name}</p><p>${parseInt(item.price).toLocaleString()}đ</p>`;
-
-            orderItem.appendChild(img);
-            orderItem.appendChild(details);
-
-            orderItemsContainer.appendChild(orderItem);
-        });
-
-        document.getElementById('subtotal').innerText = `Tổng phụ: ${subtotal.toLocaleString()}đ`;
-        document.getElementById('total').innerText = `Tất cả: ${subtotal.toLocaleString()}đ`;
-
-        document.getElementById('total_price').value = subtotal;
-        document.getElementById('cartItems').value = JSON.stringify(cartItems);
+    $('input[name="paymentMethod"]').on('change', function() {
+        $('.payment-info').hide();
+        $('#' + $(this).val() + '-info').show();
     });
 
-    // Payment method display logic
-    document.addEventListener('DOMContentLoaded', () => {
-        const paypalInfo = document.getElementById('paypal-info');
-        const bankInfo = document.getElementById('bank-info');
-
-        document.getElementById('paypal').addEventListener('change', () => {
-            if (document.getElementById('paypal').checked) {
-                paypalInfo.style.display = 'block';
-                bankInfo.style.display = 'none';
-            }
-        });
-
-        document.getElementById('bankTransfer').addEventListener('change', () => {
-            if (document.getElementById('bankTransfer').checked) {
-                paypalInfo.style.display = 'none';
-                bankInfo.style.display = 'block';
-            }
-        });
-    });
+    function setOrderDate() {
+        const date = new Date();
+        const formattedDate = date.getFullYear() + '-' +
+            ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + date.getDate()).slice(-2);
+        document.getElementById('order_date').value = formattedDate;
+    }
     </script>
 </body>
 
