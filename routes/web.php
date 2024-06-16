@@ -48,7 +48,6 @@ Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.sh
 
 // Route::get('/DetailShell', [DetailShell::class, 'index']);
 
-Route::get('/CompletedProduct', [CompletedProduct::class, 'index'])->name('completed.product');
 
 // Route::get('/CompletedProduct/{id1}/{id2}/show', [CompletedProduct::class, 'show'])->name('completedproduct.show');
 

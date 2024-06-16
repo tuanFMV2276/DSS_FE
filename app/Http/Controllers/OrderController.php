@@ -91,9 +91,37 @@ class OrderController extends Controller
 
 
     public function store(Request $request){
+        $orderData = [
+            'order_date' => $request->input('order_date'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
+            'total_price' => $request->input('total_price'),
+            'status' => 0,
+        ];
+
+        $orderResponse = Http::post('http://127.0.0.1:8000/api/order', $orderData);
+
+        if ($orderResponse->successful()) {
+            // Lấy lại ID của đơn hàng vừa tạo
+            $order = $orderResponse->json();
+            $orderId = $order['id']; // Giả sử API trả về ID của đơn hàng mới trong trường 'id'
+            $orderDetailData = [
+                'order_id' => $orderId,
+                'product_id' => $request->input('product_id'),
+                'unit_price' => $request->input('unitprice'),
+            ];
+            $orderDetailData  = Http::post('http://127.0.0.1:8000/api/orderdetail',  $orderDetailData );
+        }
+        // } else {
+        //     // Xử lý lỗi nếu yêu cầu không thành công
+        //     return back()->withErrors('Error creating order.');
+        // }
 
         
     }
+
     
 
 
