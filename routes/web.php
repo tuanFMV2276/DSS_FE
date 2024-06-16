@@ -18,6 +18,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\EmployeeController;
 use App\Http\Controllers\Manager\ProductController;
 use App\Http\Controllers\Manager\OrderController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
 
 
 
@@ -36,7 +38,7 @@ use App\Http\Controllers\Manager\OrderController;
 Route::resource('employees', EmployeeController::class)->except(['index']);
 
 Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
-Route::get('/employees/{id}', [EmployeeController::class, 'show'])->name('employees.show');
+Route::get('/employees/{id}', [EmployeeController::class, 'edit'])->name('employees.edit');
 Route::get('/employees/create', [EmployeeController::class, 'create']);
 Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
 Route::put('/employees/update/{id}', [EmployeeController::class, 'updateRole'])->name('employees.update');
@@ -46,37 +48,51 @@ Route::resource('products', ProductController::class)->except(['index']);
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/products/edit{id}', [ProductController::class, 'edit'])->name('products.edit');
+Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
 Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 Route::resource('orders', OrderController::class)->except(['index']);
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
 
 Route::get('/home-manager', function () {
     $employees = Http::get('http://127.0.0.1:8000/api/employee')->json();
-    $employees = collect($employees)->whereNotIn('role_id', [1, 3]);
+    $employees = collect($employees)->whereIn('role_id', [2, 4]);
     $products = Http::get('http://127.0.0.1:8000/api/product')->json();
     $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
-
     return view('HomeStaff_Manh.HomeManager', compact('employees', 'products', 'orders'));
-});
+})->name('manager.home');
 // End route manager
 //------------------------------------------------------------------------------------------
 // Route của sale staff '/home-salestaff'
 Route::get('/home-salestaff', function () {
     $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
-    $orders = collect($orders)->where('status', 1);
+    $orders = collect($orders)->whereIn('status', [0,1,5]);
 
     return view('HomeStaff_Manh.HomeSaleStaff', compact ('orders'));
-});
+})->name('salestaff.home');
 // End route của sale staff
 //------------------------------------------------------------------------------------------
+//route Delivery staff
+Route::get('/delivery-staff/orders', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
+Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
+Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
+// End route của Delivery staff
+//------------------------------------------------------------------------------------------
 //route Admin
-Route::resource('roles', RoleController::class);
-
+// Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/accounts', [AccountController::class, 'index'])->name('admin.accounts.index');
+    Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
+    Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
+    Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
+    Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
+    Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
+// });
+// End route của Admin
+//------------------------------------------------------------------------------------------
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 

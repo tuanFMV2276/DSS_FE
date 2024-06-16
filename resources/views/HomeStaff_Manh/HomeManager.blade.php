@@ -12,6 +12,7 @@
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 </head>
 
 <body>
@@ -62,11 +63,10 @@
                 <div id="dashboard" class="table-container" style="display:contents;">
                     <h1>Dashboard</h1>
                     <p>Chức năng chưa cập nhật</p>
-                    <form action="/employees/create"
-                        method="GET">
+                    {{-- <form action="/employees/create" method="GET">
                         @csrf
-                        <button type="submit">ADD</button>
-                    </form>
+                        <button type="submit">ADD Employee</button>
+                    </form> --}}
 
                 </div>
 
@@ -97,22 +97,29 @@
                                             @csrf
                                             @method('PUT')
                                             <select name="status" onchange="this.form.submit()">
-                                                <option value="pending"
-                                                    {{ $order['status'] == 'pending' ? 'selected' : '' }}>Pending
+                                                <option value='0'
+                                                    {{ $order['status'] == '0' ? 'selected' : '' }}>Pending
                                                 </option>
-                                                <option value="processing"
-                                                    {{ $order['status'] == 'processing' ? 'selected' : '' }}>Processing
+                                                <option value='1'
+                                                    {{ $order['status'] == '1' ? 'selected' : '' }}>Accepted
                                                 </option>
-                                                <option value="completed"
-                                                    {{ $order['status'] == 'completed' ? 'selected' : '' }}>Completed
+                                                <option value='2'
+                                                    {{ $order['status'] == '2' ? 'selected' : '' }}>Prepare Product
                                                 </option>
-                                                <option value="cancelled"
-                                                    {{ $order['status'] == 'cancelled' ? 'selected' : '' }}>Cancelled
+                                                <option value='3'
+                                                    {{ $order['status'] == '3' ? 'selected' : '' }}>Delivering
+                                                </option>
+                                                <option value='4'
+                                                    {{ $order['status'] == '4' ? 'selected' : '' }}>Finished
+                                                </option>
+                                                <option value='5'
+                                                    {{ $order['status'] == '5' ? 'selected' : '' }}>Cancelled
                                                 </option>
                                             </select>
                                         </form>
                                     </td>
                                     <td>
+                                        <a href="{{ route('orders.show', $order['id']) }}" class="btn btn-info"><button>View Details</button></a>
                                         <form action="{{ route('orders.destroy', $order['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -128,7 +135,8 @@
 
                 <div id="product-management" class="table-container" style="display: none;">
                     <h1>List Products</h1>
-                    <a href="{{ route('products.create') }}">Create New Product</a>
+                    <a href="{{ route('products.create') }}" ><button>Create New Product</button></a>
+                    
                     <table border="1">
                         <thead>
                             <tr>
@@ -160,14 +168,15 @@
                                     <td>{{ $product['number_ex_diamond'] }}</td>
                                     <td>{{ $product['number'] }}</td>
                                     <td>{{ $product['diamond_shell_id'] }}</td>
-                                    <td>{{ $product['size'] }}</td>
+                                    <td>{{ number_format($product['size'], 2) }}</td>
                                     <td>{{ $product['price_rate'] }}</td>
                                     <td>{{ $product['quantity'] }}</td>
                                     <td>{{ $product['status'] }}</td>
                                     <td>
-                                        <a href="{{ route('products.edit', $product['id']) }}">Edit</a>
-                                        <form action="{{ route('products.destroy', $product['id']) }}" method="POST"
-                                            style="display:inline-block">
+                                        <a href="{{ route('products.edit', $product['id']) }}" style="display:inline-block;">
+                                            <button type="button">Edit</button>
+                                        </a>                                  
+                                        <form action="{{ route('products.destroy', $product['id']) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit">Delete</button>
@@ -186,7 +195,6 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-
                                 <th>Gender</th>
                                 <th>Role</th>
                                 <th>Status</th>
@@ -199,33 +207,29 @@
                                 <tr>
                                     <td>{{ $employee['user_name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
-                                    <td>{{ $employee['role_id'] == 2 ? 'Sales Staff' : 'Delivery Staff'}}</td>
+                                    <td>{{ $employee['role_id'] == 2 ? 'Sales Staff' : 'Delivery Staff' }}</td>
                                     <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                     <td>
-                                        <form action="{{ route('employees.show', $employee['id']) }}"
-                                            method="POST">
+                                        <form action="{{ route('employees.show', $employee['id']) }}" method="GET">
                                             @csrf
                                             @method('GET')
                                             <button type="submit">Detail</button>
                                         </form>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <form action="{{ route('employees.destroy', $employee['id']) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit">Delete</button>
+                                            <button type="submit" >Delete</button>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
 
-                <div>
-                    
-                </div>
             </div>
         </div>
 

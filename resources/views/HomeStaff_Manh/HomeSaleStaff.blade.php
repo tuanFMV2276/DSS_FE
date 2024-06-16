@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title> Responsive Sidebar Menu | CodingLab </title>
+    <title> Home Sales staff </title>
     <link rel="stylesheet" href="{{ asset('css_Manh/homestaff.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/homestaffv2.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/staffchat.css') }}">
@@ -167,29 +167,38 @@
                                             @csrf
                                             @method('PUT')
                                             <select name="status" onchange="this.form.submit()">
-                                                <option value="pending"
-                                                    {{ $order['status'] == 'pending' ? 'selected' : '' }}>Pending
+                                                <option value='0'
+                                                    {{ $order['status'] == '0' ? 'selected' : '' }}>Pending
                                                 </option>
-                                                <option value="processing"
-                                                    {{ $order['status'] == 'processing' ? 'selected' : '' }}>Processing
+                                                <option value='1'
+                                                    {{ $order['status'] == '1' ? 'selected' : '' }}>Accepted
                                                 </option>
-                                                <option value="completed"
-                                                    {{ $order['status'] == 'completed' ? 'selected' : '' }}>Completed
+                                                <option value='2'
+                                                    {{ $order['status'] == '2' ? 'selected' : '' }}>Prepare Product
                                                 </option>
-                                                <option value="cancelled"
-                                                    {{ $order['status'] == 'cancelled' ? 'selected' : '' }}>Cancelled
+                                                <option value='3'
+                                                    {{ $order['status'] == '3' ? 'selected' : '' }}>Delivering
+                                                </option>
+                                                <option value='4'
+                                                    {{ $order['status'] == '4' ? 'selected' : '' }}>Finished
+                                                </option>
+                                                <option value='5'
+                                                    {{ $order['status'] == '5' ? 'selected' : '' }}>Cancelled
                                                 </option>
                                             </select>
                                         </form>
                                     </td>
                                     <td>
+                                        <a href="{{ route('orders.show', $order['id']) }}" class="btn btn-info"><button>View Details</button></a>                           
+                                    </td>
+                                    {{-- <td>
                                         <form action="{{ route('orders.destroy', $order['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger"
                                                 onclick="return confirm('Are you sure you want to delete this order?')">Delete</button>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
@@ -209,7 +218,7 @@
             menuBtnChange(); //calling the function(optional)
         });
 
-        searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+        searchBtn.addEventListener("click", () => { // Sidebar open wshen you click on the search iocn
             sidebar.classList.toggle("open");
             menuBtnChange(); //calling the function(optional)
         });
