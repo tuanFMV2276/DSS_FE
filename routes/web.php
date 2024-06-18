@@ -79,4 +79,3 @@ Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 // Route::put('/author/{id}}', [ViewsController::class, 'update'])->name('author.update');
 
 // Route::delete('/author/{id}}', [ViewsController::class, 'destroy'])->name('author.destroy');
->>>>>>> Stashed changes
