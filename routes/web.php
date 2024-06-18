@@ -26,7 +26,7 @@ use App\Http\Controllers\Order;
 */
 
 
-Route::get('/order/status/{status}', [ORder::class, 'statusDisplay'])->name('order.filter');
+Route::get('/order/status/{status}', [Order::class, 'statusDisplay'])->name('order.filter');
 
 // Route::get('/Login', [Login::class, 'login']);
 

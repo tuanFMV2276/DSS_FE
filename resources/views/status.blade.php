@@ -59,17 +59,17 @@
 </head>
 <body>
         @if ( $status === '0')
-            <h2>Pending Order</h2>
+            <h2>Order Status: Pending</h2>
         @elseif ( $status === '1')
-            <h2>Accepted Order</h2>
+            <h2>Order Status: Accepted</h2>
         @elseif ( $status === '2')
-            <h2>Accepted Order</h2>
+            <h2>Order Status: Preparing</h2>
         @elseif ( $status === '3')
-            <h2>Accepted Order</h2>
+            <h2>Order Status: Delivering</h2>
         @elseif ( $status === '4')
-            <h2>Accepted Order</h2>
+            <h2>Order Status: Finshished</h2>
         @elseif ( $status === '5')
-            <h2>Accepted Order</h2>
+            <h2>Order Status: Cancelled</h2>
         @endif
         <table>
             <tr>
@@ -92,9 +92,9 @@
         
     <a href="{{ route('order.filter', ['status' => '0']) }}">Pending Order</a>
     <a href="{{ route('order.filter', ['status' => '1']) }}">Accepted Order</a>
-    <a href="{{ route('order.filter', ['status' => '2']) }}">Inactive Products</a>
-    <a href="{{ route('order.filter', ['status' => '3']) }}">Inactive Products</a>
-    <a href="{{ route('order.filter', ['status' => '4']) }}">Inactive Products</a>
-    <a href="{{ route('order.filter', ['status' => '5']) }}">Inactive Products</a>
+    <a href="{{ route('order.filter', ['status' => '2']) }}">Preparing Order</a>
+    <a href="{{ route('order.filter', ['status' => '3']) }}">Delivering Order</a>
+    <a href="{{ route('order.filter', ['status' => '4']) }}">Finshied Order</a>
+    <a href="{{ route('order.filter', ['status' => '5']) }}">Cancelled Order</a>
 </body>
 </html>
