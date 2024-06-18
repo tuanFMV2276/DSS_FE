@@ -10,6 +10,6 @@ class ORder extends Controller
 {
     public function statusDisplay(Request $request,$status){
         $order =  Http::get("http://127.0.0.1:8000/order/status/{$status}")->json();
-        return view('status', ['order' => $order], ['status' => $status]);
+        return view('order_filter', ['order' => $order], ['status' => $status]);
     }
 }
