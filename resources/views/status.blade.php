@@ -70,6 +70,8 @@
             <h2>Order Status: Finshished</h2>
         @elseif ( $status === '5')
             <h2>Order Status: Cancelled</h2>
+        @elseif ( $status === 6)
+            <h2>Order Status: Rejected</h2>
         @endif
         <table>
             <tr>
@@ -96,5 +98,6 @@
     <a href="{{ route('order.filter', ['status' => '3']) }}">Delivering Order</a>
     <a href="{{ route('order.filter', ['status' => '4']) }}">Finshied Order</a>
     <a href="{{ route('order.filter', ['status' => '5']) }}">Cancelled Order</a>
+    <a href="{{ route('order.filter', ['status' => '6']) }}">Rejected Order</a>
 </body>
 </html>
