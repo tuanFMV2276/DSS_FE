@@ -28,15 +28,13 @@ use App\Http\Controllers\OrderController;
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
-// Route::get('/Login', [Login::class, 'login']);
+Route::get('/Login', [Login::class, 'login']);
 
 Route::get('/', [HomePage::class, 'index']);
 
 Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
 Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
-
-// Route::get('/DetailDiamondPage/{id}', [DetailDiamond::class, 'index']);
 
 Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
 
@@ -46,18 +44,12 @@ Route::get('/ListShell', [ListShell::class, 'index']);
 
 Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.show');
 
-// Route::get('/DetailShell', [DetailShell::class, 'index']);
-
-
-// Route::get('/CompletedProduct/{id1}/{id2}/show', [CompletedProduct::class, 'show'])->name('completedproduct.show');
-
 Route::get('/Cart', [Cart::class, 'index']) -> name('cart.index');
 
 Route::post('/Cart/add', [Cart::class, 'add'])->name('cart.add');
 
 Route::delete('/Cart/remove/{index}', [Cart::class, 'remove'])->name('cart.remove');
 
-// Route::get('/Payment', [Payment::class, 'index']);
 Route::get('/Payment', [Cart::class, 'payment'])->name('payment.page');
 
 Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');

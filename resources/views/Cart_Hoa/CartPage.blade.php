@@ -146,6 +146,7 @@
                     @if(count($cart) > 0)
                     @foreach($cart as $index => $item)
                     <div class="cart-item">
+                        <input type="hidden" name="code" value="{{ $item['product_code'] }}">
                         <div class="text-center">
                             <a href="#">
                                 <img src="{{ $item['image'] }}" alt="Product Image" style="width: 150px; height: 150px">

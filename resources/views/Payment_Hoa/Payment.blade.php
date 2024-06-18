@@ -138,7 +138,7 @@
                             <ul class="list-group list-group-flush">
                                 @foreach ($cartItems as $item)
                                 <!-- Order Details Fields -->
-                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                <input type="hidden" name="product_code" value="{{ $item['product_code'] }}">
                                 <input type="hidden" name="unitprice" value="{{ $item['price_rate'] }}">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>

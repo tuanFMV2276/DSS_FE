@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Customer;
+use Carbon\Carbon;
+
 
 class OrderController extends Controller
 {
@@ -92,7 +94,7 @@ class OrderController extends Controller
 
     public function store(Request $request){
         $orderData = [
-            'order_date' => $request->input('order_date'),
+            'order_date' => Carbon::today()->format('Y-m-d'),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'address' => $request->input('address'),
@@ -103,22 +105,28 @@ class OrderController extends Controller
 
         $orderResponse = Http::post('http://127.0.0.1:8000/api/order', $orderData);
 
+        $product_code = $request->input('product_code'); // Lấy giá trị product_code từ request
+        $url = "http://127.0.0.1:8000/api/product/update/{$product_code}"; // Tạo URL với product_code
+        $response = Http::get($url); // Gửi yêu cầu GET đến URL
+        $id = $response->json('id');
+
         if ($orderResponse->successful()) {
             // Lấy lại ID của đơn hàng vừa tạo
             $order = $orderResponse->json();
             $orderId = $order['id']; // Giả sử API trả về ID của đơn hàng mới trong trường 'id'
             $orderDetailData = [
                 'order_id' => $orderId,
-                'product_id' => $request->input('product_id'),
+                'product_id' => $id,
                 'unit_price' => $request->input('unitprice'),
             ];
             $orderDetailData  = Http::post('http://127.0.0.1:8000/api/orderdetail',  $orderDetailData );
-        }
-        // } else {
-        //     // Xử lý lỗi nếu yêu cầu không thành công
-        //     return back()->withErrors('Error creating order.');
-        // }
 
+            return view('PaymentSuccessful_Hoa.PaymentSuccessful', ['orderId' => $orderId]);
+        
+        } else {
+            // Xử lý lỗi nếu yêu cầu không thành công
+            return back()->withErrors('Error creating order.');
+        }
         
     }
 

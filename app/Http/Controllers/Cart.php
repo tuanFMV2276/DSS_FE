@@ -75,11 +75,12 @@ public function index()
 public function add(Request $request)
 {
     $product = [
-        'id' => uniqid(), // Ensure unique ID for each cart item
+        'id' => $request->input('id'), // Ensure unique ID for each cart item
         'product_name' => $request->input('name'),
         'price_rate' => $request->input('price'),
         'ringsize' => $request->input('ringsize'),
-        'image' => $request->input('image')
+        'image' => $request->input('image'),
+        'product_code' => $request->input('product_code'),
     ];
 
     $cart = session()->get('cart', []);
