@@ -28,7 +28,7 @@
             <div class="right">
                 <div class="cart-login">
                     <button class="cart-btn">
-                        <a href="/NaturalDiamondPage"><i class="bx bxs-cart"> GIỎ HÀNG</i></a>
+                        <a href="/Cart"><i class="bx bxs-cart"> GIỎ HÀNG</i></a>
                     </button>
                     <button class="login-btn"><a href="/Login"><i class="bx bx-user"> ĐĂNG NHẬP</i></a></button>
                 </div>

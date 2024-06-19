@@ -14,14 +14,13 @@ use App\Http\Controllers\Cart;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
+
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\Manager\EmployeeController;
-use App\Http\Controllers\Manager\ProductController;
-use App\Http\Controllers\Manager\OrderController;
+use App\Http\Controllers\Manager\ManagerController;
+use App\Http\Controllers\SaleStaff\SaleStaffController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
-
-
+use App\Http\Controllers\OrderCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,29 +34,7 @@ use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
 */
 //------------------------------------------------------------------------------------------
 // Route của manager '/home-manager'
-Route::resource('employees', EmployeeController::class)->except(['index']);
-
-Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
-Route::get('/employees/{id}', [EmployeeController::class, 'edit'])->name('employees.edit');
-Route::get('/employees/create', [EmployeeController::class, 'create']);
-Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
-Route::put('/employees/update/{id}', [EmployeeController::class, 'updateRole'])->name('employees.update');
-Route::delete('/employees/delete/{id}', [EmployeeController::class, 'deleteEmployee'])->name('employees.destroy');
-
-Route::resource('products', ProductController::class)->except(['index']);
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
-Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
-
-Route::resource('orders', OrderController::class)->except(['index']);
-Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
-Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-
-
+    
 Route::get('/home-manager', function () {
     $employees = Http::get('http://127.0.0.1:8000/api/employee')->json();
     $employees = collect($employees)->whereIn('role_id', [2, 4]);
@@ -65,6 +42,20 @@ Route::get('/home-manager', function () {
     $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
     return view('HomeStaff_Manh.HomeManager', compact('employees', 'products', 'orders'));
 })->name('manager.home');
+
+Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
+Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateEmployee'])->name('manager.updateEmployee');
+Route::put('/manager_orders/{id}/update_status', [ManagerController::class, 'updateOrderStatus'])->name('manager.updateOrderStatus');
+Route::get('/manager_orders/{id}/detail', [ManagerController::class, 'showOrderDetail'])->name('manager.showOrderDetail');
+Route::delete('/manager_orders/{id}/delete', [ManagerController::class, 'destroyOrder'])->name('manager.destroyOrder');
+Route::get('/products/create', [ManagerController::class, 'createProduct'])->name('manager.createProduct');
+Route::post('/products', [ManagerController::class, 'storeProduct'])->name('manager.storeProduct');
+Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
+Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
+Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
+
+
+
 // End route manager
 //------------------------------------------------------------------------------------------
 // Route của sale staff '/home-salestaff'
@@ -74,6 +65,10 @@ Route::get('/home-salestaff', function () {
 
     return view('HomeStaff_Manh.HomeSaleStaff', compact ('orders'));
 })->name('salestaff.home');
+Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
+
+
+
 // End route của sale staff
 //------------------------------------------------------------------------------------------
 //route Delivery staff
@@ -96,8 +91,6 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
-// Route::get('/Login', [Login::class, 'login']);
-
 Route::get('/', [HomePage::class, 'index']);
 
 Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
@@ -116,34 +109,18 @@ Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.sh
 
 // Route::get('/DetailShell', [DetailShell::class, 'index']);
 
-Route::get('/CompletedProduct', [CompletedProduct::class, 'index']);
 
-Route::get('/Cart', [Cart::class, 'index']);
+// Route::get('/CompletedProduct/{id1}/{id2}/show', [CompletedProduct::class, 'show'])->name('completedproduct.show');
 
-Route::get('/Payment', [Payment::class, 'index']);
+Route::get('/Cart', [Cart::class, 'index']) -> name('cart.index');
+
+Route::post('/Cart/add', [Cart::class, 'add'])->name('cart.add');
+
+Route::delete('/Cart/remove/{index}', [Cart::class, 'remove'])->name('cart.remove');
+
+// Route::get('/Payment', [Payment::class, 'index']);
+Route::get('/Payment', [Cart::class, 'payment'])->name('payment.page');
+
+Route::post('/orders/store', [OrderCustomerController::class, 'store'])->name('orders.store');
 
 Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
-
-// Route::get('/HomeSaleStaff', [PageController::class, 'homeSaleStaff']);
-
-// Route::get('/DeliveryStaffPage', [PageController::class, 'deliveryStaff']);
-
-// Route::get('/DoNi', [PageController::class, 'doNi']);
-
-// Route::get('/PriceGold', [PageController::class, 'priceGold']);
-
-// Route::get('/PriceDiamond', [PageController::class, 'priceDiamond']);
-
-// Route::get('/customer', [Customer::class, 'index']);
-
-// Route::get('/author', [ViewsController::class, 'index'])->name('author.index');
-
-// Route::get('/author/create', [ViewsController::class, 'create'])->name('author.create');
-
-// Route::get('/author/{id}/edit', [ViewsController::class, 'edit'])->name('author.edit');
-
-// Route::Post('/author/store', [ViewsController::class, 'store'])->name('author.store');
-
-// Route::put('/author/{id}}', [ViewsController::class, 'update'])->name('author.update');
-
-// Route::delete('/author/{id}}', [ViewsController::class, 'destroy'])->name('author.destroy');

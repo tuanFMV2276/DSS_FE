@@ -37,7 +37,7 @@
 <body>
     <div class="container">
         <h2>Edit Product</h2>
-        <form action="{{ route('products.update', $product['id']) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('manager.updateProduct', $product['id']) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             
@@ -103,7 +103,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('manager.home')}}"> <button class="btn btn-primary">Back</button></a>
+            {{-- <a href="{{ route('manager.home')}}"> <button class="btn btn-primary">Back</button></a> --}}
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
         </form>
     </div>
 

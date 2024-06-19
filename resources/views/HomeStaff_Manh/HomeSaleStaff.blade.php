@@ -163,7 +163,7 @@
                                     <td>{{ $order['order_date'] }}</td>
                                     <td>{{ $order['total_price'] }}</td>
                                     <td>
-                                        <form action="{{ route('orders.updateStatus', $order['id']) }}" method="POST">
+                                        <form action="{{ route('salestaff.updateOrderStatus', $order['id']) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <select name="status" onchange="this.form.submit()">
@@ -189,7 +189,7 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <a href="{{ route('orders.show', $order['id']) }}" class="btn btn-info"><button>View Details</button></a>                           
+                                        <a href="{{ route('manager.showOrderDetail', $order['id']) }}" class="btn btn-info"><button>View Details</button></a>                           
                                     </td>
                                     {{-- <td>
                                         <form action="{{ route('orders.destroy', $order['id']) }}" method="POST">

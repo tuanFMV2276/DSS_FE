@@ -137,62 +137,40 @@
 </head>
 
 <body>
-    @include('Header_Hoa/Header')
+    @include('Header_Hoa.Header')
     <div class="container" id="cart-container">
         <div class="row">
             <!-- Cart Items Section -->
             <div class="col-md-8">
                 <div class="cart-items">
+                    @if(count($cart) > 0)
+                    @foreach($cart as $index => $item)
                     <div class="cart-item">
                         <div class="text-center">
                             <a href="#">
-                                <img src="{{asset('/Picture/DetailDiamondPage/DetailDiamond.jpg')}}" alt="Product Image"
-                                    style="width: 150px; height: 150px">
+                                <img src="{{ $item['image'] }}" alt="Product Image" style="width: 150px; height: 150px">
                             </a>
-                            <span class="cart-remove">Xoá</span>
+                            <form action="{{ route('cart.remove', $index) }}" method="POST" style="display:inline;">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="cart-remove btn btn-link">Xoá</button>
+                            </form>
                         </div>
                         <div class="cart-item-details">
                             <h4 class="cart-item-title">
-                                <a href="#">0.30 carat Oval Loose Diamond, E, VVS2, Super Ideal, GIA Certified</a>
+                                <a href="#">{{ $item['product_name'] }}</a>
                             </h4>
-                            <ul class="list-unstyled">
-                                <li><strong>Mã chứng khoán:</strong> D123138308</li>
-                            </ul>
                             <div class="cart-item-price">
-                                <b>19,000,000VND</b>
+                                <b>{{ number_format($item['price_rate'], 0, ',', '.') }} VND</b>
+                            </div>
+                            <div class="cart-item-ringsize">
+                                <b>{{ $item['ringsize'] }}</b>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Phí Gia Công Section -->
-                    <div class="cart-fee">
-                        <div class="text-center">
-                            <div class="cart-fee-title">Phí Gia Công</div>
-                            <span class="cart-fee-remove">Xoá</span>
-                        </div>
-                        <div class="cart-fee-amount">1,000,000VND</div>
-                    </div>
-
-                    <div class="cart-item">
-                        <div class="text-center">
-                            <a href="#">
-                                <img src="{{ asset('img_Manh/image/ring.png') }}" alt="Product Image"
-                                    style="width: 150px; height: 150px">
-                            </a>
-                            <span class="cart-remove">Xoá</span>
-                        </div>
-                        <div class="cart-item-details">
-                            <h4 class="cart-item-title">
-                                <a href="#">Nhẫn Kim Cương Nữ R.2235</a>
-                            </h4>
-                            <ul class="list-unstyled">
-                                <li><strong>Mã chứng khoán:</strong> D123138308</li>
-                            </ul>
-                            <div class="cart-item-price">
-                                <b>4,200,000VND</b>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+                    @else
+                    <p>Giỏ hàng của bạn trống.</p>
+                    @endif
                 </div>
             </div>
             <!-- Order Summary Section -->
@@ -203,15 +181,19 @@
                         <tbody>
                             <tr>
                                 <td>Tổng phụ</td>
-                                <td class="text-right">24,200,000VND</td>
+                                <td class="text-right">
+                                    {{ number_format(array_sum(array_column($cart, 'price_rate')), 0, ',', '.') }} VND
+                                </td>
                             </tr>
                             <tr>
                                 <td>Vận chuyển</td>
-                                <td class="text-right">0VND</td>
+                                <td class="text-right">0 VND</td>
                             </tr>
                             <tr>
                                 <td>Tất cả</td>
-                                <td class="text-right">24,200,000VND</td>
+                                <td class="text-right">
+                                    {{ number_format(array_sum(array_column($cart, 'price_rate')), 0, ',', '.') }} VND
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -220,14 +202,14 @@
                         <button class="apply-voucher-btn">Áp dụng</button>
                     </div>
                     <div class="checkout-button">
-                        <a href="{{ route('Payment1') }}" class="btn btn-orange">Thanh Toán Ngay</a>
+                        <a href="{{ route('payment.page') }}" class="btn btn-orange">Thanh Toán Ngay</a>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('Footer_Hoa/Footer')
+    @include('Footer_Hoa.Footer')
 </body>
 
 </html>

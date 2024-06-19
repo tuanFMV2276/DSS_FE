@@ -35,7 +35,7 @@
 <body>
     <div class="container">
         <h2>Edit Employee</h2>
-        <form action="{{ route('employees.update', $employee['id']) }}" method="POST">
+        <form action="{{ route('manager.updateEmployee', $employee['id']) }}" method="POST">
             @csrf
             @method('PUT')
             
@@ -95,7 +95,8 @@
 
             <button type="submit" class="btn btn-primary">Update</button>
 
-            <a href="{{ route('manager.home')}}"> <button class="btn btn-primary">Back</button></a>
+            {{-- <a href="{{ route('manager.home')}}"> <button class="btn btn-primary">Back</button></a> --}}
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
         </form>
     </div>
 

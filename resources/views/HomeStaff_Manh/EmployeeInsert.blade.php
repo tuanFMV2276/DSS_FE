@@ -98,7 +98,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Create</button>
-            <a href="{{ route('manager.home')}}"> <button class="btn btn-primary mt-3">Back</button></a>
+            {{-- <a href="{{ route('admin.accounts.index')}}"> <button class="btn btn-primary mt-3">Back</button></a> --}}
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
         </form>
     </div>
 

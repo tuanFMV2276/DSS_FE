@@ -19,7 +19,15 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $response = Http::post('http://127.0.0.1:8000/api/employee', $request->all());
-        return redirect()->route('employees.index');
+        // return redirect()->route('employees.index');
+        return redirect('/admin/accounts');
+
+    }
+    public function storeAdmin(Request $request)
+    {
+        $response = Http::post('http://127.0.0.1:8000/api/employee', $request->all());
+        // return redirect()->route('employees.index');
+        return redirect('/admin/accounts');
 
     }
 
@@ -44,7 +52,8 @@ class EmployeeController extends Controller
     public function deleteEmployee($id)
     {
         $response = Http::delete("http://127.0.0.1:8000/api/employee/{$id}");
-        return redirect()->route('employees.index');
+        // return redirect()->route('employees.index');
+        return redirect('/admin/accounts');
     }
 
 }

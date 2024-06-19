@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
-class CompletedProduct extends Controller
+class OrderDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +13,7 @@ class CompletedProduct extends Controller
      */
     public function index()
     {
-        $diamondShell = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
-        $mainDiamond =Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
-        $diamondPriceList = Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json();
-
-        return view('CompletedProduct_Hoa/CompletedProduct',['diamondShell' => $diamondShell, 'mainDiamond' => $mainDiamond]);
+        //
     }
 
     /**
@@ -39,7 +34,7 @@ class CompletedProduct extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

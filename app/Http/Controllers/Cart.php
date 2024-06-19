@@ -12,14 +12,99 @@ class Cart extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $diamondShell = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
-        $mainDiamond =Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
-        $diamondPriceList = Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json();
 
-        return view('Cart_Hoa/CartPage',['diamondShell' => $diamondShell, 'mainDiamond' => $mainDiamond]);
+//      public function index()
+//      {
+//          $cart = session()->get('cart', []);
+ 
+//          // Calculate total price
+//          $totalPrice = array_reduce($cart, function ($carry, $item) {
+//              return $carry + $item['price'];
+//          }, 0);
+ 
+//          return view('Cart_Hoa.CartPage', ['cart' => $cart, 'totalPrice' => $totalPrice]);
+//      }
+ 
+//      public function add(Request $request)
+//      {
+//          $item = [
+//              'id' => uniqid(),
+//              'type' => $request->input('type', 'product'), // default to 'product' if 'type' is not specified
+//              'image' => $request->input('image'),
+//              'name' => $request->input('name'),
+//              'price' => $request->input('price'),
+//          ];
+ 
+//          if ($item['type'] == 'diamond') {
+//              $item['carat'] = $request->input('carat');
+//              $item['color'] = $request->input('color');
+//              $item['clarity'] = $request->input('clarity');
+//              $item['cut'] = $request->input('cut');
+//          } else if ($item['type'] == 'product') {
+//              $item['ringsize'] = $request->input('ringsize');
+//          }
+ 
+//          $cart = session()->get('cart', []);
+//          $cart[] = $item;
+//          session()->put('cart', $cart);
+ 
+//          return redirect()->route('cart.index');
+//      }
+ 
+//      public function remove($id)
+// {
+//     $cart = session()->get('cart', []);
+
+//     // Find the item by id and remove it
+//     $index = array_search($id, array_column($cart, 'id'));
+//     if ($index !== false) {
+//         unset($cart[$index]);
+//         $cart = array_values($cart); // Re-index array
+//         session()->put('cart', $cart);
+//     }
+
+//     return redirect()->route('cart.index')->with('success', 'Product removed from cart!');
+// }
+
+public function index()
+{
+    $cart = session()->get('cart', []);
+    return view('Cart_Hoa.CartPage', ['cart' => $cart]);
+}
+
+public function add(Request $request)
+{
+    $product = [
+        'id' => uniqid(), // Ensure unique ID for each cart item
+        'product_name' => $request->input('name'),
+        'price_rate' => $request->input('price'),
+        'ringsize' => $request->input('ringsize'),
+        'image' => $request->input('image')
+    ];
+
+    $cart = session()->get('cart', []);
+    $cart[] = $product;
+    session()->put('cart', $cart);
+
+    return redirect()->route('cart.index')->with('success', 'Product added to cart!');
+}
+
+public function remove($index)
+{
+    $cart = session()->get('cart', []);
+    if (isset($cart[$index])) {
+        unset($cart[$index]);
+        session()->put('cart', array_values($cart)); // Re-index array
     }
+
+    return redirect()->route('cart.index')->with('success', 'Product removed from cart!');
+}
+
+public function payment()
+{
+    $cartItems = session()->get('cart', []);
+    return view('Payment_Hoa.Payment', compact('cartItems'));
+}
 
     /**
      * Show the form for creating a new resource.

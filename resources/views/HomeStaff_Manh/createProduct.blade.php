@@ -35,7 +35,7 @@
     <div class="container">
         <div class="form-container">
             <h1>Create Product</h1>
-            <form action="{{ route('products.store') }}" method="POST">
+            <form action="{{ route('manager.storeProduct') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="product_code">Product Code:</label>
@@ -87,7 +87,8 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
 
-                <a href="{{ route('manager.home')}}"> <button class="btn btn-primary">Back</button></a>
+                {{-- <a href="{{ route('manager.home')}}"> <button class="btn btn-primary">Back</button></a> --}}
+                <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
             </form>
         </div>
     </div>

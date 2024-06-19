@@ -93,7 +93,7 @@
                                     <td>{{ $order['order_date'] }}</td>
                                     <td>{{ $order['total_price'] }}</td>
                                     <td>
-                                        <form action="{{ route('orders.updateStatus', $order['id']) }}" method="POST">
+                                        <form action="{{ route('manager.updateOrderStatus', $order['id']) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <select name="status" onchange="this.form.submit()">
@@ -119,8 +119,8 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <a href="{{ route('orders.show', $order['id']) }}" class="btn btn-info"><button>View Details</button></a>
-                                        <form action="{{ route('orders.destroy', $order['id']) }}" method="POST">
+                                        <a href="{{ route('manager.showOrderDetail', $order['id']) }}" class="btn btn-info"><button>View Details</button></a>
+                                        <form action="{{ route('manager.destroyOrder', $order['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger"
@@ -135,7 +135,7 @@
 
                 <div id="product-management" class="table-container" style="display: none;">
                     <h1>List Products</h1>
-                    <a href="{{ route('products.create') }}" ><button>Create New Product</button></a>
+                    <a href="{{ route('manager.createProduct') }}" ><button>Create New Product</button></a>
                     
                     <table border="1">
                         <thead>
@@ -173,10 +173,10 @@
                                     <td>{{ $product['quantity'] }}</td>
                                     <td>{{ $product['status'] }}</td>
                                     <td>
-                                        <a href="{{ route('products.edit', $product['id']) }}" style="display:inline-block;">
+                                        <a href="{{ route('manager.editProduct', $product['id']) }}" style="display:inline-block;">
                                             <button type="button">Edit</button>
                                         </a>                                  
-                                        <form action="{{ route('products.destroy', $product['id']) }}" method="POST" style="display:inline-block;">
+                                        <form action="{{ route('manager.destroyProduct', $product['id']) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit">Delete</button>
@@ -210,7 +210,7 @@
                                     <td>{{ $employee['role_id'] == 2 ? 'Sales Staff' : 'Delivery Staff' }}</td>
                                     <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                     <td>
-                                        <form action="{{ route('employees.show', $employee['id']) }}" method="GET">
+                                        <form action="{{ route('manager.showEmployeeDetail', $employee['id']) }}" method="GET">
                                             @csrf
                                             @method('GET')
                                             <button type="submit">Detail</button>

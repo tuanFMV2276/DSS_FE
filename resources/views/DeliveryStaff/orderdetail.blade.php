@@ -58,5 +58,6 @@
         </div>
     </div>
 
-    <a href="{{ route('delivery-staff.orders') }}" class="btn btn-secondary">Back to Orders</a>
+    {{-- <a href="{{ route('delivery-staff.orders') }}" class="btn btn-secondary">Back to Orders</a> --}}
+    <a href="{{ url()->previous() }}" class="btn btn-secondary">Back to Orders</a>
 @endsection
