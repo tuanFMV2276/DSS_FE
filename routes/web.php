@@ -14,6 +14,8 @@ use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
 use App\Http\Controllers\Order;
+use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Profile;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +26,17 @@ use App\Http\Controllers\Order;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes();
+
+Route::get('/home', [Dashboard::class, 'index'])->name('home');
+
+Route::get('/profile', [Profile::class ,'@index'])->name('profile');
+Route::put('/profile', [Profile::class ,'Profile@update'])->name('profile.update');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 
 Route::get('/order/status/{status}', [Order::class, 'statusDisplay'])->name('order.filter');
