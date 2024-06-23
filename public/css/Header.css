@@ -6,6 +6,8 @@ body {
 
 header {
     border-bottom: 1px solid #ccc;
+    position: relative;
+    z-index: 1000;
 }
 
 .top-header {
@@ -28,6 +30,16 @@ header {
 .left .address p {
     margin: 0;
     font-size: 12px;
+}
+
+.center a {
+    color: #000;
+    margin: 0 10px;
+}
+
+.center a:hover{
+    text-decoration: none;
+    color: #000;
 }
 
 .center h1 {
@@ -69,7 +81,6 @@ header {
 .search {
     border: #000 2px solid;
     border-radius: 10px;
-    padding-left: 10px;
 }
 
 .search-input {
@@ -78,17 +89,28 @@ header {
     border: none;
 }
 
-.search-btn{
+.search-input:focus {
+    outline: none;
+}
+
+.search-btn {
     width: 45px;
     height: 30px;
     border: none;
+    border-radius: 15px;
     background: #fff;
     top: 10px;
+}
+
+.search-btn:focus {
+    outline: none;
 }
 
 nav {
     background-color: #fff;
     border-color: #000;
+    position: relative;
+    z-index: 1000;
 }
 
 nav ul {
@@ -104,7 +126,7 @@ nav ul li {
     position: relative;
 }
 
-nav ul li a {
+nav ul li>a {
     color: #000;
     text-decoration: none;
     padding: 15px 20px;
@@ -113,15 +135,20 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color: #FFA500;
+    color: #fff;
+    text-decoration: none;
 }
 
 .sub-menu {
     position: absolute;
     background: #fff;
-    padding: 15px 0px;
     list-style: none;
     width: 200px;
     display: none;
+    top: 100%;
+    left: 0;
+    z-index: 1000; /* Ensures submenu is on top */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 nav ul li:hover .sub-menu {
@@ -133,10 +160,29 @@ nav ul li:hover .sub-menu {
     border-bottom: 1px solid #646464;
 }
 
-.sub-menu li:hover a{
+.sub-menu li:hover a {
     border-bottom: 1px solid #8d8c8c;
 }
 
 .sub-menu li:last-child a {
     border: none;
+}
+
+/* Additional styles to ensure overlapping */
+.container-xxl {
+    position: relative;
+    z-index: 1;
+}
+
+.pos1, .pos2, .pos3, .pos5, .pos6 {
+    position: relative;
+    z-index: 1;
+}
+
+ .cart-btn>a, .login-btn>a {
+    color: #000;
+}
+
+.cart-btn>a:hover, .login-btn>a:hover{
+    color: #fff;
 }
