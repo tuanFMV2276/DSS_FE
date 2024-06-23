@@ -29,9 +29,15 @@ use App\Http\Controllers\Profile;
 
 Auth::routes();
 
-Route::get('/home', [Dashboard::class, 'index'])->name('home');
+Route::get('/home', function () {
+    return view('dashboard');
+})->name('home');
 
-Route::get('/profile', [Profile::class ,'@index'])->name('profile');
+Route::get('/home/replica', function () {
+    return view('dashboardreplica');
+})->name('homeReplica');
+
+Route::get('/profile', [Profile::class ,'index'])->name('profile');
 Route::put('/profile', [Profile::class ,'Profile@update'])->name('profile.update');
 
 Route::get('/about', function () {
