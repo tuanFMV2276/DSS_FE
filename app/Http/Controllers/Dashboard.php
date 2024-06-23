@@ -24,13 +24,6 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $users = User::count();
-
-        $widget = [
-            'users' => $users,
-            //...
-        ];
-
         return view('dashboard', compact('widget'));
     }
 }
