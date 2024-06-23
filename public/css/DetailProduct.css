@@ -4,6 +4,23 @@
 }
 .col-sm-7>img{
     width: 80%;
+    border-radius: 10px;
+}
+
+.btn-orange {
+    background-color: #ff8e31 !important;
+    color: #fff !important;
+    width: 60%;
+    border: none;
+    padding: 10px 0;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn-orange:hover {
+    background-color: #ff8e31 !important;
+    color: #000 !important;
+    cursor: pointer;
 }
 /* Style cho dropdown */
 #ringSizeSelect {
@@ -97,3 +114,32 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+.description-diamond {
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .diamond-details {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .diamond-details td {
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .diamond-details tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .diamond-details tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  
+  .diamond-details tr:hover {
+    background-color: #f1f1f1;
+  }

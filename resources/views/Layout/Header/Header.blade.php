@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luxury Diamond</title>
-    <link rel="stylesheet" href="{{ asset('css_Hoa/Header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Header.css') }}">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
@@ -13,7 +13,7 @@
     <header>
         <div class="top-header">
             <div class="left">
-                <img src="/Picture_Hoa/Diamond.jpg" alt="Brilliance Logo" class="logo" />
+                <img src="/Picture_web/Diamond.jpg" alt="Brilliance Logo" class="logo" />
                 <div class="address">
                     <p>Hệ thống showrooms</p>
                     <p>CN HCM: 35 Trần Phú, Phường 4, quận 5, TP.HCM</p>

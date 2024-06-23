@@ -7,11 +7,11 @@
     <title>Địa chỉ & Thanh toán</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css_Hoa/Payment.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Payment.css') }}">
 </head>
 
 <body>
-    @include('Header_Hoa.Header')
+    @include('Layout.Header.Header')
     <div class="container mt-3">
         <h2 class="mb-4">Địa chỉ & Thanh toán</h2>
         <div class="md-stepper-horizontal orange mb-4">
@@ -40,7 +40,7 @@
             <!-- Order Fields -->
             <input type="hidden" name="order_date" id="order_date">
             <input type="hidden" name="total_price" id="total_price"
-                value="{{ array_sum(array_column($cartItems, 'price_rate')) }}">
+                value="{{ array_sum(array_column($cartItems, 'total_price')) }}">
 
             <div class="row">
                 <div class="col-md-8 mb-3">
@@ -65,12 +65,7 @@
                                     <input type="text" class="form-control" id="phone" name="phone" required>
                                 </div>
                             </div>
-                            <div class="form-check mb-3">
-                                <input type="checkbox" class="form-check-input" id="subscribe" name="subscribe">
-                                <label class="form-check-label" for="subscribe">Đăng ký cho tôi nhận ưu đãi độc quyền từ
-                                    Luxury Diamond</label>
-                            </div>
-                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Thanh toán</button>
+                            <button type="button" class="btn btn-orange" onclick="nextStep(2)">Thanh toán</button>
                         </div>
 
                         <div class="step" id="step-2" style="display: none;">
@@ -86,7 +81,7 @@
                                     value="paypal">
                                 <label class="form-check-label" for="paypal">PayPal</label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check mb-3">
                                 <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer"
                                     value="bank">
                                 <label class="form-check-label" for="bankTransfer">Chuyển khoản ngân hàng</label>
@@ -97,8 +92,8 @@
                             <div id="bank-info" class="payment-info" style="display: none;">
                                 <p>Thông tin chuyển khoản ngân hàng.</p>
                             </div>
-                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Quay lại</button>
-                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Tiếp tục</button>
+                            <button type="button" class="btn btn-orange" onclick="prevStep(1)">Quay lại</button>
+                            <button type="button" class="btn btn-orange" onclick="nextStep(3)">Tiếp tục</button>
                         </div>
 
                         <div class="step" id="step-3" style="display: none;">
@@ -114,20 +109,20 @@
                                     @foreach ($cartItems as $item)
                                     <tr>
                                         <td>{{ $item['product_name'] }}</td>
-                                        <td>{{ number_format($item['price_rate'], 0, ',', '.') }} VND</td>
+                                        <td>{{ number_format($item['total_price'], 0, ',', '.') }}₫</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>Tổng cộng:</td>
-                                        <td>{{ number_format(array_sum(array_column($cartItems, 'price_rate')), 0, ',', '.') }}
-                                            VND</td>
+                                        <td><strong>Tổng cộng:</strong></td>
+                                        <td>{{ number_format(array_sum(array_column($cartItems, 'total_price')), 0, ',', '.') }}
+                                            ₫</td>
                                     </tr>
                                 </tfoot>
                             </table>
-                            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Quay lại</button>
-                            <button type="submit" class="btn btn-primary">Đặt hàng</button>
+                            <button type="button" class="btn btn-orange" onclick="prevStep(2)">Quay lại</button>
+                            <button type="submit" class="btn btn-orange">Đặt hàng</button>
                         </div>
                     </div>
                 </div>
@@ -139,18 +134,18 @@
                                 @foreach ($cartItems as $item)
                                 <!-- Order Details Fields -->
                                 <input type="hidden" name="product_code" value="{{ $item['product_code'] }}">
-                                <input type="hidden" name="unitprice" value="{{ $item['price_rate'] }}">
+                                <input type="hidden" name="unitprice" value="{{ $item['total_price'] }}">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
                                         <img src="{{ $item['image'] }}" alt="{{ $item['product_name'] }}" width="50">
                                         <strong>{{ $item['product_name'] }}</strong>
                                     </div>
-                                    <span>{{ number_format($item['price_rate'], 0, ',', '.') }} VND</span>
+                                    <span>{{ number_format($item['total_price'], 0, ',', '.') }}₫</span>
                                 </li>
                                 @endforeach
                             </ul>
-                            <p class="mt-3">Tổng cộng:
-                                {{ number_format(array_sum(array_column($cartItems, 'price_rate')), 0, ',', '.') }} VND
+                            <p class="mt-3"><strong>Tổng cộng:</strong>
+                                {{ number_format(array_sum(array_column($cartItems, 'total_price')), 0, ',', '.') }}₫
                             </p>
                         </div>
                     </div>
@@ -158,7 +153,7 @@
             </div>
         </form>
     </div>
-    @include('Footer_Hoa.Footer')
+    @include('Layout.Footer.Footer')
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

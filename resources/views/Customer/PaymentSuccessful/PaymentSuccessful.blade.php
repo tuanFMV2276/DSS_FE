@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css_Hoa/PaymentSuccessful.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/PaymentSuccessful.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Payment</title>
+    <title>Thanh toán thành công</title>
 </head>
 
 <body>

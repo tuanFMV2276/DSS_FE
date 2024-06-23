@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
+
 
 class OrderController extends Controller
 {
@@ -34,7 +38,8 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $orderData = [
             'order_date' => Carbon::today()->format('Y-m-d'),
             'name' => $request->input('name'),
@@ -61,14 +66,35 @@ class OrderController extends Controller
                 'product_id' => $id,
                 'unit_price' => $request->input('unitprice'),
             ];
-            $orderDetailData  = Http::post('http://127.0.0.1:8000/api/orderdetail',  $orderDetailData );
+            $orderDetailResponse = Http::post('http://127.0.0.1:8000/api/orderdetail', $orderDetailData);
 
-            return view('Customer.PaymentSuccessful.PaymentSuccessful', ['orderId' => $orderId]);
-        
+            if ($orderDetailResponse->successful()) {
+                // Save payment information
+                $paymentData = [
+                    'order_id' => $orderId,
+                    'payment_method' => $request->input('paymentMethod'),
+                    'date_time' => Carbon::today()->format('Y-m-d'),
+                ];
+
+                $paymentResponse = Http::post('http://127.0.0.1:8000/api/payment', $paymentData);
+
+                if ($paymentResponse->successful()) {
+                    return view('Customer.PaymentSuccessful.PaymentSuccessful', ['orderId' => $orderId]);
+                } else {
+                    // Rollback if payment save fails
+                    Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
+                    return back()->withErrors('Error saving payment.');
+                }
+            } else {
+                // Rollback if order detail save fails
+                Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
+                return back()->withErrors('Error creating order detail.');
+            }
         } else {
-            // Xử lý lỗi nếu yêu cầu không thành công
+            // Handle error if creating order fails
             return back()->withErrors('Error creating order.');
         }
+        
     }
 
     /**

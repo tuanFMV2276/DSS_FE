@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class ListProductController extends Controller
 {
@@ -12,48 +14,58 @@ class ListProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch data from API endpoints
+        $sort = $request->query('sort', 'price_asc');
+        $priceRange = $request->query('price_range', '');
+
         $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
         $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
         $extraDiamonds = collect(Http::get('http://127.0.0.1:8000/api/exdiamond')->json());
         $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
         $diamondPriceList = collect(Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json());
 
-        // Prepare a mapping for diamond prices
-        $diamondPrices = [];
-        foreach ($diamondPriceList as $price) {
-            $key = "{$price['origin']}_{$price['clarity']}_{$price['color']}_{$price['cut']}_{$price['cara_weight']}";
-            $diamondPrices[$key] = $price['price'];
+        if ($priceRange) {
+            list($min, $max) = strpos($priceRange, '-') !== false ? explode('-', $priceRange) : [$priceRange, PHP_INT_MAX];
+            $products = $products->filter(function ($product) use ($min, $max) {
+                $productPrice = $product['total_price'];
+                return $productPrice >= $min && $productPrice <= $max;
+            });
         }
 
-        // Calculate prices for each product
-        $products = $products->map(function ($product) use ($mainDiamonds, $extraDiamonds, $diamondShells, $diamondPrices) {
-            $mainDiamond = $mainDiamonds->firstWhere('id', $product['main_diamond_id']);
-            $extraDiamond = $extraDiamonds->firstWhere('id', $product['extra_diamond_id']);
-            $diamondShell = $diamondShells->firstWhere('id', $product['diamond_shell_id']);
+        if ($sort == 'price_asc') {
+            $products = $products->sortBy('total_price');
+        } elseif ($sort == 'price_desc') {
+            $products = $products->sortByDesc('total_price');
+        }
 
-            // Ensure all necessary data exists
-            if ($mainDiamond && $extraDiamond && $diamondShell) {
-                $key = "{$mainDiamond['origin']}_{$mainDiamond['clarity']}_{$mainDiamond['color']}_{$mainDiamond['cut']}_{$mainDiamond['cara_weight']}";
-                $mainDiamondPrice = $diamondPrices[$key] ?? 0;
-
-                $extraDiamondPrice = $extraDiamond['price'] ?? 0;
-                $diamondShellPrice = $diamondShell['price'] ?? 0;
-
-                // Calculate the final price
-                $product['price'] = ($mainDiamondPrice + ($extraDiamondPrice * $product['number_ex_diamond']) + $diamondShellPrice) * $product['price_rate'];
-            } else {
-                $product['price'] = 0; // Set price to 0 if data is incomplete
-            }
-
-            return $product;
-        });
-
-        // Return the updated products to the view
         return view('Customer.ListProduct.ListProductPage', ['products' => $products]);
     }
+
+    public function filterProducts(Request $request)
+    {
+        $sort = $request->query('sort', 'price_asc');
+        $priceRange = $request->query('price_range', '');
+    
+        $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
+        
+        if ($priceRange) {
+            list($min, $max) = strpos($priceRange, '-') !== false ? explode('-', $priceRange) : [$priceRange, PHP_INT_MAX];
+            $products = $products->filter(function ($product) use ($min, $max) {
+                $productPrice = $product['total_price'];
+                return $productPrice >= $min && $productPrice <= $max;
+            });
+        }
+    
+        if ($sort == 'price_asc') {
+            $products = $products->sortBy('total_price');
+        } elseif ($sort == 'price_desc') {
+            $products = $products->sortByDesc('total_price');
+        }
+    
+        return response()->json($products->values()->all()); // Ensure it's an array
+    }
+    
 
     /**
      * Show the form for creating a new resource.

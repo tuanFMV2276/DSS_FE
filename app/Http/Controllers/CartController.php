@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class CartController extends Controller
 {
@@ -21,10 +22,15 @@ class CartController extends Controller
 
 public function add(Request $request)
 {
+    $product_code = $request->input('product_code'); // Lấy giá trị product_code từ request
+    $url = "http://127.0.0.1:8000/api/product/update/{$product_code}"; // Tạo URL với product_code
+    $response = Http::get($url); // Gửi yêu cầu GET đến URL
+    $id = $response->json('id');
+    
     $product = [
-        'id' => $request->input('id'), // Ensure unique ID for each cart item
+        'id' => $id, // Ensure unique ID for each cart item
         'product_name' => $request->input('name'),
-        'price_rate' => $request->input('price'),
+        'total_price' => $request->input('total_price'),
         'ringsize' => $request->input('ringsize'),
         'image' => $request->input('image'),
         'product_code' => $request->input('product_code'),

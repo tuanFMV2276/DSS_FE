@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class HomeController extends Controller
 {
@@ -14,17 +16,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Fetch data from the DiamondShell API endpoint
-        $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
-
-        // Format the price for each diamond shell
-        $diamondShells = $diamondShells->map(function ($diamondShell) {
-            $diamondShell['price'] = number_format($diamondShell['price'], 0, ',', '.');
-            return $diamondShell;
-        });
-        
+        // Fetch data from API endpoints
+    $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
+    $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
+    $extraDiamonds = collect(Http::get('http://127.0.0.1:8000/api/exdiamond')->json());
+    $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
+    $diamondPriceList = collect(Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json());    
         // Return the diamond shells to the view
-        return view('Customers.HomePage/HomePage', ['diamondShells' => $diamondShells]);
+        return view('Customer/Homepage/HomePage', ['products' => $products]);
     }
 
     /**

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    @include('Layout.Header_Hoa/Header')
+    @include('Layout.Header/Header')
     <div class="container-xxl">
         <div class="slide-show">
             <div class="list-images">
@@ -98,33 +98,33 @@
             <div class="carousel-inner">
                 <div class="product">
                     <img src="{{asset('/Picture_Product/ShellDiamond1.jpg')}}" alt="Diamond 1" />
-                    <p>{{ $diamondShells[0]['name'] }}</p>
-                    <strong>{{ $diamondShells[0]['price'] }}₫</strong>
+                    <p>{{ $products[0]['product_name'] }}</p>
+                    <strong>{{ number_format($products[0]['total_price'], 0, ',', '.') }}₫</strong>
                 </div>
                 <div class="product">
                     <img src="{{asset('/Picture_Product/ShellDiamond2.jpg')}}" alt="Diamond 2" />
-                    <p>{{ $diamondShells[1]['name'] }}</p>
-                    <strong>{{ $diamondShells[1]['price'] }}₫</strong>
+                    <p>{{ $products[1]['product_name'] }}</p>
+                    <strong>{{ number_format($products[1]['total_price'], 0, ',', '.') }}₫</strong>
                 </div>
                 <div class="product">
                     <img src="{{asset('/Picture_Product/ShellDiamond3.jpg')}}" alt="Diamond 3" />
-                    <p>{{ $diamondShells[2]['name'] }}</p>
-                    <strong>{{ $diamondShells[2]['price'] }}₫</strong>
+                    <p>{{ $products[2]['product_name'] }}</p>
+                    <strong>{{ number_format($products[2]['total_price'], 0, ',', '.') }}₫</strong>
                 </div>
                 <div class="product">
                     <img src="{{asset('/Picture_Product/ShellDiamond4.jpg')}}" alt="Diamond 4" />
-                    <p>{{ $diamondShells[3]['name'] }}</p>
-                    <strong>{{ $diamondShells[3]['price'] }}₫</strong>
+                    <p>{{ $products[3]['product_name'] }}</p>
+                    <strong>{{ number_format($products[3]['total_price'], 0, ',', '.') }}₫</strong>
                 </div>
                 <div class="product">
                     <img src="{{asset('/Picture_Product/ShellDiamond5.jpg')}}" alt="Diamond 5" />
-                    <p>{{ $diamondShells[4]['name'] }}</p>
-                    <strong>{{ $diamondShells[4]['price'] }}₫</strong>
+                    <p>{{ $products[4]['product_name'] }}</p>
+                    <strong>{{ number_format($products[4]['total_price'], 0, ',', '.') }}₫</strong>
                 </div>
                 <div class="product">
                     <img src="{{asset('/Picture_Product/ShellDiamond6.jpg')}}" alt="Diamond 6" />
-                    <p>{{ $diamondShells[5]['name'] }}</p>
-                    <strong>{{ $diamondShells[5]['price'] }}₫</strong>
+                    <p>{{ $products[5]['product_name'] }}</p>
+                    <strong>{{ number_format($products[5]['total_price'], 0, ',', '.') }}₫</strong>
                 </div>
             </div>
             <div class="carousel-controls">
@@ -180,7 +180,7 @@
             </div>
         </div>
     </div>
-    @include('Layout.Footer_Hoa/Footer')
+    @include('Layout.Footer/Footer')
     <script src="{{asset('js/HomePage.js')}}"></script>
 </body>
 

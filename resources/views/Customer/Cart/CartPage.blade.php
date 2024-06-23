@@ -38,6 +38,10 @@
         font-weight: 700;
     }
 
+    .cart-item-title a:hover {
+        color: #ff8e31;
+    }
+
     .cart-item-price b {
         font-size: 18px;
         color: #ff8e31;
@@ -48,6 +52,16 @@
         cursor: pointer;
         display: block;
         margin-top: 10px;
+    }
+
+    .cart-remove:hover {
+        text-decoration: none !important;
+        background: #ff0000 !important;
+        color: #fff !important;
+    }
+
+    .btn-link {
+        color: #ff0000 !important;
     }
 
     .order-summary {
@@ -137,9 +151,9 @@
 </head>
 
 <body>
-    @include('Layout.Header_Hoa.Header')
+    @include('Layout.Header.Header')
     <div class="container" id="cart-container">
-        <div class="row">
+        <div class="row mb-3">
             <!-- Cart Items Section -->
             <div class="col-md-8">
                 <div class="cart-items">
@@ -148,7 +162,7 @@
                     <div class="cart-item">
                         <input type="hidden" name="code" value="{{ $item['product_code'] }}">
                         <div class="text-center">
-                            <a href="#">
+                            <a href="{{ route('product.show', $item['id']) }}" style="text-decoration: none">
                                 <img src="{{ $item['image'] }}" alt="Product Image" style="width: 150px; height: 150px">
                             </a>
                             <form action="{{ route('cart.remove', $index) }}" method="POST" style="display:inline;">
@@ -158,13 +172,14 @@
                         </div>
                         <div class="cart-item-details">
                             <h4 class="cart-item-title">
-                                <a href="#">{{ $item['product_name'] }}</a>
+                                <a href="{{ route('product.show', $item['id']) }}"
+                                    style="text-decoration: none">{{ $item['product_name'] }}</a>
                             </h4>
                             <div class="cart-item-price">
-                                <b>{{ number_format($item['price_rate'], 0, ',', '.') }} VND</b>
+                                Giá: <b>{{ number_format($item['total_price'], 0, ',', '.') }}₫</b>
                             </div>
                             <div class="cart-item-ringsize">
-                                <b>{{ $item['ringsize'] }}</b>
+                                Size: <b>{{ $item['ringsize'] }}</b>
                             </div>
                         </div>
                     </div>
@@ -183,7 +198,7 @@
                             <tr>
                                 <td>Tổng phụ</td>
                                 <td class="text-right">
-                                    {{ number_format(array_sum(array_column($cart, 'price_rate')), 0, ',', '.') }} VND
+                                    {{ number_format(array_sum(array_column($cart, 'total_price')), 0, ',', '.') }} VND
                                 </td>
                             </tr>
                             <tr>
@@ -193,15 +208,15 @@
                             <tr>
                                 <td>Tất cả</td>
                                 <td class="text-right">
-                                    {{ number_format(array_sum(array_column($cart, 'price_rate')), 0, ',', '.') }} VND
+                                    {{ number_format(array_sum(array_column($cart, 'total_price')), 0, ',', '.') }} VND
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="voucher-section">
+                    <!-- <div class="voucher-section">
                         <input type="text" placeholder="Nhập mã voucher">
                         <button class="apply-voucher-btn">Áp dụng</button>
-                    </div>
+                    </div> -->
                     <div class="checkout-button">
                         <a href="/Payment" class="btn btn-orange">Thanh Toán Ngay</a>
                     </div>
@@ -209,7 +224,7 @@
             </div>
         </div>
     </div>
-    @include('Layout.Footer_Hoa.Footer')
+    @include('Layout.Footer.Footer')
 </body>
 
 </html>
