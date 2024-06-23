@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manager;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ManagerController extends Controller
 {
@@ -12,6 +13,26 @@ class ManagerController extends Controller
     public function index()
     {
         return redirect('/home-manager');
+    }
+    public function homeManager()
+    {
+        // Gọi API để lấy dữ liệu
+        $employees = Http::get('http://127.0.0.1:8000/api/employee')->json();
+        $employees = collect($employees)->whereIn('role_id', [2, 4]);
+        $products = Http::get('http://127.0.0.1:8000/api/product')->json();
+        $customers = Http::get('http://127.0.0.1:8000/api/customer')->json();
+        $payments = Http::get('http://127.0.0.1:8000/api/payment')->json();
+        $maindiamonds = Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
+        $exdiamonds = Http::get('http://127.0.0.1:8000/api/exdiamond')->json();
+        $shelldiamonds = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
+        // Phân trang cho orders
+        $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
+        $orders = collect($orders);
+
+        // Số dòng trên mỗi trang
+       
+        
+        return view('HomeStaff_Manh.HomeManager', compact('employees', 'products', 'customers', 'payments','maindiamonds','exdiamonds','shelldiamonds','orders'));
     }
 
     public function showEmployeeDetail($id)
@@ -29,6 +50,7 @@ class ManagerController extends Controller
     
 
     // manage orders
+    
     public function updateOrderStatus(Request $request, $id)
     {
 
@@ -55,6 +77,11 @@ class ManagerController extends Controller
     // Get main diamond details
     $maindiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$product['main_diamond_id']}");
     $maindiamond = $maindiamondResponse->json();
+    $exdiamondResponse = Http::get("http://127.0.0.1:8000/api/exdiamond/{$product['extra_diamond_id']}");
+    $exiamond = $exdiamondResponse->json();
+
+    $diamondshellResponse = Http::get("http://127.0.0.1:8000/api/diamondshell/{$product['diamond_shell_id']}");
+    $diamondshell = $diamondshellResponse->json();
 
     // Get order details
     $orderResponse = Http::get("http://127.0.0.1:8000/api/order/{$id}");
@@ -64,7 +91,10 @@ class ManagerController extends Controller
     $customerResponse = Http::get("http://127.0.0.1:8000/api/customer/{$order['customer_id']}");
     $customer = $customerResponse->json();
 
-    return view('DeliveryStaff.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond'));
+    $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
+    $payments = $paymentResponse->json();
+
+    return view('HomeStaff_Manh.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments','exiamond','diamondshell'));
 
     }
 
@@ -78,6 +108,40 @@ class ManagerController extends Controller
             return back()->with('error', 'Failed to delete order.');
         }
     }
+
+    public function searchOrdersAjax(Request $request)
+    {
+        $orderResponse = Http::get('http://127.0.0.1:8000/api/order', [
+            'order_date' => $request->order_date
+        ]);
+    
+        $orders = $orderResponse->json();
+    
+        $customerResponse = Http::get('http://127.0.0.1:8000/api/customer',[
+            'customer_name' => $request->customer_name
+        ]);
+        $customers = $customerResponse->json();
+    
+        $paymentResponse = Http::get('http://127.0.0.1:8000/api/payment');
+        $payments = $paymentResponse->json();
+
+        // $jointable= $order->map(function ($orders, $id) {
+        //     $single_customer = $customers->where('id',$order->customer_id);
+        //     return collect($order)->merge($single_customer);
+        // });
+
+
+        return response()->json([
+             'jointable' => $jointable,
+            // 'orders' => $orders,
+            // 'customers' => $customer,
+            // 'payments' => $payments,
+        ]);
+    }
+    
+
+
+
 
     // manage product
 
@@ -110,5 +174,3 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Product deleted successfully.');
     }
 }
-
-

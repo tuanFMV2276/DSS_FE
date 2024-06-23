@@ -3,17 +3,18 @@ button {
     font-weight: 400;
     color: #fff;
     padding: 5px 10px;
-    border: none;
-    background: #4070f4;
-    border-radius: 6px;
+    background-color: rgb(50, 50, 50);
+    border-radius: 4px;
     cursor: pointer;
-  }
-  button:hover {
-    background-color: #bff226;
-  }
+    transition: transform 0.3s ease;
+}
+button:hover {
+    background-color: rgb(55, 55, 55);;
+    transform: scale(1.05);
+}
  /* CSS cho popup */
  .modal {
-    display: none; /* Ẩn popup theo mặc định */
+    display: none; 
     position: fixed;
     z-index: 1;
     left: 0;
@@ -22,7 +23,7 @@ button {
     height: 100%;
     overflow: auto;
     background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.4); 
 }
 
 .modal-content {
@@ -45,4 +46,31 @@ button {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+.status-btn{
+    border-radius: 5px 5px 0px 0px;
+}
+.add-st{
+    background-color: #1E90FF;
+    border: none;
+}
+.add-st:hover{
+    background-color: #1478dc;
+}
+
+.update-st{
+    background-color: #ffdd1eff;
+    color: black;
+    border: none;
+}
+.update-st:hover{
+    background-color:  rgb(204, 173, 0);
+}
+.delete-st{
+    background-color: #ff1e1e;
+    color: black;
+    border: none;
+}
+.delete-st:hover{
+    background-color:  #d70000;
 }

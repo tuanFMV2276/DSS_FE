@@ -244,3 +244,38 @@
 .home-section{
     padding: 5px;
 }
+#div_search_order{
+margin: 5px 0px 10px 0px;
+text-align: left;
+}
+.icon-gender{
+  font-size: 18px;
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 50%;
+}
+.icon-status{
+  font-size: 16px;
+}
+.more-margintop{
+  margin: 10px 0px 0px 0px;
+}
+
+.icon-blue {
+  color: #1E90FF; /* Màu xanh biển */
+  font-size: 22px; /* Kích thước lớn hơn */
+  transition: transform 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+}
+
+.icon-blue:hover {
+  transform: scale(1.3); /* Phóng to lên 1.3 lần khi hover */
+  color: #1C86EE; /* Màu xanh biển đậm hơn khi hover (tùy chọn) */
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa ảnh và thông tin */
+}
+

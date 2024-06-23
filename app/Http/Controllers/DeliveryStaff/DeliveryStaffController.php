@@ -54,6 +54,9 @@ class DeliveryStaffController extends Controller
     $customerResponse = Http::get("http://127.0.0.1:8000/api/customer/{$order['customer_id']}");
     $customer = $customerResponse->json();
 
-    return view('DeliveryStaff.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond'));
+    $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
+    $payments = $paymentResponse->json();
+
+    return view('DeliveryStaff.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond','payments'));
 }
 }

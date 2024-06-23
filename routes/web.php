@@ -35,13 +35,7 @@ use App\Http\Controllers\OrderCustomerController;
 //------------------------------------------------------------------------------------------
 // Route của manager '/home-manager'
     
-Route::get('/home-manager', function () {
-    $employees = Http::get('http://127.0.0.1:8000/api/employee')->json();
-    $employees = collect($employees)->whereIn('role_id', [2, 4]);
-    $products = Http::get('http://127.0.0.1:8000/api/product')->json();
-    $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
-    return view('HomeStaff_Manh.HomeManager', compact('employees', 'products', 'orders'));
-})->name('manager.home');
+Route::get('/home-manager', [ManagerController::class, 'homeManager'])->name('manager.home');
 
 Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
 Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateEmployee'])->name('manager.updateEmployee');
@@ -53,18 +47,12 @@ Route::post('/products', [ManagerController::class, 'storeProduct'])->name('mana
 Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
 Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
 Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
-
-
+Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
 
 // End route manager
 //------------------------------------------------------------------------------------------
 // Route của sale staff '/home-salestaff'
-Route::get('/home-salestaff', function () {
-    $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
-    $orders = collect($orders)->whereIn('status', [0,1,5]);
-
-    return view('HomeStaff_Manh.HomeSaleStaff', compact ('orders'));
-})->name('salestaff.home');
+Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
 Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
 
 

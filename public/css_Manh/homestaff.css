@@ -5,12 +5,6 @@ ol, ul {
     margin-left: 0%;
     margin-right: 0%;
 }
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
 }
@@ -23,6 +17,10 @@ body {
     padding: 20px 0;
     border-bottom: 2px solid #ddd;
     margin-bottom: 20px;
+    text-align: center;
+}
+
+h1{
     text-align: center;
 }
 
@@ -93,12 +91,6 @@ body {
     color: #b58254;
 }
 
-.main-content {
-    flex: 1;
-    padding: 0px;
-    text-align: center;
-}
-
 .table-container {
     display: none;
 }
@@ -110,12 +102,13 @@ body {
 }
 
 .table-container table, .table-container th, .table-container td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: none;
+    padding: 7px;
 }
 
 .table-container th {
-    background-color: #f4f4f4;
+    background-color: rgb(50, 50, 50);
+    color:white;
     text-align: center;
 }
 
