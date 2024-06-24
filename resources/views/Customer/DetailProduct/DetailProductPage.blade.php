@@ -75,7 +75,7 @@
         <table class="diamond-details">
             <tr>
                 <td>Shape:</td>
-                <td>{{ $mainDiamond['diamond_name'] }}</td>
+                <td>{{ $mainDiamond['shape'] }}</td>
                 <td>Polish:</td>
                 <td>{{ $mainDiamond['polish'] ?? 'N/A' }}</td>
             </tr>
