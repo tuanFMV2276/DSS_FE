@@ -40,15 +40,19 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $orderData = [
-            'order_date' => Carbon::today()->format('Y-m-d'),
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'address' => $request->input('address'),
-            'phone' => $request->input('phone'),
-            'total_price' => $request->input('total_price'),
-            'status' => 0,
-        ];
+        $paymentMethod = $request->input('paymentMethod');
+    // Đặt status dựa trên phương thức thanh toán
+    $status = ($paymentMethod == 'paypal') ? 1 : 0;
+
+    $orderData = [
+        'order_date' => Carbon::today()->format('Y-m-d'),
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'address' => $request->input('address'),
+        'phone' => $request->input('phone'),
+        'total_price' => $request->input('total_price'),
+        'status' => $status, // Đặt status ở đây
+    ];
 
         $orderResponse = Http::post('http://127.0.0.1:8000/api/order', $orderData);
 
@@ -69,13 +73,10 @@ class OrderController extends Controller
             $orderDetailResponse = Http::post('http://127.0.0.1:8000/api/orderdetail', $orderDetailData);
 
             if ($orderDetailResponse->successful()) {
-                $paymentMethod = $request->input('paymentMethod');
-                $paymentStatus = ($paymentMethod === 'paypal') ? 1 : 0;
                 // Save payment information
                 $paymentData = [
                     'order_id' => $orderId,
                     'payment_method' => $request->input('paymentMethod'),
-                    'status' => $paymentStatus,
                     'date_time' => Carbon::today()->format('Y-m-d'),
                 ];
 

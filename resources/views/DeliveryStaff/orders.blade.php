@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-
-<?php
-//Data for Customer rating and Shell chart
-$dataPointsCustomerMen = [['label' => 'T1', 'y' => 2.3], ['label' => 'T2', 'y' => 3.0], ['label' => 'T3', 'y' => 2.6], ['label' => 'T4', 'y' => 2.1], ['label' => 'T5', 'y' => 1.9], ['label' => 'T6', 'y' => 2.0]];
-$dataPointsCustomerWoMen = [['label' => 'T1', 'y' => 3.1], ['label' => 'T2', 'y' => 3.5], ['label' => 'T3', 'y' => 3.8], ['label' => 'T4', 'y' => 4.0], ['label' => 'T5', 'y' => 3.7], ['label' => 'T6', 'y' => 3.4]];
-$dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label' => 'Nhẫn kim cương nữ', 'y' => 40]];
-?>
 <html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Home manager </title>
+    <title>Home delivery-staff</title>
     <link rel="stylesheet" href="{{ asset('css_Manh/homestaff.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/homestaffv2.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/button.css') }}">
