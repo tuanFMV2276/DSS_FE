@@ -10,14 +10,12 @@ class DeliveryStaffController extends Controller
 {
     public function index()
     {
-        $response = Http::get('http://127.0.0.1:8000/api/order');
-        $orders = $response->json();
         
+        $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
+        $orders = collect($orders)->whereNotIn('status', [0, 1])->values()->all();
+        $payments = Http::get('http://127.0.0.1:8000/api/payment')->json();
 
-        // Filter orders based on status
-        $filteredOrders = collect($orders)->groupBy('status');
-
-        return view('DeliveryStaff.orders', compact('filteredOrders'));
+        return view('DeliveryStaff.orders', compact('orders','payments'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -45,6 +43,11 @@ class DeliveryStaffController extends Controller
     // Get main diamond details
     $maindiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$product['main_diamond_id']}");
     $maindiamond = $maindiamondResponse->json();
+    $exdiamondResponse = Http::get("http://127.0.0.1:8000/api/exdiamond/{$product['extra_diamond_id']}");
+    $exiamond = $exdiamondResponse->json();
+
+    $diamondshellResponse = Http::get("http://127.0.0.1:8000/api/diamondshell/{$product['diamond_shell_id']}");
+    $diamondshell = $diamondshellResponse->json();
 
     // Get order details
     $orderResponse = Http::get("http://127.0.0.1:8000/api/order/{$id}");
@@ -57,6 +60,6 @@ class DeliveryStaffController extends Controller
     $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
     $payments = $paymentResponse->json();
 
-    return view('DeliveryStaff.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond','payments'));
+    return view('DeliveryStaff.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments','exiamond','diamondshell'));
 }
 }

@@ -313,7 +313,7 @@ $dataPointsPieShell = array(
                         <tbody id="order-list">
                             @foreach ($orders as $index => $order)
                                 @php
-                                    $customer = collect($customers)->firstWhere('id', $order['customer_id']);
+                                    //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
                                     $payment = collect($payments)->firstWhere('order_id', $order['id']);
                                     $statusLabels = [
                                         0 => 'Pending',
@@ -330,7 +330,7 @@ $dataPointsPieShell = array(
                                     <td>{{ $order['order_date'] }}</td>
                                     <td>{{ $order['total_price'] }}</td>
                                     <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td>
-                                    <td style="text-align: left;">
+                                    {{-- <td style="text-align: left;">
                                         <div class="customer-info">
                                             @if ($customer)
                                                 @if ($customer['gender'] == 'Male')
@@ -346,7 +346,9 @@ $dataPointsPieShell = array(
                                                 Email: {{ $customer ? $customer['email'] : 'Unknown' }}
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> --}}
+                                    <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
+                                        Email: {{ $order ? $order['email'] : 'Unknown' }}</td>
                                     <td>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</td>
                                     <td>
                                         <a href="{{ route('manager.showOrderDetail', $order['id']) }}">

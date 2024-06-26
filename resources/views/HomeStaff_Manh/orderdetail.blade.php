@@ -10,13 +10,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong><i class="fas fa-user-circle"></i> Name:</strong> {{ $customer['name'] }}</p>
-                    <p><strong><i class="fas fa-venus-mars"></i> Gender:</strong> {{ $customer['gender'] }}</p>
-                    <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ $customer['email'] }}</p>
+                    <p><strong><i class="fas fa-user-circle"></i> Name:</strong> {{ $order['name'] }}</p>
+                    {{-- <p><strong><i class="fas fa-venus-mars"></i> Gender:</strong> {{ $order['gender'] }}</p> --}}
+                    <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ $order['email'] }}</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong><i class="fas fa-phone"></i> Phone:</strong> {{ $customer['phone'] }}</p>
-                    <p><strong><i class="fas fa-map-marker-alt"></i> Address:</strong> {{ $customer['address'] }}</p>
+                    <p><strong><i class="fas fa-phone"></i> Phone:</strong> {{ $order['phone'] }}</p>
+                    <p><strong><i class="fas fa-map-marker-alt"></i> Address:</strong> {{ $order['address'] }}</p>
                 </div>
             </div>
         </div>
@@ -82,23 +82,24 @@
                 <div class="border">
                     <div class="row mt-3">
                         <div class="col-md-1">
-    
+
                         </div>
                         <div class="col-md-5">
                             <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image"
                                 class="img-thumbnail mb-2" width="100%">
                         </div>
                         <div class="col-md-1">
-    
+
                         </div>
                         <div class="col-md-5 mt-5">
-                            <p><strong>Name:</strong> {{ $product['product_name'] }}</p>
-                            <p><strong>Product Code:</strong> {{ $product['product_code'] }}</p>
-                            <p><strong>Size:</strong> {{ $product['size'] }} mm</p>
-                            <p><strong>Shell: </strong>{{ $diamondshell['name'] }}</p>
+                            <h1>{{ $product['product_name'] }}</h1>
+                            <p class="mt-5" style="font-size: 20px"><strong>Product Code:</strong>
+                                {{ $product['product_code'] }}</p>
+                            <p style="font-size: 20px"><strong>Size:</strong> {{ $product['size'] }} mm</p>
+                            <p style="font-size: 20px"><strong>Shell: </strong>{{ $diamondshell['name'] }}</p>
                         </div>
                     </div>
-    
+
                     <h4 class="text-center mt-5">Chi tiết kim cương đính ở trung tâm</h4>
                     <table class="diamond-details">
                         <tr>
