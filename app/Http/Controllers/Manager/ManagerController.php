@@ -17,8 +17,7 @@ class ManagerController extends Controller
     public function homeManager()
     {
         // Gọi API để lấy dữ liệu
-        $employees = Http::get('http://127.0.0.1:8000/api/employee')->json();
-        $employees = collect($employees)->whereIn('role_id', [2, 4]);
+        $employees = collect(Http::get('http://127.0.0.1:8000/api/employee')->json())->whereIn('role_id', [3, 4]);
         $products = Http::get('http://127.0.0.1:8000/api/product')->json();
         $customers = Http::get('http://127.0.0.1:8000/api/customer')->json();
         $payments = Http::get('http://127.0.0.1:8000/api/payment')->json();
@@ -34,6 +33,7 @@ class ManagerController extends Controller
         
         return view('HomeStaff_Manh.HomeManager', compact('employees', 'products', 'customers', 'payments','maindiamonds','exdiamonds','shelldiamonds','orders'));
     }
+
 
     public function showEmployeeDetail($id)
     {
@@ -109,35 +109,41 @@ class ManagerController extends Controller
         }
     }
 
-    public function searchOrdersAjax(Request $request)
-    {
-        $orderResponse = Http::get('http://127.0.0.1:8000/api/order', [
-            'order_date' => $request->order_date
-        ]);
-    
-        $orders = $orderResponse->json();
-    
-        $customerResponse = Http::get('http://127.0.0.1:8000/api/customer',[
-            'customer_name' => $request->customer_name
-        ]);
-        $customers = $customerResponse->json();
-    
-        $paymentResponse = Http::get('http://127.0.0.1:8000/api/payment');
-        $payments = $paymentResponse->json();
-
-        // $jointable= $order->map(function ($orders, $id) {
-        //     $single_customer = $customers->where('id',$order->customer_id);
-        //     return collect($order)->merge($single_customer);
-        // });
-
-
-        return response()->json([
-             'jointable' => $jointable,
-            // 'orders' => $orders,
-            // 'customers' => $customer,
-            // 'payments' => $payments,
-        ]);
+    public function searchOrdersAjax(Request $request){
+        $name = $request->customer_name;
+        $orders = Http::get("http://127.0.0.1:8000/api/order/search/{$name}")->json();
+        return response()->json(['orders' => $orders],200);
     }
+
+    // public function searchOrdersAjax(Request $request)
+    // {
+    //     $orderResponse = Http::get('http://127.0.0.1:8000/api/order', [
+    //         'order_date' => $request->order_date
+    //     ]);
+    
+    //     $orders = $orderResponse->json();
+    
+    //     $customerResponse = Http::get('http://127.0.0.1:8000/api/customer',[
+    //         'customer_name' => $request->customer_name
+    //     ]);
+    //     $customers = $customerResponse->json();
+    
+    //     $paymentResponse = Http::get('http://127.0.0.1:8000/api/payment');
+    //     $payments = $paymentResponse->json();
+
+    //     // $jointable= $order->map(function ($orders, $id) {
+    //     //     $single_customer = $customers->where('id',$order->customer_id);
+    //     //     return collect($order)->merge($single_customer);
+    //     // });
+
+
+    //     return response()->json([
+    //          'jointable' => $jointable,
+    //         // 'orders' => $orders,
+    //         // 'customers' => $customer,
+    //         // 'payments' => $payments,
+    //     ]);
+    // }
     
 
 

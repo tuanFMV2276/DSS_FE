@@ -45,7 +45,7 @@
 
     <section class="home-section">
         <div class="main-content">
-            <div id="chat-with-customer" class="table-container" style="display: none;">
+            <div id="chat-with-customer" class="table-container" style="display:contents;">
                 <div class="container">
                     <div class="chat-container">
                         <div class="chat-header">

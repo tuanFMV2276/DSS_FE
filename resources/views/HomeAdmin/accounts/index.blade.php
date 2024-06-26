@@ -1,162 +1,252 @@
-
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sidebar Menu HTML and CSS | CodingNepal</title>
-  <!-- Linking Google Font Link For Icons -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Admin</title>
+    <link rel="stylesheet" href="{{ asset('css_Manh/homestaff.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_Manh/homestaffv2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_Manh/staffchat.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_Manh/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('css_Manh/searchfield.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('css_Manh/admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
+
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <img src="images/logo.png" alt="logo" />
-      <h2>CodingLab</h2>
-    </div>
-    <ul class="sidebar-links">
-      <h4>
-        <span>Main Menu</span>
-        <div class="menu-separator"></div>
-      </h4>
-      <li>
-        <a href="#">
-          <span class="material-symbols-outlined"> dashboard </span>Dashboard</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> overview </span>Overview</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> monitoring </span>Analytic</a>
-      </li>
-      <h4>
-        <span>General</span>
-        <div class="menu-separator"></div>
-      </h4>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> folder </span>Projects</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> groups </span>Groups</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> move_up </span>Transfer</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> flag </span>All Reports</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined">
-            notifications_active </span>Notifications</a>
-      </li>
-      <h4>
-        <span>Account</span>
-        <div class="menu-separator"></div>
-      </h4>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> account_circle </span>Profile</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> settings </span>Settings</a>
-      </li>
-      <li>
-        <a href="#"><span class="material-symbols-outlined"> logout </span>Logout</a>
-      </li>
-    </ul>
-    <div class="user-account">
-      <div class="user-profile">
-        <img src="images/profile-img.jpg" alt="Profile Image" />
-        <div class="user-detail">
-          <h3>Eva Murphy</h3>
-          <span>Web Developer</span>
+    <header class="sidebar">
+        <div class="logo-details">
+            <i class="fa-solid fa-ellipsis-vertical" id="btn"></i>
+            <span class="links_name"></span>
         </div>
-      </div>
-    </div>
-  </aside>
-  <div class="main-content">
-    <div class="container mt-5">
-        <h1>Manage Accounts</h1>
-        {{-- <a href="{{ route('admin.accounts.create') }}" class="btn btn-primary mb-3">Create New Account</a> --}}
-        <form action="/employees/create" method="GET">
-            @csrf
-            <button type="submit">ADD Employee</button>
-        </form>
+        <ul class="nav-list">
+            <li>
+                <a href="#" onclick="showTable('account-customer')">
+                    <i class="fa-regular fa-user"></i>
+                    <span class="links_name">Customer</span>
+                </a>
+                <span class="tooltip">Customer</span>
+            </li>
+            <li>
+                <a href="#" onclick="showTable('staff-management')" class="status-btn active" data-status="all">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="links_name">Employees</span>
+                </a>
+                <span class="tooltip">Employees</span>
+            </li>
+            <li class="profile">
+                <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+            </li>
+        </ul>
+    </header>
 
-        <h2>Employees</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($employees as $employee)
-                    <tr>
-                        <td>{{ $employee['id'] }}</td>
-                        <td>{{ $employee['user_name'] }}</td>
-                        <td>{{ $employee['email'] }}</td>
-                        <td>
-
-                            {{-- <a href="{{ route('employees.show', $employee['id']) }}" class="btn btn-warning">Edit</a> --}}
-                            {{-- <a href="{{ route('admin.accounts.edit', $employee['id']) }}" class="btn btn-warning">Edit</a> --}}
-                            {{-- <form action="{{ route('admin.accounts.destroy', $employee['id']) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                    </form> --}}
-                            {{-- <form action="{{ route('employees.destroy', $employee['id']) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form> --}}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <h2>Customers</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($customers as $customer)
-                    <tr>
-                        <td>{{ $customer['id'] }}</td>
-                        <td>{{ $customer['name'] }}</td>
-                        <td>{{ $customer['email'] }}</td>
-                        <td>
-                            <a href="{{ route('admin.accounts.edit', $customer['id']) }}"
-                                class="btn btn-warning">Edit</a>
-                            <form action="{{ route('admin.accounts.destroy', $customer['id']) }}" method="POST"
-                                style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-  </div>
+    <section class="home-section">
+        <div class="main-content">
+          
+            <div id="account-customer" class="table-container" style="display:contents;">
+              <h1>Customer Account List</h1> 
+              <div class="top-bar">
+                  <div id="div_search_product">
+                      <form id="search-form">
+                          <div class="search-bar">
+                              <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                              <i class="fas fa-user"></i>
+                              <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                              <i class="fas fa-calendar-alt"></i>
+                              <button type="submit">
+                                  <div>Search</div>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+                  <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Account</button></a>
+              </div>
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Date_of_birth</th>
+                            <th>Gender</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-list">
+                        @foreach ($customers as $customer)
+                            <tr">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $customer['id'] }}</td>
+                                <td>{{ $customer['name'] }}</td>
+                                <td>{{ $customer['email'] }}</td>
+                                <td>{{ $customer['password'] }}</td>
+                                <td>{{ $customer['phone'] }}</td>
+                                <td>{{ $customer['address'] }}</td>
+                                <td>{{ $customer['date_of_birth'] }}</td>
+                                <td>{{ $customer['gender'] }}</td>
+                                <td>{{ $customer['status'] == 1 ? 'Active' : 'Inactive' }}</td>
+                                <td><button>Update</button></td>
+                                </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
 
+            </div>
+
+            <div id="staff-management" class="table-container" style="display: none;">
+                <h1>Employee Account List</h1>
+                <div class="top-bar">
+                    <div id="div_search_product">
+                        <form id="search-form">
+                            <div class="search-bar">
+                                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                                <i class="fas fa-calendar-alt"></i>
+                                <button type="submit">
+                                    <div>Search</div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Account</button></a>
+                </div>
+                {{-- <div class="status-bar">
+                  <button onclick="showTable('staff-management')">
+                       All employees
+                  </button>
+                  <button  onclick="showTable('salestaff-management')">
+                       Sale staffs
+                  </button>
+                  <button onclick="showTable('deliverystaff-management')">
+                      Delivery staffs
+                  </button>
+              </div> --}}
+                <div class="status-bar more-margintop">
+                    <button class="status-btn active" data-status="all">
+                        <i class="fas fa-list icon-status"></i> All employee
+                    </button>
+                    <button class="status-btn" data-status="2">
+                        <i class="fa-solid fa-user-tie icon-status"></i>Sale staffs
+                    </button>
+                    <button class="status-btn" data-status="4">
+                        <i class="fa-solid fa-truck icon-status"></i> Delivery staffs
+                    </button>
+                    <button class="status-btn" data-status="1">
+                        <i class="fa-solid fa-truck icon-status"></i> Manager
+                    </button>
+
+                </div>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>View detail</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @php
+                            $rolesLabels = [
+                                2 => 'Manager',
+                                3 => 'Sale Staff',
+                                4 => 'Delivery Staff',
+                            ];
+                        @endphp
+                        @foreach ($filteredEmployees as $employee)
+                            <tr class="order-row" data-status="{{ $employee['role_id'] }}">
+                                <td>{{ $employee['user_name'] }}</td>
+                                <td>{{ $employee['gender'] }}</td>
+                                <td>{{ $rolesLabels[$employee['role_id']] ?? 'Unknown' }}</td>
+                                <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
+                                <td>
+                                    <a href="{{ route('manager.showEmployeeDetail', $employee['id']) }}">
+                                        <i class="fa-regular fa-eye icon-blue"></i>
+                                    </a>
+                                </td>
+                                {{-- <td>
+                                  <form action="{{ route('employees.destroy', $employee['id']) }}"
+                                      method="POST">
+                                      @csrf
+                                      @method('DELETE')
+                                      <button type="submit" >Delete</button>
+                                  </form>
+                              </td> --}}
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <script>
+            let sidebar = document.querySelector(".sidebar");
+            let closeBtn = document.querySelector("#btn");
+            let searchBtn = document.querySelector(".bx-search");
+
+            closeBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("open");
+                menuBtnChange(); //calling the function(optional)
+            });
+
+            searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search icon
+                sidebar.classList.toggle("open");
+                menuBtnChange(); //calling the function(optional)
+            });
+
+            // Following are the code to change sidebar button(optional)
+            function menuBtnChange() {
+                if (sidebar.classList.contains("open")) {
+                    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the icons class
+                } else {
+                    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the icons class
+                }
+            }
+
+            function showTable(tableId) {
+                const tables = document.querySelectorAll('.table-container');
+                tables.forEach(table => table.style.display = 'none');
+                document.getElementById(tableId).style.display = 'block';
+            }
+        </script>
+        <script>
+            const statusButtons = document.querySelectorAll('.status-btn');
+            const orderRows = document.querySelectorAll('.order-row');
+
+            statusButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const status = btn.getAttribute('data-status');
+
+                    // Update active button
+                    statusButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Filter orders based on status
+                    orderRows.forEach(row => {
+                        if (status === 'all' || row.getAttribute('data-status') === status) {
+                            row.style.display = 'table-row';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
+    </footer>
 </body>
+
 </html>

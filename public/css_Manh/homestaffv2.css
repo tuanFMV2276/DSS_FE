@@ -261,6 +261,9 @@ text-align: left;
 .more-margintop{
   margin: 10px 0px 0px 0px;
 }
+.more-marginbottom{
+  margin-bottom: 10px;
+}
 
 .icon-blue {
   color: #1E90FF; /* Màu xanh biển */
@@ -279,3 +282,6 @@ text-align: left;
   gap: 10px; /* Khoảng cách giữa ảnh và thông tin */
 }
 
+.pagination{
+  text-align: center;
+}

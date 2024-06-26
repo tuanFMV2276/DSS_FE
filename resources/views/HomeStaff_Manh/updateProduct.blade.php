@@ -54,7 +54,7 @@
                 <label for="image"><i class="fas fa-image"></i> Image</label>
                 <input type="file" class="form-control-file" id="image" name="image">
                 @if ($product['image'])
-                    <img src="{{ asset('storage/' . $product['image']) }}" alt="Product Image" style="max-width: 200px; margin-top: 10px;">
+                    <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image" style="max-width: 200px; margin-top: 10px;">
                 @endif
             </div>
 

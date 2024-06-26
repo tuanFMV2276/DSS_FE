@@ -3,17 +3,17 @@
 use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\HomePage;
-use App\Http\Controllers\NaturalDiamondPage;
-use App\Http\Controllers\LabDiamondPage;
-use App\Http\Controllers\DetailDiamond;
-use App\Http\Controllers\ListShell;
-use App\Http\Controllers\DetailShell;
-use App\Http\Controllers\CompletedProduct;
-use App\Http\Controllers\Cart;
+use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\NaturalDiamondPage;
+// use App\Http\Controllers\LabDiamondPage;
+// use App\Http\Controllers\DetailDiamond;
+use App\Http\Controllers\ListProductController;
+use App\Http\Controllers\DetailProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\PaymentSuccessful;
+use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
@@ -42,6 +42,7 @@ Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateE
 Route::put('/manager_orders/{id}/update_status', [ManagerController::class, 'updateOrderStatus'])->name('manager.updateOrderStatus');
 Route::get('/manager_orders/{id}/detail', [ManagerController::class, 'showOrderDetail'])->name('manager.showOrderDetail');
 Route::delete('/manager_orders/{id}/delete', [ManagerController::class, 'destroyOrder'])->name('manager.destroyOrder');
+Route::get('/manager_orders/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
 Route::get('/products/create', [ManagerController::class, 'createProduct'])->name('manager.createProduct');
 Route::post('/products', [ManagerController::class, 'storeProduct'])->name('manager.storeProduct');
 Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
@@ -79,36 +80,43 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
-Route::get('/', [HomePage::class, 'index']);
+Route::get('/Login', [Login::class, 'login']);
 
-Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
+// Trang HomePage
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
+// Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
-// Route::get('/DetailDiamondPage/{id}', [DetailDiamond::class, 'index']);
+// Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
 
-Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
+// Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
 
-Route::get('/LabDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('labdiamond.show');
+// Route::get('/LabDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('labdiamond.show');
 
-Route::get('/ListShell', [ListShell::class, 'index']);
+// Trang danh sách sản phẩm
+Route::get('/ListProduct', [ListProductController::class, 'index']);
 
-Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.show');
+Route::get('/filter-products', [ListProductController::class, 'filterProducts']);
 
-// Route::get('/DetailShell', [DetailShell::class, 'index']);
+// Trang chi tiết sản phẩm
+Route::get('/Product/{id}', [DetailProductController::class, 'show'])->name('product.show');
 
+// Trang giỏ hàng
+Route::get('/Cart', [CartController::class, 'index'])->name('cart.index');
 
-// Route::get('/CompletedProduct/{id1}/{id2}/show', [CompletedProduct::class, 'show'])->name('completedproduct.show');
+Route::post('/Cart/add', [CartController::class, 'add'])->name('cart.add');
 
-Route::get('/Cart', [Cart::class, 'index']) -> name('cart.index');
+Route::delete('/Cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove');
 
-Route::post('/Cart/add', [Cart::class, 'add'])->name('cart.add');
+// Trang thanh toán
+Route::get('/Payment', [CartController::class, 'payment'])->name('payment.page');
 
-Route::delete('/Cart/remove/{index}', [Cart::class, 'remove'])->name('cart.remove');
+// Lưu trữ order
+Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
 
-// Route::get('/Payment', [Payment::class, 'index']);
-Route::get('/Payment', [Cart::class, 'payment'])->name('payment.page');
-
-Route::post('/orders/store', [OrderCustomerController::class, 'store'])->name('orders.store');
-
+// Trang thanh toán thành công
 Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
+
+Route::get('/IntroduceDiamondGIA', function () {
+    return view('Information.IntroduceDiamondGIA.IntroduceDiamondGIA');
+});

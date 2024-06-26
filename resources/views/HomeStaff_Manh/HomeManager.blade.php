@@ -263,8 +263,7 @@ $dataPointsPieShell = array(
                     <div id="div_search_order">
                         <form id="search-form">
                             <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name"
-                                    placeholder="Customer Name">
+                                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
                                 <i class="fas fa-user"></i>
                                 <input type="text" id="order_date" name="order_date" placeholder="Order Date">
                                 <i class="fas fa-calendar-alt"></i>
@@ -297,7 +296,7 @@ $dataPointsPieShell = array(
                             <i class="fas fa-times-circle icon-status"></i> Cancelled
                         </button>
                     </div>
-
+                
                     <table class="table">
                         <thead>
                             <tr>
@@ -312,7 +311,7 @@ $dataPointsPieShell = array(
                             </tr>
                         </thead>
                         <tbody id="order-list">
-                            @foreach ($orders as $order)
+                            @foreach ($orders as $index => $order)
                                 @php
                                     $customer = collect($customers)->firstWhere('id', $order['customer_id']);
                                     $payment = collect($payments)->firstWhere('order_id', $order['id']);
@@ -326,7 +325,7 @@ $dataPointsPieShell = array(
                                     ];
                                 @endphp
                                 <tr class="order-row" data-status="{{ $order['status'] }}">
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $index + 1 }}</td>
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
                                     <td>{{ $order['total_price'] }}</td>
@@ -358,11 +357,12 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
-
-                   
-
-
-
+                
+                    <div class="pagination">
+                        <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
+                        <span id="page-num-order">1</span>
+                        <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
+                    </div>
                 </div>
 
                 <div id="product-management" class="table-container" style="display: none;">
@@ -383,7 +383,7 @@ $dataPointsPieShell = array(
                         </div>
                         <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Product</button></a>
                     </div>
-                    
+                
                     <div class="status-bar">
                         <button class="status-btn active" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
@@ -398,15 +398,16 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-
-                    <table border="1"data-status="products">
+                
+                    <table border="1" data-status="products">
                         <thead>
                             <tr>
+                                <th style="display: none;">#</th>
                                 <th>ID</th>
                                 <th>Product Code</th>
                                 <th>Product Name</th>
-                                <th>Main Diamond ID</th>
                                 <th>Image</th>
+                                <th>Main Diamond ID</th>
                                 <th>Extra Diamond ID</th>
                                 <th>Number Ex Diamond</th>
                                 <th>Diamond Shell ID</th>
@@ -417,14 +418,15 @@ $dataPointsPieShell = array(
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($products as $product)
-                                <tr>
+                        <tbody id="product-body">
+                            @foreach ($products as $index => $product)
+                                <tr class="product-row">
+                                    <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $product['id'] }}</td>
                                     <td>{{ $product['product_code'] }}</td>
                                     <td>{{ $product['product_name'] }}</td>
+                                    <td><img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image" width="50%"></td>
                                     <td>{{ $product['main_diamond_id'] }}</td>
-                                    <td><img src="{{ $product['image'] }}" alt="Product Image" width="50"></td>
                                     <td>{{ $product['extra_diamond_id'] }}</td>
                                     <td>{{ $product['number_ex_diamond'] }}</td>
                                     <td>{{ $product['diamond_shell_id'] }}</td>
@@ -433,12 +435,10 @@ $dataPointsPieShell = array(
                                     <td>{{ $product['quantity'] }}</td>
                                     <td>{{ $product['status'] }}</td>
                                     <td>
-                                        <a href="{{ route('manager.editProduct', $product['id']) }}"
-                                            style="display:inline-block;">
+                                        <a href="{{ route('manager.editProduct', $product['id']) }}" style="display:inline-block;">
                                             <button type="button" class="update-st">Update</button>
                                         </a>
-                                        <form action="{{ route('manager.destroyProduct', $product['id']) }}"
-                                            method="POST" style="display:inline-block;">
+                                        <form action="{{ route('manager.destroyProduct', $product['id']) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="more-margintop delete-st">Delete</button>
@@ -448,6 +448,12 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
+                
+                    <div class="pagination">
+                        <button id="prev-btn" onclick="prevPage()" disabled>&laquo; Previous</button>
+                        <span id="page-num">1</span>
+                        <button id="next-btn" onclick="nextPage()">Next &raquo;</button>
+                    </div>
                 </div>
 
                 <div id="maindiamond-management" class="table-container" style="display: none;">
@@ -466,9 +472,11 @@ $dataPointsPieShell = array(
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Diamond</button></a>
+                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
+                            <button class="add-st"><i class="fas fa-plus"></i>Add New Diamond</button>
+                        </a>
                     </div>
-                    
+                
                     <div class="status-bar">
                         <button class="status-btn active" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
@@ -483,10 +491,11 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-
+                
                     <table border="1">
                         <thead>
                             <tr>
+                                <th style="display: none;">#</th>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Origin</th>
@@ -506,9 +515,10 @@ $dataPointsPieShell = array(
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($maindiamonds as $maindiamond)
-                                <tr>
+                        <tbody id="diamond-body">
+                            @foreach ($maindiamonds as $index => $maindiamond)
+                                <tr class="diamond-row">
+                                    <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $maindiamond['id'] }}</td>
                                     <td>{{ $maindiamond['shape'] }}</td>
                                     <td>{{ $maindiamond['origin'] }}</td>
@@ -530,6 +540,12 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
+                
+                    <div class="pagination">
+                        <button id="prev-btn-diamond" onclick="prevPageDiamond()" disabled>&laquo; Previous</button>
+                        <span id="page-num-diamond">1</span>
+                        <button id="next-btn-diamond" onclick="nextPageDiamond()">Next &raquo;</button>
+                    </div>
                 </div>
 
                 <div id="exdiamond-management" class="table-container" style="display: none;">
@@ -548,7 +564,9 @@ $dataPointsPieShell = array(
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Extra Diamond</button></a>
+                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
+                            <button class="add-st"><i class="fas fa-plus"></i>Add New Extra Diamond</button>
+                        </a>
                     </div>
                     
                     <div class="status-bar">
@@ -565,10 +583,11 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-
+                
                     <table border="1">
                         <thead>
                             <tr>
+                                <th style="display: none;">#</th>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Quantity</th>
@@ -577,9 +596,10 @@ $dataPointsPieShell = array(
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($exdiamonds as $exdiamond)
-                                <tr>
+                        <tbody id="exdiamond-body">
+                            @foreach ($exdiamonds as $index => $exdiamond)
+                                <tr class="exdiamond-row">
+                                    <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $exdiamond['id'] }}</td>
                                     <td>{{ $exdiamond['name'] }}</td>
                                     <td>{{ $exdiamond['quantity'] }}</td>
@@ -590,6 +610,12 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
+                
+                    <div class="pagination">
+                        <button id="prev-btn-exdiamond" onclick="prevPageExDiamond()" disabled>&laquo; Previous</button>
+                        <span id="page-num-exdiamond">1</span>
+                        <button id="next-btn-exdiamond" onclick="nextPageExDiamond()">Next &raquo;</button>
+                    </div>
                 </div>
 
                 <div id="shell-management" class="table-container" style="display: none;">
@@ -608,7 +634,9 @@ $dataPointsPieShell = array(
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Shell</button></a>
+                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
+                            <button class="add-st"><i class="fas fa-plus"></i>Add New Shell</button>
+                        </a>
                     </div>
                     
                     <div class="status-bar">
@@ -625,10 +653,11 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-
+                
                     <table border="1">
                         <thead>
                             <tr>
+                                <th style="display: none;">#</th>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Image</th>
@@ -637,12 +666,13 @@ $dataPointsPieShell = array(
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($shelldiamonds as $shell)
-                                <tr>
+                        <tbody id="shell-body">
+                            @foreach ($shelldiamonds as $index => $shell)
+                                <tr class="shell-row">
+                                    <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $shell['id'] }}</td>
                                     <td>{{ $shell['name'] }}</td>
-                                    <td><img src="{{ $shell['image'] }}" alt="Shell Image" width="50"></td>
+                                    <td><img src="{{ asset('/Picture_Product/' . $shell['image']) }}" alt="Shell Image" width="20%"></td>
                                     <td>{{ $shell['price'] }}</td>
                                     <td>{{ $shell['status'] }}</td>
                                     <td><button>Update</button></td>
@@ -650,6 +680,12 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
+                
+                    <div class="pagination">
+                        <button id="prev-btn-shell" onclick="prevPageShell()" disabled>&laquo; Previous</button>
+                        <span id="page-num-shell">1</span>
+                        <button id="next-btn-shell" onclick="nextPageShell()">Next &raquo;</button>
+                    </div>
                 </div>
 
                 <div id="staff-management" class="table-container" style="display: none;">
@@ -657,8 +693,7 @@ $dataPointsPieShell = array(
                     <div id="div_search_product">
                         <form id="search-form">
                             <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name"
-                                    placeholder="Customer Name">
+                                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
                                 <i class="fas fa-user"></i>
                                 <input type="text" id="order_date" name="order_date" placeholder="Order Date">
                                 <i class="fas fa-calendar-alt"></i>
@@ -668,32 +703,21 @@ $dataPointsPieShell = array(
                             </div>
                         </form>
                     </div>
-                    {{-- <div class="status-bar">
-                        <button onclick="showTable('staff-management')">
-                             All employees
-                        </button>
-                        <button  onclick="showTable('salestaff-management')">
-                             Sale staffs
-                        </button>
-                        <button onclick="showTable('deliverystaff-management')">
-                            Delivery staffs
-                        </button>
-                    </div> --}}
                     <div class="status-bar more-margintop">
                         <button class="status-btn active" data-status="all">
-                            <i class="fas fa-list icon-status"></i> All employee
+                            <i class="fas fa-list icon-status"></i> All employees
                         </button>
                         <button class="status-btn" data-status="2">
-                            <i class="fa-solid fa-user-tie icon-status"></i>Sale staffs
+                            <i class="fa-solid fa-user-tie icon-status"></i> Sale staffs
                         </button>
                         <button class="status-btn" data-status="4">
                             <i class="fa-solid fa-truck icon-status"></i> Delivery staffs
                         </button>
-
                     </div>
                     <table border="1">
                         <thead>
                             <tr>
+                                <th style="display: none;">#</th>
                                 <th>Name</th>
                                 <th>Gender</th>
                                 <th>Role</th>
@@ -701,31 +725,29 @@ $dataPointsPieShell = array(
                                 <th>View detail</th>
                             </tr>
                         </thead>
-
-                        <tbody>
-                            @foreach ($employees as $employee)
-                                <tr class="order-row" data-status="{{ $employee['role_id'] }}">
+                        <tbody id="employee-body">
+                            @foreach ($employees as $index => $employee)
+                                <tr class="employee-row" data-status="{{ $employee['role_id'] }}">
+                                    <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $employee['user_name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
-                                    <td>{{ $employee['role_id'] == 2 ? 'Sales Staff' : 'Delivery Staff' }}</td>
+                                    <td>{{ $employee['role_id'] == 3 ? 'Sales Staff' : 'Delivery Staff' }}</td>
                                     <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                     <td>
                                         <a href="{{ route('manager.showEmployeeDetail', $employee['id']) }}">
                                             <i class="fa-regular fa-eye icon-blue"></i>
                                         </a>
                                     </td>
-                                    {{-- <td>
-                                        <form action="{{ route('employees.destroy', $employee['id']) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" >Delete</button>
-                                        </form>
-                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                
+                    <div class="pagination">
+                        <button id="prev-btn-employee" onclick="prevPageEmployee()" disabled>&laquo; Previous</button>
+                        <span id="page-num-employee">1</span>
+                        <button id="next-btn-employee" onclick="nextPageEmployee()">Next &raquo;</button>
+                    </div>
                 </div>
 
             </div>
@@ -786,6 +808,216 @@ $dataPointsPieShell = array(
             });
         });
     </script>
+    {{-- pageBill --}}
+    <script>
+        const orderRows = document.querySelectorAll('.order-row');
+        const rowsPerPageOrder = 10;
+        let currentPageOrder = 1;
+    
+        function displayOrderRows() {
+            orderRows.forEach((row, index) => {
+                row.style.display = 'none';
+                if (index >= (currentPageOrder - 1) * rowsPerPageOrder && index < currentPageOrder * rowsPerPageOrder) {
+                    row.style.display = 'table-row';
+                }
+            });
+    
+            document.getElementById('page-num-order').textContent = currentPageOrder;
+            document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
+            document.getElementById('next-btn-order').disabled = currentPageOrder * rowsPerPageOrder >= orderRows.length;
+        }
+    
+        function prevPageOrder() {
+            if (currentPageOrder > 1) {
+                currentPageOrder--;
+                displayOrderRows();
+            }
+        }
+    
+        function nextPageOrder() {
+            if (currentPageOrder * rowsPerPageOrder < orderRows.length) {
+                currentPageOrder++;
+                displayOrderRows();
+            }
+        }
+    
+        displayOrderRows();  // Initial display
+    </script>
+    {{-- pageProduct --}}
+    <script>
+        const rows = document.querySelectorAll('.product-row');
+        const rowsPerPage = 5;
+        let currentPage = 1;
+    
+        function displayRows() {
+            rows.forEach((row, index) => {
+                row.style.display = 'none';
+                if (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage) {
+                    row.style.display = 'table-row';
+                }
+            });
+    
+            document.getElementById('page-num').textContent = currentPage;
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage * rowsPerPage >= rows.length;
+        }
+    
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayRows();
+            }
+        }
+    
+        function nextPage() {
+            if (currentPage * rowsPerPage < rows.length) {
+                currentPage++;
+                displayRows();
+            }
+        }
+    
+        displayRows();  // Initial display
+    </script>
+    {{-- pageDiamond --}}
+    <script>
+        const diamondRows = document.querySelectorAll('.diamond-row');
+        const rowsPerPageDiamond = 5;
+        let currentPageDiamond = 1;
+    
+        function displayDiamondRows() {
+            diamondRows.forEach((row, index) => {
+                row.style.display = 'none';
+                if (index >= (currentPageDiamond - 1) * rowsPerPageDiamond && index < currentPageDiamond * rowsPerPageDiamond) {
+                    row.style.display = 'table-row';
+                }
+            });
+    
+            document.getElementById('page-num-diamond').textContent = currentPageDiamond;
+            document.getElementById('prev-btn-diamond').disabled = currentPageDiamond === 1;
+            document.getElementById('next-btn-diamond').disabled = currentPageDiamond * rowsPerPageDiamond >= diamondRows.length;
+        }
+    
+        function prevPageDiamond() {
+            if (currentPageDiamond > 1) {
+                currentPageDiamond--;
+                displayDiamondRows();
+            }
+        }
+    
+        function nextPageDiamond() {
+            if (currentPageDiamond * rowsPerPageDiamond < diamondRows.length) {
+                currentPageDiamond++;
+                displayDiamondRows();
+            }
+        }
+    
+        displayDiamondRows();  // Initial display
+    </script>
+    {{-- pageExDiamond --}}
+    <script>
+        const exdiamondRows = document.querySelectorAll('.exdiamond-row');
+        const rowsPerPageExDiamond = 5;
+        let currentPageExDiamond = 1;
+    
+        function displayExDiamondRows() {
+            exdiamondRows.forEach((row, index) => {
+                row.style.display = 'none';
+                if (index >= (currentPageExDiamond - 1) * rowsPerPageExDiamond && index < currentPageExDiamond * rowsPerPageExDiamond) {
+                    row.style.display = 'table-row';
+                }
+            });
+    
+            document.getElementById('page-num-exdiamond').textContent = currentPageExDiamond;
+            document.getElementById('prev-btn-exdiamond').disabled = currentPageExDiamond === 1;
+            document.getElementById('next-btn-exdiamond').disabled = currentPageExDiamond * rowsPerPageExDiamond >= exdiamondRows.length;
+        }
+    
+        function prevPageExDiamond() {
+            if (currentPageExDiamond > 1) {
+                currentPageExDiamond--;
+                displayExDiamondRows();
+            }
+        }
+    
+        function nextPageExDiamond() {
+            if (currentPageExDiamond * rowsPerPageExDiamond < exdiamondRows.length) {
+                currentPageExDiamond++;
+                displayExDiamondRows();
+            }
+        }
+    
+        displayExDiamondRows();  // Initial display
+    </script>
+    {{-- pageShell --}}
+    <script>
+        const shellRows = document.querySelectorAll('.shell-row');
+        const rowsPerPageShell = 5;
+        let currentPageShell = 1;
+    
+        function displayShellRows() {
+            shellRows.forEach((row, index) => {
+                row.style.display = 'none';
+                if (index >= (currentPageShell - 1) * rowsPerPageShell && index < currentPageShell * rowsPerPageShell) {
+                    row.style.display = 'table-row';
+                }
+            });
+    
+            document.getElementById('page-num-shell').textContent = currentPageShell;
+            document.getElementById('prev-btn-shell').disabled = currentPageShell === 1;
+            document.getElementById('next-btn-shell').disabled = currentPageShell * rowsPerPageShell >= shellRows.length;
+        }
+    
+        function prevPageShell() {
+            if (currentPageShell > 1) {
+                currentPageShell--;
+                displayShellRows();
+            }
+        }
+    
+        function nextPageShell() {
+            if (currentPageShell * rowsPerPageShell < shellRows.length) {
+                currentPageShell++;
+                displayShellRows();
+            }
+        }
+    
+        displayShellRows();  // Initial display
+    </script>
+    {{-- pageEmployee --}}
+    <script>
+        const employeeRows = document.querySelectorAll('.employee-row');
+        const rowsPerPageEmployee = 10;
+        let currentPageEmployee = 1;
+    
+        function displayEmployeeRows() {
+            employeeRows.forEach((row, index) => {
+                row.style.display = 'none';
+                if (index >= (currentPageEmployee - 1) * rowsPerPageEmployee && index < currentPageEmployee * rowsPerPageEmployee) {
+                    row.style.display = 'table-row';
+                }
+            });
+    
+            document.getElementById('page-num-employee').textContent = currentPageEmployee;
+            document.getElementById('prev-btn-employee').disabled = currentPageEmployee === 1;
+            document.getElementById('next-btn-employee').disabled = currentPageEmployee * rowsPerPageEmployee >= employeeRows.length;
+        }
+    
+        function prevPageEmployee() {
+            if (currentPageEmployee > 1) {
+                currentPageEmployee--;
+                displayEmployeeRows();
+            }
+        }
+    
+        function nextPageEmployee() {
+            if (currentPageEmployee * rowsPerPageEmployee < employeeRows.length) {
+                currentPageEmployee++;
+                displayEmployeeRows();
+            }
+        }
+    
+        displayEmployeeRows();  // Initial display
+    </script>
 {{-- search ajax --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -794,17 +1026,16 @@ $dataPointsPieShell = array(
                 e.preventDefault();
 
                 var customerName = $('#customer_name').val();
-                var orderDate = $('#order_date').val();
-
+                // var orderDate = $('#order_date').val();
                 $.ajax({
                     url: "{{ route('manager.searchOrdersAjax') }}",
                     method: 'GET',
                     data: {
                         customer_name: customerName,
-                        order_date: orderDate
+                        // order_date: orderDate
                     },
                     success: function(response) {
-                        var orders = response.jointable;
+                        var orders = response.orders;
                         var statusLabels = {
                             0: 'Pending',
                             1: 'Accepted',
@@ -818,45 +1049,37 @@ $dataPointsPieShell = array(
                         orderList.empty();
 
                         orders.forEach(function(order, index) {
-                            //  var customer = customers.find(c => c.id === order.customer_id);
-                            //  var payment = payments.find(p => p.order_id === order.id);
-
-                            // var customerName = customer ? customer.name : 'Unknown';
-                            // var customerEmail = customer ? customer.email : 'Unknown';
-                            // var paymentMethod = payment ? payment.payment_method : 'Unknown';
-                            var customerName = order.name || 'Unknown';
-                            var customerEmail = order.email || 'Unknown';
-                            var paymentMethod = order.payment_method || 'Unknown';
+                            var customerName = order ? order.name : 'Unknown';
+                            var customerEmail = order ? order.email : 'Unknown';
+                            var paymentMethod = order.payment ? order.payment.payment_method : 'Unknown';
                             var status = statusLabels[order.status] || 'Unknown';
 
                             var orderRow = `
-                        <tr class="order-row" data-status="${order.status}">
-                            <td>${index + 1}</td>
-                            <td>${order.id}</td>
-                            <td>${order.order_date}</td>
-                            <td>${order.total_price}</td>
-                            <td>${paymentMethod}</td>
-                            <td style="text-align: left;">
-                                Name: ${customerName}<br>
-                                Email: ${customerEmail}
-                            </td>
-                            <td>${status}</td>
-                            <td>
-                                <a href="${"{{ route('manager.showOrderDetail', '') }}/" + order.id}">
-                                    <i class="bx bx-show"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    `;
-
+                                <tr class='order-row' data-status="${order.status}">
+                                    <td>${index + 1}</td>
+                                    <td>${order.id}</td>
+                                    <td>${order.order_date}</td>
+                                    <td>${order.total_price}</td>
+                                    <td>${paymentMethod}</td>
+                                    <td style="text-align: left;">
+                                        Name: ${customerName}<br>
+                                        Email: ${customerEmail}
+                                    </td>
+                                    <td>${status}</td>
+                                    <td>
+                                        <a href="{{ route('manager.showOrderDetail', '') }}/${order.id}">
+                                            <i class="bx bx-show"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            `;
                             orderList.append(orderRow);
                         });
-                    }
+                    },
                 });
             });
         });
-    </script>
-
+    </script> 
 
 <script>
 let chart;
