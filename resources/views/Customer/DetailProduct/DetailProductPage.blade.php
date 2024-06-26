@@ -22,7 +22,7 @@
                 <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="ring">
             </div>
             <div class="col-sm-5 text-center">
-                <h3>{{ $product['product_name'] }}</h3>
+                <h3>{{ $product['product_name'] }} {{ $product['product_code'] }}</h3>
                 <h4>Giá: {{ number_format($product['total_price'], 0, ',', '.') }}₫</h4>
                 <h5>Chất Liệu: Vàng trắng 14K</h5>
                 <div class="col-sm-12 ring-size-wrapper mt-4">

@@ -50,6 +50,13 @@
                     <option value="45000000">45.000.000₫+</option>
                 </select>
             </div>
+            <div class="col-md-3">
+                <select id="type" class="form-select custom-select">
+                    <option value="">Select Type</option>
+                    <option value="Nhẫn Kim Cương Nam">Nhẫn Kim Cương Nam</option>
+                    <option value="Nhẫn Kim Cương Nữ">Nhẫn Kim Cương Nữ</option>
+                </select>
+            </div>
         </div>
         <div id="product-list" class="shell-grid mt-3 mb-3">
             @foreach ($products as $product)
@@ -57,9 +64,9 @@
                 <div class="col">
                     <div class="card h-70 clickable">
                         <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="ring" class="card-img-top">
-                        <div class="card-body">
-                            <p class="card-text">
-                                {{ $product['product_name'] }}
+                        <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
+                            <p class="card-text text-center">
+                                {{ $product['product_name'] }} {{ $product['product_code'] }}
                             </p>
                             <h6 class="card-title text-center">
                                 {{ number_format($product['total_price'], 0, ',', '.') }}₫
@@ -89,7 +96,9 @@
                             <div class="card h-70 clickable">
                                 <img src="/Picture_Product/${product.image}" alt="ring" class="card-img-top">
                                 <div class="card-body">
-                                    <p class="card-text">${product.product_name}</p>
+                                    <p class="card-text text-center">
+                                        ${product.product_name}
+                                    </p>
                                     <h6 class="card-title text-center">${new Intl.NumberFormat().format(product.total_price)}₫</h6>
                                 </div>
                             </div>
@@ -102,12 +111,14 @@
     const updateURLParams = () => {
         const priceRange = document.getElementById('price_range').value;
         const sortBy = document.getElementById('sort_by').value;
+        const productType = document.getElementById('type').value;
 
         $.ajax({
             url: '/filter-products',
             data: {
                 sort: sortBy,
-                price_range: priceRange
+                price_range: priceRange,
+                product_name: productType
             },
             success: (response) => {
                 console.log("AJAX response:", response);
@@ -121,6 +132,7 @@
 
     document.getElementById('price_range').addEventListener('change', updateURLParams);
     document.getElementById('sort_by').addEventListener('change', updateURLParams);
+    document.getElementById('type').addEventListener('change', updateURLParams);
     </script>
 
 </body>
