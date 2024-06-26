@@ -68,8 +68,8 @@ body {
 }
 
 .btn-complete button:hover {
-  background-color: #fff;
-  color: #d4a373;
+  background-color: #d4a373;
+  color: #000;
   border: 1px solid #d4a373;
 }
 
