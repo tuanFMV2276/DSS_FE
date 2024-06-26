@@ -21,27 +21,32 @@ class CartController extends Controller
 }
 
 public function add(Request $request)
-{
-    $product_code = $request->input('product_code'); // Lấy giá trị product_code từ request
-    $url = "http://127.0.0.1:8000/api/product/update/{$product_code}"; // Tạo URL với product_code
-    $response = Http::get($url); // Gửi yêu cầu GET đến URL
-    $id = $response->json('id');
-    
-    $product = [
-        'id' => $id, // Ensure unique ID for each cart item
-        'product_name' => $request->input('name'),
-        'total_price' => $request->input('total_price'),
-        'ringsize' => $request->input('ringsize'),
-        'image' => $request->input('image'),
-        'product_code' => $request->input('product_code'),
-    ];
+    {
+        $product_code = $request->input('product_code'); // Get product_code from request
+        $url = "http://127.0.0.1:8000/api/product/update/{$product_code}"; // Create URL with product_code
+        $response = Http::get($url); // Send GET request to URL
+        $id = $response->json('id');
+        
+        $product = [
+            'id' => $id, // Ensure unique ID for each cart item
+            'product_name' => $request->input('name'),
+            'total_price' => $request->input('total_price'),
+            'ringsize' => $request->input('ringsize'),
+            'image' => $request->input('image'),
+            'product_code' => $request->input('product_code'),
+        ];
 
-    $cart = session()->get('cart', []);
-    $cart[] = $product;
-    session()->put('cart', $cart);
+        $cart = session()->get('cart', []);
+        $cart[] = $product;
+        session()->put('cart', $cart);
 
-    return redirect()->route('cart.index')->with('success', 'Product added to cart!');
-}
+        if ($request->ajax()) {
+            return response()->json(['success' => true]);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Product added to cart!');
+    }
+
 
 public function remove($index)
 {

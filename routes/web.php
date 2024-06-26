@@ -32,6 +32,7 @@ use App\Http\Controllers\OrderCustomerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 //------------------------------------------------------------------------------------------
 // Route của manager '/home-manager'
     
@@ -81,6 +82,12 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
 
 
 Route::get('/Login', [Login::class, 'login']);
+
+// Trang Login
+Route::get('/Login', function () {
+    return view('Login_Register_ForgotPass/Login/Login');
+});
+
 
 // Trang HomePage
 Route::get('/', [HomeController::class, 'index']);
