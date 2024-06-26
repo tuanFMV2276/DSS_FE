@@ -27,7 +27,7 @@
                 <h5>Chất Liệu: Vàng trắng 14K</h5>
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
-                    <form action="{{ route('cart.add') }}" method="post">
+                    <form id="add-to-cart-form" action="{{ route('cart.add') }}" method="post">
                         @csrf
                         <div class="d-flex align-items-center justify-content-center mb-3">
                             <input type="number" name="ringsize" id="ringSizeInput" min="4" max="9" step="0.25"
@@ -38,9 +38,12 @@
                         <input type="hidden" name="image" value="{{ asset('/Picture_Product/' . $product['image']) }}">
                         <input type="hidden" name="product_code" value="{{ $product['product_code'] }}">
                         <div>
-                            <input type="submit" name="addcart" value="Thêm vào giỏ hàng" class="btn btn-orange">
+                            <button type="button" id="add-to-cart-button" class="btn btn-orange">Thêm vào giỏ
+                                hàng</button>
                         </div>
                     </form>
+                    <div id="add-to-cart-message" class="text-success mt-2" style="display: none;">Sản phẩm đã được thêm
+                        vào giỏ hàng!</div>
                 </div>
                 <strong>
                     <p id="delivery-date" class="text-center mt-3"></p>
@@ -120,11 +123,30 @@
 
         const options = {
             year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
+            month: 'long',
+            day: 'numeric'
         };
-        deliveryDateElement.textContent =
-            `Dự kiến giao hàng ngày ${deliveryDate.toLocaleDateString('vi-VN', options)}`;
+
+        const formattedDeliveryDate = deliveryDate.toLocaleDateString('vi-VN', options);
+        deliveryDateElement.textContent = "Ngày giao hàng dự kiến: " + formattedDeliveryDate;
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#add-to-cart-button').click(function() {
+            $.ajax({
+                url: $('#add-to-cart-form').attr('action'),
+                method: 'POST',
+                data: $('#add-to-cart-form').serialize(),
+                success: function(response) {
+                    $('#add-to-cart-message').show().delay(3000).fadeOut();
+                },
+                error: function(response) {
+                    alert('Có lỗi xảy ra, vui lòng thử lại.');
+                }
+            });
+        });
     });
     </script>
 </body>

@@ -26,7 +26,9 @@ use App\Http\Controllers\OrderController;
 |
 */
 // Trang Login
-Route::get('/Login', [Login::class, 'login']);
+Route::get('/Login', function () {
+    return view('Login_Register_ForgotPass/Login/Login');
+});
 
 // Trang HomePage
 Route::get('/', [HomeController::class, 'index']);
