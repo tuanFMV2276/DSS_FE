@@ -135,10 +135,11 @@
                                 <!-- Order Details Fields -->
                                 <input type="hidden" name="product_code" value="{{ $item['product_code'] }}">
                                 <input type="hidden" name="unitprice" value="{{ $item['total_price'] }}">
+                                <input type="hidden" name="size" value="{{ $item['ringsize'] }}">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>
                                         <img src="{{ $item['image'] }}" alt="{{ $item['product_name'] }}" width="50">
-                                        <strong>{{ $item['product_name'] }}</strong>
+                                        <strong>{{ $item['product_name'] }} {{ $item['product_code'] }}</strong>
                                     </div>
                                     <span>{{ number_format($item['total_price'], 0, ',', '.') }}₫</span>
                                 </li>

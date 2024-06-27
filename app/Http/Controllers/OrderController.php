@@ -38,8 +38,88 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    // $paymentMethod = $request->input('paymentMethod');
+    // $status = ($paymentMethod == 'paypal') ? 1 : 0;
+
+    // $orderData = [
+    //     'order_date' => Carbon::today()->format('Y-m-d'),
+    //     'name' => $request->input('name'),
+    //     'email' => $request->input('email'),
+    //     'address' => $request->input('address'),
+    //     'phone' => $request->input('phone'),
+    //     'total_price' => $request->input('total_price'),
+    //     'status' => $status,
+    // ];
+
+    //     $orderResponse = Http::post('http://127.0.0.1:8000/api/order', $orderData);
+
+    //     $product_code = $request->input('product_code');
+    //     $size = $request->input('size');
+    //     $url = "http://127.0.0.1:8000/api/product/update/{$product_code}";
+    //     $response = Http::get($url);
+    //     $id = $response->json('id');
+
+    //     if ($orderResponse->successful()) {
+    //         // Lấy lại ID của đơn hàng vừa tạo
+    //         $order = $orderResponse->json();
+    //         $orderId = $order['id'];
+    //         $orderDetailData = [
+    //             'order_id' => $orderId,
+    //             'product_id' => $id,
+    //             'unit_price' => $request->input('unitprice'),
+    //         ];
+    //         $orderDetailResponse = Http::post('http://127.0.0.1:8000/api/orderdetail', $orderDetailData);
+
+    //         if ($orderDetailResponse->successful()) {
+    //             $paymentData = [
+    //                 'order_id' => $orderId,
+    //                 'payment_method' => $request->input('paymentMethod'),
+    //                 'date_time' => Carbon::today()->format('Y-m-d'),
+    //             ];
+
+    //             $paymentResponse = Http::post('http://127.0.0.1:8000/api/payment', $paymentData);
+
+    //             if ($paymentResponse->successful()) {
+    //                 // Update product after successful payment
+    //                 $productUpdateData = [
+    //                     'size' => $size,
+    //                     'status' => 0,
+    //                     'quantity' => 0,
+    //                 ];
+    
+    //                 $productUpdateUrl = "http://127.0.0.1:8000/api/product/{$id}";
+    //                 $productUpdateResponse = Http::put($productUpdateUrl, $productUpdateData);
+    
+    //                 if ($productUpdateResponse->successful()) {
+    //                     return view('Customer.PaymentSuccessful.PaymentSuccessful', ['orderId' => $orderId]);
+    //                 } else {
+    //                     // Rollback if product update fails
+    //                     Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
+    //                     return back()->withErrors('Error updating product.');
+    //                 }
+    //             } else {
+    //                 // Rollback if payment save fails
+    //                 Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
+    //                 return back()->withErrors('Error saving payment.');
+    //             }
+    //         } else {
+    //             // Rollback if order detail save fails
+    //             Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
+    //             return back()->withErrors('Error creating order detail.');
+    //         }
+    //     } else {
+    //         // Handle error if creating order fails
+    //         return back()->withErrors('Error creating order.');
+    //     }
+        
+    // }
+
     public function store(Request $request)
     {
+        $paymentMethod = $request->input('paymentMethod');
+        $status = ($paymentMethod == 'paypal') ? 1 : 0;
         $orderData = [
             'order_date' => Carbon::today()->format('Y-m-d'),
             'name' => $request->input('name'),
@@ -47,7 +127,7 @@ class OrderController extends Controller
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'total_price' => $request->input('total_price'),
-            'status' => 0,
+            'status' => $status,
         ];
 
         $orderResponse = Http::post('http://127.0.0.1:8000/api/order', $orderData);

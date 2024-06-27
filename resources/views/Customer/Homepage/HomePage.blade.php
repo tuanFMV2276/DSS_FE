@@ -92,7 +92,7 @@
         </div>
     </div>
     <div class="pos3">
-        <h2>Sản Phẩm Nổi Bật</h2>
+        <h2>Sản Phẩm Mới Nhất</h2>
         <div class="tab tab-2">
             <div class="title">Nhẫn Kim cương</div>
             <div class="carousel-inner">
