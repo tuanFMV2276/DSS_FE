@@ -12,4 +12,10 @@ class ORder extends Controller
         $order =  Http::get("http://127.0.0.1:8000/order/status/{$status}")->json();
         return view('order_filter', ['order' => $order], ['status' => $status]);
     }
+
+    public function searchByName(Request $request, $name){
+        $order = Http::get("http://127.0.0.1:8000/api/order")->json();
+        
+        return view('',compact($order));
+    }
 }
