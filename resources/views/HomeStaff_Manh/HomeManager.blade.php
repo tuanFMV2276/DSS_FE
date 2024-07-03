@@ -2,26 +2,9 @@
 
 <?php
 //Data for Customer rating and Shell chart
-$dataPointsCustomerMen = array(
-	array("label"=> "T1", "y"=> 2.3),
-	array("label"=> "T2", "y"=> 3.0),
-	array("label"=> "T3", "y"=> 2.6),
-	array("label"=> "T4", "y"=> 2.1),
-	array("label"=> "T5", "y"=> 1.9),
-	array("label"=> "T6", "y"=> 2.0),
-);
-$dataPointsCustomerWoMen = array(
-	array("label"=> "T1", "y"=> 3.1),
-	array("label"=> "T2", "y"=> 3.5),
-	array("label"=> "T3", "y"=> 3.8),
-	array("label"=> "T4", "y"=> 4.0),
-	array("label"=> "T5", "y"=> 3.7),
-	array("label"=> "T6", "y"=> 3.4),
-);
-$dataPointsPieShell = array(
-	array("label"=>"Nhẫn kim cương nam", "y"=>60),
-	array("label"=>"Nhẫn kim cương nữ", "y"=>40),
-)
+$dataPointsCustomerMen = [['label' => 'T1', 'y' => 2.3], ['label' => 'T2', 'y' => 3.0], ['label' => 'T3', 'y' => 2.6], ['label' => 'T4', 'y' => 2.1], ['label' => 'T5', 'y' => 1.9], ['label' => 'T6', 'y' => 2.0]];
+$dataPointsCustomerWoMen = [['label' => 'T1', 'y' => 3.1], ['label' => 'T2', 'y' => 3.5], ['label' => 'T3', 'y' => 3.8], ['label' => 'T4', 'y' => 4.0], ['label' => 'T5', 'y' => 3.7], ['label' => 'T6', 'y' => 3.4]];
+$dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label' => 'Nhẫn kim cương nữ', 'y' => 40]];
 ?>
 <html lang="en" dir="ltr">
 
@@ -34,7 +17,7 @@ $dataPointsPieShell = array(
     <link rel="stylesheet" href="{{ asset('css_Manh/button.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/searchfield.css') }}">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,6 +52,13 @@ $dataPointsPieShell = array(
                 <span class="tooltip">Product Management</span>
             </li>
             <li>
+                <a href="#" onclick="showTable('price-list')">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="links_name">Price List</span>
+                </a>
+                <span class="tooltip">Price List</span>
+            </li>
+            <li>
                 <a href="#" onclick="showTable('staff-management')" class="status-btn active" data-status="all">
                     <i class="fa-solid fa-users"></i>
                     <span class="links_name">Staff Management</span>
@@ -85,7 +75,7 @@ $dataPointsPieShell = array(
     <section class="home-section">
         <div>
             <div class="main-content">
-                 <div id="dashboard" class="table-container" style="display:contents;">
+                <div id="dashboard" class="table-container" style="display:contents;">
                     <h1>Dashboard</h1>
                     {{-- <form action="/employees/create" method="GET">
                         @csrf
@@ -141,7 +131,7 @@ $dataPointsPieShell = array(
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Body section -->
                     <div class="dashboard-overall-wrap">
 
@@ -157,8 +147,10 @@ $dataPointsPieShell = array(
                             <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
                             <div style="flex-wrap: wrap;">
                                 <h2 style="text-align:center;">Extra Chart</h2>
-                                <div id="chartContainer2" style="height: 300px; width: 48%;display: inline-block;"></div>
-                                <div id="chartContainer3" style="height: 300px; width: 48%;display: inline-block;"></div>
+                                <div id="chartContainer2" style="height: 300px; width: 48%;display: inline-block;">
+                                </div>
+                                <div id="chartContainer3" style="height: 300px; width: 48%;display: inline-block;">
+                                </div>
                             </div>
                         </div>
 
@@ -172,7 +164,8 @@ $dataPointsPieShell = array(
 
                                 <div class="item-align margin-bottom-card">
                                     <span class="card-font-style">Order A</span>
-                                    <span>Customer A<img src="{{ asset('img/customer.png') }}" class="icon" alt="Sale Icon"></span>
+                                    <span>Customer A<img src="{{ asset('img/customer.png') }}" class="icon"
+                                            alt="Sale Icon"></span>
                                 </div>
                                 <div class="item-align margin-bottom-card">
                                     <span>Total Price</span>
@@ -189,7 +182,8 @@ $dataPointsPieShell = array(
 
                                 <div class="item-align margin-bottom-card">
                                     <span class="card-font-style">Order B</span>
-                                    <span>Customer B<img src="{{ asset('img/customer.png') }}" class="icon" alt="Sale Icon"></span>
+                                    <span>Customer B<img src="{{ asset('img/customer.png') }}" class="icon"
+                                            alt="Sale Icon"></span>
                                 </div>
                                 <div class="item-align margin-bottom-card">
                                     <span>Total Price</span>
@@ -206,7 +200,8 @@ $dataPointsPieShell = array(
 
                                 <div class="item-align margin-bottom-card">
                                     <span class="card-font-style">Order C</span>
-                                    <span>Customer C<img src="{{ asset('img/customer.png') }}" class="icon" alt="Sale Icon"></span>
+                                    <span>Customer C<img src="{{ asset('img/customer.png') }}" class="icon"
+                                            alt="Sale Icon"></span>
                                 </div>
                                 <div class="item-align margin-bottom-card">
                                     <span>Total Price</span>
@@ -223,7 +218,8 @@ $dataPointsPieShell = array(
 
                                 <div class="item-align margin-bottom-card">
                                     <span class="card-font-style">Order D</span>
-                                    <span>Customer D<img src="{{ asset('img/customer.png') }}" class="icon" alt="Sale Icon"></span>
+                                    <span>Customer D<img src="{{ asset('img/customer.png') }}" class="icon"
+                                            alt="Sale Icon"></span>
                                 </div>
                                 <div class="item-align margin-bottom-card">
                                     <span>Total Price</span>
@@ -240,7 +236,8 @@ $dataPointsPieShell = array(
 
                                 <div class="item-align margin-bottom-card">
                                     <span class="card-font-style">Order E</span>
-                                    <span>Customer E<img src="{{ asset('img/customer.png') }}" class="icon" alt="Sale Icon"></span>
+                                    <span>Customer E<img src="{{ asset('img/customer.png') }}" class="icon"
+                                            alt="Sale Icon"></span>
                                 </div>
                                 <div class="item-align margin-bottom-card">
                                     <span>Total Price</span>
@@ -255,7 +252,7 @@ $dataPointsPieShell = array(
 
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div id="bill-management" class="table-container" style="display: none;">
                     <h1>List Orders</h1>
@@ -263,10 +260,11 @@ $dataPointsPieShell = array(
                     <div id="div_search_order">
                         <form id="search-form">
                             <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                <input type="text" id="customer_name" name="customer_name"
+                                    placeholder="Customer Name">
                                 <i class="fas fa-user"></i>
-                                <input type="text" id="order_date" name="order_date" placeholder="Order Date">
-                                <i class="fas fa-calendar-alt"></i>
+                                {{-- <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                                <i class="fas fa-calendar-alt"></i> --}}
                                 <button type="submit">
                                     Search
                                 </button>
@@ -296,8 +294,8 @@ $dataPointsPieShell = array(
                             <i class="fas fa-times-circle icon-status"></i> Cancelled
                         </button>
                     </div>
-                
-                    <table class="table">
+
+                    <table class="table" id="billing_table">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -359,7 +357,7 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
-                
+
                     <div class="pagination">
                         <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
                         <span id="page-num-order">1</span>
@@ -373,9 +371,11 @@ $dataPointsPieShell = array(
                         <div id="div_search_product">
                             <form id="search-form">
                                 <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                    <input type="text" id="customer_name" name="customer_name"
+                                        placeholder="Customer Name">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                                    <input type="text" id="order_date" name="order_date"
+                                        placeholder="Order Date">
                                     <i class="fas fa-calendar-alt"></i>
                                     <button type="submit">
                                         <div>Search</div>
@@ -383,9 +383,10 @@ $dataPointsPieShell = array(
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Product</button></a>
+                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button
+                                class="add-st"><i class="fas fa-plus"></i>Add New Product</button></a>
                     </div>
-                
+
                     <div class="status-bar">
                         <button class="status-btn active" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
@@ -400,7 +401,7 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-                
+
                     <table border="1" data-status="products">
                         <thead>
                             <tr>
@@ -427,7 +428,8 @@ $dataPointsPieShell = array(
                                     <td>{{ $product['id'] }}</td>
                                     <td>{{ $product['product_code'] }}</td>
                                     <td>{{ $product['product_name'] }}</td>
-                                    <td><img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image" width="50%"></td>
+                                    <td><img src="{{ asset('/Picture_Product/' . $product['image']) }}"
+                                            alt="Product Image" width="50%"></td>
                                     <td>{{ $product['main_diamond_id'] }}</td>
                                     <td>{{ $product['extra_diamond_id'] }}</td>
                                     <td>{{ $product['number_ex_diamond'] }}</td>
@@ -437,10 +439,12 @@ $dataPointsPieShell = array(
                                     <td>{{ $product['quantity'] }}</td>
                                     <td>{{ $product['status'] }}</td>
                                     <td>
-                                        <a href="{{ route('manager.editProduct', $product['id']) }}" style="display:inline-block;">
+                                        <a href="{{ route('manager.editProduct', $product['id']) }}"
+                                            style="display:inline-block;">
                                             <button type="button" class="update-st">Update</button>
                                         </a>
-                                        <form action="{{ route('manager.destroyProduct', $product['id']) }}" method="POST" style="display:inline-block;">
+                                        <form action="{{ route('manager.destroyProduct', $product['id']) }}"
+                                            method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="more-margintop delete-st">Delete</button>
@@ -450,7 +454,7 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
-                
+
                     <div class="pagination">
                         <button id="prev-btn" onclick="prevPage()" disabled>&laquo; Previous</button>
                         <span id="page-num">1</span>
@@ -464,9 +468,11 @@ $dataPointsPieShell = array(
                         <div id="div_search_product">
                             <form id="search-form">
                                 <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                    <input type="text" id="customer_name" name="customer_name"
+                                        placeholder="Customer Name">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                                    <input type="text" id="order_date" name="order_date"
+                                        placeholder="Order Date">
                                     <i class="fas fa-calendar-alt"></i>
                                     <button type="submit">
                                         <div>Search</div>
@@ -478,7 +484,7 @@ $dataPointsPieShell = array(
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Diamond</button>
                         </a>
                     </div>
-                
+
                     <div class="status-bar">
                         <button class="status-btn active" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
@@ -493,7 +499,7 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-                
+
                     <table border="1">
                         <thead>
                             <tr>
@@ -542,7 +548,7 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
-                
+
                     <div class="pagination">
                         <button id="prev-btn-diamond" onclick="prevPageDiamond()" disabled>&laquo; Previous</button>
                         <span id="page-num-diamond">1</span>
@@ -556,9 +562,11 @@ $dataPointsPieShell = array(
                         <div id="div_search_product">
                             <form id="search-form">
                                 <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                    <input type="text" id="customer_name" name="customer_name"
+                                        placeholder="Customer Name">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                                    <input type="text" id="order_date" name="order_date"
+                                        placeholder="Order Date">
                                     <i class="fas fa-calendar-alt"></i>
                                     <button type="submit">
                                         <div>Search</div>
@@ -570,7 +578,7 @@ $dataPointsPieShell = array(
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Extra Diamond</button>
                         </a>
                     </div>
-                    
+
                     <div class="status-bar">
                         <button class="status-btn active" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
@@ -585,7 +593,7 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-                
+
                     <table border="1">
                         <thead>
                             <tr>
@@ -612,9 +620,10 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
-                
+
                     <div class="pagination">
-                        <button id="prev-btn-exdiamond" onclick="prevPageExDiamond()" disabled>&laquo; Previous</button>
+                        <button id="prev-btn-exdiamond" onclick="prevPageExDiamond()" disabled>&laquo;
+                            Previous</button>
                         <span id="page-num-exdiamond">1</span>
                         <button id="next-btn-exdiamond" onclick="nextPageExDiamond()">Next &raquo;</button>
                     </div>
@@ -626,9 +635,11 @@ $dataPointsPieShell = array(
                         <div id="div_search_product">
                             <form id="search-form">
                                 <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                    <input type="text" id="customer_name" name="customer_name"
+                                        placeholder="Customer Name">
                                     <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                                    <input type="text" id="order_date" name="order_date"
+                                        placeholder="Order Date">
                                     <i class="fas fa-calendar-alt"></i>
                                     <button type="submit">
                                         <div>Search</div>
@@ -640,7 +651,7 @@ $dataPointsPieShell = array(
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Shell</button>
                         </a>
                     </div>
-                    
+
                     <div class="status-bar">
                         <button class="status-btn active" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
@@ -655,7 +666,7 @@ $dataPointsPieShell = array(
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-                
+
                     <table border="1">
                         <thead>
                             <tr>
@@ -674,7 +685,8 @@ $dataPointsPieShell = array(
                                     <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $shell['id'] }}</td>
                                     <td>{{ $shell['name'] }}</td>
-                                    <td><img src="{{ asset('/Picture_Product/' . $shell['image']) }}" alt="Shell Image" width="20%"></td>
+                                    <td><img src="{{ asset('/Picture_Product/' . $shell['image']) }}"
+                                            alt="Shell Image" width="20%"></td>
                                     <td>{{ $shell['price'] }}</td>
                                     <td>{{ $shell['status'] }}</td>
                                     <td><button>Update</button></td>
@@ -682,11 +694,55 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
-                
+
                     <div class="pagination">
                         <button id="prev-btn-shell" onclick="prevPageShell()" disabled>&laquo; Previous</button>
                         <span id="page-num-shell">1</span>
                         <button id="next-btn-shell" onclick="nextPageShell()">Next &raquo;</button>
+                    </div>
+                </div>
+                <div id="price-list" class="table-container" style="display: none;">
+                    <h1>List Price</h1>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">#</th>
+                                <th>ID</th>
+                                <th>Clarity</th>
+                                <th>Color</th>
+                                <th>Origin</th>
+                                <th>Cut</th>
+                                <th>Cara weight</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listprice-body">
+                            @foreach ($diamondpricelists as $index => $diamondpricelist)
+                                <tr class="listprice-row">
+                                    <td style="display: none;">{{ $index + 1 }}</td>
+                                    <td>{{ $diamondpricelist['id'] }}</td>
+                                    <td>{{ $diamondpricelist['clarity'] }}</td>
+                                    <td>{{ $diamondpricelist['color'] }}</td>
+                                    <td>{{ $diamondpricelist['origin'] }}</td>
+                                    <td>{{ $diamondpricelist['cut'] }}</td>
+                                    <td>{{ $diamondpricelist['cara_weight'] }}</td>
+                                    <td>{{ number_format($diamondpricelist['price'], 0) }}</td>
+                                    <td>
+                                        <button class="update-btn" data-id="{{ $diamondpricelist['id'] }}">Update
+                                            price</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <button id="prev-btn-price" onclick="prevPagePrice()" disabled>&laquo; Previous</button>
+                        <span id="page-num-price">1</span> / <span id="total-pages-price"></span>
+                        <button id="next-btn-price" onclick="nextPagePrice()">Next &raquo;</button>
+                        <input type="number" id="page-input-price" min="1" style="width: 50px;">
+                        <button id="go-to-page-price">Go</button>
                     </div>
                 </div>
 
@@ -695,7 +751,8 @@ $dataPointsPieShell = array(
                     <div id="div_search_product">
                         <form id="search-form">
                             <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                <input type="text" id="customer_name" name="customer_name"
+                                    placeholder="Customer Name">
                                 <i class="fas fa-user"></i>
                                 <input type="text" id="order_date" name="order_date" placeholder="Order Date">
                                 <i class="fas fa-calendar-alt"></i>
@@ -744,7 +801,7 @@ $dataPointsPieShell = array(
                             @endforeach
                         </tbody>
                     </table>
-                
+
                     <div class="pagination">
                         <button id="prev-btn-employee" onclick="prevPageEmployee()" disabled>&laquo; Previous</button>
                         <span id="page-num-employee">1</span>
@@ -813,44 +870,45 @@ $dataPointsPieShell = array(
     {{-- pageBill --}}
     <script>
         const orderRows = document.querySelectorAll('.order-row');
-        const rowsPerPageOrder = 10;
+        const rowsPerPageOrder = 5;
         let currentPageOrder = 1;
-    
+
         function displayOrderRows() {
             orderRows.forEach((row, index) => {
                 row.style.display = 'none';
-                if (index >= (currentPageOrder - 1) * rowsPerPageOrder && index < currentPageOrder * rowsPerPageOrder) {
+                if (index >= (currentPageOrder - 1) * rowsPerPageOrder && index < currentPageOrder *
+                    rowsPerPageOrder) {
                     row.style.display = 'table-row';
                 }
             });
-    
+
             document.getElementById('page-num-order').textContent = currentPageOrder;
             document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
             document.getElementById('next-btn-order').disabled = currentPageOrder * rowsPerPageOrder >= orderRows.length;
         }
-    
+
         function prevPageOrder() {
             if (currentPageOrder > 1) {
                 currentPageOrder--;
                 displayOrderRows();
             }
         }
-    
+
         function nextPageOrder() {
             if (currentPageOrder * rowsPerPageOrder < orderRows.length) {
                 currentPageOrder++;
                 displayOrderRows();
             }
         }
-    
-        displayOrderRows();  // Initial display
+
+        displayOrderRows(); // Initial display
     </script>
     {{-- pageProduct --}}
     <script>
         const rows = document.querySelectorAll('.product-row');
         const rowsPerPage = 5;
         let currentPage = 1;
-    
+
         function displayRows() {
             rows.forEach((row, index) => {
                 row.style.display = 'none';
@@ -858,210 +916,334 @@ $dataPointsPieShell = array(
                     row.style.display = 'table-row';
                 }
             });
-    
+
             document.getElementById('page-num').textContent = currentPage;
             document.getElementById('prev-btn').disabled = currentPage === 1;
             document.getElementById('next-btn').disabled = currentPage * rowsPerPage >= rows.length;
         }
-    
+
         function prevPage() {
             if (currentPage > 1) {
                 currentPage--;
                 displayRows();
             }
         }
-    
+
         function nextPage() {
             if (currentPage * rowsPerPage < rows.length) {
                 currentPage++;
                 displayRows();
             }
         }
-    
-        displayRows();  // Initial display
+
+        displayRows(); // Initial display
     </script>
     {{-- pageDiamond --}}
     <script>
         const diamondRows = document.querySelectorAll('.diamond-row');
         const rowsPerPageDiamond = 5;
         let currentPageDiamond = 1;
-    
+
         function displayDiamondRows() {
             diamondRows.forEach((row, index) => {
                 row.style.display = 'none';
-                if (index >= (currentPageDiamond - 1) * rowsPerPageDiamond && index < currentPageDiamond * rowsPerPageDiamond) {
+                if (index >= (currentPageDiamond - 1) * rowsPerPageDiamond && index < currentPageDiamond *
+                    rowsPerPageDiamond) {
                     row.style.display = 'table-row';
                 }
             });
-    
+
             document.getElementById('page-num-diamond').textContent = currentPageDiamond;
             document.getElementById('prev-btn-diamond').disabled = currentPageDiamond === 1;
-            document.getElementById('next-btn-diamond').disabled = currentPageDiamond * rowsPerPageDiamond >= diamondRows.length;
+            document.getElementById('next-btn-diamond').disabled = currentPageDiamond * rowsPerPageDiamond >= diamondRows
+                .length;
         }
-    
+
         function prevPageDiamond() {
             if (currentPageDiamond > 1) {
                 currentPageDiamond--;
                 displayDiamondRows();
             }
         }
-    
+
         function nextPageDiamond() {
             if (currentPageDiamond * rowsPerPageDiamond < diamondRows.length) {
                 currentPageDiamond++;
                 displayDiamondRows();
             }
         }
-    
-        displayDiamondRows();  // Initial display
+
+        displayDiamondRows(); // Initial display
     </script>
     {{-- pageExDiamond --}}
     <script>
         const exdiamondRows = document.querySelectorAll('.exdiamond-row');
         const rowsPerPageExDiamond = 5;
         let currentPageExDiamond = 1;
-    
+
         function displayExDiamondRows() {
             exdiamondRows.forEach((row, index) => {
                 row.style.display = 'none';
-                if (index >= (currentPageExDiamond - 1) * rowsPerPageExDiamond && index < currentPageExDiamond * rowsPerPageExDiamond) {
+                if (index >= (currentPageExDiamond - 1) * rowsPerPageExDiamond && index < currentPageExDiamond *
+                    rowsPerPageExDiamond) {
                     row.style.display = 'table-row';
                 }
             });
-    
+
             document.getElementById('page-num-exdiamond').textContent = currentPageExDiamond;
             document.getElementById('prev-btn-exdiamond').disabled = currentPageExDiamond === 1;
-            document.getElementById('next-btn-exdiamond').disabled = currentPageExDiamond * rowsPerPageExDiamond >= exdiamondRows.length;
+            document.getElementById('next-btn-exdiamond').disabled = currentPageExDiamond * rowsPerPageExDiamond >=
+                exdiamondRows.length;
         }
-    
+
         function prevPageExDiamond() {
             if (currentPageExDiamond > 1) {
                 currentPageExDiamond--;
                 displayExDiamondRows();
             }
         }
-    
+
         function nextPageExDiamond() {
             if (currentPageExDiamond * rowsPerPageExDiamond < exdiamondRows.length) {
                 currentPageExDiamond++;
                 displayExDiamondRows();
             }
         }
-    
-        displayExDiamondRows();  // Initial display
+
+        displayExDiamondRows(); // Initial display
     </script>
     {{-- pageShell --}}
     <script>
         const shellRows = document.querySelectorAll('.shell-row');
         const rowsPerPageShell = 5;
         let currentPageShell = 1;
-    
+
         function displayShellRows() {
             shellRows.forEach((row, index) => {
                 row.style.display = 'none';
-                if (index >= (currentPageShell - 1) * rowsPerPageShell && index < currentPageShell * rowsPerPageShell) {
+                if (index >= (currentPageShell - 1) * rowsPerPageShell && index < currentPageShell *
+                    rowsPerPageShell) {
                     row.style.display = 'table-row';
                 }
             });
-    
+
             document.getElementById('page-num-shell').textContent = currentPageShell;
             document.getElementById('prev-btn-shell').disabled = currentPageShell === 1;
             document.getElementById('next-btn-shell').disabled = currentPageShell * rowsPerPageShell >= shellRows.length;
         }
-    
+
         function prevPageShell() {
             if (currentPageShell > 1) {
                 currentPageShell--;
                 displayShellRows();
             }
         }
-    
+
         function nextPageShell() {
             if (currentPageShell * rowsPerPageShell < shellRows.length) {
                 currentPageShell++;
                 displayShellRows();
             }
         }
-    
-        displayShellRows();  // Initial display
+
+        displayShellRows(); // Initial display
     </script>
+    {{-- page pricelist --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            let priceRows = Array.from(document.querySelectorAll('.listprice-row'));
+            const rowsPerPagePrice = 10;
+            let currentPagePrice = 1;
+            let filteredPriceRows = priceRows;
+            let totalPagesPrice = Math.ceil(filteredPriceRows.length / rowsPerPagePrice);
+
+            function displayPriceRows() {
+                filteredPriceRows.forEach((row, index) => {
+                    row.style.display = 'none';
+                    if (index >= (currentPagePrice - 1) * rowsPerPagePrice && index < currentPagePrice *
+                        rowsPerPagePrice) {
+                        row.style.display = 'table-row';
+                    }
+                });
+
+                document.getElementById('page-num-price').textContent = currentPagePrice;
+                document.getElementById('total-pages-price').textContent = totalPagesPrice;
+                document.getElementById('prev-btn-price').disabled = currentPagePrice === 1;
+                document.getElementById('next-btn-price').disabled = currentPagePrice === totalPagesPrice;
+            }
+
+            function prevPagePrice() {
+                if (currentPagePrice > 1) {
+                    currentPagePrice--;
+                    displayPriceRows();
+                }
+            }
+
+            function nextPagePrice() {
+                if (currentPagePrice < totalPagesPrice) {
+                    currentPagePrice++;
+                    displayPriceRows();
+                }
+            }
+
+            function goToPagePrice() {
+                const inputPage = parseInt(document.getElementById('page-input-price').value);
+                if (inputPage >= 1 && inputPage <= totalPagesPrice) {
+                    currentPagePrice = inputPage;
+                    displayPriceRows();
+                } else {
+                    alert('Invalid page number');
+                }
+            }
+
+            document.getElementById('prev-btn-price').addEventListener('click', prevPagePrice);
+            document.getElementById('next-btn-price').addEventListener('click', nextPagePrice);
+            document.getElementById('go-to-page-price').addEventListener('click', goToPagePrice);
+
+            document.querySelectorAll('.update-btn').forEach(button => {
+                button.addEventListener('click', async (event) => {
+                    const row = event.target.closest('tr');
+                    const priceCell = row.querySelector('td:nth-child(8)');
+                    const price = priceCell.textContent.trim();
+                    priceCell.innerHTML =
+                        `<input type="text" pattern="[0-9]*" value="${price.replace(/,/g, '')}" placeholder="${price}"> <button class="save-btn">Save</button> <button class="cancel-btn">Cancel</button>`;
+
+                    const input = priceCell.querySelector('input');
+                    input.addEventListener('input', function(event) {
+                        const newValue = event.target.value.replace(/\D/g, '');
+                        event.target.value = newValue.replace(/\B(?=(\d{3})+(?!\d))/g,
+                            ',');
+                    });
+
+                    priceCell.querySelector('.save-btn').addEventListener('click', async () => {
+                        const newPrice = priceCell.querySelector('input').value
+                            .replace(/,/g, '');
+                        const id = row.querySelector('td:nth-child(2)').textContent
+                            .trim(); // Lấy ID từ cột ID
+
+                        if (confirm('Are you sure you want to update the price?')) {
+                            try {
+                                const response = await fetch(
+                                    `/pricelist/update/${id}`, {
+                                        method: 'PUT',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': csrfToken,
+                                        },
+                                        body: JSON.stringify({
+                                            price: newPrice
+                                        }),
+                                    });
+                                if (response.ok) {
+                                    const data = await response.json();
+                                    priceCell.innerHTML = data.price.replace(
+                                        /\B(?=(\d{3})+(?!\d))/g, ',');
+                                } else {
+                                    throw new Error('Failed to update price');
+                                }
+                            } catch (error) {
+                                console.error('Error:', error);
+                                alert('Failed to update price.');
+                                priceCell.innerHTML = price.replace(
+                                    /\B(?=(\d{3})+(?!\d))/g, ',');
+                            }
+                        } else {
+                            priceCell.innerHTML = price.replace(
+                                /\B(?=(\d{3})+(?!\d))/g, ',');
+                        }
+                    });
+
+                    priceCell.querySelector('.cancel-btn').addEventListener('click', () => {
+                        priceCell.innerHTML = price.replace(/\B(?=(\d{3})+(?!\d))/g,
+                            ',');
+                    });
+                });
+            });
+
+            displayPriceRows();
+        });
+    </script>
+
+
     {{-- pageEmployee --}}
     <script>
         const employeeRows = document.querySelectorAll('.employee-row');
         const rowsPerPageEmployee = 10;
         let currentPageEmployee = 1;
-    
+
         function displayEmployeeRows() {
             employeeRows.forEach((row, index) => {
                 row.style.display = 'none';
-                if (index >= (currentPageEmployee - 1) * rowsPerPageEmployee && index < currentPageEmployee * rowsPerPageEmployee) {
+                if (index >= (currentPageEmployee - 1) * rowsPerPageEmployee && index < currentPageEmployee *
+                    rowsPerPageEmployee) {
                     row.style.display = 'table-row';
                 }
             });
-    
+
             document.getElementById('page-num-employee').textContent = currentPageEmployee;
             document.getElementById('prev-btn-employee').disabled = currentPageEmployee === 1;
-            document.getElementById('next-btn-employee').disabled = currentPageEmployee * rowsPerPageEmployee >= employeeRows.length;
+            document.getElementById('next-btn-employee').disabled = currentPageEmployee * rowsPerPageEmployee >=
+                employeeRows.length;
         }
-    
+
         function prevPageEmployee() {
             if (currentPageEmployee > 1) {
                 currentPageEmployee--;
                 displayEmployeeRows();
             }
         }
-    
+
         function nextPageEmployee() {
             if (currentPageEmployee * rowsPerPageEmployee < employeeRows.length) {
                 currentPageEmployee++;
                 displayEmployeeRows();
             }
         }
-    
-        displayEmployeeRows();  // Initial display
+
+        displayEmployeeRows(); // Initial display
     </script>
-{{-- search ajax --}}
+    {{-- search ajax --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#search-form').on('submit', function(e) {
-                e.preventDefault();
+        $('#search-form').on('submit', function(e) {
+            e.preventDefault();
 
-                var customerName = $('#customer_name').val();
-                // var orderDate = $('#order_date').val();
-                $.ajax({
-                    url: "{{ route('manager.searchOrdersAjax') }}",
-                    method: 'GET',
-                    data: {
-                        customer_name: customerName,
-                        // order_date: orderDate
-                    },
-                    success: function(response) {
-                        var orders = response.orders;
-                        var statusLabels = {
-                            0: 'Pending',
-                            1: 'Accepted',
-                            2: 'Prepare Product',
-                            3: 'Delivering',
-                            4: 'Finished',
-                            5: 'Cancelled'
-                        };
+        var customerName = $('#customer_name').val();
 
-                        var orderList = $('tbody');
-                        orderList.empty();
+        $.ajax({
+            url: "{{ route('manager.searchOrdersAjax') }}",
+            method: 'GET',
+            data: {
+                customer_name: customerName || null,
+            },
+            success: function(response) {
+                var orders = response.orders;
+                var statusLabels = {
+                    0: 'Pending',
+                    1: 'Accepted',
+                    2: 'Prepare Product',
+                    3: 'Delivering',
+                    4: 'Finished',
+                    5: 'Cancelled'
+                };
 
-                        orders.forEach(function(order, index) {
-                            var customerName = order ? order.name : 'Unknown';
-                            var customerEmail = order ? order.email : 'Unknown';
-                            var paymentMethod = order.payment ? order.payment.payment_method : 'Unknown';
-                            var status = statusLabels[order.status] || 'Unknown';
-
+                var orderList = $('#billing_table tbody');
+                orderList.empty();
+                var array_orders = Array.from(orders.orders);
+                if (array_orders) {
+                        array_orders.forEach(function(orders,index) {
+                            var customerName = orders ? orders.name : 'Unknown';
+                            var customerEmail = orders ? orders.email : 'Unknown';
+                            var paymentMethod = orders.payment ? orders.payment.payment_method : 'Unknown';
+                            var status = statusLabels[orders.status] || 'Unknown';
                             var orderRow = `
-                                <tr class='order-row' data-status="${order.status}">
-                                    <td>${index + 1}</td>
-                                    <td>${order.id}</td>
-                                    <td>${order.order_date}</td>
-                                    <td>${order.total_price}</td>
+                                <tr class='order-row' data-status="${orders.status}">
+                                    <td>${index+1}</td>
+                                    <td>${orders.id}</td>
+                                    <td>${orders.order_date}</td>
+                                    <td>${orders.total_price}</td>
                                     <td>${paymentMethod}</td>
                                     <td style="text-align: left;">
                                         Name: ${customerName}<br>
@@ -1069,7 +1251,7 @@ $dataPointsPieShell = array(
                                     </td>
                                     <td>${status}</td>
                                     <td>
-                                        <a href="{{ route('manager.showOrderDetail', '') }}/${order.id}">
+                                        <a href="{{ route('manager.showOrderDetail', '') }}/${orders.id}">
                                             <i class="bx bx-show"></i>
                                         </a>
                                     </td>
@@ -1077,73 +1259,182 @@ $dataPointsPieShell = array(
                             `;
                             orderList.append(orderRow);
                         });
-                    },
-                });
+                } else {
+                    orderList.append('<tr><td colspan="8">No orders found.</td></tr>');
+                }
+            },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching orders:', error);
+                    alert('An error occurred while fetching orders. Please try again.');
+                }
             });
         });
-    </script> 
+    });
+    </script>
 
-<script>
-let chart;
-//Data for custom line chart
-const dataForYear = [
-    { "x": new Date(2019, 1, 6), "y": 5278000 },
-    { "x": new Date(2020, 1, 6), "y": 3289000 },
-    { "x": new Date(2021, 1, 6), "y": 3830000 },
-    { "x": new Date(2022, 1, 6), "y": 2560000 },
-    { "x": new Date(2023, 1, 6), "y": 4860000 },
-    { "x": new Date(2024, 1, 6), "y": 2700000 },
-    // Add more data points for the year
-];
+    <script>
+        let chart;
+        //Data for custom line chart
+        const dataForYear = [{
+                "x": new Date(2019, 1, 6),
+                "y": 5278000
+            },
+            {
+                "x": new Date(2020, 1, 6),
+                "y": 3289000
+            },
+            {
+                "x": new Date(2021, 1, 6),
+                "y": 3830000
+            },
+            {
+                "x": new Date(2022, 1, 6),
+                "y": 2560000
+            },
+            {
+                "x": new Date(2023, 1, 6),
+                "y": 4860000
+            },
+            {
+                "x": new Date(2024, 1, 6),
+                "y": 2700000
+            },
+            // Add more data points for the year
+        ];
 
-const dataForMonth = [
-    { "x": new Date(2020, 1, 6), "y": 3289000 },
-    { "x": new Date(2020, 2, 6), "y": 3830000 },
-    { "x": new Date(2020, 3, 6), "y": 5240000 },
-    { "x": new Date(2020, 4, 6), "y": 3615000 },
-    { "x": new Date(2020, 5, 6), "y": 2865000 },
-    { "x": new Date(2020, 6, 6), "y": 2454000 },
-    { "x": new Date(2020, 7, 6), "y": 1452000 },
-    { "x": new Date(2020, 8, 6), "y": 3562000 },
-    { "x": new Date(2020, 9, 6), "y": 4547000 },
-    { "x": new Date(2020, 10, 6), "y": 1475000 },
-    { "x": new Date(2020, 11, 6), "y": 2649000 },
-    { "x": new Date(2020, 12, 6), "y": 3572000 },
-    // Add more data points for the month
-];
+        const dataForMonth = [{
+                "x": new Date(2020, 1, 6),
+                "y": 3289000
+            },
+            {
+                "x": new Date(2020, 2, 6),
+                "y": 3830000
+            },
+            {
+                "x": new Date(2020, 3, 6),
+                "y": 5240000
+            },
+            {
+                "x": new Date(2020, 4, 6),
+                "y": 3615000
+            },
+            {
+                "x": new Date(2020, 5, 6),
+                "y": 2865000
+            },
+            {
+                "x": new Date(2020, 6, 6),
+                "y": 2454000
+            },
+            {
+                "x": new Date(2020, 7, 6),
+                "y": 1452000
+            },
+            {
+                "x": new Date(2020, 8, 6),
+                "y": 3562000
+            },
+            {
+                "x": new Date(2020, 9, 6),
+                "y": 4547000
+            },
+            {
+                "x": new Date(2020, 10, 6),
+                "y": 1475000
+            },
+            {
+                "x": new Date(2020, 11, 6),
+                "y": 2649000
+            },
+            {
+                "x": new Date(2020, 12, 6),
+                "y": 3572000
+            },
+            // Add more data points for the month
+        ];
 
-const dataForDay = [
-    { "x": new Date(2020, 1, 6), "y": 3289000 },
-    { "x": new Date(2020, 1, 7), "y": 3830000 },
-    { "x": new Date(2020, 1, 8), "y": 2009000 },
-    { "x": new Date(2020, 1, 9), "y": 2840000 },
-    { "x": new Date(2020, 1, 10), "y": 2396000 },
-    { "x": new Date(2020, 1, 11), "y": 1613000 },
-    { "x": new Date(2020, 1, 12), "y": 1821000 },
-    { "x": new Date(2020, 1, 13), "y": 2000000 },
-    { "x": new Date(2020, 1, 14), "y": 1397000 },
-    { "x": new Date(2020, 1, 15), "y": 2506000 },
-    { "x": new Date(2020, 1, 16), "y": 6704000 },
-    { "x": new Date(2020, 1, 17), "y": 5704000 },
-    { "x": new Date(2020, 1, 18), "y": 4009000 },
-    { "x": new Date(2020, 1, 19), "y": 3026000 },
-    { "x": new Date(2020, 1, 20), "y": 2394000 },
-    { "x": new Date(2020, 1, 21), "y": 1872000 },
-    { "x": new Date(2020, 1, 22), "y": 2140000 }
-];
-//Map data into chart
-const dataMap = {
-    year: dataForYear,
-    month: dataForMonth,
-    day: dataForDay
-};
-//Draw line chart function
-function updateChart(criteria) {
+        const dataForDay = [{
+                "x": new Date(2020, 1, 6),
+                "y": 3289000
+            },
+            {
+                "x": new Date(2020, 1, 7),
+                "y": 3830000
+            },
+            {
+                "x": new Date(2020, 1, 8),
+                "y": 2009000
+            },
+            {
+                "x": new Date(2020, 1, 9),
+                "y": 2840000
+            },
+            {
+                "x": new Date(2020, 1, 10),
+                "y": 2396000
+            },
+            {
+                "x": new Date(2020, 1, 11),
+                "y": 1613000
+            },
+            {
+                "x": new Date(2020, 1, 12),
+                "y": 1821000
+            },
+            {
+                "x": new Date(2020, 1, 13),
+                "y": 2000000
+            },
+            {
+                "x": new Date(2020, 1, 14),
+                "y": 1397000
+            },
+            {
+                "x": new Date(2020, 1, 15),
+                "y": 2506000
+            },
+            {
+                "x": new Date(2020, 1, 16),
+                "y": 6704000
+            },
+            {
+                "x": new Date(2020, 1, 17),
+                "y": 5704000
+            },
+            {
+                "x": new Date(2020, 1, 18),
+                "y": 4009000
+            },
+            {
+                "x": new Date(2020, 1, 19),
+                "y": 3026000
+            },
+            {
+                "x": new Date(2020, 1, 20),
+                "y": 2394000
+            },
+            {
+                "x": new Date(2020, 1, 21),
+                "y": 1872000
+            },
+            {
+                "x": new Date(2020, 1, 22),
+                "y": 2140000
+            }
+        ];
+        //Map data into chart
+        const dataMap = {
+            year: dataForYear,
+            month: dataForMonth,
+            day: dataForDay
+        };
+        //Draw line chart function
+        function updateChart(criteria) {
 
             const dataPoints = dataMap[criteria];
             let xValueFormatString;
 
-            switch(criteria) {
+            switch (criteria) {
                 case 'year':
                     xValueFormatString = "YYYY";
                     break;
@@ -1189,82 +1480,81 @@ function updateChart(criteria) {
                 chart = new CanvasJS.Chart("chartContainer", chartOptions);
                 chart.render();
             }
-    }
+        }
 
-    function fetchAndUpdateChart(criteria) {
-        updateChart(criteria);
-    }
+        function fetchAndUpdateChart(criteria) {
+            updateChart(criteria);
+        }
 
-    // Initial load
-    fetchAndUpdateChart('day'); // Default to 'day' criteria on initial load
-//Draw pie chart for ring
-var chart2 = new CanvasJS.Chart("chartContainer2", {
-	animationEnabled: true,
-	title: {
-        fontSize: 20,
-		text: "Product Sales based on Ring Types",
-	},
-	subtitles: [{
-		text: "Q1 2024"
-	}],
-	data: [{
-		type: "pie",
-		indexLabel: "{y}",
-		yValueFormatString: "#,##0.00\"%\"",
-		indexLabelPlacement: "inside",
-		indexLabelFontColor: "#36454F",
-		indexLabelFontSize: 15,
-		indexLabelFontWeight: "bolder",
-		showInLegend: true,
-		legendText: "{label}",
-		dataPoints: <?php echo json_encode($dataPointsPieShell, JSON_NUMERIC_CHECK); ?>
-	}]
-});
-chart2.render();
-//Draw chart for Customer rating
-var chart3 = new CanvasJS.Chart("chartContainer3", {
-	animationEnabled: true,
-	theme: "light2",
-	title:{
-		text: "Overall Customer Rating from T1 2024"
-	},
-	axisY:{
-		includeZero: true
-	},
-	legend:{
-		cursor: "pointer",
-		verticalAlign: "center",
-		horizontalAlign: "right",
-		itemclick: toggleDataSeries
-	},
-	data: [{
-		type: "column",
-		name: "Men",
-		indexLabel: "{y}",
-		yValueFormatString: "#0.##",
-		showInLegend: true,
-		dataPoints: <?php echo json_encode($dataPointsCustomerMen, JSON_NUMERIC_CHECK); ?>
-	},{
-		type: "column",
-		name: "Women",
-		indexLabel: "{y}",
-		yValueFormatString: "#0.##",
-		showInLegend: true,
-		dataPoints: <?php echo json_encode($dataPointsCustomerWoMen, JSON_NUMERIC_CHECK); ?>
-	}]
-});
-chart3.render();
-//Tongle Data for Customer chart
-function toggleDataSeries(e){
-	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	}
-	else{
-		e.dataSeries.visible = true;
-	}
-	chart3.render();
-}
-</script>
+        // Initial load
+        fetchAndUpdateChart('day'); // Default to 'day' criteria on initial load
+        //Draw pie chart for ring
+        var chart2 = new CanvasJS.Chart("chartContainer2", {
+            animationEnabled: true,
+            title: {
+                fontSize: 20,
+                text: "Product Sales based on Ring Types",
+            },
+            subtitles: [{
+                text: "Q1 2024"
+            }],
+            data: [{
+                type: "pie",
+                indexLabel: "{y}",
+                yValueFormatString: "#,##0.00\"%\"",
+                indexLabelPlacement: "inside",
+                indexLabelFontColor: "#36454F",
+                indexLabelFontSize: 15,
+                indexLabelFontWeight: "bolder",
+                showInLegend: true,
+                legendText: "{label}",
+                dataPoints: <?php echo json_encode($dataPointsPieShell, JSON_NUMERIC_CHECK); ?>
+            }]
+        });
+        chart2.render();
+        //Draw chart for Customer rating
+        var chart3 = new CanvasJS.Chart("chartContainer3", {
+            animationEnabled: true,
+            theme: "light2",
+            title: {
+                text: "Overall Customer Rating from T1 2024"
+            },
+            axisY: {
+                includeZero: true
+            },
+            legend: {
+                cursor: "pointer",
+                verticalAlign: "center",
+                horizontalAlign: "right",
+                itemclick: toggleDataSeries
+            },
+            data: [{
+                type: "column",
+                name: "Men",
+                indexLabel: "{y}",
+                yValueFormatString: "#0.##",
+                showInLegend: true,
+                dataPoints: <?php echo json_encode($dataPointsCustomerMen, JSON_NUMERIC_CHECK); ?>
+            }, {
+                type: "column",
+                name: "Women",
+                indexLabel: "{y}",
+                yValueFormatString: "#0.##",
+                showInLegend: true,
+                dataPoints: <?php echo json_encode($dataPointsCustomerWoMen, JSON_NUMERIC_CHECK); ?>
+            }]
+        });
+        chart3.render();
+        //Tongle Data for Customer chart
+        function toggleDataSeries(e) {
+            if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                e.dataSeries.visible = false;
+            } else {
+                e.dataSeries.visible = true;
+            }
+            chart3.render();
+        }
+    </script>
 
 </body>
 

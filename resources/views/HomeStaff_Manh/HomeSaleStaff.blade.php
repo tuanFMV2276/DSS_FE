@@ -125,8 +125,7 @@
                 <div id="div_search_order">
                     <form id="search-form">
                         <div class="search-bar">
-                            <input type="text" id="customer_name" name="customer_name"
-                                placeholder="Customer Name">
+                            <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
                             <i class="fas fa-user"></i>
                             <input type="text" id="order_date" name="order_date" placeholder="Order Date">
                             <i class="fas fa-calendar-alt"></i>
@@ -159,7 +158,7 @@
                         <i class="fas fa-times-circle icon-status"></i> Cancelled
                     </button>
                 </div>
-
+            
                 <table class="table">
                     <thead>
                         <tr>
@@ -174,9 +173,9 @@
                         </tr>
                     </thead>
                     <tbody id="order-list">
-                        @foreach ($ordersPaginated as $order)
+                        @foreach ($orders as $index => $order)
                             @php
-                                $customer = collect($customers)->firstWhere('id', $order['customer_id']);
+                                //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
                                 $payment = collect($payments)->firstWhere('order_id', $order['id']);
                                 $statusLabels = [
                                     0 => 'Pending',
@@ -188,12 +187,12 @@
                                 ];
                             @endphp
                             <tr class="order-row" data-status="{{ $order['status'] }}">
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $index + 1 }}</td>
                                 <td>{{ $order['id'] }}</td>
                                 <td>{{ $order['order_date'] }}</td>
                                 <td>{{ $order['total_price'] }}</td>
                                 <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td>
-                                <td style="text-align: left;">
+                                {{-- <td style="text-align: left;">
                                     <div class="customer-info">
                                         @if ($customer)
                                             @if ($customer['gender'] == 'Male')
@@ -209,10 +208,12 @@
                                             Email: {{ $customer ? $customer['email'] : 'Unknown' }}
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
+                                <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
+                                    Email: {{ $order ? $order['email'] : 'Unknown' }}</td>
                                 <td>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</td>
                                 <td>
-                                    <a href="{{ route('manager.showOrderDetail', $order['id']) }}">
+                                    <a href="{{ route('salestaff.showOrderDetail', $order['id']) }}">
                                         <i class="fa-regular fa-eye icon-blue"></i>
                                     </a>
                                 </td>
@@ -220,13 +221,12 @@
                         @endforeach
                     </tbody>
                 </table>
-
-                <div class="text-center">
-                    {{ $ordersPaginated->links() }}
+            
+                <div class="pagination">
+                    <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
+                    <span id="page-num-order">1</span>
+                    <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
                 </div>
-
-
-
             </div>
         </div>
     </section>

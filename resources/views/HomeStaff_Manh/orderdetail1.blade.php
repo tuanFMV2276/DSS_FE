@@ -26,7 +26,7 @@
         <div class="card-header">
             <h2><i class="fas fa-shopping-cart"></i> Order</h2>
         </div>
-        <form action="{{ route('manager.updateOrderStatus', $order['id']) }}" method="POST"
+        <form action="{{ route('salestaff.updateOrderStatus', $order['id']) }}" method="POST"
             onsubmit="return confirmUpdate()">
             <div class="card-body">
                 <div class="row">

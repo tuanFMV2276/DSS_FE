@@ -50,12 +50,14 @@ Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->na
 Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
 Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
 Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
 
 // End route manager
 //------------------------------------------------------------------------------------------
 // Route của sale staff '/home-salestaff'
 Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
 Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
+Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
 
 
 

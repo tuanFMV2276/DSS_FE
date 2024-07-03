@@ -135,13 +135,13 @@
                     <button class="status-btn active" data-status="all">
                         <i class="fas fa-list icon-status"></i> All employee
                     </button>
-                    <button class="status-btn" data-status="2">
+                    <button class="status-btn" data-status="3">
                         <i class="fa-solid fa-user-tie icon-status"></i>Sale staffs
                     </button>
                     <button class="status-btn" data-status="4">
                         <i class="fa-solid fa-truck icon-status"></i> Delivery staffs
                     </button>
-                    <button class="status-btn" data-status="1">
+                    <button class="status-btn" data-status="2">
                         <i class="fa-solid fa-truck icon-status"></i> Manager
                     </button>
 
