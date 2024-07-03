@@ -1,0 +1,208 @@
+ol, ul {
+    padding-left: 0;
+}
+.row{
+    margin-left: 0%;
+    margin-right: 0%;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+.pr-3 {
+    padding-right: 1rem !important;
+}
+
+.header {
+    padding: 20px 0;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    
+    height: 95vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.sidebar .profile {
+    padding: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+    border-bottom: #000 solid 1px;
+}
+
+.sidebar .profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.sidebar .profile h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.sidebar .profile p {
+    color: #888;
+    font-size: 14px;
+}
+
+.sidebar .menu {
+    list-style-type: none;
+}
+
+.sidebar .menu li {
+    margin: 15px 0;
+}
+
+.sidebar .menu li a {
+    width: 100%;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .menu li a:hover {
+    color: #b58254;
+}
+
+.table-container {
+    display: none;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.table-container table, .table-container th, .table-container td {
+    border: none;
+    padding: 7px;
+}
+
+.table-container th {
+    background-color: rgb(50, 50, 50);
+    color:white;
+    text-align: center;
+}
+
+.table-container td {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 80vw;
+    padding-left: 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+.chat-header, .chat-footer {
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+}
+.chat-header {
+    font-size: 18px;
+    font-weight: bold;
+}
+.customer-list {
+    display: flex;
+    overflow-x: auto;
+    background-color: #e9ecef;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.customer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.customer-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+.chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+.chat-message {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.chat-message.staff {
+    align-items: flex-end;
+}
+.chat-message .message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: max-content;
+}
+.chat-message.customer .message {
+    background-color: #f1f1f1;
+    text-align: left;
+}
+.chat-message.staff .message {
+    background-color: #007bff;
+    color: white;
+}
+.chat-footer {
+    display: flex;
+    align-items: center;
+}
+.chat-footer input {
+    flex: 1;
+    margin-right: 10px;
+}

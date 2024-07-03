@@ -9,6 +9,7 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="icon" href="/Picture_web/Icon_Diamond.jpg" type="image/jpeg" />
 </head>
 
 <body>
@@ -96,36 +97,15 @@
         <div class="tab tab-2">
             <div class="title">Nhẫn Kim cương</div>
             <div class="carousel-inner">
+                @foreach($products as $product)
                 <div class="product">
-                    <img src="{{asset('/Picture_Product/ShellDiamond1.jpg')}}" alt="Diamond 1" />
-                    <p>{{ $products[0]['product_name'] }}</p>
-                    <strong>{{ number_format($products[0]['total_price'], 0, ',', '.') }}₫</strong>
+                    <a href="{{ route('product.show', $product['id']) }}" style="text-decoration: none; color: black">
+                        <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Diamond Product" />
+                        <strong>{{ $product['product_name'] }}</strong>
+                        <p>{{ number_format($product['total_price'], 0, ',', '.') }}₫</p>
+                    </a>
                 </div>
-                <div class="product">
-                    <img src="{{asset('/Picture_Product/ShellDiamond2.jpg')}}" alt="Diamond 2" />
-                    <p>{{ $products[1]['product_name'] }}</p>
-                    <strong>{{ number_format($products[1]['total_price'], 0, ',', '.') }}₫</strong>
-                </div>
-                <div class="product">
-                    <img src="{{asset('/Picture_Product/ShellDiamond3.jpg')}}" alt="Diamond 3" />
-                    <p>{{ $products[2]['product_name'] }}</p>
-                    <strong>{{ number_format($products[2]['total_price'], 0, ',', '.') }}₫</strong>
-                </div>
-                <div class="product">
-                    <img src="{{asset('/Picture_Product/ShellDiamond4.jpg')}}" alt="Diamond 4" />
-                    <p>{{ $products[3]['product_name'] }}</p>
-                    <strong>{{ number_format($products[3]['total_price'], 0, ',', '.') }}₫</strong>
-                </div>
-                <div class="product">
-                    <img src="{{asset('/Picture_Product/ShellDiamond5.jpg')}}" alt="Diamond 5" />
-                    <p>{{ $products[4]['product_name'] }}</p>
-                    <strong>{{ number_format($products[4]['total_price'], 0, ',', '.') }}₫</strong>
-                </div>
-                <div class="product">
-                    <img src="{{asset('/Picture_Product/ShellDiamond6.jpg')}}" alt="Diamond 6" />
-                    <p>{{ $products[5]['product_name'] }}</p>
-                    <strong>{{ number_format($products[5]['total_price'], 0, ',', '.') }}₫</strong>
-                </div>
+                @endforeach
             </div>
             <div class="carousel-controls">
                 <a href="/ListProduct"><button class="view-all">Xem Tất Cả</button></a>

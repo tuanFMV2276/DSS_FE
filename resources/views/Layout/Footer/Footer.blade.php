@@ -58,7 +58,7 @@
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Hướng dẫn sử dụng</h6>
                         <p>
-                            <a href="#!" class="text-reset">Đo size</a>
+                            <a href="/DoNi" class="text-reset">Đo size</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">Bảo quản trang sức</a>
@@ -79,10 +79,10 @@
                             <a href="#!" class="text-reset">Chính sách thu hồi</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Bảo mật thông tin</a>
+                            <a href="/PriceDiamond" class="text-reset">Giá kim cương</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Giá vàng hôm nay</a>
+                            <a href="/PriceGold" class="text-reset">Giá vàng hôm nay</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">Phương thức thanh toán</a>
