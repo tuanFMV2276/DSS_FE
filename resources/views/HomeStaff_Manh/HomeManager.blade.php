@@ -1236,7 +1236,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         array_orders.forEach(function(orders,index) {
                             var customerName = orders ? orders.name : 'Unknown';
                             var customerEmail = orders ? orders.email : 'Unknown';
-                            var paymentMethod = orders.payment ? orders.payment.payment_method : 'Unknown';
                             var status = statusLabels[orders.status] || 'Unknown';
                             var orderRow = `
                                 <tr class='order-row' data-status="${orders.status}">
@@ -1251,8 +1250,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     </td>
                                     <td>${status}</td>
                                     <td>
-                                        <a href="{{ route('manager.showOrderDetail', '') }}/${orders.id}">
-                                            <i class="bx bx-show"></i>
+                                        <a href="/manager_orders/${orders.id}/detail">
+                                            <i class="fa-regular fa-eye icon-blue"></i>
                                         </a>
                                     </td>
                                 </tr>

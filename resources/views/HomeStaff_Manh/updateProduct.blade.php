@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+if (isset($_POST['submit'])) {
+    // This is the directory where images will be saved
+    $filename = basename($_FILES['image']['name']);
+    $target_dir = 'images/';
+    $target = $target_dir . $filename;
+
+    $is_upload = move_uploaded_file($_FILES['image']['tmp_name'], $target);
+
+    if ($is_upload) {
+        echo '<script type="text/javascript">alert("The file has been uploaded successfully.");</script>';
+        echo '<script type="text/javascript">window.location.href = window.location.href;</script>';
+    } else {
+        echo '<script type="text/javascript">alert("Sorry, there was a problem uploading your file.");</script>';
+        echo '<script type="text/javascript">window.location.href = window.location.href;</script>';
+    }
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,37 +70,39 @@
             <div class="form-group">
                 <label for="product_code"><i class="fas fa-barcode"></i> Product Code</label>
                 <input type="text" class="form-control" id="product_code" name="product_code"
-                    value="{{ old('product_code', $product['product_code']) }}" readonly>
+                    value="{{ old('product_code', $product['product_code']) }}" disabled>
             </div>
 
             <div class="form-group">
                 <label for="product_name"><i class="fas fa-tag"></i> Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name"
-                    value="{{ old('product_name', $product['product_name']) }}" required
-                    pattern="^[a-zA-Z0-9\s]+$" title="Product name should not contain special characters.">
+                    value="{{ old('product_name', $product['product_name']) }}" required pattern="^[a-zA-Z0-9\s]+$"
+                    title="Product name should not contain special characters.">
             </div>
 
             <div class="form-group">
                 <label for="image"><i class="fas fa-image"></i> Image</label>
-                <input type="file" class="form-control-file" id="image" name="image" onchange="previewImage(event)">
+                <input type="file" class="form-control-file" id="file-input" name="image"
+                    onchange="previewImage(event)" accept="image/*">
                 @if ($product['image'])
-                <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image"
-                    style="max-width: 200px; margin-top: 10px;" id="image-preview">
+                    <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image"
+                        style="max-width: 200px; margin-top: 10px;" id="image-preview">
                 @else
-                <img id="image-preview" style="max-width: 200px; margin-top: 10px;">
+                    <img id="image-preview" style="max-width: 200px; margin-top: 10px;">
                 @endif
+
             </div>
 
             <div class="form-group">
                 <label for="main_diamond_id"><i class="fas fa-gem"></i> Main Diamond ID</label>
                 <select class="form-control" id="main_diamond_id" name="main_diamond_id" required>
                     <option value="">Select Main Diamond</option>
-                    @foreach($mainDiamonds as $diamond)
-                    @if($diamond['status'] == 1 || $diamond['id'] == $product['main_diamond_id'])
-                    <option value="{{ $diamond['id'] }}"
-                        {{ old('main_diamond_id', $product['main_diamond_id']) == $diamond['id'] ? 'selected' : '' }}>
-                        {{ $diamond['id'] }}</option>
-                    @endif
+                    @foreach ($mainDiamonds as $diamond)
+                        @if ($diamond['status'] == 1 || $diamond['id'] == $product['main_diamond_id'])
+                            <option value="{{ $diamond['id'] }}"
+                                {{ old('main_diamond_id', $product['main_diamond_id']) == $diamond['id'] ? 'selected' : '' }}>
+                                {{ $diamond['id'] }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -90,12 +111,12 @@
                 <label for="extra_diamond_id"><i class="fas fa-gem"></i> Extra Diamond ID</label>
                 <select class="form-control" id="extra_diamond_id" name="extra_diamond_id" required>
                     <option value="">Select Extra Diamond</option>
-                    @foreach($extraDiamonds as $diamond)
-                    @if($diamond['status'] == 1 || $diamond['id'] == $product['extra_diamond_id'])
-                    <option value="{{ $diamond['id'] }}"
-                        {{ old('extra_diamond_id', $product['extra_diamond_id']) == $diamond['id'] ? 'selected' : '' }}>
-                        {{ $diamond['id'] }}</option>
-                    @endif
+                    @foreach ($extraDiamonds as $diamond)
+                        @if ($diamond['status'] == 1 || $diamond['id'] == $product['extra_diamond_id'])
+                            <option value="{{ $diamond['id'] }}"
+                                {{ old('extra_diamond_id', $product['extra_diamond_id']) == $diamond['id'] ? 'selected' : '' }}>
+                                {{ $diamond['id'] }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -106,7 +127,8 @@
                     value="{{ old('number_ex_diamond', $product['number_ex_diamond']) }}"
                     max="{{ $extraDiamonds[$product['extra_diamond_id']]['quantity'] ?? 0 }}"
                     title="Number of extra diamonds should not exceed the available quantity.">
-                <small>Available: <span id="available-extra-diamonds">{{ $extraDiamonds[$product['extra_diamond_id']]['quantity'] ?? 0 }}</span></small>
+                <small>Available: <span
+                        id="available-extra-diamonds">{{ $extraDiamonds[$product['extra_diamond_id']]['quantity'] ?? 0 }}</span></small>
             </div>
 
             <div class="form-group">
@@ -118,19 +140,20 @@
                 <label for="diamond_shell_id"><i class="fas fa-box"></i> Diamond Shell ID</label>
                 <select class="form-control" id="diamond_shell_id" name="diamond_shell_id" required>
                     <option value="">Select Diamond Shell</option>
-                    @foreach($diamondShells as $shell)
-                    @if($shell['status'] == 1 || $shell['id'] == $product['diamond_shell_id'])
-                    <option value="{{ $shell['id'] }}"
-                        {{ old('diamond_shell_id', $product['diamond_shell_id']) == $shell['id'] ? 'selected' : '' }}>
-                        {{ $shell['id'] }}</option>
-                    @endif
+                    @foreach ($diamondShells as $shell)
+                        @if ($shell['status'] == 1 || $shell['id'] == $product['diamond_shell_id'])
+                            <option value="{{ $shell['id'] }}"
+                                {{ old('diamond_shell_id', $product['diamond_shell_id']) == $shell['id'] ? 'selected' : '' }}>
+                                {{ $shell['id'] }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
 
             <div class="form-group" style="display: none;">
                 <label for="size"><i class="fas fa-ruler"></i> Size</label>
-                <input type="text" class="form-control" id="size" name="size" value="{{ old('size', $product['size']) }}">
+                <input type="text" class="form-control" id="size" name="size"
+                    value="{{ old('size', $product['size']) }}">
             </div>
 
             <div class="form-group">
@@ -147,8 +170,8 @@
                     <label class="form-check-label" for="status_active">Active</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status_inactive" value="0"
-                        {{ old('status', $product['status']) == 0 ? 'checked' : '' }} required>
+                    <input class="form-check-input" type="radio" name="status" id="status_inactive"
+                        value="0" {{ old('status', $product['status']) == 0 ? 'checked' : '' }} required>
                     <label class="form-check-label" for="status_inactive">Inactive</label>
                 </div>
             </div>
@@ -163,12 +186,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         function previewImage(event) {
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = document.getElementById('image-preview');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
+            const fileInput = document.getElementById('file-input');
+
+            const previewImage = document.getElementById('preview-image');
+
+            fileInput.addEventListener('change', event => {
+                if (fileInput.files.length > 0) {
+                    const fileReader = new FileReader();
+
+                    fileReader.onload = function handleLoad() {
+                        previewImage.src = fileReader.result;
+
+                        previewImage.style.display = 'block';
+                    };
+
+                    fileReader.readAsDataURL(fileInput.files[0]);
+                }
+
+                // 👇️ reset file input once you're done
+                fileInput.value = null;
+            });
         }
 
         $('#extra_diamond_id').on('change', function() {

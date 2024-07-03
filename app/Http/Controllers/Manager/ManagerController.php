@@ -181,10 +181,9 @@ class ManagerController extends Controller
 
     public function updatePricelist(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/diamondpricelist/{$id}", [
+        return $response = Http::put("http://127.0.0.1:8000/api/diamondpricelist/{$id}", [
             'price' => $request->price,
         ]);
-        return response()->json('price',200);
     }
 
 }
