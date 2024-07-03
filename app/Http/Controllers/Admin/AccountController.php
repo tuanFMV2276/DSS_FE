@@ -93,4 +93,18 @@ class AccountController extends Controller
 
         return back()->with('error', 'Failed to delete account.');
     }
+
+    public function showEmployeeDetail($id)
+    {
+        $employee = Http::get("http://127.0.0.1:8000/api/employee/{$id}")->json();
+        return view('HomeAdmin.EmployeeDetail', ['employee' => $employee]);
+    }
+
+    public function updateEmployee(Request $request, $id)
+    {
+        $response = Http::put("http://127.0.0.1:8000/api/employee/{$id}", $request->all());
+
+        return redirect('/admin/accounts');
+    }
+
 }

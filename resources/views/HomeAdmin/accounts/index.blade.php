@@ -172,7 +172,7 @@
                                 <td>{{ $rolesLabels[$employee['role_id']] ?? 'Unknown' }}</td>
                                 <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                 <td>
-                                    <a href="{{ route('manager.showEmployeeDetail', $employee['id']) }}">
+                                    <a href="{{ route('admin.showEmployeeDetail', $employee['id']) }}">
                                         <i class="fa-regular fa-eye icon-blue"></i>
                                     </a>
                                 </td>

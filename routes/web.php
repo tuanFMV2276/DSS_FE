@@ -77,6 +77,8 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
     Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
     Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
     Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
+    Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
+    Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
 // });
 // End route của Admin
 //------------------------------------------------------------------------------------------

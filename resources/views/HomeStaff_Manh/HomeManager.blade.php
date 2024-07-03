@@ -302,7 +302,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <th>Order ID</th>
                                 <th>Order Date</th>
                                 <th>Total Price</th>
-                                <th>Payment Method</th>
+                                {{-- <th>Payment Method</th> --}}
                                 <th>Customer</th>
                                 <th>Status</th>
                                 <th>View Detail</th>
@@ -327,7 +327,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
                                     <td>{{ $order['total_price'] }}</td>
-                                    <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td>
+                                    {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
                                     {{-- <td style="text-align: left;">
                                         <div class="customer-info">
                                             @if ($customer)
@@ -1244,7 +1244,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>${orders.id}</td>
                                     <td>${orders.order_date}</td>
                                     <td>${orders.total_price}</td>
-                                    <td>${paymentMethod}</td>
+                                    
                                     <td style="text-align: left;">
                                         Name: ${customerName}<br>
                                         Email: ${customerEmail}
