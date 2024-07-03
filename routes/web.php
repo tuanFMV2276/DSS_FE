@@ -1,19 +1,16 @@
 <?php
 
-use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Customer\HomeController;
 // use App\Http\Controllers\NaturalDiamondPage;
 // use App\Http\Controllers\LabDiamondPage;
 // use App\Http\Controllers\DetailDiamond;
-use App\Http\Controllers\ListProductController;
-use App\Http\Controllers\DetailProductController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\Payment;
+use App\Http\Controllers\Customer\ListProductController;
+use App\Http\Controllers\Customer\DetailProductController;
+use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Login;
-use App\Http\Controllers\PaymentSuccessful;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Customer\OrderController;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
@@ -79,6 +76,9 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
     Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
     Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
     Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
+    Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
+    Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
+    Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
 // });
 // End route của Admin
 //------------------------------------------------------------------------------------------
@@ -130,4 +130,16 @@ Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 
 Route::get('/IntroduceDiamondGIA', function () {
     return view('Information.IntroduceDiamondGIA.IntroduceDiamondGIA');
+});
+
+Route::get('/DoNi', function () {
+    return view('Information.DoNi.DoNi');
+});
+
+Route::get('/PriceDiamond', function () {
+    return view('Information.PriceDiamond.PriceDiamond');
+});
+
+Route::get('/PriceGold', function () {
+    return view('Information.PriceGold.PriceGold');
 });

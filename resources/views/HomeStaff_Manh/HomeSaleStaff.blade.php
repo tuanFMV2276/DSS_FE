@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="{{ asset('css_Manh/staffchat.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/button.css') }}">
     <link rel="stylesheet" href="{{ asset('css_Manh/searchfield.css') }}">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
 </head>
 
 <body>
@@ -63,59 +63,79 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <script>
-                    const customers = [
-                        { id: 1, name: 'John Doe', icon: 'https://via.placeholder.com/50', messages: [
-                            { type: 'customer', text: 'Hello, I need help with my order.' },
-                            { type: 'staff', text: 'Sure, I\'d be happy to help! Can you provide your order ID?' }
-                        ]},
-                        { id: 2, name: 'Jane Smith', icon: 'https://via.placeholder.com/50', messages: [
-                            { type: 'customer', text: 'Hi, I have a question about my account.' },
-                            { type: 'staff', text: 'Absolutely, what would you like to know?' }
-                        ]},
-                        // Add more customers as needed
-                    ];
-                
-                    function loadCustomerList() {
-                        const customerList = document.getElementById('customer-list');
-                        customers.forEach(customer => {
-                            const customerItem = document.createElement('div');
-                            customerItem.className = 'customer-item';
-                            customerItem.innerHTML = `<img src="${customer.icon}" alt="${customer.name}"><span>${customer.name}</span>`;
-                            customerItem.addEventListener('click', () => loadChatMessages(customer.id));
-                            customerList.appendChild(customerItem);
-                        });
-                    }
-                
-                    function loadChatMessages(customerId) {
-                        const customer = customers.find(c => c.id === customerId);
+                const customers = [{
+                        id: 1,
+                        name: 'John Doe',
+                        icon: 'https://via.placeholder.com/50',
+                        messages: [{
+                                type: 'customer',
+                                text: 'Hello, I need help with my order.'
+                            },
+                            {
+                                type: 'staff',
+                                text: 'Sure, I\'d be happy to help! Can you provide your order ID?'
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: 'Jane Smith',
+                        icon: 'https://via.placeholder.com/50',
+                        messages: [{
+                                type: 'customer',
+                                text: 'Hi, I have a question about my account.'
+                            },
+                            {
+                                type: 'staff',
+                                text: 'Absolutely, what would you like to know?'
+                            }
+                        ]
+                    },
+                    // Add more customers as needed
+                ];
+
+                function loadCustomerList() {
+                    const customerList = document.getElementById('customer-list');
+                    customers.forEach(customer => {
+                        const customerItem = document.createElement('div');
+                        customerItem.className = 'customer-item';
+                        customerItem.innerHTML =
+                            `<img src="${customer.icon}" alt="${customer.name}"><span>${customer.name}</span>`;
+                        customerItem.addEventListener('click', () => loadChatMessages(customer.id));
+                        customerList.appendChild(customerItem);
+                    });
+                }
+
+                function loadChatMessages(customerId) {
+                    const customer = customers.find(c => c.id === customerId);
+                    const chatBody = document.getElementById('chat-body');
+                    chatBody.innerHTML = ''; // Clear previous messages
+                    customer.messages.forEach(msg => {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = 'chat-message ' + msg.type;
+                        messageDiv.innerHTML = `<div class="message">${msg.text}</div>`;
+                        chatBody.appendChild(messageDiv);
+                    });
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }
+
+                document.getElementById('send-button').addEventListener('click', function() {
+                    const message = document.getElementById('chat-input').value;
+                    if (message) {
                         const chatBody = document.getElementById('chat-body');
-                        chatBody.innerHTML = ''; // Clear previous messages
-                        customer.messages.forEach(msg => {
-                            const messageDiv = document.createElement('div');
-                            messageDiv.className = 'chat-message ' + msg.type;
-                            messageDiv.innerHTML = `<div class="message">${msg.text}</div>`;
-                            chatBody.appendChild(messageDiv);
-                        });
+                        const newMessage = document.createElement('div');
+                        newMessage.className = 'chat-message staff';
+                        newMessage.innerHTML = '<div class="message">' + message + '</div>';
+                        chatBody.appendChild(newMessage);
+                        document.getElementById('chat-input').value = '';
                         chatBody.scrollTop = chatBody.scrollHeight;
                     }
-                
-                    document.getElementById('send-button').addEventListener('click', function() {
-                        const message = document.getElementById('chat-input').value;
-                        if (message) {
-                            const chatBody = document.getElementById('chat-body');
-                            const newMessage = document.createElement('div');
-                            newMessage.className = 'chat-message staff';
-                            newMessage.innerHTML = '<div class="message">' + message + '</div>';
-                            chatBody.appendChild(newMessage);
-                            document.getElementById('chat-input').value = '';
-                            chatBody.scrollTop = chatBody.scrollHeight;
-                        }
-                    });
-                
-                    // Load initial customer list
-                    loadCustomerList();
+                });
+
+                // Load initial customer list
+                loadCustomerList();
                 </script>
             </div>
 
@@ -158,7 +178,7 @@
                         <i class="fas fa-times-circle icon-status"></i> Cancelled
                     </button>
                 </div>
-            
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -166,7 +186,7 @@
                             <th>Order ID</th>
                             <th>Order Date</th>
                             <th>Total Price</th>
-                            <th>Payment Method</th>
+                            <!-- <th>Payment Method</th> -->
                             <th>Customer</th>
                             <th>Status</th>
                             <th>View Detail</th>
@@ -174,25 +194,25 @@
                     </thead>
                     <tbody id="order-list">
                         @foreach ($orders as $index => $order)
-                            @php
-                                //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
-                                $payment = collect($payments)->firstWhere('order_id', $order['id']);
-                                $statusLabels = [
-                                    0 => 'Pending',
-                                    1 => 'Accepted',
-                                    2 => 'Prepare Product',
-                                    3 => 'Delivering',
-                                    4 => 'Finished',
-                                    5 => 'Cancelled',
-                                ];
-                            @endphp
-                            <tr class="order-row" data-status="{{ $order['status'] }}">
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $order['id'] }}</td>
-                                <td>{{ $order['order_date'] }}</td>
-                                <td>{{ $order['total_price'] }}</td>
-                                <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td>
-                                {{-- <td style="text-align: left;">
+                        @php
+                        //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
+                        $payment = collect($payments)->firstWhere('order_id', $order['id']);
+                        $statusLabels = [
+                        0 => 'Pending',
+                        1 => 'Accepted',
+                        2 => 'Prepare Product',
+                        3 => 'Delivering',
+                        4 => 'Finished',
+                        5 => 'Cancelled',
+                        ];
+                        @endphp
+                        <tr class="order-row" data-status="{{ $order['status'] }}">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $order['id'] }}</td>
+                            <td>{{ $order['order_date'] }}</td>
+                            <td>{{ $order['total_price'] }}</td>
+                            <!-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> -->
+                            {{-- <td style="text-align: left;">
                                     <div class="customer-info">
                                         @if ($customer)
                                             @if ($customer['gender'] == 'Male')
@@ -205,88 +225,88 @@
                                         @endif
                                         <div class="customer-details">
                                             Name: {{ $customer ? $customer['name'] : 'Unknown' }}<br>
-                                            Email: {{ $customer ? $customer['email'] : 'Unknown' }}
-                                        </div>
-                                    </div>
-                                </td> --}}
-                                <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
-                                    Email: {{ $order ? $order['email'] : 'Unknown' }}</td>
-                                <td>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</td>
-                                <td>
-                                    <a href="{{ route('salestaff.showOrderDetail', $order['id']) }}">
-                                        <i class="fa-regular fa-eye icon-blue"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            
-                <div class="pagination">
-                    <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
-                    <span id="page-num-order">1</span>
-                    <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
-                </div>
+                            Email: {{ $customer ? $customer['email'] : 'Unknown' }}
             </div>
+        </div>
+        </td> --}}
+        <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
+            Email: {{ $order ? $order['email'] : 'Unknown' }}</td>
+        <td>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</td>
+        <td>
+            <a href="{{ route('salestaff.showOrderDetail', $order['id']) }}">
+                <i class="fa-regular fa-eye icon-blue"></i>
+            </a>
+        </td>
+        </tr>
+        @endforeach
+        </tbody>
+        </table>
+
+        <div class="pagination">
+            <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
+            <span id="page-num-order">1</span>
+            <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
+        </div>
+        </div>
         </div>
     </section>
 
     <footer>
         <script>
-            let sidebar = document.querySelector(".sidebar");
-            let closeBtn = document.querySelector("#btn");
-            let searchBtn = document.querySelector(".bx-search");
+        let sidebar = document.querySelector(".sidebar");
+        let closeBtn = document.querySelector("#btn");
+        let searchBtn = document.querySelector(".bx-search");
 
-            closeBtn.addEventListener("click", () => {
-                sidebar.classList.toggle("open");
-                menuBtnChange(); //calling the function(optional)
-            });
+        closeBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
 
-            searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search icon
-                sidebar.classList.toggle("open");
-                menuBtnChange(); //calling the function(optional)
-            });
+        searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search icon
+            sidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
 
-            // Following are the code to change sidebar button(optional)
-            function menuBtnChange() {
-                if (sidebar.classList.contains("open")) {
-                    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the icons class
-                } else {
-                    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the icons class
-                }
+        // Following are the code to change sidebar button(optional)
+        function menuBtnChange() {
+            if (sidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the icons class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the icons class
             }
+        }
 
-            function showTable(tableId) {
-                const tables = document.querySelectorAll('.table-container');
-                tables.forEach(table => table.style.display = 'none');
-                document.getElementById(tableId).style.display = 'block';
-            }
+        function showTable(tableId) {
+            const tables = document.querySelectorAll('.table-container');
+            tables.forEach(table => table.style.display = 'none');
+            document.getElementById(tableId).style.display = 'block';
+        }
         </script>
         <script>
-            const statusButtons = document.querySelectorAll('.status-btn');
-            const orderRows = document.querySelectorAll('.order-row');
-    
-            statusButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const status = btn.getAttribute('data-status');
-    
-                    // Update active button
-                    statusButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-    
-                    // Filter orders based on status
-                    orderRows.forEach(row => {
-                        if (status === 'all' || row.getAttribute('data-status') === status) {
-                            row.style.display = 'table-row';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
+        const statusButtons = document.querySelectorAll('.status-btn');
+        const orderRows = document.querySelectorAll('.order-row');
+
+        statusButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const status = btn.getAttribute('data-status');
+
+                // Update active button
+                statusButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter orders based on status
+                orderRows.forEach(row => {
+                    if (status === 'all' || row.getAttribute('data-status') === status) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
                 });
             });
+        });
         </script>
         <!--Start of Tawk.to Script-->
-    {{-- <script type="text/javascript">
+        {{-- <script type="text/javascript">
         var Tawk_API = Tawk_API || {},
             Tawk_LoadStart = new Date();
         (function() {
@@ -299,7 +319,7 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script> --}}
-    <!--End of Tawk.to Script-->
+        <!--End of Tawk.to Script-->
     </footer>
 </body>
 

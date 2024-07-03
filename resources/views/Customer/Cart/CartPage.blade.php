@@ -161,6 +161,7 @@
                     @foreach($cart as $index => $item)
                     <div class="cart-item">
                         <input type="hidden" name="code" value="{{ $item['product_code'] }}">
+                        <input type="hidden" name="ringsize" value="{{ $item['ringsize'] }}">
                         <div class="text-center">
                             <a href="{{ route('product.show', $item['id']) }}" style="text-decoration: none">
                                 <img src="{{ $item['image'] }}" alt="Product Image" style="width: 150px; height: 150px">

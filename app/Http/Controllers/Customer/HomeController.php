@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
-class PaymentSuccessful extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,18 @@ class PaymentSuccessful extends Controller
      */
     public function index()
     {
-        return view('PaymentSuccessful_Hoa/PaymentSuccessful');
+        // Fetch data from API endpoints
+        $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
+        $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
+        $extraDiamonds = collect(Http::get('http://127.0.0.1:8000/api/exdiamond')->json());
+        $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
+        $diamondPriceList = collect(Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json());
+
+        // Get the last 6 products
+        $latestProducts = $products->slice(-5)->values();
+
+        // Return the diamond shells to the view
+        return view('Customer/Homepage/HomePage', ['products' => $latestProducts]);
     }
 
     /**

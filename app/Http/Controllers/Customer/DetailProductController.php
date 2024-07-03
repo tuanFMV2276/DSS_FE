@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
-class DetailShell extends Controller
+class DetailProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -52,7 +54,7 @@ class DetailShell extends Controller
     });
 
     // Return the updated products to the view
-    return view('DetailShell_Manh/DetailShell', ['products' => $products]);
+    return view('Customer/DetailProduct/DetailProductPage', ['products' => $products, 'mainDiamonds' => $mainDiamonds, 'extraDiamonds' => $extraDiamonds, 'diamondShells' => $diamondShells]);
 }
 
     /**
@@ -84,10 +86,20 @@ class DetailShell extends Controller
      */
     public function show($id)
     {
+        // Fetch product data
         $response = Http::get("http://127.0.0.1:8000/api/product/{$id}");
         $product = $response->json();
 
-        return view('DetailShell_Manh/DetailShell', ['product' => $product]);
+        // Fetch main diamond data
+        $mainDiamondId = $product['main_diamond_id'];
+        $mainDiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$mainDiamondId}");
+        $mainDiamond = $mainDiamondResponse->json();
+
+        // Pass product and main diamond data to the view
+        return view('Customer.DetailProduct.DetailProductPage', [
+            'product' => $product,
+            'mainDiamond' => $mainDiamond
+        ]);
     }
 
     /**
