@@ -5,22 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Brilliance</title>
+    <title>Bảng giá kim cương</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css_Manh/style.css') }}">
 
-    <title>Brilliance</title>
-
 </head>
 
 <body>
-    @include('Header_Hoa/Header')
+    @include('Layout/Header/Header')
 
-    <div class="top-header-body">
-        <p>Trang chủ / Bảng giá kim cương</p>
+    <div class="top-header-body mt-3">
         <h5>Bảng giá kim cương thiên nhiên kiểm định quốc tế hôm nay 30/05/2024</h5>
         <h6>**ROUND BRILLIANT CUT - 03 EXCELLENT - FLUORESCENCE**</h6>
 
@@ -701,7 +698,7 @@
 
 
 
-    @include('Footer_Hoa/Footer')
+    @include('Layout/Footer/Footer')
 
     <script src="https://kit.fontawesome.com/a5f04f16e7.js" crossorigin="anonymous"></script>
 </body>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -40,8 +40,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $paymentMethod = $request->input('paymentMethod');
-    // Đặt status dựa trên phương thức thanh toán
+    $paymentMethod = $request->input('paymentMethod');
     $status = ($paymentMethod == 'paypal') ? 1 : 0;
 
     $orderData = [
@@ -51,20 +50,21 @@ class OrderController extends Controller
         'address' => $request->input('address'),
         'phone' => $request->input('phone'),
         'total_price' => $request->input('total_price'),
-        'status' => $status, // Đặt status ở đây
+        'status' => $status,
     ];
 
         $orderResponse = Http::post('http://127.0.0.1:8000/api/order', $orderData);
 
-        $product_code = $request->input('product_code'); // Lấy giá trị product_code từ request
-        $url = "http://127.0.0.1:8000/api/product/update/{$product_code}"; // Tạo URL với product_code
-        $response = Http::get($url); // Gửi yêu cầu GET đến URL
+        $product_code = $request->input('product_code');
+        $size = floatval($request->input('size'));
+        $url = "http://127.0.0.1:8000/api/product/update/{$product_code}";
+        $response = Http::get($url);
         $id = $response->json('id');
 
         if ($orderResponse->successful()) {
             // Lấy lại ID của đơn hàng vừa tạo
             $order = $orderResponse->json();
-            $orderId = $order['id']; // Giả sử API trả về ID của đơn hàng mới trong trường 'id'
+            $orderId = $order['id'];
             $orderDetailData = [
                 'order_id' => $orderId,
                 'product_id' => $id,
@@ -73,7 +73,6 @@ class OrderController extends Controller
             $orderDetailResponse = Http::post('http://127.0.0.1:8000/api/orderdetail', $orderDetailData);
 
             if ($orderDetailResponse->successful()) {
-                // Save payment information
                 $paymentData = [
                     'order_id' => $orderId,
                     'payment_method' => $request->input('paymentMethod'),
@@ -83,7 +82,22 @@ class OrderController extends Controller
                 $paymentResponse = Http::post('http://127.0.0.1:8000/api/payment', $paymentData);
 
                 if ($paymentResponse->successful()) {
-                    return view('Customer.PaymentSuccessful.PaymentSuccessful', ['orderId' => $orderId]);
+                    // Update product after successful payment
+                    $productUpdateData = [
+                        'size' => $size,
+                        'status' => 0,
+                    ];
+    
+                    $productUpdateUrl = "http://127.0.0.1:8000/api/product/{$id}";
+                    $productUpdateResponse = Http::put($productUpdateUrl, $productUpdateData);
+    
+                    if ($productUpdateResponse->successful()) {
+                        return view('Customer.PaymentSuccessful.PaymentSuccessful', ['orderId' => $orderId]);
+                    } else {
+                        // Rollback if product update fails
+                        Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
+                        return back()->withErrors('Error updating product.');
+                    }
                 } else {
                     // Rollback if payment save fails
                     Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
