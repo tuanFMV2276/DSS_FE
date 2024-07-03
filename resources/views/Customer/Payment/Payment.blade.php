@@ -46,27 +46,57 @@
                 <div class="col-md-8 mb-3">
                     <div class="steps">
                         <div class="step" id="step-1">
-                            <h4 class="mb-3">Thông tin khách hàng</h4>
+                            <h4 class="mb3">Thông tin khách hàng</h4>
                             <div class="form-group">
                                 <label for="email">Địa chỉ email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Vui lòng nhập địa chỉ email hợp lệ.
+                                </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row mb-2">
                                 <label for="name">Họ và Tên</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">
+                                    Vui lòng nhập họ và tên.
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="address">Địa chỉ</label>
-                                    <input type="text" class="form-control" id="address" name="address" required>
+                                    <input type="text" class="form-control" id="address" name="address_line1" required>
+                                    <div class="invalid-feedback">
+                                        Vui lòng nhập địa chỉ.
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="district">Quận/Huyện</label>
+                                    <input type="text" class="form-control" id="district" name="address_line2" required>
+                                    <div class="invalid-feedback">
+                                        Vui lòng nhập quận/huyện.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="city">Tỉnh/Thành phố</label>
+                                    <input type="text" class="form-control" id="city" name="address_line3" required>
+                                    <div class="invalid-feedback">
+                                        Vui lòng nhập tỉnh/thành phố.
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="phone">Số điện thoại</label>
                                     <input type="text" class="form-control" id="phone" name="phone" required>
+                                    <div class="invalid-feedback">
+                                        Vui lòng nhập số điện thoại.
+                                    </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-orange" onclick="nextStep(2)">Thanh toán</button>
+                            <button type="button" class="btn btn-orange" onclick="combineAddressAndNextStep()">Thanh
+                                toán</button>
                         </div>
+                        <input type="hidden" name="address" id="full_address">
 
                         <div class="step" id="step-2" style="display: none;">
                             <h4 class="mb-3">Phương thức vận chuyển</h4>
@@ -86,11 +116,13 @@
                                     value="bank">
                                 <label class="form-check-label" for="bankTransfer">Chuyển khoản ngân hàng</label>
                             </div>
-                            <div id="paypal-info" class="payment-info" style="display: none;">
-                                <p>Thông tin thanh toán qua PayPal.</p>
+                            <div id="paypal-info" class="payment-info" style="display: none; margin-bottom: 1rem">
+                                <h4>Thông tin thanh toán qua PayPal</h4>
+                                <img src="/Picture_web/Payment/QRpaypal.jpg" alt="PayPal QR" width="500" height="500">
                             </div>
-                            <div id="bank-info" class="payment-info" style="display: none;">
-                                <p>Thông tin chuyển khoản ngân hàng.</p>
+                            <div id="bank-info" class="payment-info" style="display: none; margin-bottom: 1rem">
+                                <h4>Thông tin chuyển khoản ngân hàng</h4>
+                                <img src="/Picture_web/Payment/QRVCB.jpg" alt="Bank QR" width="500" height="700">
                             </div>
                             <button type="button" class="btn btn-orange" onclick="prevStep(1)">Quay lại</button>
                             <button type="button" class="btn btn-orange" onclick="nextStep(3)">Tiếp tục</button>
@@ -101,6 +133,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>STT</th>
                                         <th>Sản phẩm</th>
                                         <th>Giá</th>
                                     </tr>
@@ -108,7 +141,8 @@
                                 <tbody>
                                     @foreach ($cartItems as $item)
                                     <tr>
-                                        <td>{{ $item['product_name'] }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item['product_name'] }} {{ $item['product_code'] }}</td>
                                         <td>{{ number_format($item['total_price'], 0, ',', '.') }}₫</td>
                                     </tr>
                                     @endforeach
@@ -116,8 +150,9 @@
                                 <tfoot>
                                     <tr>
                                         <td><strong>Tổng cộng:</strong></td>
-                                        <td>{{ number_format(array_sum(array_column($cartItems, 'total_price')), 0, ',', '.') }}
-                                            ₫</td>
+                                        <td>{{ number_format(array_sum(array_column($cartItems, 'total_price')), 0, ',', '.') }}₫
+                                        </td>
+                                        <td></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -159,11 +194,74 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
+    function combineAddressAndNextStep() {
+        // Lấy các giá trị từ các trường địa chỉ và thông tin khách hàng
+        const email = document.getElementById('email');
+        const name = document.getElementById('name');
+        const addressLine1 = document.getElementById('address');
+        const addressLine2 = document.getElementById('district');
+        const addressLine3 = document.getElementById('city');
+        const phone = document.getElementById('phone');
+
+        // Xóa lớp is-invalid trước khi kiểm tra lại
+        [email, name, addressLine1, addressLine2, addressLine3, phone].forEach(input => input.classList.remove(
+            'is-invalid'));
+
+        // Kiểm tra thông tin
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let isValid = true;
+
+        if (!emailPattern.test(email.value)) {
+            email.classList.add('is-invalid');
+            isValid = false;
+        }
+        if (name.value.trim() === '') {
+            name.classList.add('is-invalid');
+            isValid = false;
+        }
+        if (addressLine1.value.trim() === '') {
+            addressLine1.classList.add('is-invalid');
+            isValid = false;
+        }
+        if (addressLine2.value.trim() === '') {
+            addressLine2.classList.add('is-invalid');
+            isValid = false;
+        }
+        if (addressLine3.value.trim() === '') {
+            addressLine3.classList.add('is-invalid');
+            isValid = false;
+        }
+        const phonePattern = /^\d{10}$/;
+        if (!phonePattern.test(phone.value)) {
+            phone.classList.add('is-invalid');
+            isValid = false;
+        }
+
+        // Nếu không hợp lệ, dừng lại
+        if (!isValid) return;
+
+        // Kết hợp các giá trị địa chỉ thành một dòng
+        const fullAddress = addressLine1.value + ', ' + addressLine2.value + ', ' + addressLine3.value;
+
+        // Đặt giá trị kết hợp này vào input ẩn
+        document.getElementById('full_address').value = fullAddress;
+
+        // Chuyển sang bước tiếp theo
+        nextStep(2);
+    }
+
     function nextStep(step) {
         $(".step").hide();
         $("#step-" + step).show();
         $(".md-step").removeClass("active");
         $("#step-" + step + "-stepper").addClass("active");
+
+        // Đặt giá trị mặc định cho phương thức thanh toán khi chuyển từ bước 1 sang bước 2
+        if (step === 2) {
+            $('input[name="paymentMethod"][value="paypal"]').prop('checked', true);
+            $('.payment-info').hide();
+            $('#paypal-info').show();
+        }
     }
 
     function prevStep(step) {
