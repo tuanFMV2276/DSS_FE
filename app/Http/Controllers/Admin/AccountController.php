@@ -106,5 +106,24 @@ class AccountController extends Controller
 
         return redirect('/admin/accounts');
     }
+    public function addNewEmployee()
+    {
+        return view('HomeAdmin.AddNewEmployee');
+    }
+    public function storeNewEmployee(Request $request)
+    {
+        $response = Http::post('http://127.0.0.1:8000/api/employee', $request->all());
+        return redirect()->route('admin.accounts.index')->with('success', 'New Employee created successfully.');
+    }
+    public function destroyEmployee($id)
+    {
+        $response = Http::delete("http://127.0.0.1:8000/api/employee/{$id}");
+        return redirect()->route('admin.accounts.index')->with('success', 'Employee deleted successfully.');
+    }
+    public function showCustomerDetail($id)
+    {
+        $customer = Http::get("http://127.0.0.1:8000/api/customer/{$id}")->json();
+        return view('HomeAdmin.EmployeeDetail', ['customer' => $customer]);
+    }
 
 }

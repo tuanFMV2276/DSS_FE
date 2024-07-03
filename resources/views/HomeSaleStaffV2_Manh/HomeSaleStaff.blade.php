@@ -111,84 +111,85 @@
                                 <!-- Chat messages will appear here -->
                             </div>
                             <div class="chat-footer">
-                                <input type="text" class="form-control" id="chat-input" placeholder=" Type a message" style="height: 35px; border-radius: 10px; outline:none">
+                                <input type="text" class="form-control" id="chat-input" placeholder=" Type a message"
+                                    style="height: 35px; border-radius: 10px; outline:none">
                                 <button class="btn btn-primary" id="send-button">Send</button>
                             </div>
                         </div>
                     </div>
 
                     <script>
-                        const customers = [{
-                                id: 1,
-                                name: 'John Doe',
-                                icon: 'https://via.placeholder.com/50',
-                                messages: [{
-                                        type: 'customer',
-                                        text: 'Hello, I need help with my order.'
-                                    },
-                                    {
-                                        type: 'staff',
-                                        text: 'Sure, I\'d be happy to help! Can you provide your order ID?'
-                                    }
-                                ]
-                            },
-                            {
-                                id: 2,
-                                name: 'Jane Smith',
-                                icon: 'https://via.placeholder.com/50',
-                                messages: [{
-                                        type: 'customer',
-                                        text: 'Hi, I have a question about my account.'
-                                    },
-                                    {
-                                        type: 'staff',
-                                        text: 'Absolutely, what would you like to know?'
-                                    }
-                                ]
-                            },
-                            // Add more customers as needed
-                        ];
+                    const customers = [{
+                            id: 1,
+                            name: 'John Doe',
+                            icon: 'https://via.placeholder.com/50',
+                            messages: [{
+                                    type: 'customer',
+                                    text: 'Hello, I need help with my order.'
+                                },
+                                {
+                                    type: 'staff',
+                                    text: 'Sure, I\'d be happy to help! Can you provide your order ID?'
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            name: 'Jane Smith',
+                            icon: 'https://via.placeholder.com/50',
+                            messages: [{
+                                    type: 'customer',
+                                    text: 'Hi, I have a question about my account.'
+                                },
+                                {
+                                    type: 'staff',
+                                    text: 'Absolutely, what would you like to know?'
+                                }
+                            ]
+                        },
+                        // Add more customers as needed
+                    ];
 
-                        function loadCustomerList() {
-                            const customerList = document.getElementById('customer-list');
-                            customers.forEach(customer => {
-                                const customerItem = document.createElement('div');
-                                customerItem.className = 'customer-item';
-                                customerItem.innerHTML =
-                                    `<img src="${customer.icon}" alt="${customer.name}"><span>${customer.name}</span>`;
-                                customerItem.addEventListener('click', () => loadChatMessages(customer.id));
-                                customerList.appendChild(customerItem);
-                            });
-                        }
+                    function loadCustomerList() {
+                        const customerList = document.getElementById('customer-list');
+                        customers.forEach(customer => {
+                            const customerItem = document.createElement('div');
+                            customerItem.className = 'customer-item';
+                            customerItem.innerHTML =
+                                `<img src="${customer.icon}" alt="${customer.name}"><span>${customer.name}</span>`;
+                            customerItem.addEventListener('click', () => loadChatMessages(customer.id));
+                            customerList.appendChild(customerItem);
+                        });
+                    }
 
-                        function loadChatMessages(customerId) {
-                            const customer = customers.find(c => c.id === customerId);
+                    function loadChatMessages(customerId) {
+                        const customer = customers.find(c => c.id === customerId);
+                        const chatBody = document.getElementById('chat-body');
+                        chatBody.innerHTML = ''; // Clear previous messages
+                        customer.messages.forEach(msg => {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = 'chat-message ' + msg.type;
+                            messageDiv.innerHTML = `<div class="message">${msg.text}</div>`;
+                            chatBody.appendChild(messageDiv);
+                        });
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    }
+
+                    document.getElementById('send-button').addEventListener('click', function() {
+                        const message = document.getElementById('chat-input').value;
+                        if (message) {
                             const chatBody = document.getElementById('chat-body');
-                            chatBody.innerHTML = ''; // Clear previous messages
-                            customer.messages.forEach(msg => {
-                                const messageDiv = document.createElement('div');
-                                messageDiv.className = 'chat-message ' + msg.type;
-                                messageDiv.innerHTML = `<div class="message">${msg.text}</div>`;
-                                chatBody.appendChild(messageDiv);
-                            });
+                            const newMessage = document.createElement('div');
+                            newMessage.className = 'chat-message staff';
+                            newMessage.innerHTML = '<div class="message">' + message + '</div>';
+                            chatBody.appendChild(newMessage);
+                            document.getElementById('chat-input').value = '';
                             chatBody.scrollTop = chatBody.scrollHeight;
                         }
+                    });
 
-                        document.getElementById('send-button').addEventListener('click', function() {
-                            const message = document.getElementById('chat-input').value;
-                            if (message) {
-                                const chatBody = document.getElementById('chat-body');
-                                const newMessage = document.createElement('div');
-                                newMessage.className = 'chat-message staff';
-                                newMessage.innerHTML = '<div class="message">' + message + '</div>';
-                                chatBody.appendChild(newMessage);
-                                document.getElementById('chat-input').value = '';
-                                chatBody.scrollTop = chatBody.scrollHeight;
-                            }
-                        });
-
-                        // Load initial customer list
-                        loadCustomerList();
+                    // Load initial customer list
+                    loadCustomerList();
                     </script>
                 </div>
                 <div id="bill-management" class="table-container" style="display: none;">
@@ -239,34 +240,34 @@
         </div>
     </section>
     <script>
-        let sidebar = document.querySelector(".sidebar");
-        let closeBtn = document.querySelector("#btn");
-        let searchBtn = document.querySelector(".bx-search");
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
 
-        closeBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("open");
-            menuBtnChange(); //calling the function(optional)
-        });
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        menuBtnChange(); //calling the function(optional)
+    });
 
-        searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
-            sidebar.classList.toggle("open");
-            menuBtnChange(); //calling the function(optional)
-        });
+    searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search iocn
+        sidebar.classList.toggle("open");
+        menuBtnChange(); //calling the function(optional)
+    });
 
-        // following are the code to change sidebar button(optional)
-        function menuBtnChange() {
-            if (sidebar.classList.contains("open")) {
-                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
-            } else {
-                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
-            }
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+        if (sidebar.classList.contains("open")) {
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+        } else {
+            closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
         }
+    }
 
-        function showTable(tableId) {
-            const tables = document.querySelectorAll('.table-container');
-            tables.forEach(table => table.style.display = 'none');
-            document.getElementById(tableId).style.display = 'block';
-        }
+    function showTable(tableId) {
+        const tables = document.querySelectorAll('.table-container');
+        tables.forEach(table => table.style.display = 'none');
+        document.getElementById(tableId).style.display = 'block';
+    }
     </script>
 </body>
 
