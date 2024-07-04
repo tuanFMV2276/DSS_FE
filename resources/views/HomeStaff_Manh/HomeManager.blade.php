@@ -447,7 +447,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                             method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="more-margintop delete-st">Delete</button>
+                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -543,7 +543,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $maindiamond['fluorescence'] }}</td>
                                     <td>{{ $maindiamond['status'] }}</td>
                                     <td>{{ $maindiamond['price'] }}</td>
-                                    <td><button>Update</button></td>
+                                    <td><button class="update-st">Update</button></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -615,7 +615,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $exdiamond['quantity'] }}</td>
                                     <td>{{ $exdiamond['price'] }}</td>
                                     <td>{{ $exdiamond['status'] }}</td>
-                                    <td><button>Update</button></td>
+                                    <td><button class="update-st">Update</button></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -689,7 +689,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                             alt="Shell Image" width="20%"></td>
                                     <td>{{ $shell['price'] }}</td>
                                     <td>{{ $shell['status'] }}</td>
-                                    <td><button>Update</button></td>
+                                    <td><button class="update-st">Update</button></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -703,6 +703,10 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 </div>
                 <div id="price-list" class="table-container" style="display: none;">
                     <h1>List Price</h1>
+                    <div class="top-bar">
+                        <a href="{{ route('manager.createPrice') }}" class="btn btn-success"><button class="add-st"><i
+                        class="fas fa-plus"></i>Add New Price</button></a>
+                    </div>
                     <table border="1">
                         <thead>
                             <tr>
@@ -729,8 +733,15 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $diamondpricelist['cara_weight'] }}</td>
                                     <td>{{ number_format($diamondpricelist['price'], 0) }}</td>
                                     <td>
-                                        <button class="update-btn" data-id="{{ $diamondpricelist['id'] }}">Update
-                                            price</button>
+                                        <button class="update-btn update-st"
+                                            data-id="{{ $diamondpricelist['id'] }}">Update
+                                        </button>
+                                        <form action="{{ route('manager.destroyPrice', $diamondpricelist['id']) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                        
                                     </td>
                                 </tr>
                             @endforeach
@@ -748,20 +759,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
                 <div id="staff-management" class="table-container" style="display: none;">
                     <h1>Employee List</h1>
-                    <div id="div_search_product">
-                        <form id="search-form">
-                            <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name"
-                                    placeholder="Customer Name">
-                                <i class="fas fa-user"></i>
-                                <input type="text" id="order_date" name="order_date" placeholder="Order Date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <button type="submit">
-                                    <div>Search</div>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+
                     <div class="status-bar more-margintop">
                         <button class="status-btn active" data-status="all">
                             <i class="fas fa-list icon-status"></i> All employees
@@ -1207,37 +1205,37 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-        $('#search-form').on('submit', function(e) {
-            e.preventDefault();
+            $('#search-form').on('submit', function(e) {
+                e.preventDefault();
 
-        var customerName = $('#customer_name').val();
+                var customerName = $('#customer_name').val();
 
-        $.ajax({
-            url: "{{ route('manager.searchOrdersAjax') }}",
-            method: 'GET',
-            data: {
-                customer_name: customerName || null,
-            },
-            success: function(response) {
-                var orders = response.orders;
-                var statusLabels = {
-                    0: 'Pending',
-                    1: 'Accepted',
-                    2: 'Prepare Product',
-                    3: 'Delivering',
-                    4: 'Finished',
-                    5: 'Cancelled'
-                };
+                $.ajax({
+                    url: "{{ route('manager.searchOrdersAjax') }}",
+                    method: 'GET',
+                    data: {
+                        customer_name: customerName || null,
+                    },
+                    success: function(response) {
+                        var orders = response.orders;
+                        var statusLabels = {
+                            0: 'Pending',
+                            1: 'Accepted',
+                            2: 'Prepare Product',
+                            3: 'Delivering',
+                            4: 'Finished',
+                            5: 'Cancelled'
+                        };
 
-                var orderList = $('#billing_table tbody');
-                orderList.empty();
-                var array_orders = Array.from(orders.orders);
-                if (array_orders) {
-                        array_orders.forEach(function(orders,index) {
-                            var customerName = orders ? orders.name : 'Unknown';
-                            var customerEmail = orders ? orders.email : 'Unknown';
-                            var status = statusLabels[orders.status] || 'Unknown';
-                            var orderRow = `
+                        var orderList = $('#billing_table tbody');
+                        orderList.empty();
+                        var array_orders = Array.from(orders.orders);
+                        if (array_orders) {
+                            array_orders.forEach(function(orders, index) {
+                                var customerName = orders ? orders.name : 'Unknown';
+                                var customerEmail = orders ? orders.email : 'Unknown';
+                                var status = statusLabels[orders.status] || 'Unknown';
+                                var orderRow = `
                                 <tr class='order-row' data-status="${orders.status}">
                                     <td>${index+1}</td>
                                     <td>${orders.id}</td>
@@ -1256,19 +1254,19 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     </td>
                                 </tr>
                             `;
-                            orderList.append(orderRow);
-                        });
-                } else {
-                    orderList.append('<tr><td colspan="8">No orders found.</td></tr>');
-                }
-            },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching orders:', error);
-                    alert('An error occurred while fetching orders. Please try again.');
-                }
+                                orderList.append(orderRow);
+                            });
+                        } else {
+                            orderList.append('<tr><td colspan="8">No orders found.</td></tr>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching orders:', error);
+                        alert('An error occurred while fetching orders. Please try again.');
+                    }
+                });
             });
         });
-    });
     </script>
 
     <script>

@@ -51,7 +51,7 @@
                         <div class="form-group row">
                             <label for="status" class="col-sm-2 col-form-label"><strong>Status:</strong></label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="status" name="status">
+                                <select class="form-control" id="status" name="status" style="width: min-content">
                                     <option value="0" {{ $order['status'] == 0 ? 'selected' : '' }}>Pending</option>
                                     <option value="1" {{ $order['status'] == 1 ? 'selected' : '' }}>Accepted</option>
                                     <option value="2" {{ $order['status'] == 2 ? 'selected' : '' }}>Prepare Product

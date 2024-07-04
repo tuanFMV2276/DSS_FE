@@ -123,7 +123,18 @@ class AccountController extends Controller
     public function showCustomerDetail($id)
     {
         $customer = Http::get("http://127.0.0.1:8000/api/customer/{$id}")->json();
-        return view('HomeAdmin.EmployeeDetail', ['customer' => $customer]);
+        return view('HomeAdmin.CustomerDetail', ['customer' => $customer]);
+    }
+    public function updateCustomer(Request $request, $id)
+    {
+        $response = Http::put("http://127.0.0.1:8000/api/customer/{$id}", $request->all());
+
+        return redirect('/admin/accounts');
+    }
+    public function destroyCustomer($id)
+    {
+        $response = Http::delete("http://127.0.0.1:8000/api/customer/{$id}");
+        return redirect()->route('admin.accounts.index')->with('success', 'Employee deleted successfully.');
     }
 
 }

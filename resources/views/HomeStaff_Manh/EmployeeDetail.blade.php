@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label for="role_id"><i class="fas fa-user-tag"></i> Assign Role</label>
-                        <select class="form-control" id="role_id" name="role_id">
+                        <select class="form-control" id="role_id" name="role_id" style="width: min-content">
                             <option value='3' {{ old('role_id', $employee['role_id']) == '3' ? 'selected' : '' }}>Sales
                                 Staff</option>
                             <option value='4' {{ old('role_id', $employee['role_id']) == '4' ? 'selected' : '' }}>

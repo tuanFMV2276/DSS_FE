@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-if (isset($_POST['submit'])) {
-    // This is the directory where images will be saved
-    $filename = basename($_FILES['image']['name']);
-    $target_dir = 'images/';
-    $target = $target_dir . $filename;
-
-    $is_upload = move_uploaded_file($_FILES['image']['tmp_name'], $target);
-
-    if ($is_upload) {
-        echo '<script type="text/javascript">alert("The file has been uploaded successfully.");</script>';
-        echo '<script type="text/javascript">window.location.href = window.location.href;</script>';
-    } else {
-        echo '<script type="text/javascript">alert("Sorry, there was a problem uploading your file.");</script>';
-        echo '<script type="text/javascript">window.location.href = window.location.href;</script>';
-    }
-}
-?>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,7 +43,7 @@ if (isset($_POST['submit'])) {
 <body>
     <div class="container">
         <h2>Update Product</h2>
-        <form id="product-form" action="{{ route('manager.updateProduct', $product['id']) }}" method="POST"
+        <form id="product-form" action="{{ route('manager.updateProduct', $product['id']) }}" method="POST" 
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -76,7 +57,8 @@ if (isset($_POST['submit'])) {
             <div class="form-group">
                 <label for="product_name"><i class="fas fa-tag"></i> Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name"
-                    value="{{ old('product_name', $product['product_name']) }}" required pattern="^[a-zA-Z0-9\s]+$"
+                    value="{{ old('product_name', $product['product_name']) }}"
+                    required pattern="^[\p{L}\d\s]{8,20}$"
                     title="Product name should not contain special characters.">
             </div>
 
@@ -86,11 +68,10 @@ if (isset($_POST['submit'])) {
                     onchange="previewImage(event)" accept="image/*">
                 @if ($product['image'])
                     <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image"
-                        style="max-width: 200px; margin-top: 10px;" id="image-preview">
+                        style="max-width: 200px; margin-top: 10px;" id="image-preview" value="">
                 @else
-                    <img id="image-preview" style="max-width: 200px; margin-top: 10px;">
+                    <img id="image-preview" style="max-width: 200px; margin-top: 10px;" value="">
                 @endif
-
             </div>
 
             <div class="form-group">
@@ -186,28 +167,14 @@ if (isset($_POST['submit'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         function previewImage(event) {
-            const fileInput = document.getElementById('file-input');
-
-            const previewImage = document.getElementById('preview-image');
-
-            fileInput.addEventListener('change', event => {
-                if (fileInput.files.length > 0) {
-                    const fileReader = new FileReader();
-
-                    fileReader.onload = function handleLoad() {
-                        previewImage.src = fileReader.result;
-
-                        previewImage.style.display = 'block';
-                    };
-
-                    fileReader.readAsDataURL(fileInput.files[0]);
-                }
-
-                // 👇️ reset file input once you're done
-                fileInput.value = null;
-            });
+            var preview = document.getElementById('image-preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+            preview.onload = function() {
+                URL.revokeObjectURL(preview.src) // free memory
+            }
         }
-
+    </script>
+    <script>
         $('#extra_diamond_id').on('change', function() {
             var selectedDiamondId = $(this).val();
             var availableDiamonds = {{ json_encode($extraDiamonds) }};

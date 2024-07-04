@@ -48,6 +48,9 @@ Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduc
 Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
 Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
 Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
+Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
+Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
+Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
 
 // End route manager
 //------------------------------------------------------------------------------------------
@@ -79,6 +82,10 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
     Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
     Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
     Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
+    Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
+    Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
+    Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
+
 // });
 // End route của Admin
 //------------------------------------------------------------------------------------------

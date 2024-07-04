@@ -169,7 +169,25 @@ class ManagerController extends Controller
 
     public function updateProduct(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/product/{$id}", $request->all());
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageSize = $image->getSize();
+            $image->move(public_path('Picture_Product'), $imageName);
+
+            // Delete the old image if exists
+            if ($request->image) {
+                $oldImagePath = public_path('Picture_Product/' . $request->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+        }
+        else{
+            $imageName = $request->image;
+        }
+        $response = Http::put("http://127.0.0.1:8000/api/product/{$id}",['image' => $imageName] ,$request->all());
         return redirect()->route('manager.home')->with('success', 'Product updated successfully.');
     }
 
@@ -184,6 +202,21 @@ class ManagerController extends Controller
         return $response = Http::put("http://127.0.0.1:8000/api/diamondpricelist/{$id}", [
             'price' => $request->price,
         ]);
+    }
+    public function createPrice()
+    {
+        return view('HomeStaff_Manh.createPrice');
+    }
+
+    public function storePrice(Request $request)
+    {
+        $response = Http::post('http://127.0.0.1:8000/api/diamondpricelist', $request->all());
+        return redirect()->route('manager.home')->with('success', 'New price created successfully.');
+    }
+    public function destroyPrice($id)
+    {
+        $response = Http::delete("http://127.0.0.1:8000/api/diamondpricelist/{$id}");
+        return redirect()->route('manager.home')->with('success', 'Old price deleted successfully.');
     }
 
 }

@@ -80,8 +80,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="role_id"><i class="fas fa-user-tag"></i> Assign Role</label>
-                        <select class="form-control" id="role_id" name="role_id">
+                        <label for="role_id"><i class="fas fa-user-tag"></i> Assign Role </label>
+                        <select class="form-control" id="role_id" name="role_id" style="width: min-content">
                             <option value='2' {{ old('role_id', $employee['role_id']) == '2' ? 'selected' : '' }}>
                                 Manager</option>
                             <option value='3' {{ old('role_id', $employee['role_id']) == '3' ? 'selected' : '' }}>Sales
@@ -94,6 +94,11 @@
                         Back</a>
                     <button type="submit" class="btn btn-primary">Save</button>
 
+                </form>
+                <form action="{{ route('admin.destroyEmployee', $employee['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger mt-3"><i class="fas fa-trash-alt"></i> Delete</button>
                 </form>
             </div>
         </div>
