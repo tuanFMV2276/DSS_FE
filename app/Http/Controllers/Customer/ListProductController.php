@@ -29,6 +29,11 @@ class ListProductController extends Controller
         // Fetch products from API
         $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
 
+        // Exclude products with a status of 0
+        $products = $products->filter(function ($product) {
+            return $product['status'] != 0;
+        });
+
         // Filter by product name if provided
         if ($productName) {
             $products = $products->filter(function ($product) use ($productName) {
@@ -116,6 +121,11 @@ class ListProductController extends Controller
 
         // Fetch products from API
         $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
+
+        // Exclude products with a status of 0
+        $products = $products->filter(function ($product) {
+            return $product['status'] != 0;
+        });
 
         // Filter by product name if provided
         if ($productName) {

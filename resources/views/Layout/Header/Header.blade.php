@@ -86,9 +86,8 @@
                 </li>
                 <li><a href="#">Dịch Vụ <i class='bx bx-chevron-down'></i></a>
                     <ul class="sub-menu">
-                        <li><a href="#">Chính Sách Bảo Hành, Thu Hồi & Đổi Trả</a></li>
-                        <li><a href="#">Chính Sách Bảo Mật Thông Tin</a></li>
-                        <li><a href="#">Phương Thức Thanh Toán</a></li>
+                        <li><a href="/Huong-dan-doi-tra">Chính Sách Bảo Hành, Thu Hồi & Đổi Trả</a></li>
+                        <li><a href="/Chinh-sach-bao-mat">Chính Sách Bảo Mật Thông Tin</a></li>
                         <li><a href="/IntroduceDiamondGIA">Giới thiệu kim cương GIA</a></li>
                     </ul>
                 </li>
