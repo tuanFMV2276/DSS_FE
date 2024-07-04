@@ -144,3 +144,11 @@ Route::get('/Huong-dan-doi-tra', function () {
 Route::get('/Chinh-sach-bao-mat', function () {
     return view('Information.Service.ChinhSachBaoMat');
 });
+
+Route::get('/Lien-he', function () {
+    return view('Information.Service.Contact');
+});
+
+Route::get('/Chinh-sach-mua-hang', function () {
+    return view('Information.Service.ChinhSachMuaHang');
+});

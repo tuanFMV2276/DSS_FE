@@ -92,7 +92,7 @@
                     </ul>
                 </li>
                 <li><a href="#">Tin Tức</a></li>
-                <li><a href="#">Liên Hệ</a></li>
+                <li><a href="/Lien-he">Liên Hệ</a></li>
             </ul>
         </nav>
     </header>

@@ -82,19 +82,19 @@
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Hỗ trợ</h6>
                         <p>
-                            <a href="#!" class="text-reset">Chính sách mua hàng</a>
+                            <a href="/Chinh-sach-mua-hang" class="text-reset">Chính sách mua hàng</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Chính sách thu hồi</a>
+                            <a href="/Huong-dan-doi-tra" class="text-reset">Chính sách thu hồi</a>
+                        </p>
+                        <p>
+                            <a href="/Chinh-sach-bao-mat" class="text-reset">Bảo mật thông tin</a>
                         </p>
                         <p>
                             <a href="/PriceDiamond" class="text-reset">Giá kim cương</a>
                         </p>
                         <p>
                             <a href="/PriceGold" class="text-reset">Giá vàng hôm nay</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Phương thức thanh toán</a>
                         </p>
                     </div>
                 </div>
