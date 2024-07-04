@@ -8,6 +8,11 @@
     text-align: center;
     margin: 1% 7% 2% 7%;
 }
+
+.row{
+    text-align: center;
+}
+
 .rowheader{
     background-color: orange;
 }
@@ -29,11 +34,11 @@ table {
     font-family: Arial, sans-serif;
     margin: 20px 0;
     font-size: 18px;
-    background-color: #ffffff; /* Màu nền trắng */
+    background-color: #ffffff;
 }
 
 th, td {
-    border: 1px solid #dddddd; /* Đường viền màu xám nhạt */
+    border: 1px solid #dddddd; 
     text-align: left;
     padding: 8px;
 }

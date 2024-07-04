@@ -28,19 +28,19 @@
                 <div class="row mt-3">
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-gem me-3"></i>Brilliance
+                            <i class="fas fa-gem me-3 pr-2"></i>Luxury Diamond
                         </h6>
                         <div class="link-icons">
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-google"></i>
                             </a>
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-instagram"></i>
                             </a>
                             <a href="" class="me-4 text-reset">
@@ -54,10 +54,10 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Về chúng tôi</h6>
                         <p>
-                            <a href="#!" class="text-reset">Giới thiệu</a>
+                            <a href="/Gioi-thieu" class="text-reset">Giới thiệu</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Giấy chứng nhận</a>
+                            <a href="/Giay-chung-nhan" class="text-reset">Giấy chứng nhận</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -70,13 +70,7 @@
                             <a href="/DoNi" class="text-reset">Đo size</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Bảo quản trang sức</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Hướng dẫn chọn nhẫn cưới</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Cẩm nang kim cương</a>
+                            <a href="/Bao-quan-trang-suc" class="text-reset">Bảo quản trang sức</a>
                         </p>
                     </div>
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
@@ -89,9 +83,6 @@
                         </p>
                         <p>
                             <a href="/Chinh-sach-bao-mat" class="text-reset">Bảo mật thông tin</a>
-                        </p>
-                        <p>
-                            <a href="/PriceDiamond" class="text-reset">Giá kim cương</a>
                         </p>
                         <p>
                             <a href="/PriceGold" class="text-reset">Giá vàng hôm nay</a>

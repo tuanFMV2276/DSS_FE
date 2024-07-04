@@ -12,16 +12,10 @@
 <body>
     <header>
         <div class="top-header">
-            <div class="left">
-                <img src="/Picture_web/Diamond.jpg" alt="Brilliance Logo" class="logo" />
-                <div class="address">
-                    <p>Hệ thống showrooms</p>
-                    <p>CN HCM: 35 Trần Phú, Phường 4, quận 5, TP.HCM</p>
-                    <p>CN CT: 53 Trần Phú, Ninh Kiều, Cần Thơ</p>
-                </div>
-            </div>
-            <div class="center">
-                <a href="/">
+            <div class="left"></div>
+            <div class="logo-center">
+                <a href="/" class="center">
+                    <img src="/Picture_web/Diamond.jpg" alt="Brilliance Logo" class="logo" />
                     <h1>Luxury Diamond</h1>
                 </a>
             </div>
@@ -32,13 +26,13 @@
                     </button>
                     <button class="login-btn"><a href="/Login"><i class="bx bx-user"> ĐĂNG NHẬP</i></a></button>
                 </div>
-                <div>
+                <!-- <div>
                     <form class="search">
                         <button class="search-btn"><i class="bx bx-search"></i></button>
                         <input class="search-input" type="text" placeholder=" Tìm kiếm..." />
 
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
         <nav>
@@ -84,6 +78,7 @@
                         <li><a href="/ListProduct?product_name=Nhẫn Kim Cương Nữ">Nhẫn Kim Cương Nữ</a></li>
                     </ul>
                 </li>
+                <li><a href="/PriceDiamond">Bảng Giá Kim Cương</a></li>
                 <li><a href="#">Dịch Vụ <i class='bx bx-chevron-down'></i></a>
                     <ul class="sub-menu">
                         <li><a href="/Huong-dan-doi-tra">Chính Sách Bảo Hành, Thu Hồi & Đổi Trả</a></li>
@@ -91,7 +86,7 @@
                         <li><a href="/IntroduceDiamondGIA">Giới thiệu kim cương GIA</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Tin Tức</a></li>
+                <li><a href="/Gioi-thieu">Giới Thiệu</a></li>
                 <li><a href="/Lien-he">Liên Hệ</a></li>
             </ul>
         </nav>

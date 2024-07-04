@@ -152,3 +152,15 @@ Route::get('/Lien-he', function () {
 Route::get('/Chinh-sach-mua-hang', function () {
     return view('Information.Service.ChinhSachMuaHang');
 });
+
+Route::get('/Giay-chung-nhan', function () {
+    return view('Information.Service.GiayChungNhan');
+});
+
+Route::get('/Gioi-thieu', function () {
+    return view('Information.Service.GioiThieu');
+});
+
+Route::get('/Bao-quan-trang-suc', function () {
+    return view('Information.Service.BaoQuanTrangSuc');
+});

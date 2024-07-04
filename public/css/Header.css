@@ -15,46 +15,39 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    padding-bottom: 0;
 }
 
-.left, .center{
-    display: flex;
-    align-items: center;
+.logo-center {
+    padding-left: 24rem;
+    height: 110px;
 }
 
-.left .logo {
+.logo-center img {
     height: 50px;
-    margin-right: 10px;
+    width: auto;
+    padding-left: 8rem;
 }
 
-.left .address p {
-    margin: 0;
-<<<<<<< HEAD
-    font-size: 12px;
-}
-
-.center a {
+.logo-center a {
     color: #000;
     margin: 0 10px;
 }
 
-.center a:hover{
+.logo-center a:hover{
     text-decoration: none;
     color: #000;
 }
 
-.center h1 {
+.logo-center h1 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 36px;
-=======
-    font-size: 15px;
 }
 
-.center h1 {
+.logo-center h1 {
     font-family: 'Times New Roman', cursive;
     font-style: italic;
     font-size: 50px;
->>>>>>> 0a4c256a3f3ab57b1f6eb28a5f6688b2a7d58aed
     margin: 0;
 }
 
@@ -144,8 +137,8 @@ nav ul li>a {
 }
 
 nav ul li a:hover {
-    background-color: #FFA500;
-    color: #fff;
+    /* background-color: #FFA500; */
+    color: #FFA500;
     text-decoration: none;
 }
 
