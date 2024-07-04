@@ -84,9 +84,13 @@
                     </div>
                     <div class="col-md-5 mt-5">
                         <h1>{{ $product['product_name'] }}</h1>
-                        <p class="mt-5" style="font-size: 20px"><strong>Product Code:</strong> {{ $product['product_code'] }}</p>
+                        <p class="mt-5" style="font-size: 20px"><strong>Product Code:</strong>
+                            {{ $product['product_code'] }}</p>
                         <p style="font-size: 20px"><strong>Size:</strong> {{ $product['size'] }} mm</p>
                         <p style="font-size: 20px"><strong>Shell: </strong>{{ $diamondshell['name'] }}</p>
+                        <p><strong><i class="fas fa-calendar-check"></i> Warranty Expiry Date:</strong>
+                            {{ $warrantycertificate ? $warrantycertificate['expiry_date'] : 'Updating' }}
+                        </p>
                     </div>
                 </div>
 

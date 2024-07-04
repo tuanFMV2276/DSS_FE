@@ -41,13 +41,31 @@ class SaleStaffController extends Controller
     }
     public function showOrderDetail($id)
     {
-     
+
         $orderDetailsResponse = Http::get("http://127.0.0.1:8000/api/orderdetail/{$id}");
     $orderDetails = $orderDetailsResponse->json();
 
     // Get product details
     $productResponse = Http::get("http://127.0.0.1:8000/api/product/{$orderDetails['product_id']}");
     $product = $productResponse->json();
+
+    // Check if a warranty already exists for the product
+    $existingWarranties = Http::get("http://127.0.0.1:8000/api/warrantycertificate")->json();
+    $warrantyExists = false;
+    $warrantyId = null;
+    $warrantycertificate = null;
+
+    foreach ($existingWarranties as $warranty) {
+        if ($warranty['product_id'] == $product['id']) {
+            $warrantyExists = true;
+            $warrantyId = $warranty['id'];
+            break;
+        }
+    }
+
+    if ($warrantyExists) {
+        $warrantycertificate = Http::get("http://127.0.0.1:8000/api/warrantycertificate/{$warrantyId}")->json();
+    }
 
     // Get main diamond details
     $maindiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$product['main_diamond_id']}");
@@ -69,7 +87,7 @@ class SaleStaffController extends Controller
     $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
     $payments = $paymentResponse->json();
 
-    return view('HomeStaff_Manh.orderdetail1', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments','exiamond','diamondshell'));
+    return view('HomeStaff_Manh.orderdetail1', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments','exiamond','diamondshell', 'warrantycertificate'));
 
     }
 }

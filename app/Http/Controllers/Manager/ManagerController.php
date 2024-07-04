@@ -65,33 +65,51 @@ class ManagerController extends Controller
     {
 
         $orderDetailsResponse = Http::get("http://127.0.0.1:8000/api/orderdetail/{$id}");
-        $orderDetails = $orderDetailsResponse->json();
+    $orderDetails = $orderDetailsResponse->json();
 
-        // Get product details
-        $productResponse = Http::get("http://127.0.0.1:8000/api/product/{$orderDetails['product_id']}");
-        $product = $productResponse->json();
+    // Get product details
+    $productResponse = Http::get("http://127.0.0.1:8000/api/product/{$orderDetails['product_id']}");
+    $product = $productResponse->json();
 
-        // Get main diamond details
-        $maindiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$product['main_diamond_id']}");
-        $maindiamond = $maindiamondResponse->json();
-        $exdiamondResponse = Http::get("http://127.0.0.1:8000/api/exdiamond/{$product['extra_diamond_id']}");
-        $exiamond = $exdiamondResponse->json();
+    // Check if a warranty already exists for the product
+    $existingWarranties = Http::get("http://127.0.0.1:8000/api/warrantycertificate")->json();
+    $warrantyExists = false;
+    $warrantyId = null;
+    $warrantycertificate = null;
 
-        $diamondshellResponse = Http::get("http://127.0.0.1:8000/api/diamondshell/{$product['diamond_shell_id']}");
-        $diamondshell = $diamondshellResponse->json();
+    foreach ($existingWarranties as $warranty) {
+        if ($warranty['product_id'] == $product['id']) {
+            $warrantyExists = true;
+            $warrantyId = $warranty['id'];
+            break;
+        }
+    }
 
-        // Get order details
-        $orderResponse = Http::get("http://127.0.0.1:8000/api/order/{$id}");
-        $order = $orderResponse->json();
+    if ($warrantyExists) {
+        $warrantycertificate = Http::get("http://127.0.0.1:8000/api/warrantycertificate/{$warrantyId}")->json();
+    }
 
-        // Get customer details
-        $customerResponse = Http::get("http://127.0.0.1:8000/api/customer/{$order['customer_id']}");
-        $customer = $customerResponse->json();
+    // Get main diamond details
+    $maindiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$product['main_diamond_id']}");
+    $maindiamond = $maindiamondResponse->json();
+    $exdiamondResponse = Http::get("http://127.0.0.1:8000/api/exdiamond/{$product['extra_diamond_id']}");
+    $exiamond = $exdiamondResponse->json();
 
-        $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
-        $payments = $paymentResponse->json();
+    $diamondshellResponse = Http::get("http://127.0.0.1:8000/api/diamondshell/{$product['diamond_shell_id']}");
+    $diamondshell = $diamondshellResponse->json();
 
-        return view('HomeStaff_Manh.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments', 'exiamond', 'diamondshell'));
+    // Get order details
+    $orderResponse = Http::get("http://127.0.0.1:8000/api/order/{$id}");
+    $order = $orderResponse->json();
+
+    // Get customer details
+    $customerResponse = Http::get("http://127.0.0.1:8000/api/customer/{$order['customer_id']}");
+    $customer = $customerResponse->json();
+
+    $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
+    $payments = $paymentResponse->json();
+
+        return view('HomeStaff_Manh.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments', 'exiamond', 'diamondshell' , 'warrantycertificate'));
 
     }
 
