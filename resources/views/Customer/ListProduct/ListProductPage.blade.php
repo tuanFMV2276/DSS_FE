@@ -67,7 +67,7 @@
 <body>
     @include('Layout.Header/Header')
     <div class="container">
-        <div class="row mb-3 mt-3">
+        <div class="row mb-3 mt-3 justify-content-center">
             <!-- Diamond Search Filters -->
             <div class="filter-group">
                 <label for="shape" class="form-label filter-label">Shape</label>
@@ -170,7 +170,23 @@
             </div>
         </div>
         <div id="product-list" class="shell-grid mt-3 mb-3">
-            <!-- Product list will be populated dynamically -->
+            @foreach ($products as $product)
+            <a class="link" href="{{route('product.show', $product['id'])}}">
+                <div class="col">
+                    <div class="card h-70 clickable">
+                        <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="ring" class="card-img-top">
+                        <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
+                            <p class="card-text text-center">
+                                {{ $product['product_name'] }} {{ $product['product_code'] }}
+                            </p>
+                            <h6 class="card-title text-center">
+                                {{ number_format($product['total_price'], 0, ',', '.') }}₫
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            @endforeach
         </div>
     </div>
     @include('Layout.Footer/Footer')
@@ -192,7 +208,7 @@
                     <div class="col">
                         <div class="card h-70 clickable">
                             <img src="/Picture_Product/${product.image}" alt="ring" class="card-img-top">
-                            <div class="card-body">
+                            <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
                                 <p class="card-text text-center">${product.product_name} ${product.product_code}</p>
                                 <h6 class="card-title text-center">${new Intl.NumberFormat().format(product.total_price)}₫</h6>
                             </div>

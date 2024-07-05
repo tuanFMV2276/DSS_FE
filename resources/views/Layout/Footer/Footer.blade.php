@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <style>
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+    </style>
 </head>
 
 <body>
@@ -19,19 +28,19 @@
                 <div class="row mt-3">
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-gem me-3"></i>Brilliance
+                            <i class="fas fa-gem me-3 pr-2"></i>Luxury Diamond
                         </h6>
                         <div class="link-icons">
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-google"></i>
                             </a>
-                            <a href="" class="me-4 text-reset">
+                            <a href="" class="me-4 text-reset pr-2">
                                 <i class="fab fa-instagram"></i>
                             </a>
                             <a href="" class="me-4 text-reset">
@@ -45,10 +54,10 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Về chúng tôi</h6>
                         <p>
-                            <a href="#!" class="text-reset">Giới thiệu</a>
+                            <a href="/Gioi-thieu" class="text-reset">Giới thiệu</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Giấy chứng nhận</a>
+                            <a href="/Giay-chung-nhan" class="text-reset">Giấy chứng nhận</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -61,31 +70,22 @@
                             <a href="/DoNi" class="text-reset">Đo size</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Bảo quản trang sức</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Hướng dẫn chọn nhẫn cưới</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Cẩm nang kim cương</a>
+                            <a href="/Bao-quan-trang-suc" class="text-reset">Bảo quản trang sức</a>
                         </p>
                     </div>
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Hỗ trợ</h6>
                         <p>
-                            <a href="#!" class="text-reset">Chính sách mua hàng</a>
+                            <a href="/Chinh-sach-mua-hang" class="text-reset">Chính sách mua hàng</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Chính sách thu hồi</a>
+                            <a href="/Huong-dan-doi-tra" class="text-reset">Chính sách thu hồi</a>
                         </p>
                         <p>
-                            <a href="/PriceDiamond" class="text-reset">Giá kim cương</a>
+                            <a href="/Chinh-sach-bao-mat" class="text-reset">Bảo mật thông tin</a>
                         </p>
                         <p>
                             <a href="/PriceGold" class="text-reset">Giá vàng hôm nay</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Phương thức thanh toán</a>
                         </p>
                     </div>
                 </div>

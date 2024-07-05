@@ -166,15 +166,18 @@
                             <a href="{{ route('product.show', $item['id']) }}" style="text-decoration: none">
                                 <img src="{{ $item['image'] }}" alt="Product Image" style="width: 150px; height: 150px">
                             </a>
-                            <form action="{{ route('cart.remove', $index) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('cart.remove', $index) }}" method="POST" style="display:inline;"
+                                class="cart-remove-form">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="cart-remove btn btn-link">Xoá</button>
                             </form>
+
                         </div>
                         <div class="cart-item-details">
                             <h4 class="cart-item-title">
                                 <a href="{{ route('product.show', $item['id']) }}"
-                                    style="text-decoration: none">{{ $item['product_name'] }}</a>
+                                    style="text-decoration: none">{{ $item['product_name'] }}
+                                    {{$item['product_code']}}</a>
                             </h4>
                             <div class="cart-item-price">
                                 Giá: <b>{{ number_format($item['total_price'], 0, ',', '.') }}₫</b>
@@ -226,6 +229,35 @@
         </div>
     </div>
     @include('Layout.Footer.Footer')
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpERiu6uJkX1er2Jdr6UUB6UGmMxG1e1OBm0GidFV/gIoMjnNpD8SB9gWlrP" crossorigin="anonymous">
+    </script>
+    <script>
+    $(document).ready(function() {
+        $('.cart-remove').on('click', function(e) {
+            e.preventDefault();
+
+            var button = $(this);
+            var form = button.closest('form');
+            var url = form.attr('action');
+
+            $.ajax({
+                type: 'DELETE', // Sử dụng phương thức DELETE
+                url: url,
+                data: form.serialize(),
+                success: function(response) {
+                    // Cập nhật lại phần giỏ hàng với nội dung HTML mới
+                    $('#cart-container').html(response.html);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+    </script>
+
+
 </body>
 
 </html>

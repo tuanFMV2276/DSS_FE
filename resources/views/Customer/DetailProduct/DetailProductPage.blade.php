@@ -41,6 +41,9 @@
                             <button type="button" id="add-to-cart-button" class="btn btn-orange">Thêm vào giỏ
                                 hàng</button>
                         </div>
+                        <div class="d-flex justify-content-center mt-2">
+                            <button type="submit" class="btn btn-orange">Mua ngay</button>
+                        </div>
                     </form>
                     <div id="add-to-cart-message" class="text-success mt-2" style="display: none;">Sản phẩm đã được thêm
                         vào giỏ hàng!</div>

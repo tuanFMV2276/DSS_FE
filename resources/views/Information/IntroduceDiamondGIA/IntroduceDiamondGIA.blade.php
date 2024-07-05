@@ -22,7 +22,7 @@
                 những năm gần đây, việc mua bán và trao đổi kim cương đã trở nên nhộn nhịp hơn bao giờ hết. Vậy nên,
                 giấy chứng nhận <strong>Kim Cương GIA</strong> được ra đời như một chuẩn mực về chất lượng của kim
                 cương để giúp mọi người dễ dàng phân biệt được ''hàng thật'' và ''những kẻ mạo danh''. Hãy cùng
-                <a href="#" target="_blank"> Luxury Diamond</a> tìm hiểu về loại giấy chứng nhận quyền lực số 1 thế
+                <a href="/" target="_blank"> Luxury Diamond</a> tìm hiểu về loại giấy chứng nhận quyền lực số 1 thế
                 giới dành cho kim cương qua bài viết sau.
             </p>
             <h2 dir="ltr" style="text-align: justify">
@@ -43,7 +43,7 @@
             </p>
             <div style="text-align: center">
                 <figure class="image" style="display: inline-block">
-                    <img src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-1-1.jpg')}}"
+                    <img src="{{asset('/Picture_web/IntroduceDiamondGIA/NaturalPage-1-1.jpg')}}"
                         alt="Giấy chứng nhận GIA về chất lượng của kim cương" width="770" />
                     <figcaption>
                         <em>Giấy chứng nhận GIA về chất lượng của kim cương</em>
@@ -68,7 +68,7 @@
             </p>
             <div style="text-align: center">
                 <figure class="image" style="display: inline-block">
-                    <img src="{{asset('/Picture/NaturalDiamondPage/NaturalPage-1-2.jpg')}}"
+                    <img src="{{asset('/Picture_web/IntroduceDiamondGIA/NaturalPage-1-2.jpg')}}"
                         alt="Tiêu chuẩn 4C của Kim Cương GIA" width="800" />
                     <figcaption>
                         <em>Tiêu chuẩn 4C của Kim Cương GIA</em>

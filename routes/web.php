@@ -150,3 +150,31 @@ Route::get('/PriceDiamond', function () {
 Route::get('/PriceGold', function () {
     return view('Information.PriceGold.PriceGold');
 });
+
+Route::get('/Huong-dan-doi-tra', function () {
+    return view('Information.Service.Warranty-recall');
+});
+
+Route::get('/Chinh-sach-bao-mat', function () {
+    return view('Information.Service.ChinhSachBaoMat');
+});
+
+Route::get('/Lien-he', function () {
+    return view('Information.Service.Contact');
+});
+
+Route::get('/Chinh-sach-mua-hang', function () {
+    return view('Information.Service.ChinhSachMuaHang');
+});
+
+Route::get('/Giay-chung-nhan', function () {
+    return view('Information.Service.GiayChungNhan');
+});
+
+Route::get('/Gioi-thieu', function () {
+    return view('Information.Service.GioiThieu');
+});
+
+Route::get('/Bao-quan-trang-suc', function () {
+    return view('Information.Service.BaoQuanTrangSuc');
+});
