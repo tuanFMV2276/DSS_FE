@@ -322,7 +322,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                         5 => 'Cancelled',
                                     ];
                                 @endphp
-                                <tr class="order-row" data-status="{{ $order['status'] }}">
+                                <tr class="status-row" data-status="{{ $order['status'] }}">
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
@@ -366,23 +366,9 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 </div>
 
                 <div id="product-management" class="table-container" style="display: none;">
-                    <h1>List Products</h1>
-                    <div class="top-bar">
-                        <div id="div_search_product">
-                            <form id="search-form">
-                                <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name"
-                                        placeholder="Customer Name">
-                                    <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date"
-                                        placeholder="Order Date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <button type="submit">
-                                        <div>Search</div>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <h1>List Product</h1>
+                    <div class="top-bar" style="justify-content: end">
+                        
                         <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button
                                 class="add-st"><i class="fas fa-plus"></i>Add New Product</button></a>
                     </div>
@@ -414,7 +400,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <th>Extra Diamond ID</th>
                                 <th>Number Ex Diamond</th>
                                 <th>Diamond Shell ID</th>
-                                <th>Size</th>
+                                {{-- <th>Size</th> --}}
                                 <th>Price Rate</th>
                                 <th>Quantity</th>
                                 <th>Status</th>
@@ -431,10 +417,10 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td><img src="{{ asset('/Picture_Product/' . $product['image']) }}"
                                             alt="Product Image" width="50%"></td>
                                     <td>{{ $product['main_diamond_id'] }}</td>
-                                    <td>{{ $product['extra_diamond_id'] }}</td>
-                                    <td>{{ $product['number_ex_diamond'] }}</td>
+                                    <td>{{ $product['extra_diamond_id'] == null ? "None" : $product['extra_diamond_id']}}</td>
+                                    <td>{{ $product['number_ex_diamond'] == null ? "None" : $product['number_ex_diamond']}}</td>
                                     <td>{{ $product['diamond_shell_id'] }}</td>
-                                    <td>{{ number_format($product['size'], 2) }}</td>
+                                    {{-- <td>{{ number_format($product['size'], 2) }}</td> --}}
                                     <td>{{ number_format($product['price_rate'], 2) }}</td>
                                     <td>{{ $product['quantity'] }}</td>
                                     <td>{{ $product['status'] }}</td>
@@ -463,23 +449,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 </div>
 
                 <div id="maindiamond-management" class="table-container" style="display: none;">
-                    <h1>List Diamonds</h1>
-                    <div class="top-bar">
-                        <div id="div_search_product">
-                            <form id="search-form">
-                                <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name"
-                                        placeholder="Customer Name">
-                                    <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date"
-                                        placeholder="Order Date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <button type="submit">
-                                        <div>Search</div>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <h1>List Diamond</h1>
+                    <div class="top-bar" style="justify-content: end">
                         <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Diamond</button>
                         </a>
@@ -557,23 +528,9 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 </div>
 
                 <div id="exdiamond-management" class="table-container" style="display: none;">
-                    <h1>List Extra Diamonds</h1>
-                    <div class="top-bar">
-                        <div id="div_search_product">
-                            <form id="search-form">
-                                <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name"
-                                        placeholder="Customer Name">
-                                    <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date"
-                                        placeholder="Order Date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <button type="submit">
-                                        <div>Search</div>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <h1>List Extra Diamond</h1>
+                    <div class="top-bar" style="justify-content: end">
+                
                         <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Extra Diamond</button>
                         </a>
@@ -630,23 +587,9 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 </div>
 
                 <div id="shell-management" class="table-container" style="display: none;">
-                    <h1>List Diamond Shells</h1>
-                    <div class="top-bar">
-                        <div id="div_search_product">
-                            <form id="search-form">
-                                <div class="search-bar">
-                                    <input type="text" id="customer_name" name="customer_name"
-                                        placeholder="Customer Name">
-                                    <i class="fas fa-user"></i>
-                                    <input type="text" id="order_date" name="order_date"
-                                        placeholder="Order Date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <button type="submit">
-                                        <div>Search</div>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <h1>List Diamond Shell</h1>
+                    <div class="top-bar" style="justify-content: end">
+                        
                         <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Shell</button>
                         </a>
@@ -703,7 +646,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 </div>
                 <div id="price-list" class="table-container" style="display: none;">
                     <h1>List Price</h1>
-                    <div class="top-bar">
+                    <div class="top-bar" style="justify-content: end;">
                         <a href="{{ route('manager.createPrice') }}" class="btn btn-success"><button class="add-st"><i
                         class="fas fa-plus"></i>Add New Price</button></a>
                     </div>
@@ -784,7 +727,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         </thead>
                         <tbody id="employee-body">
                             @foreach ($employees as $index => $employee)
-                                <tr class="employee-row" data-status="{{ $employee['role_id'] }}">
+                                <tr class="status-row" data-status="{{ $employee['role_id'] }}">
                                     <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $employee['user_name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
@@ -844,7 +787,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
     </script>
     <script>
         const statusButtons = document.querySelectorAll('.status-btn');
-        const orderRows = document.querySelectorAll('.order-row');
+        const orderRows = document.querySelectorAll('.status-row');
 
         statusButtons.forEach(btn => {
             btn.addEventListener('click', () => {

@@ -1,4 +1,4 @@
-@extends('HomeStaff_Manh.Manager.Order.layout')
+@extends('HomeSaleStaff.Order.layout')
 
 @section('content')
     <h1 class="my-4">Order Details</h1>

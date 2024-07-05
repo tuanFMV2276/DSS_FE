@@ -28,7 +28,7 @@ class DeliveryStaffController extends Controller
 
         $newStatus = $request->input('status');
 
-        if ($newStatus == 4) { // Finished
+        if ($newStatus == 3) { // delivering
             $issueDate = Carbon::today()->toDateString();
             $expiryDate = Carbon::today()->addYears(2)->toDateString();
 

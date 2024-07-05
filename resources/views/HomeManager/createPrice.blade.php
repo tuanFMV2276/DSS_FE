@@ -63,7 +63,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="price"><i class="fas fa-dollar-sign"></i> Price:</label>
-                                <input type="number" class="form-control" id="price" name="price" min="0" step="0.01" value="{{ old('price') }}" required>
+                                <input type="text" class="form-control" id="price" name="price" min="0" value="{{ old('price') }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="clarity"><i class="fas fa-diamond"></i> Clarity:</label>
@@ -103,7 +103,7 @@
                                 <select class="form-control" id="origin" name="origin" required>
                                     <option value="" disabled selected>Select origin</option>
                                     <option value="Natural" {{ old('origin') == 'Natural' ? 'selected' : '' }}>Natural</option>
-                                    <option value="Synthetic" {{ old('origin') == 'Synthetic' ? 'selected' : '' }}>Synthetic</option>
+                                    <option value="Lab" {{ old('origin') == 'Lab' ? 'selected' : '' }}>Lab</option>
                                 </select>
                             </div>
                             <div class="form-group">

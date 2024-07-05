@@ -78,7 +78,7 @@
             <div class="form-group">
                 <label for="main_diamond_id"><i class="fas fa-gem"></i> Main Diamond ID</label>
                 <select class="form-control" id="main_diamond_id" name="main_diamond_id" required>
-                    <option value="NULL">Select Main Diamond</option>
+                    <option value="">Select Main Diamond</option>
                     @foreach ($mainDiamonds as $diamond)
                         @if ($diamond['status'] == 1 || $diamond['id'] == $product['main_diamond_id'])
                             <option value="{{ $diamond['id'] }}"
@@ -86,13 +86,14 @@
                                 {{ $diamond['id'] }}</option>
                         @endif
                     @endforeach
+                    <input type="hidden" id="old-diamond" name="old_main_diamond" value="{{ $product['main_diamond_id'] }}">
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="extra_diamond_id"><i class="fas fa-gem"></i> Extra Diamond ID</label>
-                <select class="form-control" id="extra_diamond_id" name="extra_diamond_id" >
-                    <option value=''>Select Extra Diamond</option>
+                <select class="form-control" id="extra_diamond_id" name="extra_diamond_id">
+                    <option value="">Select Extra Diamond</option>
                     @foreach ($extraDiamonds as $diamond)
                         @if ($diamond['status'] == 1 || $diamond['id'] == $product['extra_diamond_id'])
                             <option value="{{ $diamond['id'] }}"
@@ -100,17 +101,18 @@
                                 {{ $diamond['id'] }}</option>
                         @endif
                     @endforeach
+                    <input type="hidden" id="old-ex-diamond" name="old_ex_diamond" value="{{ $product['extra_diamond_id'] }}">
                 </select>
             </div>
-
+            
             <div class="form-group">
                 <label for="number_ex_diamond"><i class="fas fa-cubes"></i> Number of Extra Diamonds</label>
                 <input type="number" class="form-control" id="number_ex_diamond" name="number_ex_diamond"
-                    value="{{ old('number_ex_diamond', $product['number_ex_diamond']) }}"
+                    value="{{ old('number_ex_diamond', $product['number_ex_diamond']) }}" min="0"
                     max="{{ $extraDiamonds[$product['extra_diamond_id']]['quantity'] ?? 0 }}"
-                    title="Number of extra diamonds should not exceed the available quantity.">
-                <small>Available: <span
-                        id="available-extra-diamonds">{{ $extraDiamonds[$product['extra_diamond_id']]['quantity'] ?? 0 }}</span></small>
+                    title="Number of extra diamonds should not exceed the available quantity." >
+                <input type="hidden" id="old-number-ex-diamond" name="old_number_ex_diamond" value="{{ $product['number_ex_diamond'] }}" >
+                <small>Available: <span id="available-extra-diamonds">{{ $extraDiamonds[$product['extra_diamond_id']]['quantity'] ?? 0 }}</span></small>
             </div>
 
             <div class="form-group">
@@ -129,6 +131,7 @@
                                 {{ $shell['id'] }}</option>
                         @endif
                     @endforeach
+                    <input type="hidden" id="old-shell" name="old_shell_diamond" value="{{ $product['diamond_shell_id'] }}">
                 </select>
             </div>
 
@@ -189,34 +192,33 @@
             }
         });
     </script>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var extraDiamondSelect = document.getElementById('extra_diamond_id');
-        var numberExDiamondInput = document.getElementById('number_ex_diamond');
-        var availableDiamondsSpan = document.getElementById('available-extra-diamonds');
+document.addEventListener('DOMContentLoaded', function() {
+    var extraDiamondSelect = document.getElementById('extra_diamond_id');
+    var numberExDiamondInput = document.getElementById('number_ex_diamond');
+    var availableDiamondsSpan = document.getElementById('available-extra-diamonds');
 
-        // Store the extra diamonds data as a JavaScript object
-        var extraDiamonds = @json($extraDiamonds);
+    // Store the extra diamonds data as a JavaScript object
+    var extraDiamonds = @json($extraDiamonds);
 
-        extraDiamondSelect.addEventListener('change', function() {
-            var selectedDiamondId = this.value;
+    extraDiamondSelect.addEventListener('change', function() {
+        var selectedDiamondId = this.value;
 
-            if (selectedDiamondId) {
-                var availableQuantity = extraDiamonds[selectedDiamondId]?.quantity || 0;
-                availableDiamondsSpan.textContent = availableQuantity;
-                numberExDiamondInput.max = availableQuantity;
-            } else {
-                // Clear the input values if "Select Extra Diamond" is chosen
-                availableDiamondsSpan.textContent = '0';
-                numberExDiamondInput.value = '';
-                numberExDiamondInput.max = '0';
-            }
-        });
-
-        // Trigger the change event on page load to initialize the values
-        extraDiamondSelect.dispatchEvent(new Event('change'));
+        if (selectedDiamondId) {
+            var availableQuantity = extraDiamonds[selectedDiamondId]?.quantity || 0;
+            availableDiamondsSpan.textContent = availableQuantity;
+            numberExDiamondInput.max = availableQuantity;
+        } else {
+            // Clear the input values if "Select Extra Diamond" is chosen
+            availableDiamondsSpan.textContent = '0';
+            numberExDiamondInput.value = '0';
+            numberExDiamondInput.max = '0';
+        }
     });
+
+    // Trigger the change event on page load to initialize the values
+    extraDiamondSelect.dispatchEvent(new Event('change'));
+});
 </script>
 </body>
 

@@ -49,21 +49,8 @@
             <div id="account-customer" class="table-container" style="display:contents;">
                 <h1>Customer Account List</h1>
                 <div class="top-bar">
-                    <div id="div_search_product">
-                        <form id="search-form">
-                            <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name"
-                                    placeholder="Customer Name">
-                                <i class="fas fa-user"></i>
-                                <input type="text" id="order_date" name="order_date" placeholder="Order Date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <button type="submit">
-                                    <div>Search</div>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
+                    
+                    
                 </div>
                 <div class="status-bar more-margintop">
                     <button class="status-btn active" data-status="all">
@@ -122,20 +109,7 @@
             <div id="staff-management" class="table-container" style="display: none;">
                 <h1>Employee Account List</h1>
                 <div class="top-bar">
-                    <div id="div_search_product">
-                        <form id="search-form">
-                            <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name"
-                                    placeholder="Customer Name">
-                                <i class="fas fa-user"></i>
-                                <input type="text" id="order_date" name="order_date" placeholder="Order Date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <button type="submit">
-                                    <div>Search</div>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                    
                     <a href="{{ route('admin.addNewEmployee') }}" class="btn btn-success"><button class="add-st"><i
                                 class="fas fa-plus"></i>Add New Employee Account</button></a>
                 </div>
@@ -196,14 +170,7 @@
                                         <i class="fa-regular fa-eye icon-blue"></i>
                                     </a>
                                 </td>
-                                {{-- <td>
-                                  <form action="{{ route('employees.destroy', $employee['id']) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Delete</button>
-                            </form>
-                            </td> --}}
+                                
                             </tr>
                         @endforeach
                     </tbody>

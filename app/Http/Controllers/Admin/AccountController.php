@@ -104,7 +104,7 @@ class AccountController extends Controller
     {
         $response = Http::put("http://127.0.0.1:8000/api/employee/{$id}", $request->all());
 
-        return redirect('/admin/accounts');
+        return redirect('/home-admin');
     }
     public function addNewEmployee()
     {
@@ -129,7 +129,7 @@ class AccountController extends Controller
     {
         $response = Http::put("http://127.0.0.1:8000/api/customer/{$id}", $request->all());
 
-        return redirect('/admin/accounts');
+        return redirect('/home-admin');
     }
     public function destroyCustomer($id)
     {

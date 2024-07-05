@@ -66,7 +66,7 @@
                                 <th>Order ID</th>
                                 <th>Order Date</th>
                                 <th>Total Price</th>
-                                <th>Payment Method</th>
+                                {{-- <th>Payment Method</th> --}}
                                 <th>Customer</th>
                                 <th>Status</th>
                                 <th>View Detail</th>
@@ -89,7 +89,7 @@
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
                                     <td>{{ $order['total_price'] }}</td>
-                                    <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td>
+                                    {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
                                     <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
                                         Address: {{ $order ? $order['address'] : 'Unknown' }}<br>
                                         Phone: {{ $order ? $order['phone'] : 'Unknown' }}</td>

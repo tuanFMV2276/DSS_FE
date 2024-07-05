@@ -64,14 +64,14 @@ Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDeta
 // End route của sale staff
 //------------------------------------------------------------------------------------------
 //route Delivery staff
-Route::get('/delivery-staff/orders', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
+Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
 Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
 Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
 // End route của Delivery staff
 //------------------------------------------------------------------------------------------
 //route Admin
 // Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/accounts', [AccountController::class, 'index'])->name('admin.accounts.index');
+    Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
     Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
     Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
     Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');

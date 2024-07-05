@@ -24,7 +24,7 @@ class SaleStaffController extends Controller
 
         
        
-        return view('HomeStaff_Manh.HomeSaleStaff', compact( 'orders', 'customers', 'payments'));
+        return view('HomeSaleStaff.HomeSaleStaff', compact( 'orders', 'customers', 'payments'));
     }
     public function updateOrderStatus(Request $request, $id)
     {
@@ -87,7 +87,7 @@ class SaleStaffController extends Controller
     $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
     $payments = $paymentResponse->json();
 
-    return view('HomeStaff_Manh.orderdetail1', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments','exiamond','diamondshell', 'warrantycertificate'));
+    return view('HomeSaleStaff.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments','exiamond','diamondshell', 'warrantycertificate'));
 
     }
 }
