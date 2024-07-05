@@ -1,19 +1,16 @@
 <?php
 
-use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Customer\HomeController;
 // use App\Http\Controllers\NaturalDiamondPage;
 // use App\Http\Controllers\LabDiamondPage;
 // use App\Http\Controllers\DetailDiamond;
-use App\Http\Controllers\ListProductController;
-use App\Http\Controllers\DetailProductController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\Payment;
+use App\Http\Controllers\Customer\ListProductController;
+use App\Http\Controllers\Customer\DetailProductController;
+use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Login;
-use App\Http\Controllers\PaymentSuccessful;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Customer\OrderController;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
@@ -50,31 +47,45 @@ Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->na
 Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
 Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
 Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
+Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
+Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
+Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
 
 // End route manager
 //------------------------------------------------------------------------------------------
 // Route của sale staff '/home-salestaff'
 Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
 Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
+Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
 
 
 
 // End route của sale staff
 //------------------------------------------------------------------------------------------
 //route Delivery staff
-Route::get('/delivery-staff/orders', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
+Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
 Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
 Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
 // End route của Delivery staff
 //------------------------------------------------------------------------------------------
 //route Admin
 // Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/accounts', [AccountController::class, 'index'])->name('admin.accounts.index');
+    Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
     Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
     Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
     Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
     Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
     Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
+    Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
+    Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
+    Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
+    Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
+    Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
+    Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
+    Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
+    Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
+
 // });
 // End route của Admin
 //------------------------------------------------------------------------------------------
@@ -126,4 +137,16 @@ Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 
 Route::get('/IntroduceDiamondGIA', function () {
     return view('Information.IntroduceDiamondGIA.IntroduceDiamondGIA');
+});
+
+Route::get('/DoNi', function () {
+    return view('Information.DoNi.DoNi');
+});
+
+Route::get('/PriceDiamond', function () {
+    return view('Information.PriceDiamond.PriceDiamond');
+});
+
+Route::get('/PriceGold', function () {
+    return view('Information.PriceGold.PriceGold');
 });

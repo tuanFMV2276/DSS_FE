@@ -24,7 +24,7 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="#" onclick="showTable('account-customer')">
+                <a href="#" onclick="showTable('account-customer')" class="status-btn active" data-status="all">
                     <i class="fa-regular fa-user"></i>
                     <span class="links_name">Customer</span>
                 </a>
@@ -45,25 +45,25 @@
 
     <section class="home-section">
         <div class="main-content">
-          
+
             <div id="account-customer" class="table-container" style="display:contents;">
-              <h1>Customer Account List</h1> 
-              <div class="top-bar">
-                  <div id="div_search_product">
-                      <form id="search-form">
-                          <div class="search-bar">
-                              <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
-                              <i class="fas fa-user"></i>
-                              <input type="text" id="order_date" name="order_date" placeholder="Order Date">
-                              <i class="fas fa-calendar-alt"></i>
-                              <button type="submit">
-                                  <div>Search</div>
-                              </button>
-                          </div>
-                      </form>
-                  </div>
-                  <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Account</button></a>
-              </div>
+                <h1>Customer Account List</h1>
+                <div class="top-bar">
+                    
+                    
+                </div>
+                <div class="status-bar more-margintop">
+                    <button class="status-btn active" data-status="all">
+                        All
+                    </button>
+                    <button class="status-btn" data-status="1">
+                        Active
+                    </button>
+                    <button class="status-btn" data-status="0">
+                        Inactive
+                    </button>
+                </div>
+
                 <table class="table ">
                     <thead>
                         <tr>
@@ -71,30 +71,34 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Password</th>
+                            <!-- <th>Password</th>
                             <th>Phone</th>
                             <th>Address</th>
-                            <th>Date_of_birth</th>
+                            <th>Date_of_birth</th> -->
                             <th>Gender</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th>View Detail</th>
                         </tr>
                     </thead>
                     <tbody id="order-list">
                         @foreach ($customers as $customer)
-                            <tr">
+                            <tr class="filter-row" data-status="{{ $customer['status'] }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $customer['id'] }}</td>
                                 <td>{{ $customer['name'] }}</td>
                                 <td>{{ $customer['email'] }}</td>
-                                <td>{{ $customer['password'] }}</td>
+                                <!-- <td>{{ $customer['password'] }}</td>
                                 <td>{{ $customer['phone'] }}</td>
                                 <td>{{ $customer['address'] }}</td>
-                                <td>{{ $customer['date_of_birth'] }}</td>
+                                <td>{{ $customer['date_of_birth'] }}</td> -->
                                 <td>{{ $customer['gender'] }}</td>
                                 <td>{{ $customer['status'] == 1 ? 'Active' : 'Inactive' }}</td>
-                                <td><button>Update</button></td>
-                                </tr>
+                                <td>
+                                    <a href="{{ route('admin.showCustomerDetail', $customer['id']) }}">
+                                        <i class="fa-regular fa-eye icon-blue"></i>
+                                    </a>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -105,20 +109,9 @@
             <div id="staff-management" class="table-container" style="display: none;">
                 <h1>Employee Account List</h1>
                 <div class="top-bar">
-                    <div id="div_search_product">
-                        <form id="search-form">
-                            <div class="search-bar">
-                                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
-                                <i class="fas fa-user"></i>
-                                <input type="text" id="order_date" name="order_date" placeholder="Order Date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <button type="submit">
-                                    <div>Search</div>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button class="add-st"><i class="fas fa-plus"></i>Add New Account</button></a>
+                    
+                    <a href="{{ route('admin.addNewEmployee') }}" class="btn btn-success"><button class="add-st"><i
+                                class="fas fa-plus"></i>Add New Employee Account</button></a>
                 </div>
                 {{-- <div class="status-bar">
                   <button onclick="showTable('staff-management')">
@@ -133,17 +126,18 @@
               </div> --}}
                 <div class="status-bar more-margintop">
                     <button class="status-btn active" data-status="all">
-                        <i class="fas fa-list icon-status"></i> All employee
+                        All employee
                     </button>
                     <button class="status-btn" data-status="2">
-                        <i class="fa-solid fa-user-tie icon-status"></i>Sale staffs
+                        Manager
+                    </button>
+                    <button class="status-btn" data-status="3">
+                        Sale staffs
                     </button>
                     <button class="status-btn" data-status="4">
-                        <i class="fa-solid fa-truck icon-status"></i> Delivery staffs
+                        Delivery staffs
                     </button>
-                    <button class="status-btn" data-status="1">
-                        <i class="fa-solid fa-truck icon-status"></i> Manager
-                    </button>
+
 
                 </div>
                 <table border="1">
@@ -166,24 +160,17 @@
                             ];
                         @endphp
                         @foreach ($filteredEmployees as $employee)
-                            <tr class="order-row" data-status="{{ $employee['role_id'] }}">
+                            <tr class="filter-row" data-status="{{ $employee['role_id'] }}">
                                 <td>{{ $employee['user_name'] }}</td>
                                 <td>{{ $employee['gender'] }}</td>
                                 <td>{{ $rolesLabels[$employee['role_id']] ?? 'Unknown' }}</td>
                                 <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                 <td>
-                                    <a href="{{ route('manager.showEmployeeDetail', $employee['id']) }}">
+                                    <a href="{{ route('admin.showEmployeeDetail', $employee['id']) }}">
                                         <i class="fa-regular fa-eye icon-blue"></i>
                                     </a>
                                 </td>
-                                {{-- <td>
-                                  <form action="{{ route('employees.destroy', $employee['id']) }}"
-                                      method="POST">
-                                      @csrf
-                                      @method('DELETE')
-                                      <button type="submit" >Delete</button>
-                                  </form>
-                              </td> --}}
+                                
                             </tr>
                         @endforeach
                     </tbody>
@@ -225,7 +212,7 @@
         </script>
         <script>
             const statusButtons = document.querySelectorAll('.status-btn');
-            const orderRows = document.querySelectorAll('.order-row');
+            const orderRows = document.querySelectorAll('.filter-row');
 
             statusButtons.forEach(btn => {
                 btn.addEventListener('click', () => {

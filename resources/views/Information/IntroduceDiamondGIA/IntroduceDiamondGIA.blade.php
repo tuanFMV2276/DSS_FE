@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kim Cương GIA</title>
-    <link rel="stylesheet" href="{{ asset('css_Hoa/IntroduceDiamondGIA.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/IntroduceDiamondGIA.css') }}">
 </head>
 
 <body>
-    @include('Header_Hoa/Header')
+    @include('Layout/Header/Header')
     <div class="introduce">
         <div class="summary-content mt-5">
             <p dir="ltr" style="text-align: center">
@@ -164,7 +164,7 @@
             </p>
         </div>
     </div>
-    @include('Footer_Hoa/Footer')
+    @include('Layout/Footer/Footer')
 </body>
 
 </html>
