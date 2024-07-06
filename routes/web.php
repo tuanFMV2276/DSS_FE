@@ -16,6 +16,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\SaleStaff\SaleStaffController;
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Auth\WebAuthController;
 use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
 use App\Http\Controllers\OrderCustomerController;
 
@@ -92,16 +93,16 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
-Route::get('/Login', [Login::class, 'login']);
+// Route::get('/Login', [Login::class, 'login']);
 
-// Trang Login
-Route::get('/Login', function () {
-    return view('Login_Register_ForgotPass/Login/Login');
-});
+// // Trang Login
+// Route::get('/Login', function () {
+//     return view('Login_Register_ForgotPass/Login/Login');
+// });
 
 
 // Trang HomePage
-Route::get('/', [HomeController::class, 'index']);
+  Route::get('/', [HomeController::class, 'index'])->name("homePage");
 
 // Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
@@ -177,4 +178,33 @@ Route::get('/Gioi-thieu', function () {
 
 Route::get('/Bao-quan-trang-suc', function () {
     return view('Information.Service.BaoQuanTrangSuc');
+});
+
+//==================================================Auth=======================================================
+
+Route::get('register', [WebAuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [WebAuthController::class, 'register']);
+Route::get('login', [WebAuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [WebAuthController::class, 'login']);
+Route::post('logout', [WebAuthController::class, 'logout'])->name('logout');
+
+// Các route yêu cầu đăng nhập
+// Routes requiring authentication
+Route::middleware('auth.token')->group(function () {
+    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    // Trang giỏ hàng
+    Route::get('/Cart', [CartController::class, 'index'])->name('cart.index');
+
+    Route::post('/Cart/add', [CartController::class, 'add'])->name('cart.add');
+
+    Route::delete('/Cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove');
+
+    // Trang thanh toán
+    Route::get('/Payment', [CartController::class, 'payment'])->name('payment.page');
+
+    // Lưu trữ order
+    Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
+
+    // Trang thanh toán thành công
+    Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 });

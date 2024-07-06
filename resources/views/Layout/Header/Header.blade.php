@@ -19,20 +19,27 @@
                     <h1>Luxury Diamond</h1>
                 </a>
             </div>
-            <div class="right">
-                <div class="cart-login">
-                    <button class="cart-btn">
-                        <a href="/Cart"><i class="bx bxs-cart"> GIỎ HÀNG</i></a>
-                    </button>
-                    <button class="login-btn"><a href="/Login"><i class="bx bx-user"> ĐĂNG NHẬP</i></a></button>
-                </div>
-                <!-- <div>
-                    <form class="search">
-                        <button class="search-btn"><i class="bx bx-search"></i></button>
-                        <input class="search-input" type="text" placeholder=" Tìm kiếm..." />
-
-                    </form>
-                </div> -->
+            <div class="cart-login">
+                <button class="cart-btn">
+                    <a href="/Cart"><i class="bx bxs-cart"> GIỎ HÀNG</i></a>
+                </button>
+                @if (Session::has('access_token'))
+                    <div class="user-info">
+                        <img src="{{ Session::get('user_avatar') ?? asset('images/default-avatar.png') }}"
+                            alt="User Avatar" class="avatar">
+                        <span>{{ Session::get('user_name') }}</span>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit"
+                                style="background: none; border: none; color: #007bff; cursor: pointer;">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <button class="login-btn"><a href="{{ route('login') }}"><i class="bx bx-user"> ĐĂNG
+                                NHẬP</i></a></button>
+                @endif
             </div>
         </div>
         <nav>
@@ -41,34 +48,34 @@
                 <!-- <li>
                     <a href="/NaturalDiamondPage">Kim Cương Tự Nhiên <i class='bx bx-chevron-down'></i></a>
                     <ul class="sub-menu">
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Round.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Round.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Round</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Oval.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Oval.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Oval</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Emerald.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Emerald.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Emerald</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Heart.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Heart.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Heart</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Pear.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Pear.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Pear</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Marquise.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Marquise.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Marquise</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="/LabDiamondPage">Kim Cương Nhân Tạo <i class='bx bx-chevron-down'></i></a>
                     <ul class="sub-menu">
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Round.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Round.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Round</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Oval.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Oval.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Oval</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Emerald.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Emerald.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Emerald</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Heart.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Heart.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Heart</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Pear.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Pear.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Pear</a></li>
-                        <li><a href="#"><img src="{{asset('/Picture_Hoa/MaterialDiamond/Marquise.jpg')}}"
+                        <li><a href="#"><img src="{{ asset('/Picture_Hoa/MaterialDiamond/Marquise.jpg') }}"
                                     style="width: 20px; height: 20px;" /> Marquise</a></li>
                     </ul>
                 </li> -->
