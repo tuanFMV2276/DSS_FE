@@ -39,6 +39,11 @@ body {
     transform: scale(1.05);
 }
 
+.card img {
+    width: 100%;
+    height: 238px;
+}
+
 /* Ensure no custom CSS overrides Bootstrap's grid system */
 @media (min-width: 1200px) {
     .container {

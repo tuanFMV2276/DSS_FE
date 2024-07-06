@@ -9,8 +9,8 @@ use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ListProductController;
 use App\Http\Controllers\Customer\DetailProductController;
 use App\Http\Controllers\Customer\CartController;
-use App\Http\Controllers\Login;
 use App\Http\Controllers\Customer\OrderController;
+use App\Http\Controllers\Customer\PurchaseOrderController;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
@@ -78,7 +78,7 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
-Route::get('/Login', [Login::class, 'login']);
+// Route::get('/Login', [Login::class, 'login']);
 
 // Trang Login
 Route::get('/Login', function () {
@@ -164,3 +164,11 @@ Route::get('/Gioi-thieu', function () {
 Route::get('/Bao-quan-trang-suc', function () {
     return view('Information.Service.BaoQuanTrangSuc');
 });
+
+// Route::get('/Purchase', function () {
+//     return view('Customer.PurchaseOrder.PurchaseOrder');
+// });
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
+// });
+Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
