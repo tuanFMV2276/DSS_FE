@@ -39,7 +39,7 @@
                 @foreach (['all', 'pending', 'preparing', 'delivering', 'finished', 'cancelled'] as $status)
                 <div class="tab-pane fade {{ $status == 'all' ? 'show active' : '' }}" id="{{ $status }}">
                     @if (empty($orders[$status]))
-                    <p>Chưa có đơn hàng</p>
+                    <h5 class="text-center mt-3 mb-3">Chưa có đơn hàng</h5>
                     @else
                     <table class="table">
                         <thead>
