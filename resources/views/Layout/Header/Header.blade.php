@@ -24,21 +24,20 @@
                     <a href="/Cart"><i class="bx bxs-cart"> GIỎ HÀNG</i></a>
                 </button>
                 @if (Session::has('access_token'))
-                    <div class="user-info">
-                        <img src="{{ Session::get('user_avatar') ?? asset('images/default-avatar.png') }}"
-                            alt="User Avatar" class="avatar">
-                        <span>{{ Session::get('user_name') }}</span>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit"
-                                style="background: none; border: none; color: #007bff; cursor: pointer;">
-                                Logout
-                            </button>
-                        </form>
-                    </div>
+                <div class="user-info">
+                    <img src="{{ Session::get('user_avatar') ?? asset('Picture_web/Avatar.jpg') }}" alt="User Avatar"
+                        class="avatar" style="width: 30px; height: 30px;">
+                    <span>{{ Session::get('user_name') }}</span>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" style="background: none; border: none; color: #007bff; cursor: pointer;">
+                            Logout
+                        </button>
+                    </form>
+                </div>
                 @else
-                    <button class="login-btn"><a href="{{ route('login') }}"><i class="bx bx-user"> ĐĂNG
-                                NHẬP</i></a></button>
+                <button class="login-btn"><a href="{{ route('login') }}"><i class="bx bx-user"> ĐĂNG
+                            NHẬP</i></a></button>
                 @endif
             </div>
         </div>

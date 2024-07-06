@@ -175,10 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
-<<<<<<< HEAD
-=======
         Laravel\Telescope\TelescopeServiceProvider::class,
->>>>>>> f2530e929871244e8dc1625089fd8642c7dfc4f1
 
     ],
 
