@@ -1,20 +1,25 @@
 <?php
 
-use App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\HomePage;
-use App\Http\Controllers\NaturalDiamondPage;
-use App\Http\Controllers\LabDiamondPage;
-use App\Http\Controllers\DetailDiamond;
-use App\Http\Controllers\ListShell;
-use App\Http\Controllers\DetailShell;
-use App\Http\Controllers\CompletedProduct;
-use App\Http\Controllers\Cart;
-use App\Http\Controllers\Payment;
+use App\Http\Controllers\Customer\HomeController;
+// use App\Http\Controllers\NaturalDiamondPage;
+// use App\Http\Controllers\LabDiamondPage;
+// use App\Http\Controllers\DetailDiamond;
+use App\Http\Controllers\Customer\ListProductController;
+use App\Http\Controllers\Customer\DetailProductController;
+use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Login;
-use App\Http\Controllers\PaymentSuccessful;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Customer\OrderController;
+
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Manager\ManagerController;
+use App\Http\Controllers\SaleStaff\SaleStaffController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Auth\WebAuthController;
+use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
+use App\Http\Controllers\OrderCustomerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,57 +30,179 @@ use App\Http\Controllers\OrderController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//------------------------------------------------------------------------------------------
+// Route của manager '/home-manager'
+    
+Route::get('/home-manager', [ManagerController::class, 'homeManager'])->name('manager.home');
+
+Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
+Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateEmployee'])->name('manager.updateEmployee');
+Route::put('/manager_orders/{id}/update_status', [ManagerController::class, 'updateOrderStatus'])->name('manager.updateOrderStatus');
+Route::get('/manager_orders/{id}/detail', [ManagerController::class, 'showOrderDetail'])->name('manager.showOrderDetail');
+Route::delete('/manager_orders/{id}/delete', [ManagerController::class, 'destroyOrder'])->name('manager.destroyOrder');
+Route::get('/manager_orders/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+Route::get('/products/create', [ManagerController::class, 'createProduct'])->name('manager.createProduct');
+Route::post('/products', [ManagerController::class, 'storeProduct'])->name('manager.storeProduct');
+Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
+Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
+Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
+Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
+Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
+Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
+Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
+
+// End route manager
+//------------------------------------------------------------------------------------------
+// Route của sale staff '/home-salestaff'
+Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
+Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
+Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
+
+
+
+// End route của sale staff
+//------------------------------------------------------------------------------------------
+//route Delivery staff
+Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
+Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
+Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
+// End route của Delivery staff
+//------------------------------------------------------------------------------------------
+//route Admin
+// Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
+    Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
+    Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
+    Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
+    Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
+    Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
+    Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
+    Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
+    Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
+    Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
+    Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
+    Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
+    Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
+    Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
+
+// });
+// End route của Admin
+//------------------------------------------------------------------------------------------
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
 Route::get('/Login', [Login::class, 'login']);
 
-Route::get('/', [HomePage::class, 'index']);
+// // Trang Login
+// Route::get('/Login', function () {
+//     return view('Login_Register_ForgotPass/Login/Login');
+// });
 
-Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
-Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
+// Trang HomePage
+  Route::get('/', [HomeController::class, 'index'])->name("homePage");
 
-Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
+// Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
-Route::get('/LabDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('labdiamond.show');
+// Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
 
-Route::get('/ListShell', [ListShell::class, 'index']);
+// Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
 
-Route::get('/ListShell/{id}/show', [DetailShell::class, 'show'])->name('shell.show');
+// Trang danh sách sản phẩm
+Route::get('/ListProduct', [ListProductController::class, 'index']);
 
-Route::get('/Cart', [Cart::class, 'index']) -> name('cart.index');
+Route::get('/filter-products', [ListProductController::class, 'filterProducts']);
 
-Route::post('/Cart/add', [Cart::class, 'add'])->name('cart.add');
+// Trang chi tiết sản phẩm
+Route::get('/Product/{id}', [DetailProductController::class, 'show'])->name('product.show');
 
-Route::delete('/Cart/remove/{index}', [Cart::class, 'remove'])->name('cart.remove');
+// Trang giỏ hàng
+Route::get('/Cart', [CartController::class, 'index'])->name('cart.index');
 
-Route::get('/Payment', [Cart::class, 'payment'])->name('payment.page');
+Route::post('/Cart/add', [CartController::class, 'add'])->name('cart.add');
 
+Route::delete('/Cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove');
+
+// Trang thanh toán
+Route::get('/Payment', [CartController::class, 'payment'])->name('payment.page');
+
+// Lưu trữ order
 Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
 
+// Trang thanh toán thành công
 Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
 
-// Route::get('/HomeSaleStaff', [PageController::class, 'homeSaleStaff']);
+Route::get('/IntroduceDiamondGIA', function () {
+    return view('Information.IntroduceDiamondGIA.IntroduceDiamondGIA');
+});
 
-// Route::get('/DeliveryStaffPage', [PageController::class, 'deliveryStaff']);
+Route::get('/DoNi', function () {
+    return view('Information.DoNi.DoNi');
+});
 
-// Route::get('/DoNi', [PageController::class, 'doNi']);
+Route::get('/PriceDiamond', function () {
+    return view('Information.PriceDiamond.PriceDiamond');
+});
 
-// Route::get('/PriceGold', [PageController::class, 'priceGold']);
+Route::get('/PriceGold', function () {
+    return view('Information.PriceGold.PriceGold');
+});
 
-// Route::get('/PriceDiamond', [PageController::class, 'priceDiamond']);
+Route::get('/Huong-dan-doi-tra', function () {
+    return view('Information.Service.Warranty-recall');
+});
 
-// Route::get('/customer', [Customer::class, 'index']);
+Route::get('/Chinh-sach-bao-mat', function () {
+    return view('Information.Service.ChinhSachBaoMat');
+});
 
-// Route::get('/author', [ViewsController::class, 'index'])->name('author.index');
+Route::get('/Lien-he', function () {
+    return view('Information.Service.Contact');
+});
 
-// Route::get('/author/create', [ViewsController::class, 'create'])->name('author.create');
+Route::get('/Chinh-sach-mua-hang', function () {
+    return view('Information.Service.ChinhSachMuaHang');
+});
 
-// Route::get('/author/{id}/edit', [ViewsController::class, 'edit'])->name('author.edit');
+Route::get('/Giay-chung-nhan', function () {
+    return view('Information.Service.GiayChungNhan');
+});
 
-// Route::Post('/author/store', [ViewsController::class, 'store'])->name('author.store');
+Route::get('/Gioi-thieu', function () {
+    return view('Information.Service.GioiThieu');
+});
 
-// Route::put('/author/{id}}', [ViewsController::class, 'update'])->name('author.update');
+Route::get('/Bao-quan-trang-suc', function () {
+    return view('Information.Service.BaoQuanTrangSuc');
+});
 
-// Route::delete('/author/{id}}', [ViewsController::class, 'destroy'])->name('author.destroy');
+//==================================================Auth=======================================================
+
+Route::get('register', [WebAuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [WebAuthController::class, 'register']);
+Route::get('login', [WebAuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [WebAuthController::class, 'login']);
+Route::post('logout', [WebAuthController::class, 'logout'])->name('logout');
+
+// Các route yêu cầu đăng nhập
+// Routes requiring authentication
+Route::middleware('auth.token')->group(function () {
+    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    // Trang giỏ hàng
+    Route::get('/Cart', [CartController::class, 'index'])->name('cart.index');
+
+    Route::post('/Cart/add', [CartController::class, 'add'])->name('cart.add');
+
+    Route::delete('/Cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove');
+
+    // Trang thanh toán
+    Route::get('/Payment', [CartController::class, 'payment'])->name('payment.page');
+
+    // Lưu trữ order
+    Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
+
+    // Trang thanh toán thành công
+    Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
+});

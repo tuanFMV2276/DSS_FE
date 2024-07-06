@@ -18,8 +18,13 @@ body {
 }
 
 .introduce {
+<<<<<<< HEAD
+    line-height: 24px;
+    font-weight: 500;
+=======
   line-height: 24px;
   font-weight: 500;
+>>>>>>> d5e0b505c6b6a808c7c2f8b144f5d614f31f2e40
 }
 
 .filter .title {

@@ -5,12 +5,6 @@ ol, ul {
     margin-left: 0%;
     margin-right: 0%;
 }
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
 }
@@ -26,6 +20,10 @@ body {
     text-align: center;
 }
 
+h1{
+    text-align: center;
+}
+
 .header h1 {
     font-size: 24px;
     color: #333;
@@ -33,7 +31,9 @@ body {
 
 .container {
     display: flex;
-    height: 100vh;
+    justify-content: center;
+    
+    height: 95vh;
 }
 
 .sidebar {
@@ -91,12 +91,6 @@ body {
     color: #b58254;
 }
 
-.main-content {
-    flex: 1;
-    padding: 40px;
-    text-align: center;
-}
-
 .table-container {
     display: none;
 }
@@ -108,12 +102,13 @@ body {
 }
 
 .table-container table, .table-container th, .table-container td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: none;
+    padding: 7px;
 }
 
 .table-container th {
-    background-color: #f4f4f4;
+    background-color: rgb(50, 50, 50);
+    color:white;
     text-align: center;
 }
 
