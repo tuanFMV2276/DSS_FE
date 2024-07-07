@@ -192,6 +192,8 @@
             }
         });
     </script>
+
+    
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var extraDiamondSelect = document.getElementById('extra_diamond_id');
@@ -205,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var selectedDiamondId = this.value;
 
         if (selectedDiamondId) {
-            var availableQuantity = extraDiamonds[selectedDiamondId]?.quantity || 0;
+            var availableQuantity = extraDiamonds[selectedDiamondId-1]?.quantity || 0;
             availableDiamondsSpan.textContent = availableQuantity;
             numberExDiamondInput.max = availableQuantity;
         } else {
