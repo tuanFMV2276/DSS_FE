@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/Login_Register.css') }}">
-    <title>Login</title>
+    <title>Đăng nhập</title>
 </head>
 
 <body>
@@ -23,21 +23,30 @@
                 <input type="password" name="password" class="input-field" placeholder="Password" autocomplete="off"
                     required>
             </div>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li style="color:red;list-style-type: none;text-align: center">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="forgot">
                 <section>
                     <input type="checkbox" id="check">
-                    <label for="check">Remember me</label>
+                    <label for="check">Nhớ mật khẩu</label>
                 </section>
                 <section>
-                    <a href="#">Forgot password</a>
+                    <a href="#">Quên mật khẩu</a>
                 </section>
             </div>
             <div class="input-submit">
                 <button class="submit-btn" id="submit"></button>
-                <label for="submit">Sign In</label>
+                <label for="submit">Đăng nhập</label>
             </div>
             <div class="sign-up-link">
-                <p>Don't have account? <a href="/register">Sign Up</a></p>
+                <p>Bạn chưa có tài khoản? <a href="/register">Đăng ký</a></p>
             </div>
         </div>
     </form>

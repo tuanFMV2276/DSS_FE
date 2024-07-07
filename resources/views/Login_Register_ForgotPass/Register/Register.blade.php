@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/Login_Register.css') }}">
-    <title>Login | Ludiflex</title>
+    <title>Đăng ký</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
         @csrf
         <div class="login-box">
             <div class="login-header">
-                <header>Register</header>
+                <header>Đăng ký</header>
             </div>
             <div class="input-box">
                 <input type="text" name="name" class="input-field" placeholder="Name" autocomplete="off" required>
@@ -28,7 +28,7 @@
             </div>
             <div class="input-submit">
                 <button class="submit-btn" id="submit"></button>
-                <label for="submit">Sign In</label>
+                <label for="submit">Đăng ký</label>
             </div>
         </div>
     </form>

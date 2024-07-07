@@ -1,4 +1,4 @@
-@extends('HomeStaff_Manh.Manager.Order.layout')
+@extends('HomeSaleStaff.Order.layout')
 
 @section('content')
 <h1 class="my-4">Order Details</h1>
@@ -48,6 +48,7 @@
                     @csrf
                     @method('PUT')
 
+<<<<<<< HEAD:resources/views/HomeStaff_Manh/orderdetail.blade.php
                     <div class="form-group row">
                         <label for="status" class="col-sm-2 col-form-label"><strong>Status:</strong></label>
                         <div class="col-sm-10">
@@ -61,6 +62,22 @@
                                 <option value="4" {{ $order['status'] == 4 ? 'selected' : '' }}>Finished</option>
                                 <option value="5" {{ $order['status'] == 5 ? 'selected' : '' }}>Cancelled</option>
                             </select>
+=======
+                        <div class="form-group row">
+                            <label for="status" class="col-sm-2 col-form-label"><strong>Status:</strong></label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="status" name="status" style="width: min-content">
+                                    <option value="0" {{ $order['status'] == 0 ? 'selected' : '' }}>Pending</option>
+                                    <option value="1" {{ $order['status'] == 1 ? 'selected' : '' }}>Accepted</option>
+                                    <option value="2" {{ $order['status'] == 2 ? 'selected' : '' }}>Prepare Product
+                                    </option>
+                                    <option value="3" {{ $order['status'] == 3 ? 'selected' : '' }}>Delivering
+                                    </option>
+                                    <option value="4" {{ $order['status'] == 4 ? 'selected' : '' }}>Finished</option>
+                                    <option value="5" {{ $order['status'] == 5 ? 'selected' : '' }}>Cancelled</option>
+                                </select>
+                            </div>
+>>>>>>> 439fdf84b04de5eb09cecfe93e70e83788f49e9c:resources/views/HomeManager/orderdetail.blade.php
                         </div>
                     </div>
 
@@ -75,6 +92,66 @@
                     <p><strong><i class="fas fa-dollar-sign"></i> Total Price:</strong>
                         {{ number_format($order['total_price'], 0, ',', '.') }}₫</p>
 
+<<<<<<< HEAD:resources/views/HomeStaff_Manh/orderdetail.blade.php
+=======
+                        </div>
+                        <div class="col-md-5">
+                            <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image"
+                                class="img-thumbnail mb-2" width="100%">
+                        </div>
+                        <div class="col-md-1">
+
+                        </div>
+                        <div class="col-md-5 mt-5">
+                            <h1>{{ $product['product_name'] }}</h1>
+                            <p class="mt-5" style="font-size: 20px"><strong>Product Code:</strong>
+                                {{ $product['product_code'] }}</p>
+                            <p style="font-size: 20px"><strong>Size:</strong> {{ $product['size'] }}</p>
+                            <p style="font-size: 20px"><strong>Shell: </strong>{{ $diamondshell['name'] }}</p>
+                            <p><strong><i class="fas fa-calendar-check"></i> Warranty Expiry Date:</strong>
+                                {{ $warrantycertificate ? $warrantycertificate['expiry_date'] : 'Updating' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4 class="text-center mt-5">Chi tiết kim cương đính ở trung tâm</h4>
+                    <table class="diamond-details">
+                        <tr>
+                            <td><strong>Shape:</strong></td>
+                            <td>{{ $maindiamond['shape'] }}</td>
+                            <td><strong>Polish:</strong></td>
+                            <td>{{ $maindiamond['polish'] ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Carat Weight:</strong></td>
+                            <td>{{ $maindiamond['cara_weight'] }} ct.</td>
+                            <td><strong>Symmetry:</strong></td>
+                            <td>{{ $maindiamond['symmetry'] ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Color:</strong></td>
+                            <td>{{ $maindiamond['color'] }}</td>
+                            <td><strong>Measurements:</strong></td>
+                            <td>{{ $maindiamond['measurements'] ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clarity:</strong></td>
+                            <td>{{ $maindiamond['clarity'] }}</td>
+                            <td><strong>Culet:</strong></td>
+                            <td>{{ $maindiamond['culet'] ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cut:</strong></td>
+                            <td>{{ $maindiamond['cut'] }}</td>
+                            <td><strong>Fluorescence:</strong></td>
+                            <td>{{ $maindiamond['fluorescence'] ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Certification:</strong></td>
+                            <td>{{ $maindiamond['certification'] ?? 'GIA Certified' }}</td>
+                        </tr>
+                    </table>
+>>>>>>> 439fdf84b04de5eb09cecfe93e70e83788f49e9c:resources/views/HomeManager/orderdetail.blade.php
                 </div>
             </div>
 

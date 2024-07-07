@@ -11,40 +11,40 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
-            padding-top: 50px;
-        }
+    body {
+        background-color: #f8f9fa;
+        padding-top: 50px;
+    }
 
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        h2 {
-            margin-bottom: 20px;
-        }
+    h2 {
+        margin-bottom: 20px;
+    }
 
-        .form-group label {
-            font-weight: bold;
-        }
+    .form-group label {
+        font-weight: bold;
+    }
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
     </style>
     <script>
-        function confirmSave() {
-            return confirm("Are you sure you want to save the changes?");
-        }
+    function confirmSave() {
+        return confirm("Are you sure you want to save the changes?");
+    }
     </script>
 </head>
 
@@ -57,32 +57,42 @@
                 <h2><i class="fas fa-user"></i>Information</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('manager.updateEmployee', $employee['id']) }}" method="POST" onsubmit="return confirmSave()">
+                <form action="{{ route('manager.updateEmployee', $employee['id']) }}" method="POST"
+                    onsubmit="return confirmSave()">
                     @csrf
                     @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
-                            <p><strong><i class="fas fa-user-circle"></i> Username:</strong> {{ $employee['user_name'] }}</p>
+                            <p><strong><i class="fas fa-user-circle"></i> Username:</strong>
+                                {{ $employee['user_name'] }}</p>
                             <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ $employee['email'] }}</p>
                             <p><strong><i class="fas fa-key"></i> Password:</strong> {{ $employee['password'] }}</p>
                             <p><strong><i class="fas fa-phone"></i> Phone:</strong> {{ $employee['phone'] }}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong><i class="fas fa-map-marker-alt"></i> Address:</strong> {{ $employee['address'] }}</p>
-                            <p><strong><i class="fas fa-birthday-cake"></i> Date of Birth:</strong> {{ $employee['date_of_birth'] }}</p>
+                            <p><strong><i class="fas fa-map-marker-alt"></i> Address:</strong>
+                                {{ $employee['address'] }}</p>
+                            <p><strong><i class="fas fa-birthday-cake"></i> Date of Birth:</strong>
+                                {{ $employee['date_of_birth'] }}</p>
                             <p><strong><i class="fas fa-venus-mars"></i> Gender:</strong> {{ $employee['gender'] }}</p>
-                            <p><strong><i class="fas fa-user-check"></i> Status:</strong> {{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</p>
+                            <p><strong><i class="fas fa-user-check"></i> Status:</strong>
+                                {{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="role_id"><i class="fas fa-user-tag"></i> Assign Role</label>
-                        <select class="form-control" id="role_id" name="role_id">
-                            <option value='2' {{ old('role_id', $employee['role_id']) == '3' ? 'selected' : '' }}>Sales Staff</option>
-                            <option value='4' {{ old('role_id', $employee['role_id']) == '4' ? 'selected' : '' }}>Delivery Staff</option>
+                        <select class="form-control" id="role_id" name="role_id" style="width: min-content">
+                            <option value='3' {{ old('role_id', $employee['role_id']) == '3' ? 'selected' : '' }}>Sales
+                                Staff</option>
+                            <option value='4' {{ old('role_id', $employee['role_id']) == '4' ? 'selected' : '' }}>
+                                Delivery Staff</option>
                         </select>
                     </div>
+
+                    <a href="{{ url()->previous() }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                        Back</a>
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="{{ url()->previous() }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+
                 </form>
             </div>
         </div>

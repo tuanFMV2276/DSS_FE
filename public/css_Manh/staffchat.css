@@ -13,7 +13,11 @@ body {
 }
 .chat-header, .chat-footer {
     padding: 15px;
+<<<<<<< HEAD
+    background-color: #44286d;
+=======
     background-color: #5e64fe;
+>>>>>>> 7b9a421c528fa1dd41f8b7755db30948db8d64a6
     color: white;
 }
 .chat-header {
@@ -63,7 +67,11 @@ body {
     background-color: #f1f1f1;
 }
 .chat-message.staff .message {
+<<<<<<< HEAD
+    background-color: #44286d;
+=======
     background-color: #5e64fe;
+>>>>>>> 7b9a421c528fa1dd41f8b7755db30948db8d64a6
     color: white;
 }
 .chat-footer {
@@ -73,4 +81,8 @@ body {
 .chat-footer input {
     flex: 1;
     margin-right: 10px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7b9a421c528fa1dd41f8b7755db30948db8d64a6

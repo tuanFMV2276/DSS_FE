@@ -66,7 +66,7 @@
                                 <th>Order ID</th>
                                 <th>Order Date</th>
                                 <th>Total Price</th>
-                                <th>Payment Method</th>
+                                {{-- <th>Payment Method</th> --}}
                                 <th>Customer</th>
                                 <th>Status</th>
                                 <th>View Detail</th>
@@ -89,16 +89,18 @@
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
                                     <td>{{ $order['total_price'] }}</td>
-                                    <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td>
+                                    {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
                                     <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
                                         Address: {{ $order ? $order['address'] : 'Unknown' }}<br>
                                         Phone: {{ $order ? $order['phone'] : 'Unknown' }}</td>
                                     <td>
-                                        <form action="{{ route('delivery-staff.orders.updateStatus', $order['id']) }}"
+                                        <form id="status-form-{{ $order['id'] }}"
+                                            action="{{ route('delivery-staff.orders.updateStatus', $order['id']) }}"
                                             method="POST" class="form-inline">
                                             @csrf
                                             @method('PUT')
-                                            <select name="status" class="form-control" onchange="this.form.submit()">
+                                            <select name="status" class="form-control"
+                                                onchange="confirmAndUpdateStatus({{ $order['id'] }})">
                                                 <option value='2' {{ $order['status'] == '2' ? 'selected' : '' }}>
                                                     Prepare Product</option>
                                                 <option value='3' {{ $order['status'] == '3' ? 'selected' : '' }}>
@@ -110,6 +112,7 @@
                                             </select>
                                         </form>
                                     </td>
+
                                     <td>
                                         <a href="{{ route('delivery-staff.orders.show', $order['id']) }}">
                                             <i class="fa-regular fa-eye icon-blue"></i>
@@ -220,7 +223,13 @@
 
         displayOrderRows(); // Initial display
     </script>
-
+    <script>
+        function confirmAndUpdateStatus(orderId) {
+            if (confirm('Are you sure you want to update the status?')) {
+                document.getElementById('status-form-' + orderId).submit();
+            }
+        }
+    </script>
 
 </body>
 
