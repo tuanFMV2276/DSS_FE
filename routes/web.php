@@ -16,6 +16,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\SaleStaff\SaleStaffController;
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Auth\WebAuthController;
 use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
 use App\Http\Controllers\OrderCustomerController;
 
@@ -32,7 +33,7 @@ use App\Http\Controllers\OrderCustomerController;
 
 //------------------------------------------------------------------------------------------
 // Route của manager '/home-manager'
-    
+
 Route::get('/home-manager', [ManagerController::class, 'homeManager'])->name('manager.home');
 
 Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
@@ -55,9 +56,9 @@ Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice
 // End route manager
 //------------------------------------------------------------------------------------------
 // Route của sale staff '/home-salestaff'
-Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
-Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
-Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
+// Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
+// Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
+// Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
 
 
 
@@ -71,20 +72,20 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
 //------------------------------------------------------------------------------------------
 //route Admin
 // Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
-    Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
-    Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
-    Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
-    Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
-    Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
-    Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
-    Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
-    Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
-    Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
-    Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
-    Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
-    Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
-    Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
+Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
+Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
+Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
+Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
+Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
+Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
+Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
+Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
+Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
+Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
+Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
+Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
+Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
+Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
 
 // });
 // End route của Admin
@@ -92,16 +93,16 @@ Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show
 // Các route đã được sắp xếp theo thứ tự coreflow
 
 
-Route::get('/Login', [Login::class, 'login']);
+// Route::get('/Login', [Login::class, 'login']);
 
-// Trang Login
-Route::get('/Login', function () {
-    return view('Login_Register_ForgotPass/Login/Login');
-});
+// // Trang Login
+// Route::get('/Login', function () {
+//     return view('Login_Register_ForgotPass/Login/Login');
+// });
 
 
 // Trang HomePage
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name("homePage");
 
 // Route::get('/NaturalDiamondPage', [NaturalDiamondPage::class, 'index']);
 
@@ -177,4 +178,84 @@ Route::get('/Gioi-thieu', function () {
 
 Route::get('/Bao-quan-trang-suc', function () {
     return view('Information.Service.BaoQuanTrangSuc');
+});
+
+//==================================================Auth=======================================================
+
+Route::get('register', [WebAuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [WebAuthController::class, 'register']);
+Route::get('login', [WebAuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [WebAuthController::class, 'login']);
+Route::post('logout', [WebAuthController::class, 'logout'])->name('logout');
+
+// Các route yêu cầu đăng nhập
+// Routes requiring authentication
+Route::middleware('auth.token')->group(function () {
+    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    // Trang giỏ hàng
+    Route::get('/Cart', [CartController::class, 'index'])->name('cart.index');
+
+    Route::post('/Cart/add', [CartController::class, 'add'])->name('cart.add');
+
+    Route::delete('/Cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove');
+
+    // Trang thanh toán
+    Route::get('/Payment', [CartController::class, 'payment'])->name('payment.page');
+
+    // Lưu trữ order
+    Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
+
+    // Trang thanh toán thành công
+    Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
+});
+
+Route::middleware(['auth.token', 'role:manager'])->group(function () {
+    // Thêm các route khác cho manager ở đây
+    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    Route::get('/home-manager', [ManagerController::class, 'homeManager'])->name('manager.home');
+
+    Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
+    Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateEmployee'])->name('manager.updateEmployee');
+    Route::put('/manager_orders/{id}/update_status', [ManagerController::class, 'updateOrderStatus'])->name('manager.updateOrderStatus');
+    Route::get('/manager_orders/{id}/detail', [ManagerController::class, 'showOrderDetail'])->name('manager.showOrderDetail');
+    Route::delete('/manager_orders/{id}/delete', [ManagerController::class, 'destroyOrder'])->name('manager.destroyOrder');
+    Route::get('/manager_orders/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+    Route::get('/products/create', [ManagerController::class, 'createProduct'])->name('manager.createProduct');
+    Route::post('/products', [ManagerController::class, 'storeProduct'])->name('manager.storeProduct');
+    Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
+    Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
+    Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
+    Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+    Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
+    Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
+    Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
+    Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
+});
+
+Route::middleware(['auth.token', 'role:staff'])->group(function () {
+    // Thêm các route khác cho manager ở đây
+    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
+    Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
+    Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
+});
+
+
+Route::middleware(['auth.token', 'role:admin'])->group(function () {
+    // Thêm các route khác cho manager ở đây
+    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
+    Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
+    Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
+    Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
+    Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
+    Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
+    Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
+    Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
+    Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
+    Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
+    Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
+    Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
+    Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
+    Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
 });
