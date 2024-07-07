@@ -11,6 +11,7 @@ use App\Http\Controllers\Customer\DetailProductController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\PurchaseOrderController;
+use App\Http\Controllers\Auth\WebAuthController;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
@@ -172,3 +173,32 @@ Route::get('/Bao-quan-trang-suc', function () {
 //     Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
 // });
 Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
+
+//==================================================Auth=======================================================
+
+Route::get('register', [WebAuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [WebAuthController::class, 'register']);
+Route::get('login', [WebAuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [WebAuthController::class, 'login']);
+Route::post('logout', [WebAuthController::class, 'logout'])->name('logout');
+
+// Các route yêu cầu đăng nhập
+// Routes requiring authentication
+Route::middleware('auth.token')->group(function () {
+    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    // Trang giỏ hàng
+    Route::get('/Cart', [CartController::class, 'index'])->name('cart.index');
+
+    Route::post('/Cart/add', [CartController::class, 'add'])->name('cart.add');
+
+    Route::delete('/Cart/remove/{index}', [CartController::class, 'remove'])->name('cart.remove');
+
+    // Trang thanh toán
+    Route::get('/Payment', [CartController::class, 'payment'])->name('payment.page');
+
+    // Lưu trữ order
+    Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
+
+    // Trang thanh toán thành công
+    Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
+});
