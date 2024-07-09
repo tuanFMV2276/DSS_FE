@@ -53,8 +53,8 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
 
 <body>
     <div class="container">
-        <h2>Create Main Diamond</h2>
-        <form id="product-form" action="{{ route('manager.updateMainDiamond', $main_diamond['id']) }}" method="POST" 
+        <h2>Update Main Diamond</h2>
+        <form id="product-form" action="{{ route('manager.editMainDiamond', $main_diamond['id']) }}" method="POST" 
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -63,7 +63,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="diamond_shape" name="shape" required>
                 <option value="" disabled selected>Select Shape</option>
                 @foreach ($Shape_diamond as $shape)
-                <option value="{{ $shape }}" {{ old('shape') ==  $main_diamond['shape'] ? 'selected' : '' }}>
+                <option value="{{ $shape }}" {{ old('shape', $main_diamond['shape']) == $shape ? 'selected' : '' }}>
                     {{ $shape }}
                 </option>
                 @endforeach
@@ -75,7 +75,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="diamond_origin" name="origin" required>
                 <option value="" disabled selected>Select origin</option>
                 @foreach ($Origin_diamond as $origin)
-                <option value="{{ $origin }}" {{ old('origin') ==  $main_diamond['origin'] ? 'selected' : '' }}>
+                <option value="{{ $origin }}" {{ old('origin', $main_diamond['origin']) == $origin ? 'selected' : '' }}>
                     {{ $origin }}
                 </option>
                 @endforeach
@@ -84,7 +84,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
 
             <div class="form-group">
                 <label for="cara_weight"><i class="fas fa-balance-scale"></i> Cara Weight:</label>
-                <input type="number" step="0.01" class="form-control" id="cara_weight" name="cara_weight" value="{{ old('size', $main_diamond['size']) }}" min = "0" max = "3" required>
+                <input type="number" step="0.01" class="form-control" id="cara_weight" name="cara_weight" value="{{ old('cara_weight', $main_diamond['cara_weight']) }}" min = "0" max = "3" required>
             </div>
 
             <div class="form-group">
@@ -92,7 +92,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="diamond_clarity" name="clarity" required>
                 <option value="" disabled selected>Select clarity</option>
                 @foreach ($Clarity_diamond as $clarity)
-                <option value="{{ $clarity }}" {{ old('clarity') ==  $main_diamond['clarity'] ? 'selected' : '' }}>
+                <option value="{{ $clarity }}" {{ old('clarity', $main_diamond['clarity']) == $clarity ? 'selected' : '' }}>
                     {{ $clarity }}
                 </option>
                 @endforeach
@@ -104,7 +104,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="diamond_color" name="color" required>
                 <option value="" disabled selected>Select color</option>
                 @foreach ($Color_diamond as $color)
-                <option value="{{ $color }}" {{ old('color') ==  $main_diamond['color'] ? 'selected' : '' }}>
+                <option value="{{ $color }}" {{ old('color', $main_diamond['color']) == $color ? 'selected' : '' }}>
                     {{ $color }}
                 </option>
                 @endforeach
@@ -126,7 +126,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
 
             <div class="form-group">
                 <label for="description"><i class="fas fa-tag"></i> Description</label>
-                <input type="text" class="form-control" id="diamond_describe" name="describe" value="{{ old('describe', $product['describe']) == $describe ? 'checked' : '' }}" required pattern="^[\p{L}\d\s]{1,100}$" title="Diamond description should'nt contain any special characters!.">
+                <input type="text" class="form-control" id="diamond_describe" name="describe" value="{{ old('describe', $main_diamond['describe']) }}" required pattern="^[\p{L}\d\s]{1,100}$" title="Diamond description should'nt contain any special characters!.">
             </div>
 
             <div class="form-group">
@@ -139,7 +139,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="cut" name="cut" required>
                     <option value="" disabled selected>Select cut</option>
                     @foreach($Cut_diamond as $cut)
-                    <option value="{{ $cut }}" {{ old('cut') ==  $cut  ? 'selected' : '' }}>
+                    <option value="{{ $cut }}" {{ old('cut',  $main_diamond['cut']) == $cut  ? 'selected' : '' }}>
                         {{ $cut }}
                     </option>
                     @endforeach
@@ -151,7 +151,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="polish" name="polish" required>
                     <option value="" disabled selected>Select Polish</option>
                     @foreach($Polish_diamond as $polish)
-                    <option value="{{ $polish }}" {{ old('polish') ==  $polish  ? 'selected' : '' }}>
+                    <option value="{{ $polish }}" {{ old('polish',  $main_diamond['polish']) == $polish  ? 'selected' : '' }}>
                         {{ $polish }}
                     </option>
                     @endforeach
@@ -163,7 +163,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="symmetry" name="symmetry" required>
                     <option value="" disabled selected>Select Symmetry</option>
                     @foreach($Symmetry_diamond as $symmetry)
-                    <option value="{{ $symmetry }}" {{ old('symmetry') ==  $symmetry  ? 'selected' : '' }}>
+                    <option value="{{ $symmetry }}" {{ old('symmetry',  $main_diamond['symmetry']) == $symmetry  ? 'selected' : '' }}>
                         {{ $symmetry }}
                     </option>
                     @endforeach
@@ -172,7 +172,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
 
             <div class="form-group">
                 <label for="diamond_measurements"><i class="fas fa-ruler-combined"></i> Measurements:</label>
-                <input type="text" class="form-control" id="diamond_measurements" name="measurements" placeholder="ex: 10x10x10" value="{{ old('measurements') ==  $measurements  ? 'selected' : '' }}" pattern="^{0-10}x{0-10}x{0-10}$" required>
+                <input type="text" class="form-control" id="diamond_measurements" name="measurements" placeholder="ex: 10x10x10" value="{{ $main_diamond['measurements'] }}" pattern="^{0-10}x{0-10}x{0-10}\s*mm$" required>
             </div>
 
             <div class="form-group">
@@ -180,7 +180,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="culet" name="culet" required>
                     <option value="" disabled selected>Select Culet</option>
                     @foreach($Culet_diamond as $culet)
-                    <option value="{{ $culet }}" {{ old('culet') ==  $culet  ? 'selected' : '' }}>
+                    <option value="{{ $culet }}" {{ old('culet', $main_diamond['culet']) == $culet  ? 'selected' : '' }}>
                         {{ $culet }}
                     </option>
                     @endforeach
@@ -192,7 +192,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
                 <select class="form-control" id="fluorescence" name="fluorescence" required>
                     <option value="" disabled selected>Select Fluorescence</option>
                     @foreach($Flourescence_diamond as $fluorescence)
-                    <option value="{{ $fluorescence }}" {{ old('fluorescence') ==  $fluorescence  ? 'selected' : '' }}>
+                    <option value="{{ $fluorescence }}" {{ old('fluorescence',  $main_diamond['fluorescence']) == $fluorescence  ? 'selected' : '' }}>
                         {{ $fluorescence }}
                     </option>
                     @endforeach
@@ -202,11 +202,11 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
             <div class="form-group">
                 <label for="status"><i class="fas fa-toggle-on"></i> Status</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status_active" value="1" {{ old('status', $product['status']) == 1 ? 'checked' : '' }} required>
+                    <input class="form-check-input" type="radio" name="status" id="status_active" value="1" {{ old('status', $main_diamond['status']) == 1 ? 'checked' : '' }} required>
                     <label class="form-check-label" for="status_active">Active</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status_inactive" value="0" {{ old('status', $product['status']) == 0 ? 'checked' : '' }} required>
+                    <input class="form-check-input" type="radio" name="status" id="status_inactive" value="0" {{ old('status', $main_diamond['status']) == 0 ? 'checked' : '' }} required>
                     <label class="form-check-label" for="status_inactive">Inactive</label>
                 </div>
             </div>
