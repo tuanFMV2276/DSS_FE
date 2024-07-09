@@ -59,7 +59,7 @@
                 <input type="text" class="form-control" id="product_name" name="product_name"
                     value="{{ old('product_name', $product['product_name']) }}"
                     required pattern="^[\p{L}\d\s]{8,20}$"
-                    title="Product name should not contain special characters.">
+                    title="Product name should not contain special characters and between 8 - 20 characters.">
             </div>
 
             <div class="form-group">
@@ -143,7 +143,7 @@
 
             <div class="form-group">
                 <label for="price_rate"><i class="fas fa-dollar-sign"></i> Price Rate</label>
-                <input type="number" step="0.01" class="form-control" id="price_rate" name="price_rate"
+                <input type="number" step="0.01" class="form-control" id="price_rate" name="price_rate" min ="0" max ="1.9"
                     value="{{ old('price_rate', $product['price_rate']) }}" required>
             </div>
 

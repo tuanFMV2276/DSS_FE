@@ -68,7 +68,13 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
 
             <li class="profile">
-                <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit"
+                       >
+                        <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+                    </button>
+                </form>
             </li>
         </ul>
     </div>
@@ -707,7 +713,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button class="status-btn active" data-status="all">
                             <i class="fas fa-list icon-status"></i> All employees
                         </button>
-                        <button class="status-btn" data-status="2">
+                        <button class="status-btn" data-status="3">
                             <i class="fa-solid fa-user-tie icon-status"></i> Sale staffs
                         </button>
                         <button class="status-btn" data-status="4">

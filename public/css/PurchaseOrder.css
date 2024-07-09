@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#exTab3 .nav-pills > li > a {
+    color: #000;
+    border-radius: 4px 4px 0 0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: #FFA500 !important;
+}

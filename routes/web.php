@@ -11,6 +11,7 @@ use App\Http\Controllers\Customer\DetailProductController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Customer\OrderController;
+use App\Http\Controllers\Customer\PurchaseOrderController;
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Manager\ManagerController;
@@ -180,7 +181,9 @@ Route::get('/Bao-quan-trang-suc', function () {
     return view('Information.Service.BaoQuanTrangSuc');
 });
 
-//==================================================Auth=======================================================
+Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
+
+// //==================================================Auth=======================================================
 
 Route::get('register', [WebAuthController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [WebAuthController::class, 'register']);
@@ -230,14 +233,32 @@ Route::middleware(['auth.token', 'role:manager'])->group(function () {
     Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
     Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
     Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
+    
+    Route::get('/maindiamond/create', [ManagerController::class, 'createMainDiamond'])->name('manager.createMainDiamond');
+    Route::put('/maindiamond/update', [ManagerController::class, 'updateMainDiamond'])->name('manager.updateMainDiamond');
+    Route::delete('/maindiamond/delete', [ManagerController::class, 'deleteMainDiamond'])->name('manager.deleteMainDiamond');
+
+    Route::get('/exdiamond/create', [ManagerController::class, 'createExDiamond'])->name('manager.createExDiamond');
+    Route::put('/exdiamond/update', [ManagerController::class, 'updateExDiamond'])->name('manager.updateExDiamond');
+    Route::delete('/exdiamond/delete', [ManagerController::class, 'deleteExDiamond'])->name('manager.deleteExDiamond');
+
+    Route::get('/diamondshell/create', [ManagerController::class, 'createDiamondShell'])->name('manager.createDiamondShell');
+    Route::put('/diamondshell/update', [ManagerController::class, 'updateDiamondShell'])->name('manager.updateDiamondShell');
+    Route::delete('/diamondshell/delete', [ManagerController::class, 'deleteDiamondShell'])->name('manager.deleteDiamondShell');
+
 });
 
-Route::middleware(['auth.token', 'role:staff'])->group(function () {
+Route::middleware(['auth.token', 'role:salestaff'])->group(function () {
     // Thêm các route khác cho manager ở đây
     // Route::get('/', [HomeController::class, 'index'])->name("homePage");
     Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
     Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
     Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
+});
+Route::middleware(['auth.token', 'role:deliverystaff'])->group(function () {
+    Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
+Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
+Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
 });
 
 

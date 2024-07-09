@@ -252,18 +252,15 @@ class ManagerController extends Controller
             $extraDiamond = Http::get("http://127.0.0.1:8000/api/exdiamond/{$request->extra_diamond_id}")->json();
             $update_number = $extraDiamond['quantity'] - $change_value;
             Http::put("http://127.0.0.1:8000/api/exdiamond/{$request->extra_diamond_id}", ['quantity' => $update_number]);
-        }
-        else if ($request->extra_diamond_id == null && $request->old_ex_diamond != null) {
+        } else if ($request->extra_diamond_id == null && $request->old_ex_diamond != null) {
             $extraDiamond = Http::get("http://127.0.0.1:8000/api/exdiamond/{$request->old_ex_diamond}")->json();
             $update_number = $extraDiamond['quantity'] + $request->old_number_ex_diamond;
             Http::put("http://127.0.0.1:8000/api/exdiamond/{$request->old_ex_diamond}", ['quantity' => $update_number]);
-        } 
-        else if ($request->extra_diamond_id != null && $request->old_ex_diamond == null) {
+        } else if ($request->extra_diamond_id != null && $request->old_ex_diamond == null) {
             $extraDiamond = Http::get("http://127.0.0.1:8000/api/exdiamond/{$request->extra_diamond_id}")->json();
             $update_number = $extraDiamond['quantity'] - $request->number_ex_diamond;
             Http::put("http://127.0.0.1:8000/api/exdiamond/{$request->extra_diamond_id}", ['quantity' => $update_number]);
-        } 
-        else {
+        } else {
             $extraDiamond = Http::get("http://127.0.0.1:8000/api/exdiamond/{$request->extra_diamond_id}")->json();
             $oldExtra = Http::get("http://127.0.0.1:8000/api/exdiamond/{$request->old_ex_diamond}")->json();
             $old_value = $oldExtra['quantity'] + $request->old_number_ex_diamond;
@@ -313,6 +310,152 @@ class ManagerController extends Controller
     {
         $response = Http::delete("http://127.0.0.1:8000/api/diamondpricelist/{$id}");
         return redirect()->route('manager.home')->with('success', 'Old price deleted successfully.');
+    }
+
+    public function createMainDiamond(Request $request)
+    {
+        //image upload function
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageSize = $image->getSize();
+            $image->move(public_path('Picture_Product'), $imageName);
+        } else {
+            $imageName = NULL;
+        }
+        return $response = Http::post('http://127.0.0.1:8000/api/maindiamond/', [
+            'image' => $imageName
+        ] ,$request->all());
+    }
+
+    public function updateMainDiamond(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageSize = $image->getSize();
+            $image->move(public_path('Picture_Product'), $imageName);
+
+            // Delete the old image if exists
+            if ($request->image) {
+                $oldImagePath = public_path('Picture_Product/' . $request->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+        } else {
+            $imageName = $request->image;
+        }
+
+        return $response = Http::put("http://127.0.0.1:8000/api/maindiamond/{$request->$id}", ['image' => $imageName] ,$request->all());
+    }
+
+    public function deleteMainDiamond($id){
+        $response = Http::delete("http://127.0.0.1:8000/api/maindiamond/{$id}");
+
+        if ($response->successful()) {
+            return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
+        } else {
+            return back()->with('error', 'Failed to update order status.');
+        }
+    }
+
+    public function createExDiamond(Request $request){
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageSize = $image->getSize();
+            $image->move(public_path('Picture_Product'), $imageName);
+        } else {
+            $imageName = NULL;
+        }
+
+        return $response = Http::post('http://127.0.0.1:8000/api/exdiamond/', [
+            'image' => $imageName,
+            ] ,$request->all());
+    }
+
+    public function updateExDiamond(Request $request){
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageSize = $image->getSize();
+            $image->move(public_path('Picture_Product'), $imageName);
+
+            // Delete the old image if exists
+            if ($request->image) {
+                $oldImagePath = public_path('Picture_Product/' . $request->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+        } else {
+            $imageName = $request->image;
+        }
+
+        return $response = Http::put("http://127.0.0.1:8000/api/exdiamond/{$request->$id}", ['image' => $imageName] ,$request->all());
+    }
+
+    public function deleteExDiamond(Request $request){
+        $response = Http::delete("http://127.0.0.1:8000/api/exdiamond/{$id}");
+
+        if ($response->successful()) {
+            return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
+        } else {
+            return back()->with('error', 'Failed to update order status.');
+        }
+    }
+
+    public function createDiamondShell(Request $request){
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageSize = $image->getSize();
+            $image->move(public_path('Picture_Product'), $imageName);
+        } else {
+            $imageName = NULL;
+        }
+
+        return $response = Http::post('http://127.0.0.1:8000/api/diamondshell/', [
+            'image' => $imageName,
+            ] ,$request->all());
+    }
+
+    public function updateDiamondShell(Request $request){
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageSize = $image->getSize();
+            $image->move(public_path('Picture_Product'), $imageName);
+
+            // Delete the old image if exists
+            if ($request->image) {
+                $oldImagePath = public_path('Picture_Product/' . $request->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+        } else {
+            $imageName = $request->image;
+        }
+
+        return $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$request->$id}", ['image' => $imageName] ,$request->all());
+    }
+
+    public function deleteDiamondShell(Request $request){
+        $response = Http::delete("http://127.0.0.1:8000/api/diamondshell/{$id}");
+
+        if ($response->successful()) {
+            return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
+        } else {
+            return back()->with('error', 'Failed to update order status.');
+        }
     }
 
 }

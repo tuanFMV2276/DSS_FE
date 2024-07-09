@@ -15,30 +15,34 @@
             <div class="left"></div>
             <div class="logo-center">
                 <a href="/" class="center">
-                    <img src="/Picture_web/Diamond.jpg" alt="Brilliance Logo" class="logo" />
+                    <img src="/Picture_web/Diamond.jpg" alt="Luxury Diamond Logo" class="logo" />
                     <h1>Luxury Diamond</h1>
                 </a>
             </div>
             <div class="cart-login">
-                <button class="cart-btn">
+                <button class="cart-btn mr-3">
                     <a href="/Cart"><i class="bx bxs-cart"> GIỎ HÀNG</i></a>
                 </button>
                 @if (Session::has('access_token'))
-                    <div class="user-info">
-                        <img src="{{ Session::get('user_avatar') ?? asset('images/default-avatar.png') }}"
-                            alt="User Avatar" class="avatar">
-                        <span>{{ Session::get('user_name') }}</span>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                <div class="user-info">
+                    <img src="{{ Session::get('user_avatar') ?? asset('Picture_web/Avatar.jpg') }}" alt="User Avatar"
+                        class="avatar">
+                    <span class="username">{{ Session::get('name') }}</span>
+                    <i class="bx bx-chevron-down"></i>
+                    <div class="dropdown-content">
+                        <a href="/Purchase">Xem đơn hàng</a>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
-                            <button type="submit"
-                                style="background: none; border: none; color: #007bff; cursor: pointer;">
-                                Logout
-                            </button>
                         </form>
                     </div>
+                </div>
                 @else
-                    <button class="login-btn"><a href="{{ route('login') }}"><i class="bx bx-user"> ĐĂNG
-                                NHẬP</i></a></button>
+                <button class="login-btn"><a href="{{ route('login') }}"><i class="bx bx-user"> ĐĂNG
+                            NHẬP</i></a></button>
                 @endif
             </div>
         </div>
@@ -86,7 +90,7 @@
                     </ul>
                 </li>
                 <li><a href="/PriceDiamond">Bảng Giá Kim Cương</a></li>
-                <li><a href="#">Dịch Vụ <i class='bx bx-chevron-down'></i></a>
+                <li><a>Dịch Vụ <i class='bx bx-chevron-down'></i></a>
                     <ul class="sub-menu">
                         <li><a href="/Huong-dan-doi-tra">Chính Sách Bảo Hành, Thu Hồi & Đổi Trả</a></li>
                         <li><a href="/Chinh-sach-bao-mat">Chính Sách Bảo Mật Thông Tin</a></li>
@@ -98,6 +102,20 @@
             </ul>
         </nav>
     </header>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const userInfo = document.querySelector('.user-info');
+        const dropdown = document.querySelector('.dropdown-content');
+
+        userInfo.addEventListener('mouseenter', () => {
+            dropdown.style.display = 'block';
+        });
+
+        userInfo.addEventListener('mouseleave', () => {
+            dropdown.style.display = 'none';
+        });
+    });
+    </script>
 </body>
 
 </html>
