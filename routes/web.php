@@ -191,7 +191,7 @@ Route::post('logout', [WebAuthController::class, 'logout'])->name('logout');
 // Các route yêu cầu đăng nhập
 // Routes requiring authentication
 Route::middleware('auth.token')->group(function () {
-    // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    Route::get('/', [HomeController::class, 'index'])->name("homePage");
     // Trang giỏ hàng
     Route::get('/Cart', [CartController::class, 'index'])->name('cart.index');
 

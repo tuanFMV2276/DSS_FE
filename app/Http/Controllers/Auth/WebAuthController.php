@@ -47,9 +47,9 @@ class WebAuthController extends Controller
             //  dd($data);
             Session::put('access_token', $data['access_token']);
             $role = $data['data']['role'];
-
-            // Lưu trữ role vào phiên
+            $name = $data['data']['name'];
             Session::put('role', $role);
+            Session::put('name', $name);
             // Session::put('role', $data['role']);
             return redirect('/'); // Chuyển hướng đến trang sản phẩm
         } else {
