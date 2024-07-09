@@ -163,7 +163,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
 
             <div class="form-group">
                 <label for="diamond_measurements"><i class="fas fa-ruler-combined"></i> Measurements:</label>
-                <input type="text" class="form-control" id="diamond_measurements" name="measurements" placeholder="ex: 10x10x10 mm" value="{{ old('measurements') }}" pattern="^{0-10}x{0-10}x{0-10}{0-10}\s*mm$" required>
+                <input type="text" class="form-control" id="diamond_measurements" name="measurements" placeholder="ex: 10x10x10" value=""pattern="^{0-10}x{0-10}x{0-10}$" required>
             </div>
 
             <div class="form-group">
@@ -179,12 +179,12 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
             </div>
 
             <div class="form-group">
-                <label for="symmetry"><i class="fas fa-cut"></i> Flourescence:</label>
-                <select class="form-control" id="flourescence" name="flourescence" required>
-                    <option value="" disabled selected>Select Flourescence</option>
-                    @foreach($Flourescence_diamond as $flourescence)
-                    <option value="{{ $flourescence }}" {{ old('flourescence') ==  $flourescence  ? 'selected' : '' }}>
-                        {{ $flourescence }}
+                <label for="symmetry"><i class="fas fa-cut"></i> Fluorescence:</label>
+                <select class="form-control" id="fluorescence" name="fluorescence" required>
+                    <option value="" disabled selected>Select Fluorescence</option>
+                    @foreach($Flourescence_diamond as $fluorescence)
+                    <option value="{{ $fluorescence }}" {{ old('fluorescence') ==  $fluorescence  ? 'selected' : '' }}>
+                        {{ $fluorescence }}
                     </option>
                     @endforeach
                 </select>
@@ -193,11 +193,11 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
             <div class="form-group">
                 <label for="status"><i class="fas fa-toggle-on"></i> Status</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status_active" value="1" {{ old('status') == 1 ? 'checked' : '' }} required>
+                    <input class="form-check-input" type="radio" name="status" id="status_active" value="1"  required>
                     <label class="form-check-label" for="status_active">Active</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status_inactive" value="0" {{ old('status') == 0 ? 'checked' : '' }} required>
+                    <input class="form-check-input" type="radio" name="status" id="status_inactive" value="0" {{ 'checked'}} required>
                     <label class="form-check-label" for="status_inactive">Inactive</label>
                 </div>
             </div>
