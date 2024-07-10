@@ -14,7 +14,7 @@
         @csrf
         <div class="login-box">
             <div class="login-header">
-                <header>Login</header>
+                <header>Đăng nhập</header>
             </div>
             <div class="input-box">
                 <input type="email" class="input-field" name="email" placeholder="Email" autocomplete="off" required>

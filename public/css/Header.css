@@ -59,7 +59,7 @@ header {
 .cart-login {
     display: flex;
     justify-content: space-around;
-    margin-right: 4rem;
+    margin-right: 2rem;
 }
 
 .cart-btn {
@@ -207,7 +207,7 @@ nav ul li:hover .sub-menu {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 2000;
-    left: -100%;
+    /* left: -100%; */
     right: auto;
 }
 

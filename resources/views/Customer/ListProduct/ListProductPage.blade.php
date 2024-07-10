@@ -193,6 +193,14 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type');
+        if (type) {
+            const typeSelect = document.getElementById('type');
+            typeSelect.value = type;
+        }
+    });
     let selectedShape = '';
 
     const updateProductList = (products) => {

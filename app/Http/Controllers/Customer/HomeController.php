@@ -14,7 +14,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request )
     {
         // Fetch data from API endpoints
         $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());

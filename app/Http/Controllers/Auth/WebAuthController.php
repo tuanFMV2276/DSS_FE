@@ -21,12 +21,15 @@ class WebAuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'date_of_birth' => $request->date_of_birth,
+            'phone' => $request->phone,
+            'address' => $request->address,
         ]);
 
         if ($response->successful()) {
-            return redirect('/login')->with('success', 'Registration successful! Please login.');
+            return redirect('/login')->with('success', 'Đăng ký thành công. Vui long đăng nhập.');
         } else {
-            return back()->withErrors(['error' => 'Registration failed.']);
+            return back()->withErrors(['error' => 'Đăng ký thật bại.']);
         }
     }
 
@@ -50,11 +53,13 @@ class WebAuthController extends Controller
             $role = $data['data']['role'];
 
             // Lưu trữ role vào phiên
+            $name = $data['data']['name'];
             Session::put('role', $role);
+            Session::put('name', $name);
             // Session::put('role', $data['role']);
             return redirect('/'); // Chuyển hướng đến trang sản phẩm
         } else {
-            return back()->withErrors(['error' => 'Login failed.']);
+            return back()->withErrors(['error' => 'Đăng nhập thất bại.']);
         }
     }
 
