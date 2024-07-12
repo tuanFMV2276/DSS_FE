@@ -21,6 +21,9 @@ class WebAuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'date_of_birth' => $request->date_of_birth,
+            'phone' => $request->phone,
+            'address' => $request->address,
         ]);
 
         if ($response->successful()) {
@@ -44,7 +47,13 @@ class WebAuthController extends Controller
 
         if ($response->successful()) {
             $data = $response->json();
+            //  dd($data);
             Session::put('access_token', $data['access_token']);
+            $role = $data['data']['role'];
+            $name = $data['data']['name'];
+            Session::put('role', $role);
+            Session::put('name', $name);
+            // Session::put('role', $data['role']);
             return redirect('/'); // Chuyển hướng đến trang sản phẩm
         } else {
             return back()->withErrors(['error' => 'Login failed.']);
