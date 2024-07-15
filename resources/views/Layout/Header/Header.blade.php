@@ -83,11 +83,12 @@
                                     style="width: 20px; height: 20px;" /> Marquise</a></li>
                     </ul>
                 </li> -->
-                <li><a href="/ListProduct">Nhẫn Kim Cương <i class='bx bx-chevron-down'></i></a>
-                    <ul class="sub-menu">
+                <li><a href="/ListProduct">Nhẫn Kim Cương</a>
+                    <!-- <ul class="sub-menu">
+                        <i class='bx bx-chevron-down'></i>
                         <li><a href="/ListProduct?type=Nhẫn Kim Cương Nam">Nhẫn Kim Cương Nam</a></li>
                         <li><a href="/ListProduct?type=Nhẫn Kim Cương Nữ">Nhẫn Kim Cương Nữ</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <li><a href="/PriceDiamond">Bảng Giá Kim Cương</a></li>
                 <li><a>Dịch Vụ <i class='bx bx-chevron-down'></i></a>

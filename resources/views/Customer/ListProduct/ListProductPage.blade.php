@@ -73,21 +73,21 @@
                 <label for="shape" class="form-label filter-label">Shape</label>
                 <div id="shape" class="d-flex">
                     <!-- Add shape buttons here -->
-                    <button class="btn btn-outline-secondary" data-value="Round"><img
+                    <button class="btn btn-outline-secondary" data-value="Round" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Round.jpg" alt="Round"></button>
-                    <button class="btn btn-outline-secondary" data-value="Emerald"><img
+                    <button class="btn btn-outline-secondary" data-value="Emerald" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Emerald.jpg" alt="Emerald"></button>
-                    <button class="btn btn-outline-secondary" data-value="Oval"><img
+                    <button class="btn btn-outline-secondary" data-value="Oval" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Oval.jpg" alt="Oval"></button>
-                    <button class="btn btn-outline-secondary" data-value="Pear"><img
+                    <button class="btn btn-outline-secondary" data-value="Pear" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Pear.jpg" alt="Pear"></button>
-                    <button class="btn btn-outline-secondary" data-value="Marquise"><img
+                    <button class="btn btn-outline-secondary" data-value="Marquise" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Marquise.jpg" alt="Marquise"></button>
-                    <button class="btn btn-outline-secondary" data-value="Heart"><img
+                    <button class="btn btn-outline-secondary" data-value="Heart" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Heart.jpg" alt="Heart"></button>
-                    <button class="btn btn-outline-secondary" data-value="Princess"><img
+                    <button class="btn btn-outline-secondary" data-value="Princess" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Princess.jpg" alt="Princess"></button>
-                    <button class="btn btn-outline-secondary" data-value="Cushion"><img
+                    <button class="btn btn-outline-secondary" data-value="Cushion" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Cushion.jpg" alt="Cushion"></button>
                 </div>
             </div>
@@ -168,6 +168,15 @@
                     <option value="Nhẫn Kim Cương Nữ">Nhẫn Kim Cương Nữ</option>
                 </select>
             </div>
+            <div class="col-md-3">
+                <select id="material" class="form-select custom-select">
+                    <option value="">Select Material</option>
+                    <option value="Vàng trắng 14K">Vàng trắng 14K</option>
+                    <option value="Vàng 14K">Vàng 14K</option>
+                    <option value="Bạch kim">Bạch kim</option>
+                    <option value="Vàng hồng 14K">Vàng hồng 14K</option>
+                </select>
+            </div>
         </div>
         <div id="product-list" class="shell-grid mt-3 mb-3">
             @foreach ($products as $product)
@@ -193,14 +202,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const type = urlParams.get('type');
-        if (type) {
-            const typeSelect = document.getElementById('type');
-            typeSelect.value = type;
-        }
-    });
     let selectedShape = '';
 
     const updateProductList = (products) => {

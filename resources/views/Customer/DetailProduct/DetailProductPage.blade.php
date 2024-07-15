@@ -52,9 +52,12 @@
                     <p id="delivery-date" class="text-center mt-3"></p>
                 </strong>
                 <div class="extend">
-                    <div><i class="fas fa-lightbulb"></i> Đưa ra gợi ý</div>
-                    <div><i class="fas fa-comments"></i> Trò chuyện ngay</div>
-                    <div><i class="fas fa-phone"></i> Gọi cho chúng tôi</div>
+                    <i class="fa-sharp fa-solid fa-dollar-sign fa-2xl"></i>
+                    <div> Đảm bảo giá cả tốt nhất</div>
+                    <i class="fa-regular fa-heart fa-2xl"></i>
+                    <div> Bảo hành trọn đời</div>
+                    <i class="fa-solid fa-rotate-left fa-2xl"></i>
+                    <div> Trả hàng trong vòng 30 ngày</div>
                 </div>
             </div>
         </div>
