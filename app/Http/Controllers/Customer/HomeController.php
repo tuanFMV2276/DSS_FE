@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request);
+        dd($request);
         // Fetch data from API endpoints
         $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
         $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());

@@ -51,10 +51,11 @@ class WebAuthController extends Controller
             Session::put('access_token', $data['access_token']);
             $role = $data['data']['role'];
             $name = $data['data']['name'];
+            $userId = $data['data']['id'];
             Session::put('role', $role);
             Session::put('name', $name);
-            // Session::put('role', $data['role']);
-            return redirect('/'); // Chuyển hướng đến trang sản phẩm
+            Session::put('id', $userId);
+            return redirect('/'); 
         } else {
             return back()->withErrors(['error' => 'Login failed.']);
         }
