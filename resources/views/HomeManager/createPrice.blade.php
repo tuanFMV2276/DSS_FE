@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="cara_weight"><i class="fas fa-balance-scale"></i> Carat Weight:</label>
-                                <input type="number" class="form-control" id="cara_weight" name="cara_weight" min="0" step="0.01" value="{{ old('cara_weight') }}" required>
+                                <input type="number" class="form-control" id="cara_weight" name="cara_weight" min="0" step="0.01" max = "3" value="{{ old('cara_weight') }}" required>
                             </div>
                         </div>
                     </div>

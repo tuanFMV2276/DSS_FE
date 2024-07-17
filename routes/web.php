@@ -1,24 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Auth\WebAuthController;
+use App\Http\Controllers\Customer\CartController;
 // use App\Http\Controllers\NaturalDiamondPage;
 // use App\Http\Controllers\LabDiamondPage;
 // use App\Http\Controllers\DetailDiamond;
-use App\Http\Controllers\Customer\ListProductController;
 use App\Http\Controllers\Customer\DetailProductController;
-use App\Http\Controllers\Customer\CartController;
-use App\Http\Controllers\Login;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\ListProductController;
 use App\Http\Controllers\Customer\OrderController;
-
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Customer\PurchaseOrderController;
+use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\SaleStaff\SaleStaffController;
-use App\Http\Controllers\Admin\AccountController;
-use App\Http\Controllers\Auth\WebAuthController;
-use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
-use App\Http\Controllers\OrderCustomerController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +25,7 @@ use App\Http\Controllers\OrderCustomerController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 //------------------------------------------------------------------------------------------
 // Route của manager '/home-manager'
@@ -59,8 +55,6 @@ Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice
 // Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
 // Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
 // Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
-
-
 
 // End route của sale staff
 //------------------------------------------------------------------------------------------
@@ -92,14 +86,12 @@ Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destro
 //------------------------------------------------------------------------------------------
 // Các route đã được sắp xếp theo thứ tự coreflow
 
-
-Route::get('/Login', [Login::class, 'login']);
+// Route::get('/Login', [Login::class, 'login']);
 
 // // Trang Login
 // Route::get('/Login', function () {
 //     return view('Login_Register_ForgotPass/Login/Login');
 // });
-
 
 // Trang HomePage
 Route::get('/', [HomeController::class, 'index'])->name("homePage");
@@ -178,7 +170,7 @@ Route::get('/Bao-quan-trang-suc', function () {
     return view('Information.Service.BaoQuanTrangSuc');
 });
 
-//==================================================Auth=======================================================
+// //==================================================Auth=======================================================
 
 Route::get('register', [WebAuthController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [WebAuthController::class, 'register']);
@@ -205,32 +197,133 @@ Route::middleware('auth.token')->group(function () {
 
     // Trang thanh toán thành công
     Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
+
+    //Trang xem đơn hàng customer
+    Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
 });
 
 Route::middleware(['auth.token', 'role:manager'])->group(function () {
     // Thêm các route khác cho manager ở đây
     // Route::get('/', [HomeController::class, 'index'])->name("homePage");
+    //Trang Home của Manager
     Route::get('/home-manager', [ManagerController::class, 'homeManager'])->name('manager.home');
 
+    //Trang thông tin cho Employee
     Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
+
     Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateEmployee'])->name('manager.updateEmployee');
+
+    //CRUD cho order
+    //Trang update cho đơn hàng
     Route::put('/manager_orders/{id}/update_status', [ManagerController::class, 'updateOrderStatus'])->name('manager.updateOrderStatus');
+
+    //Trang xem thông tin đơn hàng
     Route::get('/manager_orders/{id}/detail', [ManagerController::class, 'showOrderDetail'])->name('manager.showOrderDetail');
+
+    //Trang xoá đơn hàng
     Route::delete('/manager_orders/{id}/delete', [ManagerController::class, 'destroyOrder'])->name('manager.destroyOrder');
+
+    //Chức năng tìm kiếm cho đơn hàng
     Route::get('/manager_orders/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+
+    //CRUD cho sản phẩm
+    //Trang thêm sản phẩm mới
     Route::get('/products/create', [ManagerController::class, 'createProduct'])->name('manager.createProduct');
+
+    //Lưu xuống database
     Route::post('/products', [ManagerController::class, 'storeProduct'])->name('manager.storeProduct');
+
+    //Trang chỉnh sửa
     Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
-    Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
+
+    //Lưu xuống database
     Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
+
+    //Ẩn sản phẩm
+    Route::put('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
+    
+    //Chức năng tìm kiếm cho đơn hàng
     Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+
+    //CRUD cho bảng giá
+    //
     Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
+
+    //Trang tạo bảng giá
     Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
+
+    //Lưu xuống database
     Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
+
+    //Trang xoá bảng giá
     Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
+
+    //CRUD cho viên kim cương chính
+    //Trang tạo viên kim cương
+    Route::get('/maindiamond/create', [ManagerController::class, 'createMainDiamond'])->name('manager.createMainDiamond');
+
+    //Lưu xuống database
+    Route::post('/maindiamond/store', [ManagerController::class, 'storeMainDiamond'])->name('manager.storeMainDiamond');
+
+    //Trang chính sửa
+    Route::get('/maindiamond/edit/{id}', [ManagerController::class, 'editMainDiamond'])->name('manager.editMainDiamond');
+
+    //Lưu xuống database
+    Route::put('/maindiamond/update/{id}', [ManagerController::class, 'updateMainDiamond'])->name('manager.updateMainDiamond');
+
+    //Đổi status thành 0
+    Route::delete('/maindiamond/delete/{id}', [ManagerController::class, 'deleteMainDiamond'])->name('manager.destroyMainDiamond');
+
+    //CRUD cho kim cương phụ
+    //Trang tạo kim cương phụ
+    Route::get('/exdiamond/create', [ManagerController::class, 'createExDiamond'])->name('manager.createExDiamond');
+
+    //Lưu xuống database
+    Route::post('/exdiamond/store', [ManagerController::class, 'storeExDiamond'])->name('manager.storeExDiamond');
+
+    //Trang chỉnh sửa
+    Route::get('/exdiamond/edit/{id}', [ManagerController::class, 'editExDiamond'])->name('manager.editExDiamond');
+
+    //Lưu xuống database
+    Route::put('/exdiamond/update/{id}', [ManagerController::class, 'updateExDiamond'])->name('manager.updateExDiamond');
+
+    //Đổi status thành 0
+    Route::delete('/exdiamond/delete/{id}', [ManagerController::class, 'deleteExDiamond'])->name('manager.destroyExDiamond');
+
+    //CRUD cho vỏ kim cương
+    //Trang tạo vỏ kim cương
+    Route::get('/diamondshell/create', [ManagerController::class, 'createDiamondShell'])->name('manager.createDiamondShell');
+
+    //Lưu xuống database
+    Route::post('/diamondshell/store', [ManagerController::class, 'storeDiamondShell'])->name('manager.storeDiamondShell');
+
+    //Trang chỉnh sửa
+    Route::get('/diamondshell/edit/{id}', [ManagerController::class, 'editDiamondShell'])->name('manager.editDiamondShell');
+
+    //Lưu xuống database
+    Route::put('/diamondshell/update/{id}', [ManagerController::class, 'updateDiamondShell'])->name('manager.updateDiamondShell');
+
+    //Đổi status thành 0
+    Route::delete('/diamondshell/delete/{id}', [ManagerController::class, 'deleteDiamondShell'])->name('manager.destroyDiamondShell');
+
+    //CRUD cho nguyên liệu vỏ kim cương
+    //Trang thêm nguyên liệu
+    Route::get('/material/create', [ManagerController::class, 'createMaterial'])->name('manager.createMaterial');
+    
+    //Lưu xuống database
+    Route::post('/material/store', [ManagerController::class, 'storeMaterial'])->name('manager.storeMaterial');
+
+    //Trang chỉnh sửa
+    Route::get('/material/edit/{id}', [ManagerController::class, 'editMaterial'])->name('manager.editMaterial');
+
+    //Lưu xuống database
+    Route::put('/material/update/{id}', [ManagerController::class, 'updateMaterial'])->name('manager.updateMaterial');
+
+    //Đổi status thành 0
+    Route::delete('/material/delete/{id}', [ManagerController::class, 'deleteMaterial'])->name('manager.destroyMaterial');
 });
 
-Route::middleware(['auth.token', 'role:staff'])->group(function () {
+Route::middleware(['auth.token', 'role:salestaff'])->group(function () {
     // Thêm các route khác cho manager ở đây
     // Route::get('/', [HomeController::class, 'index'])->name("homePage");
     Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
@@ -238,6 +331,11 @@ Route::middleware(['auth.token', 'role:staff'])->group(function () {
     Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
 });
 
+Route::middleware(['auth.token', 'role:deliverystaff'])->group(function () {
+    Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
+    Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
+    Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
+});
 
 Route::middleware(['auth.token', 'role:admin'])->group(function () {
     // Thêm các route khác cho manager ở đây

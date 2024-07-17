@@ -37,7 +37,13 @@
                 <span class="tooltip">Order</span>
             </li>
             <li class="profile">
-                <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit"
+                       >
+                        <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+                    </button>
+                </form>
             </li>
         </ul>
     </header>
