@@ -32,14 +32,13 @@
                 <span class="tooltip">Order</span>
             </li>
             <li class="profile">
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit"
+                    <button type="submit" style="padding: 0; background-color: #1d1b31;border: none"
                        >
-                        <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+                        <i class="fa-solid fa-arrow-right-to-bracket" ></i>
                     </button>
-                </form>
-                
+                </form>             
             </li>
         </ul>
     </div>
