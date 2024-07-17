@@ -18,43 +18,9 @@ class DetailProductController extends Controller
 {
     // Fetch data from API endpoints
     $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
-    $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
-    $extraDiamonds = collect(Http::get('http://127.0.0.1:8000/api/exdiamond')->json());
-    $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
-    $diamondPriceList = collect(Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json());
-
-    // Prepare a mapping for diamond prices
-    $diamondPrices = [];
-    foreach ($diamondPriceList as $price) {
-        $key = "{$price['origin']}_{$price['clarity']}_{$price['color']}_{$price['cut']}_{$price['cara_weight']}";
-        $diamondPrices[$key] = $price['price'];
-    }
-
-    // Calculate prices for each product
-    $products = $products->map(function ($product) use ($mainDiamonds, $extraDiamonds, $diamondShells, $diamondPrices) {
-        $mainDiamond = $mainDiamonds->firstWhere('id', $product['main_diamond_id']);
-        $extraDiamond = $extraDiamonds->firstWhere('id', $product['extra_diamond_id']);
-        $diamondShell = $diamondShells->firstWhere('id', $product['diamond_shell_id']);
-
-        // Ensure all necessary data exists
-        if ($mainDiamond && $extraDiamond && $diamondShell) {
-            $key = "{$mainDiamond['origin']}_{$mainDiamond['clarity']}_{$mainDiamond['color']}_{$mainDiamond['cut']}_{$mainDiamond['cara_weight']}";
-            $mainDiamondPrice = $diamondPrices[$key] ?? 0;
-
-            $extraDiamondPrice = $extraDiamond['price'] ?? 0;
-            $diamondShellPrice = $diamondShell['price'] ?? 0;
-
-            // Calculate the final price
-            $product['price'] = ($mainDiamondPrice + ($extraDiamondPrice * $product['number_ex_diamond']) + $diamondShellPrice) * $product['price_rate'];
-        } else {
-            $product['price'] = 0; // Set price to 0 if data is incomplete
-        }
-
-        return $product;
-    });
 
     // Return the updated products to the view
-    return view('Customer/DetailProduct/DetailProductPage', ['products' => $products, 'mainDiamonds' => $mainDiamonds, 'extraDiamonds' => $extraDiamonds, 'diamondShells' => $diamondShells]);
+    return view('Customer/DetailProduct/DetailProductPage', ['products' => $products]);
 }
 
     /**

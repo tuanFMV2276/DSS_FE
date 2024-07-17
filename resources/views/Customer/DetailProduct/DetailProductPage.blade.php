@@ -24,7 +24,7 @@
             <div class="col-sm-5 text-center">
                 <h3>{{ $product['product_name'] }} {{ $product['product_code'] }}</h3>
                 <h4>Giá: {{ number_format($product['total_price'], 0, ',', '.') }}₫</h4>
-                <h5>Chất Liệu: Vàng trắng 14K</h5>
+                <h5>Chất Liệu: {{ $product['material_name'] }}</h5>
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
                     <form id="add-to-cart-form" action="{{ route('cart.add') }}" method="post">
@@ -72,11 +72,7 @@
             </tr>
             <tr>
                 <td>Kim loại</td>
-                <td>Vàng trắng 14k</td>
-            </tr>
-            <tr>
-                <td>Đường kính</td>
-                <td>4mm</td>
+                <td>{{ $product['material_name'] }}</td>
             </tr>
         </table>
 

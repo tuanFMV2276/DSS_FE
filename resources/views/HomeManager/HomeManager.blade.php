@@ -68,7 +68,13 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
 
             <li class="profile">
-                <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit"
+                       >
+                        <i class="fa-solid fa-arrow-right-to-bracket" id="log_out"></i>
+                    </button>
+                </form>
             </li>
         </ul>
     </div>
@@ -462,7 +468,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                         <form action="{{ route('manager.destroyProduct', $product['id']) }}"
                                             method="POST" style="display:inline-block;">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('PUT')
                                             <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
@@ -481,7 +487,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 <div id="maindiamond-management" class="table-container" style="display: none;">
                     <h1>List Diamond</h1>
                     <div class="top-bar" style="justify-content: end">
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
+                        <a href="{{ route('manager.createMainDiamond') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Diamond</button>
                         </a>
                     </div>
@@ -544,7 +550,18 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $maindiamond['fluorescence'] }}</td>
                                     <td>{{ $maindiamond['status'] }}</td>
                                     <td>{{ $maindiamond['price'] }}</td>
-                                    <td><button class="update-st">Update</button></td>
+                                    <td>
+                                        <a href="{{ route('manager.editMainDiamond', $maindiamond['id']) }}"
+                                            style="display:inline-block;">
+                                            <button type="button" class="update-st">Update</button>
+                                        </a>
+                                        <form action="{{ route('manager.destroyMainDiamond', $maindiamond['id']) }}"
+                                            method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -561,7 +578,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     <h1>List Extra Diamond</h1>
                     <div class="top-bar" style="justify-content: end">
                 
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
+                        <a href="{{ route('manager.createExDiamond') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Extra Diamond</button>
                         </a>
                     </div>
@@ -602,7 +619,18 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $exdiamond['quantity'] }}</td>
                                     <td>{{ $exdiamond['price'] }}</td>
                                     <td>{{ $exdiamond['status'] }}</td>
-                                    <td><button class="update-st">Update</button></td>
+                                    <td>
+                                        <a href="{{ route('manager.editExDiamond', $exdiamond['id']) }}"
+                                            style="display:inline-block;">
+                                            <button type="button" class="update-st">Update</button>
+                                        </a>
+                                        <form action="{{ route('manager.destroyExDiamond', $exdiamond['id']) }}"
+                                            method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -620,7 +648,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     <h1>List Diamond Shell</h1>
                     <div class="top-bar" style="justify-content: end">
                         
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
+                        <a href="{{ route('manager.createDiamondShell') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Shell</button>
                         </a>
                     </div>
@@ -662,7 +690,18 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                             alt="Shell Image" width="20%"></td>
                                     <td>{{ $shell['price'] }}</td>
                                     <td>{{ $shell['status'] }}</td>
-                                    <td><button class="update-st">Update</button></td>
+                                    <td>
+                                        <a href="{{ route('manager.editDiamondShell', $shell['id']) }}"
+                                            style="display:inline-block;">
+                                            <button type="button" class="update-st">Update</button>
+                                        </a>
+                                        <form action="{{ route('manager.destroyDiamondShell', $shell['id']) }}"
+                                            method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -674,6 +713,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="next-btn-shell" onclick="nextPageShell()">Next &raquo;</button>
                     </div>
                 </div>
+                
                 <div id="price-list" class="table-container" style="display: none;">
                     <h1>List Price</h1>
                     <div class="top-bar" style="justify-content: end;">
@@ -737,7 +777,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button class="status-btn active" data-status="all">
                             <i class="fas fa-list icon-status"></i> All employees
                         </button>
-                        <button class="status-btn" data-status="2">
+                        <button class="status-btn" data-status="3">
                             <i class="fa-solid fa-user-tie icon-status"></i> Sale staffs
                         </button>
                         <button class="status-btn" data-status="4">

@@ -54,7 +54,7 @@
 
             <div class="form-group">
                 <label for="product_name"><i class="fas fa-tag"></i> Product Name</label>
-                <input type="text" class="form-control" id="product_name" name="product_name" value="{{ old('product_name') }}" required pattern="^[\p{L}\d\s]{8,20}$" title="Product name should not contain special characters.">
+                <input type="text" class="form-control" id="product_name" name="product_name" value="{{ old('product_name') }}" required pattern="^[\p{L}\d\s]{8,20}$" title="Product name should not contain special characters and between 8 - 20 characters.">
             </div>
 
             <div class="form-group">

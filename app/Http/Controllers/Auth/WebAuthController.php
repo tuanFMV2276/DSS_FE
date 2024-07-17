@@ -57,6 +57,18 @@ class WebAuthController extends Controller
             Session::put('role', $role);
             Session::put('name', $name);
             // Session::put('role', $data['role']);
+            if($role == "manager"){
+                return redirect('/home-manager');
+            }
+            if($role == "salestaff"){
+                return redirect('/home-salestaff');
+            }
+            if($role == "admin"){
+                return redirect('/home-admin');
+            }
+            if($role == "deliverystaff"){
+                return redirect('/home-deliverystaff');
+            }
             return redirect('/'); // Chuyển hướng đến trang sản phẩm
         } else {
             return back()->withErrors(['error' => 'Đăng nhập thất bại.']);
