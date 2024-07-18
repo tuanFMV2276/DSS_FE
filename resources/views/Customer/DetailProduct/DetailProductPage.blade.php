@@ -137,6 +137,11 @@
     <script>
     $(document).ready(function() {
         $('#add-to-cart-button').click(function() {
+            if (!isLoggedIn()) {
+                alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.');
+                return;
+            }
+
             $.ajax({
                 url: $('#add-to-cart-form').attr('action'),
                 method: 'POST',
@@ -150,6 +155,10 @@
             });
         });
     });
+
+    function isLoggedIn() {
+        return "{{ Session::has('access_token') }}";
+    }
     </script>
 </body>
 
