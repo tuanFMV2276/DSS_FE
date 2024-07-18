@@ -30,7 +30,7 @@
                     <span class="username">{{ Session::get('name') }}</span>
                     <i class="bx bx-chevron-down"></i>
                     <div class="dropdown-content">
-                        <a href="/Profile">Tài khoản của tôi</a>
+                        <a href="/Profile">Trang cá nhân</a>
                         <a href="/Purchase">Xem đơn hàng</a>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

@@ -171,10 +171,10 @@
             <div class="col-md-3">
                 <select id="material" class="form-select custom-select">
                     <option value="">Select Material</option>
-                    <option value="Vàng trắng 14K">Vàng trắng 14K</option>
+                    <option value="Vàng Trắng 14K">Vàng Trắng 14K</option>
                     <option value="Vàng 14K">Vàng 14K</option>
-                    <option value="Bạch kim">Bạch kim</option>
-                    <option value="Vàng hồng 14K">Vàng hồng 14K</option>
+                    <option value="Bạch Kim">Bạch Kim</option>
+                    <option value="Vàng Hồng 14K">Vàng Hồng 14K</option>
                 </select>
             </div>
         </div>
@@ -237,11 +237,13 @@
         const cut = document.getElementById('cut').value;
         const color = document.getElementById('color').value;
         const clarity = document.getElementById('clarity').value;
+        const material = document.getElementById('material').value;
 
         const filters = {
             sort: sortBy,
             price_range: priceRange,
             product_name: productType,
+            material: material,
             shape: shape,
             carat: carat,
             cut: cut,
@@ -265,6 +267,7 @@
     document.getElementById('price_range').addEventListener('change', updateURLParams);
     document.getElementById('sort_by').addEventListener('change', updateURLParams);
     document.getElementById('type').addEventListener('change', updateURLParams);
+    document.getElementById('material').addEventListener('change', updateURLParams);
 
     const shapeButtons = document.querySelectorAll('#shape button');
     shapeButtons.forEach(button => {

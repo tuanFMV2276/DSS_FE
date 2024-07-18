@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class PurchaseOrderController extends Controller
@@ -17,8 +18,8 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
-        // $customerId = Auth::id();
-        $customerId = 1; 
+        $customerId = Session::get('id');
+  
         
         $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
         $orderDetails = Http::get('http://127.0.0.1:8000/api/orderdetail')->json();

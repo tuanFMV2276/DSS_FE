@@ -14,6 +14,7 @@ use App\Http\Controllers\Customer\PurchaseOrderController;
 use App\Http\Controllers\DeliveryStaff\DeliveryStaffController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\SaleStaff\SaleStaffController;
+use App\Http\Controllers\Customer\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,24 +31,24 @@ use Illuminate\Support\Facades\Route;
 //------------------------------------------------------------------------------------------
 // Route của manager '/home-manager'
 
-Route::get('/home-manager', [ManagerController::class, 'homeManager'])->name('manager.home');
+// Route::get('/home-manager', [ManagerController::class, 'homeManager'])->name('manager.home');
 
-Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
-Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateEmployee'])->name('manager.updateEmployee');
-Route::put('/manager_orders/{id}/update_status', [ManagerController::class, 'updateOrderStatus'])->name('manager.updateOrderStatus');
-Route::get('/manager_orders/{id}/detail', [ManagerController::class, 'showOrderDetail'])->name('manager.showOrderDetail');
-Route::delete('/manager_orders/{id}/delete', [ManagerController::class, 'destroyOrder'])->name('manager.destroyOrder');
-Route::get('/manager_orders/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
-Route::get('/products/create', [ManagerController::class, 'createProduct'])->name('manager.createProduct');
-Route::post('/products', [ManagerController::class, 'storeProduct'])->name('manager.storeProduct');
-Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
-Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
-Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
-Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
-Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
-Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
-Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
-Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
+// Route::get('/manager_employees/{id}/detail', [ManagerController::class, 'showEmployeeDetail'])->name('manager.showEmployeeDetail');
+// Route::put('/manager_employees/{id}/update', [ManagerController::class, 'updateEmployee'])->name('manager.updateEmployee');
+// Route::put('/manager_orders/{id}/update_status', [ManagerController::class, 'updateOrderStatus'])->name('manager.updateOrderStatus');
+// Route::get('/manager_orders/{id}/detail', [ManagerController::class, 'showOrderDetail'])->name('manager.showOrderDetail');
+// Route::delete('/manager_orders/{id}/delete', [ManagerController::class, 'destroyOrder'])->name('manager.destroyOrder');
+// Route::get('/manager_orders/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+// Route::get('/products/create', [ManagerController::class, 'createProduct'])->name('manager.createProduct');
+// Route::post('/products', [ManagerController::class, 'storeProduct'])->name('manager.storeProduct');
+// Route::get('/products/edit/{id}', [ManagerController::class, 'editProduct'])->name('manager.editProduct');
+// Route::delete('/products/delete/{id}', [ManagerController::class, 'destroyProduct'])->name('manager.destroyProduct');
+// Route::put('/products/update/{id}', [ManagerController::class, 'updateProduct'])->name('manager.updateProduct');
+// Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('manager.searchOrdersAjax');
+// Route::put('/pricelist/update/{id}', [ManagerController::class, 'updatePricelist'])->name('manager.updatePricelist');
+// Route::get('/pricelist/create', [ManagerController::class, 'createPrice'])->name('manager.createPrice');
+// Route::post('/pricelist', [ManagerController::class, 'storePrice'])->name('manager.storePrice');
+// Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice'])->name('manager.destroyPrice');
 
 // End route manager
 //------------------------------------------------------------------------------------------
@@ -59,27 +60,27 @@ Route::delete('/pricelist/delete/{id}', [ManagerController::class, 'destroyPrice
 // End route của sale staff
 //------------------------------------------------------------------------------------------
 //route Delivery staff
-Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
-Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
-Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
+// Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
+// Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
+// Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
 // End route của Delivery staff
 //------------------------------------------------------------------------------------------
 //route Admin
 // Route::middleware(['auth', 'admin'])->group(function () {
-Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
-Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
-Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
-Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
-Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
-Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
-Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
-Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
-Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
-Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
-Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
-Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
-Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
-Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
+// Route::get('/home-admin', [AccountController::class, 'index'])->name('admin.accounts.index');
+// Route::get('/admin/accounts/create', [AccountController::class, 'create'])->name('admin.accounts.create');
+// Route::post('/admin/accounts', [AccountController::class, 'store'])->name('admin.accounts.store');
+// Route::get('/admin/accounts/{id}/edit', [AccountController::class, 'edit'])->name('admin.accounts.edit');
+// Route::put('/admin/accounts/{id}', [AccountController::class, 'update'])->name('admin.accounts.update');
+// Route::delete('/admin/accounts/{id}', [AccountController::class, 'destroy'])->name('admin.accounts.destroy');
+// Route::get('/admin_employees/{id}/detail', [AccountController::class, 'showEmployeeDetail'])->name('admin.showEmployeeDetail');
+// Route::put('/admin_employees/{id}/update', [AccountController::class, 'updateEmployee'])->name('admin.updateEmployee');
+// Route::get('/admin_employees/add_new_employee', [AccountController::class, 'addNewEmployee'])->name('admin.addNewEmployee');
+// Route::post('/admin_employees/store_new_employee', [AccountController::class, 'storeNewEmployee'])->name('admin.storeNewEmployee');
+// Route::delete('/admin_employees/{id}/delete', [AccountController::class, 'destroyEmployee'])->name('admin.destroyEmployee');
+// Route::get('/admin_customers/{id}/detail', [AccountController::class, 'showCustomerDetail'])->name('admin.showCustomerDetail');
+// Route::put('/admin_customers/{id}/update', [AccountController::class, 'updateCustomer'])->name('admin.updateCustomer');
+// Route::delete('/admin_customers/{id}/delete', [AccountController::class, 'destroyCustomer'])->name('admin.destroyCustomer');
 
 // });
 // End route của Admin
@@ -101,8 +102,6 @@ Route::get('/', [HomeController::class, 'index'])->name("homePage");
 // Route::get('/LabDiamondPage', [LabDiamondPage::class, 'index']);
 
 // Route::get('/NaturalDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('diamond.show');
-
-// Route::get('/LabDiamondPage/{id}/show', [DetailDiamond::class, 'show'])->name('labdiamond.show');
 
 // Trang danh sách sản phẩm
 Route::get('/ListProduct', [ListProductController::class, 'index']);
@@ -204,10 +203,10 @@ Route::middleware('auth.token')->group(function () {
     Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
 
     //Trang xem trang cá nhân
-    // Route::get('/Profile', [PurchaseOrderController::class, 'show'])->name('customer.order.show');
-    Route::get('/Profile', function () {
-        return view('Customer.ProfileCus.Profile');
-    });
+    Route::get('/Profile', [UserController::class, 'index'])->name('user.index');
+
+    Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
 });
 
 Route::middleware(['auth.token', 'role:manager'])->group(function () {

@@ -20,6 +20,7 @@ class ListProductController extends Controller
         $sort = $request->query('sort', 'price_asc');
         $priceRange = $request->query('price_range', '');
         $productName = $request->query('product_name', '');
+        $material = $request->query('material', '');
         $shape = $request->query('shape', '');
         $carat = $request->query('carat', '');
         $cut = $request->query('cut', '');
@@ -46,6 +47,14 @@ class ListProductController extends Controller
             list($minPrice, $maxPrice) = explode('-', $priceRange) + [0, INF];
             $products = $products->filter(function ($product) use ($minPrice, $maxPrice) {
                 return $product['total_price'] >= $minPrice && $product['total_price'] <= $maxPrice;
+            });
+        }
+
+        // Filter by material if provided
+        if ($material) {
+            $products = $products->filter(function ($product) use ($material) {
+                // Assuming material is stored in the product data
+                return $product['material_name'] == $material;
             });
         }
 
@@ -113,6 +122,7 @@ class ListProductController extends Controller
         $sort = $request->query('sort', 'price_asc');
         $priceRange = $request->query('price_range', '');
         $productName = $request->query('product_name', '');
+        $material = $request->query('material', '');
         $shape = $request->query('shape', '');
         $carat = $request->query('carat', '');
         $cut = $request->query('cut', '');
@@ -139,6 +149,14 @@ class ListProductController extends Controller
             list($minPrice, $maxPrice) = explode('-', $priceRange) + [0, INF];
             $products = $products->filter(function ($product) use ($minPrice, $maxPrice) {
                 return $product['total_price'] >= $minPrice && $product['total_price'] <= $maxPrice;
+            });
+        }
+
+        // Filter by material if provided
+        if ($material) {
+            $products = $products->filter(function ($product) use ($material) {
+                // Assuming material is stored in the product data
+                return $product['material_name'] == $material;
             });
         }
 
