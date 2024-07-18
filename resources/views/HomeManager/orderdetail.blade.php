@@ -97,7 +97,7 @@
                                 {{ $product['product_code'] }}</p>
                             <p style="font-size: 20px"><strong>Size:</strong> {{ $product['size'] }}</p>
                             <p style="font-size: 20px"><strong>Shell: </strong>{{ $diamondshell['name'] }}</p>
-                            <p><strong><i class="fas fa-calendar-check"></i> Warranty Expiry Date:</strong>
+                            <p style="font-size: 20px"><i class="fas fa-calendar-check"></i><strong> Warranty Expiry Date:</strong>
                                 {{ $warrantycertificate ? $warrantycertificate['expiry_date'] : 'Updating' }}
                             </p>
                         </div>

@@ -70,11 +70,10 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             <li class="profile">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" style="padding: 0; background-color: #1d1b31;border: none"
-                       >
-                        <i class="fa-solid fa-arrow-right-to-bracket" ></i>
+                    <button type="submit" style="padding: 0; background-color: #1d1b31;border: none">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     </button>
-                </form>             
+                </form>
             </li>
         </ul>
     </div>
@@ -83,13 +82,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             <div class="main-content">
                 <div id="dashboard" class="table-container" style="display:contents;">
                     <h1>Dashboard</h1>
-                    {{-- <form action="/employees/create" method="GET">
-                        @csrf
-                        <button type="submit">ADD Employee</button>
-                    </form> --}}
-                    <!-- Top section -->
                     <div class="dashboard-overall-wrap">
-
                         <!-- Product for Sale Card -->
                         <div class="dashboard-top-card-border">
                             <div class="item-align">
@@ -269,8 +262,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <input type="text" id="customer_name" name="customer_name"
                                     placeholder="Customer Name">
                                 <i class="fas fa-user"></i>
-                                {{-- <input type="text" id="order_date" name="order_date" placeholder="Order Date">
-                                <i class="fas fa-calendar-alt"></i> --}}
+                                <input type="date" data-date-format="YYYY-MM-DD" id="order_date" name="order_date" placeholder="Order Date">
                                 <button type="submit">
                                     Search
                                 </button>
@@ -366,15 +358,17 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
                     <div class="pagination">
                         <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
-                        <span id="page-num-order">1</span>
+                        <span id="page-num-order">1</span> / <span id="total-pages">1</span>
                         <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
+                        <input type="number" id="goto-page-input" min="1" placeholder="Page" style="width: 55px;">
+                        <button id="goto-page-btn">Go</button>
                     </div>
                 </div>
 
                 <div id="product-management" class="table-container" style="display: none;">
                     <h1>List Product</h1>
                     <div class="top-bar" style="justify-content: end">
-                        
+
                         <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button
                                 class="add-st"><i class="fas fa-plus"></i>Add New Product</button></a>
                     </div>
@@ -423,8 +417,10 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td><img src="{{ asset('/Picture_Product/' . $product['image']) }}"
                                             alt="Product Image" width="50%"></td>
                                     <td>{{ $product['main_diamond_id'] }}</td>
-                                    <td>{{ $product['extra_diamond_id'] == null ? "None" : $product['extra_diamond_id']}}</td>
-                                    <td>{{ $product['number_ex_diamond'] == null ? "None" : $product['number_ex_diamond']}}</td>
+                                    <td>{{ $product['extra_diamond_id'] == null ? 'None' : $product['extra_diamond_id'] }}
+                                    </td>
+                                    <td>{{ $product['number_ex_diamond'] == null ? 'None' : $product['number_ex_diamond'] }}
+                                    </td>
                                     <td>{{ $product['diamond_shell_id'] }}</td>
                                     {{-- <td>{{ number_format($product['size'], 2) }}</td> --}}
                                     <td>{{ number_format($product['price_rate'], 2) }}</td>
@@ -439,7 +435,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                             method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                            <button type="submit" class="more-margintop delete-st"
+                                                onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -453,6 +450,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="next-btn" onclick="nextPage()">Next &raquo;</button>
                     </div>
                 </div>
+                
 
                 <div id="maindiamond-management" class="table-container" style="display: none;">
                     <h1>List Diamond</h1>
@@ -529,7 +527,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                             method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                            <button type="submit" class="more-margintop delete-st"
+                                                onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -547,7 +546,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 <div id="exdiamond-management" class="table-container" style="display: none;">
                     <h1>List Extra Diamond</h1>
                     <div class="top-bar" style="justify-content: end">
-                
+
                         <a href="{{ route('manager.createExDiamond') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Extra Diamond</button>
                         </a>
@@ -598,7 +597,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                             method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                            <button type="submit" class="more-margintop delete-st"
+                                                onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -617,7 +617,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 <div id="shell-management" class="table-container" style="display: none;">
                     <h1>List Diamond Shell</h1>
                     <div class="top-bar" style="justify-content: end">
-                        
+
                         <a href="{{ route('manager.createDiamondShell') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Shell</button>
                         </a>
@@ -669,7 +669,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                             method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                            <button type="submit" class="more-margintop delete-st"
+                                                onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -683,12 +684,12 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="next-btn-shell" onclick="nextPageShell()">Next &raquo;</button>
                     </div>
                 </div>
-                
+
                 <div id="price-list" class="table-container" style="display: none;">
                     <h1>List Price</h1>
                     <div class="top-bar" style="justify-content: end;">
-                        <a href="{{ route('manager.createPrice') }}" class="btn btn-success"><button class="add-st"><i
-                        class="fas fa-plus"></i>Add New Price</button></a>
+                        <a href="{{ route('manager.createPrice') }}" class="btn btn-success"><button
+                                class="add-st"><i class="fas fa-plus"></i>Add New Price</button></a>
                     </div>
                     <table border="1">
                         <thead>
@@ -719,12 +720,14 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                         <button class="update-btn update-st"
                                             data-id="{{ $diamondpricelist['id'] }}">Update
                                         </button>
-                                        <form action="{{ route('manager.destroyPrice', $diamondpricelist['id']) }}" method="POST" style="display:inline-block;">
+                                        <form action="{{ route('manager.destroyPrice', $diamondpricelist['id']) }}"
+                                            method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                            <button type="submit" class="more-margintop delete-st"
+                                                onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
-                                        
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -735,7 +738,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="prev-btn-price" onclick="prevPagePrice()" disabled>&laquo; Previous</button>
                         <span id="page-num-price">1</span> / <span id="total-pages-price"></span>
                         <button id="next-btn-price" onclick="nextPagePrice()">Next &raquo;</button>
-                        <input type="number" id="page-input-price" min="1" style="width: 50px;">
+                        <input type="number" id="page-input-price" min="1" placeholder="Page" style="width: 55px;">
                         <button id="go-to-page-price">Go</button>
                     </div>
                 </div>
@@ -825,64 +828,102 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             document.getElementById(tableId).style.display = 'block';
         }
     </script>
+    {{-- pageBill --}}
     <script>
-        const statusButtons = document.querySelectorAll('.status-btn');
-        const orderRows = document.querySelectorAll('.status-row');
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusButtons = document.querySelectorAll('.status-btn');
+            const orderRows = document.querySelectorAll('.status-row');
+            const rowsPerPageOrder = 5;
+            let currentPageOrder = 1;
 
-        statusButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const status = btn.getAttribute('data-status');
+            statusButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const status = btn.getAttribute('data-status');
 
-                // Update active button
-                statusButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                    // Update active button
+                    statusButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
 
-                // Filter orders based on status
+                    // Filter orders based on status and reset pagination
+                    filterOrders(status);
+                    currentPageOrder = 1;
+                    displayOrderRows();
+                    updateTotalPages();
+                });
+            });
+
+            function filterOrders(status) {
                 orderRows.forEach(row => {
                     if (status === 'all' || row.getAttribute('data-status') === status) {
                         row.style.display = 'table-row';
+                        row.classList.remove('filtered-out');
                     } else {
                         row.style.display = 'none';
+                        row.classList.add('filtered-out');
                     }
                 });
-            });
-        });
-    </script>
-    {{-- pageBill --}}
-    <script>
-        const orderRows = document.querySelectorAll('.order-row');
-        const rowsPerPageOrder = 5;
-        let currentPageOrder = 1;
+            }
 
-        function displayOrderRows() {
-            orderRows.forEach((row, index) => {
-                row.style.display = 'none';
-                if (index >= (currentPageOrder - 1) * rowsPerPageOrder && index < currentPageOrder *
-                    rowsPerPageOrder) {
-                    row.style.display = 'table-row';
+            function displayOrderRows() {
+                let displayedRows = 0;
+                let start = (currentPageOrder - 1) * rowsPerPageOrder;
+                let end = start + rowsPerPageOrder ;
+
+                orderRows.forEach((row, index) => {
+                    if (!row.classList.contains('filtered-out')) {
+                        row.style.display = 'none';
+                        if (displayedRows >= start && displayedRows < end) {
+                            row.style.display = 'table-row';
+                        }
+                        displayedRows++;
+                    }
+                });
+
+                document.getElementById('page-num-order').textContent = currentPageOrder;
+                document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
+                document.getElementById('next-btn-order').disabled = currentPageOrder >= totalPages();
+            }
+
+            function prevPageOrder() {
+                if (currentPageOrder > 1) {
+                    currentPageOrder--;
+                    displayOrderRows();
+                }
+            }
+
+            function nextPageOrder() {
+                if (currentPageOrder < totalPages()) {
+                    currentPageOrder++;
+                    displayOrderRows();
+                }
+            }
+
+            function updateTotalPages() {
+                document.getElementById('total-pages').textContent = totalPages();
+            }
+
+            function totalPages() {
+                let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
+                return Math.ceil(visibleRows.length / rowsPerPageOrder)-1;
+            }
+
+            document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
+            document.getElementById('next-btn-order').addEventListener('click', nextPageOrder);
+
+            document.getElementById('goto-page-btn').addEventListener('click', () => {
+                const gotoPageInput = document.getElementById('goto-page-input').value;
+                const pageNumber = parseInt(gotoPageInput, 10);
+                if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= totalPages()) {
+                    currentPageOrder = pageNumber;
+                    displayOrderRows();
                 }
             });
 
-            document.getElementById('page-num-order').textContent = currentPageOrder;
-            document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
-            document.getElementById('next-btn-order').disabled = currentPageOrder * rowsPerPageOrder >= orderRows.length;
-        }
-
-        function prevPageOrder() {
-            if (currentPageOrder > 1) {
-                currentPageOrder--;
-                displayOrderRows();
-            }
-        }
-
-        function nextPageOrder() {
-            if (currentPageOrder * rowsPerPageOrder < orderRows.length) {
-                currentPageOrder++;
-                displayOrderRows();
-            }
-        }
-
-        displayOrderRows(); // Initial display
+            // Initial display
+            filterOrders('all');
+            displayOrderRows();
+            updateTotalPages();
+        });
     </script>
     {{-- pageProduct --}}
     <script>
@@ -919,6 +960,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
         displayRows(); // Initial display
     </script>
+    
     {{-- pageDiamond --}}
     <script>
         const diamondRows = document.querySelectorAll('.diamond-row');
@@ -1192,12 +1234,13 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 e.preventDefault();
 
                 var customerName = $('#customer_name').val();
-
+                var orderDate = $('#order_date').val();
                 $.ajax({
                     url: "{{ route('manager.searchOrdersAjax') }}",
                     method: 'GET',
                     data: {
-                        customer_name: customerName || null,
+                        customer_Name: customerName || 'null',
+                        order_Date: orderDate || 'null',
                     },
                     success: function(response) {
                         var orders = response.orders;
@@ -1251,7 +1294,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             });
         });
     </script>
-
+    {{-- dashboard chart --}}
     <script>
         let chart;
         //Data for custom line chart

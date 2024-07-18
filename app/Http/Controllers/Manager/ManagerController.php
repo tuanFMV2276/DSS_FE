@@ -128,12 +128,8 @@ class ManagerController extends Controller
 
     public function searchOrdersAjax(Request $request)
     {
-        $name = $request->customer_name;
-        if ($name != null) {
-            $orders = Http::get("http://127.0.0.1:8000/api/order/search/{$name}")->json();
-        } else {
-            $orders = Http::get("http://127.0.0.1:8000/api/order")->json();
-        }
+
+        $orders = Http::get("http://127.0.0.1:8000/order/search/{$request->customer_Name}/{$request->order_Date}")->json();
 
         return response()->json(['orders' => $orders], 200);
     }
@@ -320,7 +316,8 @@ class ManagerController extends Controller
 
     //Main Diamond CRUD section
 
-    public function createMainDiamond(){
+    public function createMainDiamond()
+    {
         return view('HomeManager.createMainDiamond');
     }
 
@@ -334,9 +331,9 @@ class ManagerController extends Controller
             $imageSize = $image->getSize();
             $image->move(public_path('Picture_Product'), $imageName);
         } else {
-            $imageName = NULL;
+            $imageName = null;
         }
-        $newMeasurements = $request->measurements." mm";
+        $newMeasurements = $request->measurements . " mm";
         $response = Http::post('http://127.0.0.1:8000/api/maindiamond/', [
             "shape" => $request->shape,
             "origin" => $request->origin,
@@ -357,12 +354,13 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Main Diamond created successfully.');
     }
 
-    public function editMainDiamond($id){
+    public function editMainDiamond($id)
+    {
         $main_diamond = Http::get("http://127.0.0.1:8000/api/maindiamond/{$id}")->json();
         return view('HomeManager.updateMainDiamond', compact('main_diamond'));
     }
 
-    public function updateMainDiamond(Request $request,$id)
+    public function updateMainDiamond(Request $request, $id)
     {
         if ($request->hasFile('image')) {
             // Store the new image
@@ -402,7 +400,8 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Main Diamond updated successfully.');
     }
 
-    public function deleteMainDiamond($id){
+    public function deleteMainDiamond($id)
+    {
         $response = Http::put("http://127.0.0.1:8000/api/maindiamond/{$id}", ['status' => 0]);
 
         if ($response->successful()) {
@@ -414,26 +413,31 @@ class ManagerController extends Controller
 
     //Extra Diamond CRUD section
 
-    public function createExDiamond(){
+    public function createExDiamond()
+    {
         return view('HomeManager.createExDiamond');
     }
 
-    public function storeExDiamond(Request $request){
-        $response = Http::post('http://127.0.0.1:8000/api/exdiamond/' ,$request->all());
+    public function storeExDiamond(Request $request)
+    {
+        $response = Http::post('http://127.0.0.1:8000/api/exdiamond/', $request->all());
         return redirect()->route('manager.home')->with('success', 'Extra Diamond created successfully.');
     }
 
-    public function editExDiamond($id){
+    public function editExDiamond($id)
+    {
         $ex_diamond = Http::get("http://127.0.0.1:8000/api/exdiamond/{$id}")->json();
         return view('HomeManager.updateExDiamond', compact('ex_diamond'));
     }
 
-    public function updateExDiamond(Request $request,$id){
+    public function updateExDiamond(Request $request, $id)
+    {
         $response = Http::put("http://127.0.0.1:8000/api/exdiamond/{$id}", $request->all());
         return redirect()->route('manager.home')->with('success', 'Extra Diamond updated successfully.');
     }
 
-    public function deleteExDiamond($id){
+    public function deleteExDiamond($id)
+    {
         $response = Http::put("http://127.0.0.1:8000/api/exdiamond/{$id}", ['status' => 0]);
 
         if ($response->successful()) {
@@ -445,11 +449,13 @@ class ManagerController extends Controller
 
     //Diamond Shell CRUD section
 
-    public function createDiamondShell(){
+    public function createDiamondShell()
+    {
         return view('HomeManager.createDiamondShell');
     }
 
-    public function storeDiamondShell(Request $request){
+    public function storeDiamondShell(Request $request)
+    {
         if ($request->hasFile('image')) {
             // Store the new image
             $image = $request->file('image');
@@ -457,7 +463,7 @@ class ManagerController extends Controller
             $imageSize = $image->getSize();
             $image->move(public_path('Picture_Product'), $imageName);
         } else {
-            $imageName = NULL;
+            $imageName = null;
         }
 
         $response = Http::post('http://127.0.0.1:8000/api/diamondshell/', [
@@ -471,12 +477,14 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Diamond Shell created successfully.');
     }
 
-    public function editDiamondShell($id){
+    public function editDiamondShell($id)
+    {
         $diamond_shell = Http::get("http://127.0.0.1:8000/api/diamondshell/{$id}")->json();
         return view('HomeManager.updateDiamondShell', compact('diamond_shell'));
     }
 
-    public function updateDiamondShell(Request $request,$id){
+    public function updateDiamondShell(Request $request, $id)
+    {
         if ($request->hasFile('image')) {
             // Store the new image
             $image = $request->file('image');
@@ -506,8 +514,9 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Diamond Shell updated successfully.');
     }
 
-    public function deleteDiamondShell(Request $request,$id){
-        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}",['status' => 0]);
+    public function deleteDiamondShell(Request $request, $id)
+    {
+        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}", ['status' => 0]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
@@ -518,11 +527,13 @@ class ManagerController extends Controller
 
     //Material CRUD section
 
-    public function createMaterial(){
+    public function createMaterial()
+    {
         return view('HomeManager.createDiamondShell');
     }
 
-    public function storeMaterial(Request $request){
+    public function storeMaterial(Request $request)
+    {
         if ($request->hasFile('image')) {
             // Store the new image
             $image = $request->file('image');
@@ -540,12 +551,14 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Extra Diamond created successfully.');
     }
 
-    public function editMaterial($id){
+    public function editMaterial($id)
+    {
         $diamond_shell = Http::get("http://127.0.0.1:8000/api/diamondshell/{$id}")->json();
         return view('HomeManager.updateDiamondShell', compact('diamond_shell'));
     }
 
-    public function updateMaterial(Request $request,$id){
+    public function updateMaterial(Request $request, $id)
+    {
         if ($request->hasFile('image')) {
             // Store the new image
             $image = $request->file('image');
@@ -574,8 +587,9 @@ class ManagerController extends Controller
         ]);
     }
 
-    public function deleteMaterial(Request $request,$id){
-        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}",['status' => 0]);
+    public function deleteMaterial(Request $request, $id)
+    {
+        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}", ['status' => 0]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
@@ -583,5 +597,5 @@ class ManagerController extends Controller
             return back()->with('error', 'Failed to update order status.');
         }
     }
-    
+
 }

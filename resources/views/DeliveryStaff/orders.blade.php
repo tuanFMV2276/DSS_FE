@@ -90,7 +90,7 @@
                                         5 => 'Cancelled',
                                     ];
                                 @endphp
-                                <tr class="order-row" data-status="{{ $order['status'] }}">
+                                <tr class="status-row" data-status="{{ $order['status'] }}">
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
@@ -131,8 +131,10 @@
 
                     <div class="pagination">
                         <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
-                        <span id="page-num-order">1</span>
+                        <span id="page-num-order">1</span> / <span id="total-pages">1</span>
                         <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
+                        <input type="number" id="goto-page-input" min="1" placeholder="Page" style="width: 60px;">
+                        <button id="goto-page-btn">Go</button>
                     </div>
                 </div>
             </div>
@@ -171,63 +173,101 @@
         }
     </script>
     <script>
-        const statusButtons = document.querySelectorAll('.status-btn');
-        const orderRows = document.querySelectorAll('.order-row');
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusButtons = document.querySelectorAll('.status-btn');
+            const orderRows = document.querySelectorAll('.status-row');
+            const rowsPerPageOrder = 5;
+            let currentPageOrder = 1;
 
-        statusButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const status = btn.getAttribute('data-status');
+            statusButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const status = btn.getAttribute('data-status');
 
-                // Update active button
-                statusButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                    // Update active button
+                    statusButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
 
-                // Filter orders based on status
+                    // Filter orders based on status and reset pagination
+                    filterOrders(status);
+                    currentPageOrder = 1;
+                    displayOrderRows();
+                    updateTotalPages();
+                });
+            });
+
+            function filterOrders(status) {
                 orderRows.forEach(row => {
                     if (status === 'all' || row.getAttribute('data-status') === status) {
                         row.style.display = 'table-row';
+                        row.classList.remove('filtered-out');
                     } else {
                         row.style.display = 'none';
+                        row.classList.add('filtered-out');
                     }
                 });
-            });
-        });
-    </script>
-    {{-- pageBill --}}
-    <script>
-        const orderRows = document.querySelectorAll('.order-row');
-        const rowsPerPageOrder = 10;
-        let currentPageOrder = 1;
+            }
 
-        function displayOrderRows() {
-            orderRows.forEach((row, index) => {
-                row.style.display = 'none';
-                if (index >= (currentPageOrder - 1) * rowsPerPageOrder && index < currentPageOrder *
-                    rowsPerPageOrder) {
-                    row.style.display = 'table-row';
+            function displayOrderRows() {
+                let displayedRows = 0;
+                let start = (currentPageOrder - 1) * rowsPerPageOrder;
+                let end = start + rowsPerPageOrder;
+
+                orderRows.forEach((row, index) => {
+                    if (!row.classList.contains('filtered-out')) {
+                        row.style.display = 'none';
+                        if (displayedRows >= start && displayedRows < end) {
+                            row.style.display = 'table-row';
+                        }
+                        displayedRows++;
+                    }
+                });
+
+                document.getElementById('page-num-order').textContent = currentPageOrder;
+                document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
+                document.getElementById('next-btn-order').disabled = currentPageOrder >= totalPages();
+            }
+
+            function prevPageOrder() {
+                if (currentPageOrder > 1) {
+                    currentPageOrder--;
+                    displayOrderRows();
+                }
+            }
+
+            function nextPageOrder() {
+                if (currentPageOrder < totalPages()) {
+                    currentPageOrder++;
+                    displayOrderRows();
+                }
+            }
+
+            function updateTotalPages() {
+                document.getElementById('total-pages').textContent = totalPages();
+            }
+
+            function totalPages() {
+                let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
+                return Math.ceil(visibleRows.length / rowsPerPageOrder);
+            }
+
+            document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
+            document.getElementById('next-btn-order').addEventListener('click', nextPageOrder);
+
+            document.getElementById('goto-page-btn').addEventListener('click', () => {
+                const gotoPageInput = document.getElementById('goto-page-input').value;
+                const pageNumber = parseInt(gotoPageInput, 10);
+                if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= totalPages()) {
+                    currentPageOrder = pageNumber;
+                    displayOrderRows();
                 }
             });
 
-            document.getElementById('page-num-order').textContent = currentPageOrder;
-            document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
-            document.getElementById('next-btn-order').disabled = currentPageOrder * rowsPerPageOrder >= orderRows.length;
-        }
-
-        function prevPageOrder() {
-            if (currentPageOrder > 1) {
-                currentPageOrder--;
-                displayOrderRows();
-            }
-        }
-
-        function nextPageOrder() {
-            if (currentPageOrder * rowsPerPageOrder < orderRows.length) {
-                currentPageOrder++;
-                displayOrderRows();
-            }
-        }
-
-        displayOrderRows(); // Initial display
+            // Initial display
+            filterOrders('all');
+            displayOrderRows();
+            updateTotalPages();
+        });
+    </script>
     </script>
     <script>
         function confirmAndUpdateStatus(orderId) {
@@ -241,18 +281,3 @@
 
 </html>
 
-
-
-
-{{-- <td>
-    <form action="{{ route('delivery-staff.orders.updateStatus', $order['id']) }}" method="POST" class="form-inline">
-        @csrf
-        @method('PUT')
-        <select name="status" class="form-control" onchange="this.form.submit()">
-            <option value='2' {{ $order['status'] == '2' ? 'selected' : '' }}>Prepare Product</option>
-            <option value='3' {{ $order['status'] == '3' ? 'selected' : '' }}>Delivering</option>
-            <option value='4' {{ $order['status'] == '4' ? 'selected' : '' }}>Finished</option>
-            <option value='5' {{ $order['status'] == '5' ? 'selected' : '' }}>Cancelled</option>
-        </select>
-    </form>
-</td> --}}

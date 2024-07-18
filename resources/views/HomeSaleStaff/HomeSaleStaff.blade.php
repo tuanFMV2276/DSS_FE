@@ -39,11 +39,10 @@
             <li class="profile">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" style="padding: 0; background-color: #1d1b31;border: none"
-                       >
-                        <i class="fa-solid fa-arrow-right-to-bracket" ></i>
+                    <button type="submit" style="padding: 0; background-color: #1d1b31;border: none">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     </button>
-                </form>             
+                </form>
             </li>
         </ul>
     </header>
@@ -70,77 +69,77 @@
                 </div>
 
                 <script>
-                const customers = [{
-                        id: 1,
-                        name: 'John Doe',
-                        icon: 'https://via.placeholder.com/50',
-                        messages: [{
-                                type: 'customer',
-                                text: 'Hello, I need help with my order.'
-                            },
-                            {
-                                type: 'staff',
-                                text: 'Sure, I\'d be happy to help! Can you provide your order ID?'
-                            }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        name: 'Jane Smith',
-                        icon: 'https://via.placeholder.com/50',
-                        messages: [{
-                                type: 'customer',
-                                text: 'Hi, I have a question about my account.'
-                            },
-                            {
-                                type: 'staff',
-                                text: 'Absolutely, what would you like to know?'
-                            }
-                        ]
-                    },
-                    // Add more customers as needed
-                ];
+                    const customers = [{
+                            id: 1,
+                            name: 'John Doe',
+                            icon: 'https://via.placeholder.com/50',
+                            messages: [{
+                                    type: 'customer',
+                                    text: 'Hello, I need help with my order.'
+                                },
+                                {
+                                    type: 'staff',
+                                    text: 'Sure, I\'d be happy to help! Can you provide your order ID?'
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            name: 'Jane Smith',
+                            icon: 'https://via.placeholder.com/50',
+                            messages: [{
+                                    type: 'customer',
+                                    text: 'Hi, I have a question about my account.'
+                                },
+                                {
+                                    type: 'staff',
+                                    text: 'Absolutely, what would you like to know?'
+                                }
+                            ]
+                        },
+                        // Add more customers as needed
+                    ];
 
-                function loadCustomerList() {
-                    const customerList = document.getElementById('customer-list');
-                    customers.forEach(customer => {
-                        const customerItem = document.createElement('div');
-                        customerItem.className = 'customer-item';
-                        customerItem.innerHTML =
-                            `<img src="${customer.icon}" alt="${customer.name}"><span>${customer.name}</span>`;
-                        customerItem.addEventListener('click', () => loadChatMessages(customer.id));
-                        customerList.appendChild(customerItem);
-                    });
-                }
+                    function loadCustomerList() {
+                        const customerList = document.getElementById('customer-list');
+                        customers.forEach(customer => {
+                            const customerItem = document.createElement('div');
+                            customerItem.className = 'customer-item';
+                            customerItem.innerHTML =
+                                `<img src="${customer.icon}" alt="${customer.name}"><span>${customer.name}</span>`;
+                            customerItem.addEventListener('click', () => loadChatMessages(customer.id));
+                            customerList.appendChild(customerItem);
+                        });
+                    }
 
-                function loadChatMessages(customerId) {
-                    const customer = customers.find(c => c.id === customerId);
-                    const chatBody = document.getElementById('chat-body');
-                    chatBody.innerHTML = ''; // Clear previous messages
-                    customer.messages.forEach(msg => {
-                        const messageDiv = document.createElement('div');
-                        messageDiv.className = 'chat-message ' + msg.type;
-                        messageDiv.innerHTML = `<div class="message">${msg.text}</div>`;
-                        chatBody.appendChild(messageDiv);
-                    });
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                }
-
-                document.getElementById('send-button').addEventListener('click', function() {
-                    const message = document.getElementById('chat-input').value;
-                    if (message) {
+                    function loadChatMessages(customerId) {
+                        const customer = customers.find(c => c.id === customerId);
                         const chatBody = document.getElementById('chat-body');
-                        const newMessage = document.createElement('div');
-                        newMessage.className = 'chat-message staff';
-                        newMessage.innerHTML = '<div class="message">' + message + '</div>';
-                        chatBody.appendChild(newMessage);
-                        document.getElementById('chat-input').value = '';
+                        chatBody.innerHTML = ''; // Clear previous messages
+                        customer.messages.forEach(msg => {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = 'chat-message ' + msg.type;
+                            messageDiv.innerHTML = `<div class="message">${msg.text}</div>`;
+                            chatBody.appendChild(messageDiv);
+                        });
                         chatBody.scrollTop = chatBody.scrollHeight;
                     }
-                });
 
-                // Load initial customer list
-                loadCustomerList();
+                    document.getElementById('send-button').addEventListener('click', function() {
+                        const message = document.getElementById('chat-input').value;
+                        if (message) {
+                            const chatBody = document.getElementById('chat-body');
+                            const newMessage = document.createElement('div');
+                            newMessage.className = 'chat-message staff';
+                            newMessage.innerHTML = '<div class="message">' + message + '</div>';
+                            chatBody.appendChild(newMessage);
+                            document.getElementById('chat-input').value = '';
+                            chatBody.scrollTop = chatBody.scrollHeight;
+                        }
+                    });
+
+                    // Load initial customer list
+                    loadCustomerList();
                 </script>
             </div>
 
@@ -152,7 +151,8 @@
                         <div class="search-bar">
                             <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
                             <i class="fas fa-user"></i>
-                            <input type="text" id="order_date" name="order_date" placeholder="Order Date">
+                            <input type="date" data-date-format="YYYY-MM-DD" id="order_date" name="order_date"
+                                placeholder="Order Date">
                             <i class="fas fa-calendar-alt"></i>
                             <button type="submit">
                                 Search
@@ -199,25 +199,25 @@
                     </thead>
                     <tbody id="order-list">
                         @foreach ($orders as $index => $order)
-                        @php
-                        //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
-                        $payment = collect($payments)->firstWhere('order_id', $order['id']);
-                        $statusLabels = [
-                        0 => 'Pending',
-                        1 => 'Accepted',
-                        2 => 'Prepare Product',
-                        3 => 'Delivering',
-                        4 => 'Finished',
-                        5 => 'Cancelled',
-                        ];
-                        @endphp
-                        <tr class="order-row" data-status="{{ $order['status'] }}">
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $order['id'] }}</td>
-                            <td>{{ $order['order_date'] }}</td>
-                            <td>{{ $order['total_price'] }}</td>
-                            <!-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> -->
-                            {{-- <td style="text-align: left;">
+                            @php
+                                //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
+                                $payment = collect($payments)->firstWhere('order_id', $order['id']);
+                                $statusLabels = [
+                                    0 => 'Pending',
+                                    1 => 'Accepted',
+                                    2 => 'Prepare Product',
+                                    3 => 'Delivering',
+                                    4 => 'Finished',
+                                    5 => 'Cancelled',
+                                ];
+                            @endphp
+                            <tr class="status-row" data-status="{{ $order['status'] }}">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $order['id'] }}</td>
+                                <td>{{ $order['order_date'] }}</td>
+                                <td>{{ $order['total_price'] }}</td>
+                                <!-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> -->
+                                {{-- <td style="text-align: left;">
                                     <div class="customer-info">
                                         @if ($customer)
                                             @if ($customer['gender'] == 'Male')
@@ -234,97 +234,226 @@
             </div>
         </div>
         </td> --}}
-        <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
-            Email: {{ $order ? $order['email'] : 'Unknown' }}</td>
-        <td>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</td>
-        <td>
-            <a href="{{ route('salestaff.showOrderDetail', $order['id']) }}">
-                <i class="fa-regular fa-eye icon-blue"></i>
-            </a>
-        </td>
-        </tr>
-        @endforeach
-        </tbody>
-        </table>
+                                <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
+                                    Email: {{ $order ? $order['email'] : 'Unknown' }}</td>
+                                <td>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</td>
+                                <td>
+                                    <a href="{{ route('salestaff.showOrderDetail', $order['id']) }}">
+                                        <i class="fa-regular fa-eye icon-blue"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
-        <div class="pagination">
-            <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
-            <span id="page-num-order">1</span>
-            <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
-        </div>
-        </div>
+                <div class="pagination">
+                    <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
+                    <span id="page-num-order">1</span> / <span id="total-pages">1</span>
+                    <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
+                    <input type="number" id="goto-page-input" min="1" placeholder="Page"
+                        style="width: 60px;">
+                    <button id="goto-page-btn">Go</button>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
         <script>
-        let sidebar = document.querySelector(".sidebar");
-        let closeBtn = document.querySelector("#btn");
-        let searchBtn = document.querySelector(".bx-search");
+            let sidebar = document.querySelector(".sidebar");
+            let closeBtn = document.querySelector("#btn");
+            let searchBtn = document.querySelector(".bx-search");
 
-        closeBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("open");
-            menuBtnChange(); //calling the function(optional)
-        });
+            closeBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("open");
+                menuBtnChange(); //calling the function(optional)
+            });
 
-        searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search icon
-            sidebar.classList.toggle("open");
-            menuBtnChange(); //calling the function(optional)
-        });
+            searchBtn.addEventListener("click", () => { // Sidebar open when you click on the search icon
+                sidebar.classList.toggle("open");
+                menuBtnChange(); //calling the function(optional)
+            });
 
-        // Following are the code to change sidebar button(optional)
-        function menuBtnChange() {
-            if (sidebar.classList.contains("open")) {
-                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the icons class
-            } else {
-                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the icons class
+            // Following are the code to change sidebar button(optional)
+            function menuBtnChange() {
+                if (sidebar.classList.contains("open")) {
+                    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the icons class
+                } else {
+                    closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the icons class
+                }
             }
-        }
 
-        function showTable(tableId) {
-            const tables = document.querySelectorAll('.table-container');
-            tables.forEach(table => table.style.display = 'none');
-            document.getElementById(tableId).style.display = 'block';
-        }
+            function showTable(tableId) {
+                const tables = document.querySelectorAll('.table-container');
+                tables.forEach(table => table.style.display = 'none');
+                document.getElementById(tableId).style.display = 'block';
+            }
         </script>
         <script>
-        const statusButtons = document.querySelectorAll('.status-btn');
-        const orderRows = document.querySelectorAll('.order-row');
+            document.addEventListener('DOMContentLoaded', () => {
+                const statusButtons = document.querySelectorAll('.status-btn');
+                const orderRows = document.querySelectorAll('.status-row');
+                const rowsPerPageOrder = 5;
+                let currentPageOrder = 1;
 
-        statusButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const status = btn.getAttribute('data-status');
+                statusButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const status = btn.getAttribute('data-status');
 
-                // Update active button
-                statusButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                        // Update active button
+                        statusButtons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
 
-                // Filter orders based on status
-                orderRows.forEach(row => {
-                    if (status === 'all' || row.getAttribute('data-status') === status) {
-                        row.style.display = 'table-row';
-                    } else {
-                        row.style.display = 'none';
+                        // Filter orders based on status and reset pagination
+                        filterOrders(status);
+                        currentPageOrder = 1;
+                        displayOrderRows();
+                        updateTotalPages();
+                    });
+                });
+
+                function filterOrders(status) {
+                    orderRows.forEach(row => {
+                        if (status === 'all' || row.getAttribute('data-status') === status) {
+                            row.style.display = 'table-row';
+                            row.classList.remove('filtered-out');
+                        } else {
+                            row.style.display = 'none';
+                            row.classList.add('filtered-out');
+                        }
+                    });
+                }
+
+                function displayOrderRows() {
+                    let displayedRows = 0;
+                    let start = (currentPageOrder - 1) * rowsPerPageOrder;
+                    let end = start + rowsPerPageOrder;
+
+                    orderRows.forEach((row, index) => {
+                        if (!row.classList.contains('filtered-out')) {
+                            row.style.display = 'none';
+                            if (displayedRows >= start && displayedRows < end) {
+                                row.style.display = 'table-row';
+                            }
+                            displayedRows++;
+                        }
+                    });
+
+                    document.getElementById('page-num-order').textContent = currentPageOrder;
+                    document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
+                    document.getElementById('next-btn-order').disabled = currentPageOrder >= totalPages();
+                }
+
+                function prevPageOrder() {
+                    if (currentPageOrder > 1) {
+                        currentPageOrder--;
+                        displayOrderRows();
+                    }
+                }
+
+                function nextPageOrder() {
+                    if (currentPageOrder < totalPages()) {
+                        currentPageOrder++;
+                        displayOrderRows();
+                    }
+                }
+
+                function updateTotalPages() {
+                    document.getElementById('total-pages').textContent = totalPages();
+                }
+
+                function totalPages() {
+                    let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
+                    return Math.ceil(visibleRows.length / rowsPerPageOrder);
+                }
+
+                document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
+                document.getElementById('next-btn-order').addEventListener('click', nextPageOrder);
+
+                document.getElementById('goto-page-btn').addEventListener('click', () => {
+                    const gotoPageInput = document.getElementById('goto-page-input').value;
+                    const pageNumber = parseInt(gotoPageInput, 10);
+                    if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= totalPages()) {
+                        currentPageOrder = pageNumber;
+                        displayOrderRows();
                     }
                 });
+
+                // Initial display
+                filterOrders('all');
+                displayOrderRows();
+                updateTotalPages();
             });
-        });
         </script>
-        <!--Start of Tawk.to Script-->
-        {{-- <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/6677a8889d7f358570d26d8f/1i11mkmli';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
-    </script> --}}
-        <!--End of Tawk.to Script-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#search-form').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var customerName = $('#customer_name').val();
+                    var orderDate = $('#order_date').val();
+                    $.ajax({
+                        url: "{{ route('manager.searchOrdersAjax') }}",
+                        method: 'GET',
+                        data: {
+                            customer_Name: customerName || 'null',
+                            order_Date: orderDate || 'null',
+                        },
+                        success: function(response) {
+                            var orders = response.orders;
+                            var statusLabels = {
+                                0: 'Pending',
+                                1: 'Accepted',
+                                2: 'Prepare Product',
+                                3: 'Delivering',
+                                4: 'Finished',
+                                5: 'Cancelled'
+                            };
+
+                            var orderList = $('#billing_table tbody');
+                            orderList.empty();
+                            var array_orders = Array.from(orders.orders);
+                            if (array_orders) {
+                                array_orders.forEach(function(orders, index) {
+                                    var customerName = orders ? orders.name : 'Unknown';
+                                    var customerEmail = orders ? orders.email : 'Unknown';
+                                    var status = statusLabels[orders.status] || 'Unknown';
+                                    var orderRow = `
+                                        <tr class='order-row' data-status="${orders.status}">
+                                            <td>${index+1}</td>
+                                            <td>${orders.id}</td>
+                                            <td>${orders.order_date}</td>
+                                            <td>${orders.total_price}</td>
+                                            
+                                            <td style="text-align: left;">
+                                                Name: ${customerName}<br>
+                                                Email: ${customerEmail}
+                                            </td>
+                                            <td>${status}</td>
+                                            <td>
+                                                <a href="/manager_orders/${orders.id}/detail">
+                                                    <i class="fa-regular fa-eye icon-blue"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    `;
+                                    orderList.append(orderRow);
+                                });
+                            } else {
+                                orderList.append('<tr><td colspan="8">No orders found.</td></tr>');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching orders:', error);
+                            alert('An error occurred while fetching orders. Please try again.');
+                        }
+                    });
+                });
+            });
+        </script>
+
     </footer>
 </body>
 
