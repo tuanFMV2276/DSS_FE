@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class UserController extends Controller
 {
@@ -14,7 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('Customer/ProfileCus/Profile');
+        $user = Http::get('http://127.0.0.1:8000/api/user')->json();
+        return view('Customer/ProfileCus/Profile', ['user' => $user]);
     }
 
     /**
@@ -64,13 +70,32 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
-        //
+    public function update(Request $request, $id)
+{
+    // Chuyển đổi $id sang kiểu integer
+    $id = (int) $id;
+
+    // Update thông tin người dùng
+    $customerData = [
+        'name' => $request->name,
+        'email' => $request->email,
+        'gender' => $request->gender,
+        'date_of_birth' => $request->date_of_birth,
+        'phone' => $request->phone,
+        'address' => $request->address,
+    ];
+
+    $response = Http::put("http://127.0.0.1:8000/api/user/{$id}", $customerData);
+
+    if ($response->successful()) {
+        return redirect('/Profile')->with('success', 'Cập nhật thông tin thành công!');
+    } else {
+        return back()->withErrors(['error' => 'Cập nhật thông tin thất bại!']);
     }
+}
+
 
     /**
      * Remove the specified resource from storage.

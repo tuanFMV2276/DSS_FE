@@ -19,13 +19,13 @@
                     <div class="avatar-name" style="display: flex; align-items: center; padding: 1rem">
                         <img src="/Picture_web/Avatar.jpg" alt="Ảnh của tôi" class="card-img-top"
                             style="width: 60px; height: 60px; border-radius: 50%;">
-                        <h6 style="padding-left: 0.5rem">{{ Session::get('name') }}</h6>
+                        <h6 style="padding-left: 0.5rem">{{ $user[Session::get('id')-1]['name'] }}</h6>
                     </div>
                     <div class="list-group list-group-flush account-settings-links">
                         <a class="list-group-item list-group-item-action active" data-toggle="list"
                             href="#account-general"><i class="fa-solid fa-user"></i> Tài khoản của tôi</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#change-password"><i
-                                class="fa-solid fa-key"></i> Đổi mật khẩu</a>
+                        <!-- <a class="list-group-item list-group-item-action" data-toggle="list" href="#change-password"><i
+                                class="fa-solid fa-key"></i> Đổi mật khẩu</a> -->
                         <!-- <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#account-change-password"><i class="fa-regular fa-calendar"></i> Đơn mua</a> -->
                     </div>
@@ -52,44 +52,56 @@
                             </div> -->
                             <hr class="border-light m-0" />
                             <div class="card-body">
-                                <form method="POST" action="{{ route('user.update') }}">
+                                <form method="POST" action="{{ route('user.update', ['id' => Session::get('id')]) }}">
                                     @csrf
+                                    @method('PUT')
                                     <div class="form-group">
                                         <label class="form-label">Tên</label>
                                         <input type="text" class="form-control mb-1" name="name"
-                                            value="{{ Session::get('name') }}" placeholder="Tên" />
+                                            value="{{ $user[Session::get('id')-1]['name']}}" placeholder="Tên" />
                                     </div>
-                                    <p>{{ Session::get('data')}}</p>
                                     <div class="form-group">
                                         <label class="form-label">Email</label>
                                         <input type="email" class="form-control mb-1" name="email"
-                                            value="{{ Session::get('email') }}" placeholder="Email" />
+                                            value="{{ $user[Session::get('id')-1]['email'] }}" placeholder="Email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Số điện thoại</label>
+                                        <input type="text" class="form-control mb-1" name="phone"
+                                            value="{{ $user[Session::get('id')-1]['phone']}}"
+                                            placeholder="Số điện thoại" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" style="margin-right: 0.5rem">Giới tính</label>
-                                        <input type="radio" name="gender" value="Nam" checked />
+                                        <input type="radio" name="gender" value="Nam"
+                                            {{ $user[Session::get('id')-1]['gender'] == 'Nam' ? 'checked' : '' }} />
                                         <label class="form-label" style="margin-right: 0.3rem">Nam</label>
-                                        <input type="radio" name="gender" value="Nữ" />
+                                        <input type="radio" name="gender" value="Nữ"
+                                            {{ $user[Session::get('id')-1]['gender'] == 'Nữ' ? 'checked' : '' }} />
                                         <label class="form-label" style="margin-right: 0.3rem">Nữ</label>
-                                        <input type="radio" name="gender" value="Khác" />
+                                        <input type="radio" name="gender" value="Khác"
+                                            {{ $user[Session::get('id')-1]['gender'] == 'Khác' ? 'checked' : '' }} />
                                         <label class="form-label">Khác</label>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Ngày sinh</label>
                                         <input type="date" class="form-control mb-1" name="date_of_birth"
+                                            value="{{ $user[Session::get('id')-1]['date_of_birth'] }}"
                                             placeholder="Ngày sinh" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Địa chỉ</label>
-                                        <input type="text" class="form-control" name="address" placeholder="Địa chỉ" />
+                                        <input type="text" class="form-control" name="address"
+                                            value="{{ $user[Session::get('id')-1]['address'] }}"
+                                            placeholder="Địa chỉ" />
                                     </div>
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                 </form>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="change-password">
+                        <!-- <div class="tab-pane fade" id="change-password">
                             <div class="card-body">
-                                <form method="POST" action="{{ route('user.changePassword') }}">
+                                <form method="POST" action="{{ route('user.update', ['id' => Session::get('id')]) }}">
                                     @csrf
                                     <div class="form-group">
                                         <label class="form-label">Mật khẩu hiện tại</label>
@@ -106,7 +118,7 @@
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                 </form>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

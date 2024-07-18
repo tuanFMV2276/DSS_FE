@@ -21,6 +21,7 @@ class WebAuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'gender' => $request->gender,
             'date_of_birth' => $request->date_of_birth,
             'phone' => $request->phone,
             'address' => $request->address,
@@ -53,19 +54,9 @@ class WebAuthController extends Controller
             $role = $data['data']['role'];
             $name = $data['data']['name'];
             $userId = $data['data']['id'];
-            $email = $data['data']['email'];
-            $password = $data['data']['password'];
-            $address = $data['data']['address'];
-            $date_of_birth = $data['data']['date_of_birth'];
-            $gender = $data['data']['gender'];
             Session::put('role', $role);
             Session::put('name', $name);
             Session::put('id', $userId);
-            Session::put('email', $email);
-            Session::put('password', $password);
-            Session::put('address', $address);
-            Session::put('date_of_birth', $date_of_birth);
-            Session::put('gender', $gender);
             if($role == "manager"){
                 return redirect('/home-manager');
             }

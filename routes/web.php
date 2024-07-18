@@ -124,9 +124,6 @@ Route::get('/Payment', [CartController::class, 'payment'])->name('payment.page')
 // Lưu trữ order
 Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
 
-// Trang thanh toán thành công
-Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
-
 Route::get('/IntroduceDiamondGIA', function () {
     return view('Information.IntroduceDiamondGIA.IntroduceDiamondGIA');
 });
@@ -196,17 +193,13 @@ Route::middleware('auth.token')->group(function () {
     // Lưu trữ order
     Route::post('/orders/store', [OrderController::class, 'store'])->name('orders.store');
 
-    // Trang thanh toán thành công
-    Route::get('/PaymentSuccessful', [PaymentSuccessful::class, 'index']);
-
     //Trang xem đơn hàng customer
     Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
 
     //Trang xem trang cá nhân
     Route::get('/Profile', [UserController::class, 'index'])->name('user.index');
 
-    Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
-Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
+    Route::put('/Profile/update/{id}', [UserController::class, 'update'])->name('user.update');
 });
 
 Route::middleware(['auth.token', 'role:manager'])->group(function () {

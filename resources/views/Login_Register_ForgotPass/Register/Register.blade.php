@@ -17,24 +17,33 @@
                 <header>Đăng ký</header>
             </div>
             <div class="input-box">
-                <input type="text" name="name" class="input-field" placeholder="Name" autocomplete="off" required>
+                <input type="text" name="name" class="input-field" placeholder="Tên" autocomplete="off" required>
             </div>
             <div class="input-box">
                 <input type="email" class="input-field" name="email" placeholder="Email" autocomplete="off" required>
             </div>
             <div class="input-box">
-                <input type="password" name="password" class="input-field" placeholder="Password" autocomplete="off"
+                <input type="password" name="password" class="input-field" placeholder="Mật khẩu" autocomplete="off"
+                    required>
+            </div>
+            <div class="input-box" style="padding-bottom: 1rem; margin-left: 1.5rem">
+                <label class="form-label" style="margin-right: 0.5rem">Giới tính</label>
+                <input type="radio" name="gender" value="Nam" checked />
+                <label class="form-label" style="margin-right: 0.3rem">Nam</label>
+                <input type="radio" name="gender" value="Nữ" />
+                <label class="form-label" style="margin-right: 0.3rem">Nữ</label>
+                <input type="radio" name="gender" value="Khác" />
+                <label class="form-label">Khác</label>
+            </div>
+            <div class="input-box">
+                <input type="date" class="input-field" name="date_of_birth" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+                <input type="number" class="input-field" name="phone" placeholder="Số điện thoại" autocomplete="off"
                     required>
             </div>
             <div class="input-box">
-                <input type="date" class="input-field" name="date_of_birth" placeholder="Date of birth"
-                    autocomplete="off" required>
-            </div>
-            <div class="input-box">
-                <input type="number" class="input-field" name="phone" placeholder="Phone" autocomplete="off" required>
-            </div>
-            <div class="input-box">
-                <input type="text" class="input-field" name="address" placeholder="Address" autocomplete="off" required>
+                <input type="text" class="input-field" name="address" placeholder="Địa chỉ" autocomplete="off" required>
             </div>
             @if ($errors->any())
             <div class="alert alert-danger">
