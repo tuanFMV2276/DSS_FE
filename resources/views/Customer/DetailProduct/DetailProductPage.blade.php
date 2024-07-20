@@ -147,7 +147,7 @@
                 method: 'POST',
                 data: $('#add-to-cart-form').serialize(),
                 success: function(response) {
-                    $('#add-to-cart-message').show().delay(3000).fadeOut();
+                    $('#add-to-cart-message').show().delay(1000).fadeOut();
                 },
                 error: function(response) {
                     alert('Có lỗi xảy ra, vui lòng thử lại.');

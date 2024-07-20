@@ -17,57 +17,72 @@ class PurchaseOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $customerId = Session::get('id');
-  
-        
-        $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
-        $orderDetails = Http::get('http://127.0.0.1:8000/api/orderdetail')->json();
-        $products = Http::get('http://127.0.0.1:8000/api/product')->json();
+{
+    $customerId = Session::get('id');
 
-        // Lọc các đơn hàng của khách hàng đã đăng nhập
-        $customerOrders = array_filter($orders, function($order) use ($customerId) {
-            return $order['customer_id'] == $customerId;
-        });
+    $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
+    $orderDetails = Http::get('http://127.0.0.1:8000/api/orderdetail')->json();
+    $products = Http::get('http://127.0.0.1:8000/api/product')->json();
 
-        // Phân loại đơn hàng theo trạng thái
-        $statuses = [
-            'all' => [],
-            'pending' => [],
-            'preparing' => [],
-            'delivering' => [],
-            'finished' => [],
-            'cancelled' => []
-        ];
+    // Lọc các đơn hàng của khách hàng đã đăng nhập
+    $customerOrders = array_filter($orders, function($order) use ($customerId) {
+        return $order['customer_id'] == $customerId;
+    });
 
-        foreach ($customerOrders as $order) {
-            $statuses['all'][] = $order;
-            switch ($order['status']) {
-                case 0:
-                    $statuses['pending'][] = $order;
-                    break;
-                case 2:
-                    $statuses['preparing'][] = $order;
-                    break;
-                case 3:
-                    $statuses['delivering'][] = $order;
-                    break;
-                case 4:
-                    $statuses['finished'][] = $order;
-                    break;
-                case 5:
-                    $statuses['cancelled'][] = $order;
-                    break;
-            }
+    // Phân loại đơn hàng theo trạng thái
+    $statuses = [
+        'all' => [],
+        'pending' => [],
+        'preparing' => [],
+        'delivering' => [],
+        'finished' => [],
+        'cancelled' => []
+    ];
+
+    foreach ($customerOrders as $order) {
+        $statuses['all'][] = $order;
+        switch ($order['status']) {
+            case 0:
+            case 1:
+                $statuses['pending'][] = $order;
+                break;
+            case 2:
+                $statuses['preparing'][] = $order;
+                break;
+            case 3:
+                $statuses['delivering'][] = $order;
+                break;
+            case 4:
+                $statuses['finished'][] = $order;
+                break;
+            case 5:
+                $statuses['cancelled'][] = $order;
+                break;
         }
-
-        // Truyền dữ liệu tới view
-        return view('Customer.PurchaseOrder.PurchaseOrder', [
-            'orders' => $statuses,
-            'orderDetails' => $orderDetails,
-            'products' => $products
-        ]);
     }
+
+    // Truyền dữ liệu tới view
+    return view('Customer.PurchaseOrder.PurchaseOrder', [
+        'orders' => $statuses,
+        'orderDetails' => $orderDetails,
+        'products' => $products
+    ]);
+}
+
+public function cancelOrder(Request $request)
+{
+    $orderId = $request->input('order_id');
+    $response = Http::put("http://127.0.0.1:8000/api/order/$orderId", [
+        'status' => 5
+    ]);
+
+    if ($response->successful()) {
+        return response()->json(['success' => true]);
+    } else {
+        return response()->json(['success' => false], 500);
+    }
+}
+
 
     /**
      * Show the form for creating a new resource.

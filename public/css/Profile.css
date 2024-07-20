@@ -14,6 +14,21 @@ body {
     color       : #4E5155;
 }
 
+.btn-orange {
+    background-color: #ff8e31 !important;
+    color: #fff !important;
+    width: 15%;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn-orange:hover {
+    background-color: #ff8e31 !important;
+    color: #000 !important;
+    cursor: pointer;
+}
+
 label.btn {
     margin-bottom: 0;
 }

@@ -95,25 +95,28 @@
                                             value="{{ $user[Session::get('id')-1]['address'] }}"
                                             placeholder="Địa chỉ" />
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                    <button type="submit" class="btn btn-orange">Lưu</button>
                                 </form>
                             </div>
                         </div>
                         <!-- <div class="tab-pane fade" id="change-password">
                             <div class="card-body">
-                                <form method="POST" action="{{ route('user.update', ['id' => Session::get('id')]) }}">
+                                <form method="POST"
+                                    action="{{ route('user.change-password', ['id' => Session::get('id')]) }}">
                                     @csrf
+                                    @method('PUT')
                                     <div class="form-group">
                                         <label class="form-label">Mật khẩu hiện tại</label>
-                                        <input type="password" class="form-control" name="current_password" />
+                                        <input type="password" class="form-control" name="current_password" required />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Mật khẩu mới</label>
-                                        <input type="password" class="form-control" name="new_password" />
+                                        <input type="password" class="form-control" name="new_password" required />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Nhập lại mật khẩu mới</label>
-                                        <input type="password" class="form-control" name="confirm_password" />
+                                        <input type="password" class="form-control" name="new_password_confirmation"
+                                            required />
                                     </div>
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                 </form>
