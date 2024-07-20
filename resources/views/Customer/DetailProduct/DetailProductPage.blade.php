@@ -137,12 +137,17 @@
     <script>
     $(document).ready(function() {
         $('#add-to-cart-button').click(function() {
+            if (!isLoggedIn()) {
+                alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.');
+                return;
+            }
+
             $.ajax({
                 url: $('#add-to-cart-form').attr('action'),
                 method: 'POST',
                 data: $('#add-to-cart-form').serialize(),
                 success: function(response) {
-                    $('#add-to-cart-message').show().delay(3000).fadeOut();
+                    $('#add-to-cart-message').show().delay(1000).fadeOut();
                 },
                 error: function(response) {
                     alert('Có lỗi xảy ra, vui lòng thử lại.');
@@ -150,6 +155,10 @@
             });
         });
     });
+
+    function isLoggedIn() {
+        return "{{ Session::has('access_token') }}";
+    }
     </script>
 </body>
 

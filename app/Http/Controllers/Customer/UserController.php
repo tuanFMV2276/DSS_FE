@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class UserController extends Controller
@@ -95,7 +97,6 @@ class UserController extends Controller
         return back()->withErrors(['error' => 'Cập nhật thông tin thất bại!']);
     }
 }
-
 
     /**
      * Remove the specified resource from storage.

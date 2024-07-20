@@ -196,10 +196,14 @@ Route::middleware('auth.token')->group(function () {
     //Trang xem đơn hàng customer
     Route::get('/Purchase', [PurchaseOrderController::class, 'index'])->name('customer.orders');
 
+    Route::post('/customer/orders/cancel', [PurchaseOrderController::class, 'cancelOrder'])->name('customer.orders.cancel');
+
     //Trang xem trang cá nhân
     Route::get('/Profile', [UserController::class, 'index'])->name('user.index');
 
     Route::put('/Profile/update/{id}', [UserController::class, 'update'])->name('user.update');
+
+    Route::put('/Profile/change-password/{id}', [UserController::class, 'changePassword'])->name('user.change-password');
 });
 
 Route::middleware(['auth.token', 'role:manager'])->group(function () {
