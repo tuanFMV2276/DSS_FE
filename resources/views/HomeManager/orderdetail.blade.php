@@ -11,7 +11,6 @@
         <div class="row">
             <div class="col-md-6">
                 <p><strong><i class="fas fa-user-circle"></i> Name:</strong> {{ $order['name'] }}</p>
-                {{-- <p><strong><i class="fas fa-venus-mars"></i> Gender:</strong> {{ $order['gender'] }}</p> --}}
                 <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ $order['email'] }}</p>
             </div>
             <div class="col-md-6">
@@ -83,9 +82,10 @@
                         <p style="font-size: 20px">
                             <i class="fas fa-calendar-check"></i>
                             <strong> Warranty Expiry Date:</strong> {{ $warrantycertificate ? $warrantycertificate['expiry_date'] : 'Updating' }}
-                            <a href="{{ route('warranty.pdf', $warrantycertificate['id']) }}" class="btn btn-info ml-2">
-                                <i class="fas fa-file-pdf"></i> Generate PDF
-                            </a>
+                            
+                            <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#warrantyModal">
+                                <i class="fas fa-info-circle"></i> View Warranty Details
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -147,15 +147,31 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Warranty ID:</strong> {{ $warrantycertificate['id'] }}</p>
-                    <p><strong>Product ID:</strong> {{ $warrantycertificate['product_id'] }}</p>
-                    <p><strong>Issue Date:</strong> {{ $warrantycertificate['issue_date'] }}</p>
-                    <p><strong>Expiry Date:</strong> {{ $warrantycertificate['expiry_date'] }}</p>
-                    <p><strong>Status:</strong> {{ $warrantycertificate['status'] }}</p>
+                    <div class="content">
+                        <p><strong>Warranty ID:</strong> {{ $warrantycertificate['id'] }}</p>
+                        <p><strong>Product Name:</strong> {{ $product['product_name'] }}</p>
+                        <p><strong>Product Code:</strong> {{ $product['product_code'] }}</p>
+                        <p><strong>Invoice Code:</strong> {{ $order['id'] }}</p>
+                        <p><strong>Customer Name:</strong> {{ $order['name'] }}</p>
+                        <p><strong>Customer Email:</strong> {{ $order['email'] }}</p>
+                        <p><strong>Customer Phone:</strong> {{ $order['phone'] }}</p>
+                        <p><strong>Issue Date:</strong> {{ $warrantycertificate['issue_date'] }}</p>
+                        <p><strong>Expiry Date:</strong> {{ $warrantycertificate['expiry_date'] }}</p>
+                    </div>
+                    <div class="terms">
+                        <h2>Terms and Conditions</h2>
+                        <p>1. The warranty covers manufacturing defects only.</p>
+                        <p>2. The warranty does not cover damage caused by misuse or accidents.</p>
+                        <p>3. The warranty is valid only with the original purchase receipt.</p>
+                        <p>4. Warranty claims must be accompanied by the warranty certificate.</p>
+                        <p>5. For any warranty issues, please contact our customer service.</p>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="printWarranty">Print PDF</button>
+                    <a href="{{ route('warranty.pdf', $warrantycertificate['id']) }}" class="btn btn-info ml-2">
+                        <i class="fas fa-file-pdf"></i> Generate PDF
+                    </a>
                 </div>
             </div>
         </div>

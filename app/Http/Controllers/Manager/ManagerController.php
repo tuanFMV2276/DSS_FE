@@ -599,15 +599,41 @@ class ManagerController extends Controller
         }
     }
     public function generatePDF($id)
-    {
-        // Fetch the warranty details from the database
-        $warranty = Http::get("http://127.0.0.1:8000/api/warrantycertificate/{$id}")->json();
+{
+    // Lấy thông tin giấy bảo hành
+    $warranty = Http::get("http://127.0.0.1:8000/api/warrantycertificate/{$id}")->json();
+    $productId = $warranty['product_id']; 
 
-        // Load the view and pass the data
-        $pdf = PDF::loadView('HomeManager.warrantyPDF', compact('warranty'));
+    // Lấy thông tin sản phẩm dựa trên productId
+    $product = Http::get("http://127.0.0.1:8000/api/product/{$productId}")->json();  // Sửa URL nếu cần
 
-        // Download the PDF
-        return $pdf->download('warranty.pdf');
+    // Lấy thông tin chi tiết đơn hàng
+    $existingOrderDetails = Http::get("http://127.0.0.1:8000/api/orderdetail")->json();
+    $existing = false;
+
+    foreach ($existingOrderDetails as $orderdetail) {
+        if ($orderdetail['product_id'] == $product['id']) {
+            $existing = true;
+            $Orderid = $orderdetail['order_id'];
+            break;
+        }
     }
+
+    if ($existing) {
+        // Lấy thông tin đơn hàng dựa trên order_id
+        $order = Http::get("http://127.0.0.1:8000/api/order/{$Orderid}")->json();  // Sửa URL nếu cần
+    } else {
+        $order = null;
+    }
+
+    // Load view và truyền dữ liệu vào
+    $pdf = PDF::loadView('HomeManager.warrantyPDF', compact('warranty', 'product', 'order'));
+
+    // Tải về file PDF
+    return $pdf->download('warranty.pdf');
+}
+
+    
+
 
 }
