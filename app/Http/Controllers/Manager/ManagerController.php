@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manager;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use PDF;
 
 class ManagerController extends Controller
 {
@@ -596,6 +597,17 @@ class ManagerController extends Controller
         } else {
             return back()->with('error', 'Failed to update order status.');
         }
+    }
+    public function generatePDF($id)
+    {
+        // Fetch the warranty details from the database
+        $warranty = Http::get("http://127.0.0.1:8000/api/warrantycertificate/{$id}")->json();
+
+        // Load the view and pass the data
+        $pdf = PDF::loadView('HomeManager.warrantyPDF', compact('warranty'));
+
+        // Download the PDF
+        return $pdf->download('warranty.pdf');
     }
 
 }

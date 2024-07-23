@@ -54,7 +54,7 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
 <body>
     <div class="container">
         <h2>Update Main Diamond</h2>
-        <form id="product-form" action="{{ route('manager.editMainDiamond', $main_diamond['id']) }}" method="POST" 
+        <form id="product-form" action="{{ route('manager.updateMainDiamond', $main_diamond['id']) }}" method="POST" 
             enctype="multipart/form-data">
             @csrf
             @method('PUT')

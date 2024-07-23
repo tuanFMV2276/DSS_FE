@@ -10,6 +10,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Home manager </title>
     <link rel="stylesheet" href="{{ asset('css_Manh/homestaff.css') }}">
@@ -770,7 +771,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         </thead>
                         <tbody id="employee-body">
                             @foreach ($employees as $index => $employee)
-                                <tr class="status-row" data-status="{{ $employee['role_id'] }}">
+                                <tr class="status-row-emp" data-status="{{ $employee['role_id'] }}">
                                     <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $employee['user_name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
@@ -904,7 +905,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
             function totalPages() {
                 let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
-                return Math.ceil(visibleRows.length / rowsPerPageOrder)-1;
+                return Math.ceil(visibleRows.length / rowsPerPageOrder);
             }
 
             document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
@@ -1187,8 +1188,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             displayPriceRows();
         });
     </script>
-
-
     {{-- pageEmployee --}}
     <script>
         const employeeRows = document.querySelectorAll('.employee-row');
@@ -1225,6 +1224,29 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
         }
 
         displayEmployeeRows(); // Initial display
+    </script>
+    <script>
+        const statusButtons = document.querySelectorAll('.status-btn');
+        const orderRows = document.querySelectorAll('.status-row-emp');
+
+        statusButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const status = btn.getAttribute('data-status');
+
+                // Update active button
+                statusButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter orders based on status
+                orderRows.forEach(row => {
+                    if (status === 'all' || row.getAttribute('data-status') === status) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
     {{-- search ajax --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

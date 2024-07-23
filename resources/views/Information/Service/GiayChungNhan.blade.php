@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>GIẤY CHỨNG NHẬN KIM CƯƠNG GIA - CHỨNG NHẬN UY TÍN SỐ 1 THẾ GIỚI!</title>
     <link rel="stylesheet" href="{{ asset('css/GiayChungNhan.css') }}">
 </head>
