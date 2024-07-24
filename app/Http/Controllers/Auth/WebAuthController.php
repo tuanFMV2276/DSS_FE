@@ -25,6 +25,7 @@ class WebAuthController extends Controller
             'date_of_birth' => $request->date_of_birth,
             'phone' => $request->phone,
             'address' => $request->address,
+            'status' => '1',
         ]);
 
         if ($response->successful()) {
