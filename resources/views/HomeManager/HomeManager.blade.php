@@ -803,10 +803,10 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button class="status-btn active" data-status="all">
                             <i class="fas fa-list icon-status"></i> All employees
                         </button>
-                        <button class="status-btn" data-status="3">
+                        <button class="status-btn" data-status="salestaff">
                             <i class="fa-solid fa-user-tie icon-status"></i> Sale staffs
                         </button>
-                        <button class="status-btn" data-status="4">
+                        <button class="status-btn" data-status="deliverystaff">
                             <i class="fa-solid fa-truck icon-status"></i> Delivery staffs
                         </button>
                     </div>
@@ -823,11 +823,11 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         </thead>
                         <tbody id="employee-body">
                             @foreach ($employees as $index => $employee)
-                                <tr class="status-row-emp" data-status="{{ $employee['role_id'] }}">
+                                <tr class="status-row-emp" data-status="{{ $employee['role'] }}">
                                     <td style="display: none;">{{ $index + 1 }}</td>
-                                    <td>{{ $employee['user_name'] }}</td>
+                                    <td>{{ $employee['name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
-                                    <td>{{ $employee['role_id'] == 3 ? 'Sales Staff' : 'Delivery Staff' }}</td>
+                                    <td>{{ $employee['role']}}</td>
                                     <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                     <td>
                                         <a href="{{ route('manager.showEmployeeDetail', $employee['id']) }}">

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 class BaseRepository implements BaseRepositoryInterface
 {
     private $customer, $diamondShell, $employee, $diamondPriceList, $exDiamond, $mainDiamond, 
-    $order, $orderDetail, $payment, $product, $rewardPoint, $role, $warrantyCetificate;
+    $order, $orderDetail, $payment, $product, $rewardPoint, $role, $warrantyCetificate, $user;
 
     // Constructor
     public function __construct() {
@@ -23,6 +23,7 @@ class BaseRepository implements BaseRepositoryInterface
         $rewardPoint = Http::get('http://127.0.0.1:8000/api/rewardpoint')->json();
         $role = Http::get('http://127.0.0.1:8000/api/role')->json();
         $warrantyCetificate = Http::get('http://127.0.0.1:8000/api/warrantycertificate')->json();
+        $user = Http::get('http://127.0.0.1:8000/api/user')->json();
     }
 
 
@@ -66,7 +67,9 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->warrantyCetificate;
     }
     
-    
+    public function getUser() {
+        return $this->user;
+    }
 
 
 

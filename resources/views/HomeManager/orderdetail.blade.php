@@ -45,6 +45,8 @@
 
                     @csrf
                     @method('PUT')
+                    @csrf
+                    @method('PUT')
 
                     <div class="form-group row">
                         <label for="status" class="col-sm-2 col-form-label"><strong>Status:</strong></label>
@@ -83,7 +85,7 @@
                             <i class="fas fa-calendar-check"></i>
                             <strong> Warranty Expiry Date:</strong> {{ $warrantycertificate ? $warrantycertificate['expiry_date'] : 'Updating' }}
                             
-                            <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#warrantyModal">
+                            <button type="button" class="btn btn-secondary mt-3" data-toggle="modal" data-target="#warrantyModal">
                                 <i class="fas fa-info-circle"></i> View Warranty Details
                             </button>
                         </p>

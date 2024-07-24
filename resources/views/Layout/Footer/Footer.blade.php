@@ -32,19 +32,16 @@
                             <i class="fas fa-gem me-3 pr-2"></i>Luxury Diamond
                         </h6>
                         <div class="link-icons">
-                            <a href="" class="me-4 text-reset pr-2">
+                            <a href="https://www.facebook.com/" class="me-4 text-reset pr-2">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="" class="me-4 text-reset pr-2">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="" class="me-4 text-reset pr-2">
+                            <a href="https://www.google.com/" class="me-4 text-reset pr-2">
                                 <i class="fab fa-google"></i>
                             </a>
-                            <a href="" class="me-4 text-reset pr-2">
+                            <a href="https://www.instagram.com/" class="me-4 text-reset pr-2">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="" class="me-4 text-reset">
+                            <a href="https://www.linkedin.com/" class="me-4 text-reset">
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         </div>

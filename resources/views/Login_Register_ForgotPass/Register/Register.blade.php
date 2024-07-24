@@ -1,119 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <link rel="stylesheet" href="{{ asset('css_Hoa/Register.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('css/Login_Register.css') }}">
+    <title>Đăng ký</title>
 </head>
+
 <body>
-<section class="vh-100 gradient-custom">
-  <div class="container py-5 h-100">
-    <div class="row justify-content-center align-items-center h-100">
-      <div class="col-12 col-lg-9 col-xl-7">
-        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-          <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-            <form>
-
-              <div class="row">
-                <div class="col-md-6 mb-4">
-
-                  <div data-mdb-input-init class="form-outline">
-                    <input type="text" id="firstName" class="form-control form-control-lg" />
-                    <label class="form-label" for="firstName">First Name</label>
-                  </div>
-
-                </div>
-                <div class="col-md-6 mb-4">
-
-                  <div data-mdb-input-init class="form-outline">
-                    <input type="text" id="lastName" class="form-control form-control-lg" />
-                    <label class="form-label" for="lastName">Last Name</label>
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                  <div data-mdb-input-init class="form-outline datepicker w-100">
-                    <input type="text" class="form-control form-control-lg" id="birthdayDate" />
-                    <label for="birthdayDate" class="form-label">Birthday</label>
-                  </div>
-
-                </div>
-                <div class="col-md-6 mb-4">
-
-                  <h6 class="mb-2 pb-1">Gender: </h6>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                      value="option1" checked />
-                    <label class="form-check-label" for="femaleGender">Female</label>
-                  </div>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                      value="option2" />
-                    <label class="form-check-label" for="maleGender">Male</label>
-                  </div>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
-                      value="option3" />
-                    <label class="form-check-label" for="otherGender">Other</label>
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-4 pb-2">
-
-                  <div data-mdb-input-init class="form-outline">
-                    <input type="email" id="emailAddress" class="form-control form-control-lg" />
-                    <label class="form-label" for="emailAddress">Email</label>
-                  </div>
-
-                </div>
-                <div class="col-md-6 mb-4 pb-2">
-
-                  <div data-mdb-input-init class="form-outline">
-                    <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
-                    <label class="form-label" for="phoneNumber">Phone Number</label>
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-12">
-
-                  <select class="select form-control-lg">
-                    <option value="1" disabled>Choose option</option>
-                    <option value="2">Subject 1</option>
-                    <option value="3">Subject 2</option>
-                    <option value="4">Subject 3</option>
-                  </select>
-                  <label class="form-label select-label">Choose option</label>
-
-                </div>
-              </div>
-
-              <div class="mt-4 pt-2">
-                <input data-mdb-ripple-init class="btn btn-primary btn-lg" type="submit" value="Submit" />
-              </div>
-
-            </form>
-          </div>
+    <form action="{{ url('register') }}" method="post">
+        @csrf
+        <div class="login-box">
+            <div class="login-header">
+                <header>Đăng ký</header>
+            </div>
+            <div class="input-box">
+                <input type="text" name="name" class="input-field" placeholder="Tên" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+                <input type="email" class="input-field" name="email" placeholder="Email" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" class="input-field" placeholder="Mật khẩu" autocomplete="off"
+                    required>
+            </div>
+            <div class="input-box" style="padding-bottom: 1rem; margin-left: 1.5rem">
+                <label class="form-label" style="margin-right: 0.5rem">Giới tính</label>
+                <input type="radio" name="gender" value="Nam" checked />
+                <label class="form-label" style="margin-right: 0.3rem">Nam</label>
+                <input type="radio" name="gender" value="Nữ" />
+                <label class="form-label" style="margin-right: 0.3rem">Nữ</label>
+                <input type="radio" name="gender" value="Khác" />
+                <label class="form-label">Khác</label>
+            </div>
+            <div class="input-box">
+                <input type="date" class="input-field" name="date_of_birth" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+                <input type="number" class="input-field" name="phone" placeholder="Số điện thoại" autocomplete="off"
+                    required>
+            </div>
+            <div class="input-box">
+                <input type="text" class="input-field" name="address" placeholder="Địa chỉ" autocomplete="off" required>
+            </div>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li style="color:red;list-style-type: none;text-align: center">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <div class="input-submit">
+                <button class="submit-btn" id="submit"></button>
+                <label for="submit">Đăng ký</label>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </form>
 </body>
+
 </html>

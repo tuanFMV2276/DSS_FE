@@ -44,6 +44,7 @@ class OrderController extends Controller
     $status = ($paymentMethod == 'paypal') ? 1 : 0;
 
     $orderData = [
+        'customer_id' => Session()->get('id'),
         'order_date' => Carbon::today()->format('Y-m-d'),
         'name' => $request->input('name'),
         'email' => $request->input('email'),

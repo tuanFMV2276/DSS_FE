@@ -12,7 +12,7 @@ class WebAuthController extends Controller
 {
     public function showRegisterForm()
     {
-        return view('Login_Register_ForgotPass/Register/Tuan_Register');
+        return view('Login_Register_ForgotPass/Register/Register');
     }
 
     public function register(Request $request)
@@ -21,18 +21,22 @@ class WebAuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'gender' => $request->gender,
+            'date_of_birth' => $request->date_of_birth,
+            'phone' => $request->phone,
+            'address' => $request->address,
         ]);
 
         if ($response->successful()) {
-            return redirect('/login')->with('success', 'Registration successful! Please login.');
+            return redirect('/login')->with('success', 'Đăng ký thành công. Vui long đăng nhập.');
         } else {
-            return back()->withErrors(['error' => 'Registration failed.']);
+            return back()->withErrors(['error' => 'Đăng ký thật bại.']);
         }
     }
 
     public function showLoginForm()
     {
-        return view('Login_Register_ForgotPass/login/Tuan_Login');
+        return view('Login_Register_ForgotPass/Login/Login');
     }
 
     public function login(Request $request)
@@ -44,13 +48,15 @@ class WebAuthController extends Controller
 
         if ($response->successful()) {
             $data = $response->json();
+            Session::put('access_token', $data['access_token']);
             //  dd($data);
             Session::put('access_token', $data['access_token']);
             $role = $data['data']['role'];
-
-            // Lưu trữ role vào phiên
+            $name = $data['data']['name'];
+            $userId = $data['data']['id'];
             Session::put('role', $role);
-            // Session::put('role', $data['role']);
+            Session::put('name', $name);
+            Session::put('id', $userId);
             if($role == "manager"){
                 return redirect('/home-manager');
             }
@@ -65,7 +71,7 @@ class WebAuthController extends Controller
             }
             return redirect('/'); // Chuyển hướng đến trang sản phẩm
         } else {
-            return back()->withErrors(['error' => 'Login failed.']);
+            return back()->withErrors(['error' => 'Đăng nhập thất bại.']);
         }
     }
 

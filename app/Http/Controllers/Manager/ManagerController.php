@@ -17,9 +17,9 @@ class ManagerController extends Controller
     public function homeManager()
     {
         // Gọi API để lấy dữ liệu
-        $employees = collect(Http::get('http://127.0.0.1:8000/api/employee')->json())->whereIn('role_id', [3, 4]);
+        $employees = collect(Http::get('http://127.0.0.1:8000/api/user')->json())->whereIn('role', ["salestaff","deliverystaff"]);
         $products = Http::get('http://127.0.0.1:8000/api/product')->json();
-        $customers = Http::get('http://127.0.0.1:8000/api/customer')->json();
+        // $customers = Http::get('http://127.0.0.1:8000/api/customer')->json();
         $payments = Http::get('http://127.0.0.1:8000/api/payment')->json();
         $maindiamonds = Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
         $exdiamonds = Http::get('http://127.0.0.1:8000/api/exdiamond')->json();
@@ -37,20 +37,20 @@ class ManagerController extends Controller
 
         // Số dòng trên mỗi trang
 
-        return view('HomeManager.HomeManager', compact('employees', 'products', 'customers', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'material', 'orders', 'diamondpricelists','product_for_sale','available_product','total_sale'));
+        return view('HomeManager.HomeManager', compact('employees', 'products', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'material', 'orders', 'diamondpricelists','product_for_sale','available_product','total_sale'));
     }
 
     //Employee function
 
     public function showEmployeeDetail($id)
     {
-        $employee = Http::get("http://127.0.0.1:8000/api/employee/{$id}")->json();
+        $employee = Http::get("http://127.0.0.1:8000/api/user/{$id}")->json();
         return view('HomeManager.EmployeeDetail', ['employee' => $employee]);
     }
 
     public function updateEmployee(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/employee/{$id}", $request->all());
+        $response = Http::put("http://127.0.0.1:8000/api/user/{$id}", $request->all());
 
         return redirect('/home-manager');
     }

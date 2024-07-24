@@ -51,6 +51,7 @@
                                 <th>Số lượng</th>
                                 <th>Giá</th>
                                 <th>Trạng thái</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,6 +92,12 @@
                                     Không xác định
                                     @endswitch
                                 </td>
+                                <td>
+                                    @if ($order['status'] != 5 && $order['status'] != 4)
+                                    <button class="btn btn-danger cancel-order" data-order-id="{{ $order['id'] }}">Hủy
+                                        đơn</button>
+                                    @endif
+                                </td>
                             </tr>
                             @endif
                             @endforeach
@@ -107,6 +114,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.cancel-order').click(function() {
+            var orderId = $(this).data('order-id');
+            if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
+                $.ajax({
+                    url: '{{ route("customer.orders.cancel") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        order_id: orderId
+                    },
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function(error) {
+                        alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                    }
+                });
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>

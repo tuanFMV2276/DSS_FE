@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
-class DetailProductController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +20,10 @@ class DetailProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    // Fetch data from API endpoints
-    $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
-
-    // Return the updated products to the view
-    return view('Customer/DetailProduct/DetailProductPage', ['products' => $products]);
-}
+    {
+        $user = Http::get('http://127.0.0.1:8000/api/user')->json();
+        return view('Customer/ProfileCus/Profile', ['user' => $user]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -52,20 +54,7 @@ class DetailProductController extends Controller
      */
     public function show($id)
     {
-        // Fetch product data
-        $response = Http::get("http://127.0.0.1:8000/api/product/{$id}");
-        $product = $response->json();
-
-        // Fetch main diamond data
-        $mainDiamondId = $product['main_diamond_id'];
-        $mainDiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$mainDiamondId}");
-        $mainDiamond = $mainDiamondResponse->json();
-
-        // Pass product and main diamond data to the view
-        return view('Customer.DetailProduct.DetailProductPage', [
-            'product' => $product,
-            'mainDiamond' => $mainDiamond
-        ]);
+        //
     }
 
     /**
@@ -83,13 +72,31 @@ class DetailProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+{
+    // Chuyển đổi $id sang kiểu integer
+    $id = (int) $id;
+
+    // Update thông tin người dùng
+    $customerData = [
+        'name' => $request->name,
+        'email' => $request->email,
+        'gender' => $request->gender,
+        'date_of_birth' => $request->date_of_birth,
+        'phone' => $request->phone,
+        'address' => $request->address,
+    ];
+
+    $response = Http::put("http://127.0.0.1:8000/api/user/{$id}", $customerData);
+
+    if ($response->successful()) {
+        return redirect('/Profile')->with('success', 'Cập nhật thông tin thành công!');
+    } else {
+        return back()->withErrors(['error' => 'Cập nhật thông tin thất bại!']);
     }
+}
 
     /**
      * Remove the specified resource from storage.

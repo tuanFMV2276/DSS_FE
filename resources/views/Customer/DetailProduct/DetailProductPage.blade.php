@@ -25,7 +25,7 @@
             <div class="col-sm-5 text-center">
                 <h3>{{ $product['product_name'] }} {{ $product['product_code'] }}</h3>
                 <h4>Giá: {{ number_format($product['total_price'], 0, ',', '.') }}₫</h4>
-                <h5>Chất Liệu: Vàng trắng 14K</h5>
+                <h5>Chất Liệu: {{ $product['material_name'] }}</h5>
                 <div class="col-sm-12 ring-size-wrapper mt-4">
                     <h4>Kích Thước Nhẫn</h4>
                     <form id="add-to-cart-form" action="{{ route('cart.add') }}" method="post">
@@ -53,9 +53,12 @@
                     <p id="delivery-date" class="text-center mt-3"></p>
                 </strong>
                 <div class="extend">
-                    <div><i class="fas fa-lightbulb"></i> Đưa ra gợi ý</div>
-                    <div><i class="fas fa-comments"></i> Trò chuyện ngay</div>
-                    <div><i class="fas fa-phone"></i> Gọi cho chúng tôi</div>
+                    <i class="fa-sharp fa-solid fa-dollar-sign fa-2xl"></i>
+                    <div> Đảm bảo giá cả tốt nhất</div>
+                    <i class="fa-regular fa-heart fa-2xl"></i>
+                    <div> Bảo hành trọn đời</div>
+                    <i class="fa-solid fa-rotate-left fa-2xl"></i>
+                    <div> Trả hàng trong vòng 30 ngày</div>
                 </div>
             </div>
         </div>
@@ -70,11 +73,7 @@
             </tr>
             <tr>
                 <td>Kim loại</td>
-                <td>Vàng trắng 14k</td>
-            </tr>
-            <tr>
-                <td>Đường kính</td>
-                <td>4mm</td>
+                <td>{{ $product['material_name'] }}</td>
             </tr>
         </table>
 
@@ -139,12 +138,17 @@
     <script>
     $(document).ready(function() {
         $('#add-to-cart-button').click(function() {
+            if (!isLoggedIn()) {
+                alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.');
+                return;
+            }
+
             $.ajax({
                 url: $('#add-to-cart-form').attr('action'),
                 method: 'POST',
                 data: $('#add-to-cart-form').serialize(),
                 success: function(response) {
-                    $('#add-to-cart-message').show().delay(3000).fadeOut();
+                    $('#add-to-cart-message').show().delay(1000).fadeOut();
                 },
                 error: function(response) {
                     alert('Có lỗi xảy ra, vui lòng thử lại.');
@@ -152,6 +156,10 @@
             });
         });
     });
+
+    function isLoggedIn() {
+        return "{{ Session::has('access_token') }}";
+    }
     </script>
 </body>
 
