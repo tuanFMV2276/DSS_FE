@@ -24,14 +24,20 @@ class ManagerController extends Controller
         $maindiamonds = Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
         $exdiamonds = Http::get('http://127.0.0.1:8000/api/exdiamond')->json();
         $shelldiamonds = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
+        $material = Http::get('http://127.0.0.1:8000/api/material')->json();
         $diamondpricelists = Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json();
+        $product_data = Http::get('http://127.0.0.1:8000/home_manager/product/data')->json();
+        $product_for_sale = $product_data['for_sale_product'][0]['total_product'];
+        $available_product = $product_data['available_product'][0]['total_product'];
+        // $total_user = Http::get('http://127.0.0.1:8000/home_manager/user/data')->json();
+        $total_sale = Http::get('http://127.0.0.1:8000/home_manager/for_sale/data')->json();
         // Phân trang cho orders
         $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
         $orders = collect($orders);
 
         // Số dòng trên mỗi trang
 
-        return view('HomeManager.HomeManager', compact('employees', 'products', 'customers', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'orders', 'diamondpricelists'));
+        return view('HomeManager.HomeManager', compact('employees', 'products', 'customers', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'material', 'orders', 'diamondpricelists','product_for_sale','available_product','total_sale'));
     }
 
     //Employee function
@@ -452,7 +458,8 @@ class ManagerController extends Controller
 
     public function createDiamondShell()
     {
-        return view('HomeManager.createDiamondShell');
+        $material = Http::get("http://127.0.0.1:8000/api/material")->json();
+        return view('HomeManager.createDiamondShell',compact('material'));
     }
 
     public function storeDiamondShell(Request $request)
@@ -481,7 +488,8 @@ class ManagerController extends Controller
     public function editDiamondShell($id)
     {
         $diamond_shell = Http::get("http://127.0.0.1:8000/api/diamondshell/{$id}")->json();
-        return view('HomeManager.updateDiamondShell', compact('diamond_shell'));
+        $material = Http::get("http://127.0.0.1:8000/api/material")->json();
+        return view('HomeManager.updateDiamondShell', compact('diamond_shell','material'));
     }
 
     public function updateDiamondShell(Request $request, $id)
@@ -530,67 +538,39 @@ class ManagerController extends Controller
 
     public function createMaterial()
     {
-        return view('HomeManager.createDiamondShell');
+        return view('HomeManager.createMaterial');
     }
 
     public function storeMaterial(Request $request)
     {
-        if ($request->hasFile('image')) {
-            // Store the new image
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imageSize = $image->getSize();
-            $image->move(public_path('Picture_Product'), $imageName);
-        }
-
-        $response = Http::post('http://127.0.0.1:8000/api/diamondshell/', [
-            'name' => $request->name,
-            'image' => $imageName,
+        $response = Http::post('http://127.0.0.1:8000/api/material/', [
+            'material_name' => $request->material_name,
             'price' => $request->price,
             'status' => $request->status,
         ]);
-        return redirect()->route('manager.home')->with('success', 'Extra Diamond created successfully.');
+        return redirect()->route('manager.home')->with('success', 'Material created successfully.');
     }
 
     public function editMaterial($id)
     {
-        $diamond_shell = Http::get("http://127.0.0.1:8000/api/diamondshell/{$id}")->json();
-        return view('HomeManager.updateDiamondShell', compact('diamond_shell'));
+        $material = Http::get("http://127.0.0.1:8000/api/material/{$id}")->json();
+        return view('HomeManager.updateMaterial', compact('material'));
     }
 
     public function updateMaterial(Request $request, $id)
     {
-        if ($request->hasFile('image')) {
-            // Store the new image
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imageSize = $image->getSize();
-            $image->move(public_path('Picture_Product'), $imageName);
 
-            // Delete the old image if exists
-            if ($request->image) {
-                $oldImagePath = public_path('Picture_Product/' . $request->image);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-        } else {
-            $imageName = $request->image;
-        }
-
-        return $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$request->$id}", [
-            'name' => $request->name,
-            'image' => $imageName,
+        $response = Http::put("http://127.0.0.1:8000/api/material/{$request->$id}", [
+            'material_name' => $request->material_name,
             'price' => $request->price,
             'status' => $request->status,
-            'weight' => $request->weight,
-            'material_id' => $request->material_id,
         ]);
+        return redirect()->route('manager.home')->with('success', 'Material created successfully.');
     }
 
     public function deleteMaterial(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}", ['status' => 0]);
+        $response = Http::put("http://127.0.0.1:8000/api/material/{$id}", ['status' => 0]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');

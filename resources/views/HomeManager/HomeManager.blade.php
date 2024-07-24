@@ -89,7 +89,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             <div class="item-align">
                                 <div style="flex-grow: 1;">
                                     <p class="item-top-font">Product for Sale</p>
-                                    684
+                                    {{ $product_for_sale }}
                                 </div>
                                 <i class="fas fa-calendar fa-2x icon-top-font"></i>
                             </div>
@@ -101,7 +101,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <div style="flex-grow: 1;">
                                     <p class="item-top-font">Products Left
                                     </p>
-                                    1500
+                                    {{ $available_product }}
                                 </div>
                                 <i class="fas fa-dollar-sign fa-2x icon-top-font"></i>
                             </div>
@@ -113,7 +113,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <div style="flex-grow: 1;">
                                     <p class="item-top-font">Total Customer
                                     </p>
-                                    1,732
+                                    0
                                 </div>
                                 <i class="fas fa-users fa-2x icon-top-font"></i>
                             </div>
@@ -125,7 +125,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <div style="flex-grow: 1;">
                                     <p class="item-top-font">Total Product Sale
                                     </p>
-                                    900
+                                    {{ $total_sale }}
                                 </div>
                                 <i class="fa-solid fa-money-bill-wave fa-2x icon-top-font"></i>
                             </div>
@@ -263,7 +263,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <input type="text" id="customer_name" name="customer_name"
                                     placeholder="Customer Name">
                                 <i class="fas fa-user"></i>
-                                <input type="date" data-date-format="YYYY-MM-DD" id="order_date" name="order_date" placeholder="Order Date">
+                                <input type="date" data-date-format="YYYY-MM-DD" id="order_date"
+                                    name="order_date" placeholder="Order Date">
                                 <button type="submit">
                                     Search
                                 </button>
@@ -361,7 +362,8 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="prev-btn-order" onclick="prevPageOrder()" disabled>&laquo; Previous</button>
                         <span id="page-num-order">1</span> / <span id="total-pages">1</span>
                         <button id="next-btn-order" onclick="nextPageOrder()">Next &raquo;</button>
-                        <input type="number" id="goto-page-input" min="1" placeholder="Page" style="width: 55px;">
+                        <input type="number" id="goto-page-input" min="1" placeholder="Page"
+                            style="width: 55px;">
                         <button id="goto-page-btn">Go</button>
                     </div>
                 </div>
@@ -451,7 +453,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="next-btn" onclick="nextPage()">Next &raquo;</button>
                     </div>
                 </div>
-                
+
 
                 <div id="maindiamond-management" class="table-container" style="display: none;">
                     <h1>List Diamond</h1>
@@ -647,11 +649,13 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <th>Name</th>
                                 <th>Image</th>
                                 <th>Price</th>
+                                <th>Material</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="shell-body">
+
                             @foreach ($shelldiamonds as $index => $shell)
                                 <tr class="shell-row">
                                     <td style="display: none;">{{ $index + 1 }}</td>
@@ -660,6 +664,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td><img src="{{ asset('/Picture_Product/' . $shell['image']) }}"
                                             alt="Shell Image" width="20%"></td>
                                     <td>{{ $shell['price'] }}</td>
+                                    <td>{{ $shell['material_name'] }}</td>
                                     <td>{{ $shell['status'] }}</td>
                                     <td>
                                         <a href="{{ route('manager.editDiamondShell', $shell['id']) }}"
@@ -691,6 +696,14 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     <div class="top-bar" style="justify-content: end;">
                         <a href="{{ route('manager.createPrice') }}" class="btn btn-success"><button
                                 class="add-st"><i class="fas fa-plus"></i>Add New Price</button></a>
+                    </div>
+                    <div class="status-bar">
+                        <button class="status-btn active" onclick="showTable('price-list')">
+                             Diamonds
+                        </button>
+                        <button class="status-btn" onclick="showTable('material')">
+                             Materials
+                        </button>
                     </div>
                     <table border="1">
                         <thead>
@@ -739,9 +752,48 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="prev-btn-price" onclick="prevPagePrice()" disabled>&laquo; Previous</button>
                         <span id="page-num-price">1</span> / <span id="total-pages-price"></span>
                         <button id="next-btn-price" onclick="nextPagePrice()">Next &raquo;</button>
-                        <input type="number" id="page-input-price" min="1" placeholder="Page" style="width: 55px;">
+                        <input type="number" id="page-input-price" min="1" placeholder="Page"
+                            style="width: 55px;">
                         <button id="go-to-page-price">Go</button>
                     </div>
+                </div>
+                <div id="material" class="table-container" style="display: none;">
+                    <h1>List Price</h1>
+                    <div class="top-bar" style="justify-content: end;">
+                        <a href="{{ route('manager.createPrice') }}" class="btn btn-success"><button
+                                class="add-st"><i class="fas fa-plus"></i>Add New Material</button></a>
+                    </div>
+                    <div class="status-bar">
+                        <button class="status-btn active" onclick="showTable('price-list')">
+                             Diamonds
+                        </button>
+                        <button class="status-btn" onclick="showTable('material')">
+                             Materials
+                        </button>
+                    </div>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">#</th>
+                                <th>ID</th>
+                                <th>Material name</th>
+                                <th>price</th>
+                                <th>status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="material-body">
+                            @foreach ($material as $index => $material)
+                                <tr class="material-row">
+                                    <td style="display: none;">{{ $index + 1 }}</td>
+                                    <td>{{ $material['id'] }}</td>
+                                    <td>{{ $material['material_name'] }}</td>
+                                    <td>{{ number_format($material['price'], 0) }}</td>
+                                    <td>{{ $material['status'] }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>                  
                 </div>
 
                 <div id="staff-management" class="table-container" style="display: none;">
@@ -868,7 +920,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             function displayOrderRows() {
                 let displayedRows = 0;
                 let start = (currentPageOrder - 1) * rowsPerPageOrder;
-                let end = start + rowsPerPageOrder ;
+                let end = start + rowsPerPageOrder;
 
                 orderRows.forEach((row, index) => {
                     if (!row.classList.contains('filtered-out')) {
@@ -961,7 +1013,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
         displayRows(); // Initial display
     </script>
-    
+
     {{-- pageDiamond --}}
     <script>
         const diamondRows = document.querySelectorAll('.diamond-row');
@@ -1249,7 +1301,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
         });
     </script>
     {{-- search ajax --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#search-form').on('submit', function(e) {
@@ -1319,164 +1371,41 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
     {{-- dashboard chart --}}
     <script>
         let chart;
-        //Data for custom line chart
-        const dataForYear = [{
-                "x": new Date(2019, 1, 6),
-                "y": 5278000
-            },
-            {
-                "x": new Date(2020, 1, 6),
-                "y": 3289000
-            },
-            {
-                "x": new Date(2021, 1, 6),
-                "y": 3830000
-            },
-            {
-                "x": new Date(2022, 1, 6),
-                "y": 2560000
-            },
-            {
-                "x": new Date(2023, 1, 6),
-                "y": 4860000
-            },
-            {
-                "x": new Date(2024, 1, 6),
-                "y": 2700000
-            },
-            // Add more data points for the year
-        ];
 
-        const dataForMonth = [{
-                "x": new Date(2020, 1, 6),
-                "y": 3289000
-            },
-            {
-                "x": new Date(2020, 2, 6),
-                "y": 3830000
-            },
-            {
-                "x": new Date(2020, 3, 6),
-                "y": 5240000
-            },
-            {
-                "x": new Date(2020, 4, 6),
-                "y": 3615000
-            },
-            {
-                "x": new Date(2020, 5, 6),
-                "y": 2865000
-            },
-            {
-                "x": new Date(2020, 6, 6),
-                "y": 2454000
-            },
-            {
-                "x": new Date(2020, 7, 6),
-                "y": 1452000
-            },
-            {
-                "x": new Date(2020, 8, 6),
-                "y": 3562000
-            },
-            {
-                "x": new Date(2020, 9, 6),
-                "y": 4547000
-            },
-            {
-                "x": new Date(2020, 10, 6),
-                "y": 1475000
-            },
-            {
-                "x": new Date(2020, 11, 6),
-                "y": 2649000
-            },
-            {
-                "x": new Date(2020, 12, 6),
-                "y": 3572000
-            },
-            // Add more data points for the month
-        ];
+        async function fetchAndUpdateChart(criteria) {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/home_manager/dashboard/${criteria}`);
+                const data = await response.json();
 
-        const dataForDay = [{
-                "x": new Date(2020, 1, 6),
-                "y": 3289000
-            },
-            {
-                "x": new Date(2020, 1, 7),
-                "y": 3830000
-            },
-            {
-                "x": new Date(2020, 1, 8),
-                "y": 2009000
-            },
-            {
-                "x": new Date(2020, 1, 9),
-                "y": 2840000
-            },
-            {
-                "x": new Date(2020, 1, 10),
-                "y": 2396000
-            },
-            {
-                "x": new Date(2020, 1, 11),
-                "y": 1613000
-            },
-            {
-                "x": new Date(2020, 1, 12),
-                "y": 1821000
-            },
-            {
-                "x": new Date(2020, 1, 13),
-                "y": 2000000
-            },
-            {
-                "x": new Date(2020, 1, 14),
-                "y": 1397000
-            },
-            {
-                "x": new Date(2020, 1, 15),
-                "y": 2506000
-            },
-            {
-                "x": new Date(2020, 1, 16),
-                "y": 6704000
-            },
-            {
-                "x": new Date(2020, 1, 17),
-                "y": 5704000
-            },
-            {
-                "x": new Date(2020, 1, 18),
-                "y": 4009000
-            },
-            {
-                "x": new Date(2020, 1, 19),
-                "y": 3026000
-            },
-            {
-                "x": new Date(2020, 1, 20),
-                "y": 2394000
-            },
-            {
-                "x": new Date(2020, 1, 21),
-                "y": 1872000
-            },
-            {
-                "x": new Date(2020, 1, 22),
-                "y": 2140000
+                const dataPoints = data.map(item => {
+                    let x;
+                    switch (criteria) {
+                        case 'year':
+                            x = new Date(item.x, 0); // January 1st of the year
+                            break;
+                        case 'month':
+                            const year = new Date().getFullYear();
+                            x = new Date(year, item.x - 1); // First day of the month
+                            break;
+                        case 'day':
+                            const currentMonth = new Date().getMonth();
+                            const currentYear = new Date().getFullYear();
+                            x = new Date(currentYear, currentMonth, item.x);
+                            break;
+                    }
+                    return {
+                        x,
+                        y: Number(item.y)
+                    };
+                });
+                console.log('Data Points:', dataPoints);
+                updateChart(criteria, dataPoints);
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-        ];
-        //Map data into chart
-        const dataMap = {
-            year: dataForYear,
-            month: dataForMonth,
-            day: dataForDay
-        };
-        //Draw line chart function
-        function updateChart(criteria) {
+        }
 
-            const dataPoints = dataMap[criteria];
+        function updateChart(criteria, dataPoints) {
             let xValueFormatString;
 
             switch (criteria) {
@@ -1500,19 +1429,19 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 axisY: {
                     title: "Revenue in VND",
                     valueFormatString: "#0,,.",
-                    suffix: "mn",
+                    suffix: "m",
                     prefix: "VND"
                 },
                 axisX: {
                     valueFormatString: xValueFormatString
                 },
                 data: [{
-                    type: "spline",
+                    type: "line",
                     showInLegend: true,
                     name: "Overall Revenue",
                     xValueFormatString: xValueFormatString,
                     yValueFormatString: "VND#,##0.##",
-                    markerType: "square",
+                    markerType: "circle",
                     color: "#F08080",
                     dataPoints: dataPoints
                 }]
@@ -1525,10 +1454,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 chart = new CanvasJS.Chart("chartContainer", chartOptions);
                 chart.render();
             }
-        }
-
-        function fetchAndUpdateChart(criteria) {
-            updateChart(criteria);
         }
 
         // Initial load

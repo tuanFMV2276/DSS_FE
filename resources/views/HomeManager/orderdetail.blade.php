@@ -147,7 +147,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="content">
+                   
                         <p><strong>Warranty ID:</strong> {{ $warrantycertificate['id'] }}</p>
                         <p><strong>Product Name:</strong> {{ $product['product_name'] }}</p>
                         <p><strong>Product Code:</strong> {{ $product['product_code'] }}</p>
@@ -157,15 +157,7 @@
                         <p><strong>Customer Phone:</strong> {{ $order['phone'] }}</p>
                         <p><strong>Issue Date:</strong> {{ $warrantycertificate['issue_date'] }}</p>
                         <p><strong>Expiry Date:</strong> {{ $warrantycertificate['expiry_date'] }}</p>
-                    </div>
-                    <div class="terms">
-                        <h2>Terms and Conditions</h2>
-                        <p>1. The warranty covers manufacturing defects only.</p>
-                        <p>2. The warranty does not cover damage caused by misuse or accidents.</p>
-                        <p>3. The warranty is valid only with the original purchase receipt.</p>
-                        <p>4. Warranty claims must be accompanied by the warranty certificate.</p>
-                        <p>5. For any warranty issues, please contact our customer service.</p>
-                    </div>
+                   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

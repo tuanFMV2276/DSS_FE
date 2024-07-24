@@ -74,6 +74,25 @@ $Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
             </div>
 
             <div class="form-group">
+                <label for="main_diamond_id"><i class="fas fa-gem"></i> Material ID</label>
+                <select class="form-control" id="main_diamond_id" name="main_diamond_id" required>
+                    <option value="">Select Material ID</option>
+                    @foreach ($material as $mat)
+                        @if ($mat['status'] == 1)
+                            <option value="{{ $mat['id'] }}" {{ old('material_id') == $mat['id'] ? 'selected' : '' }}>
+                                {{ $mat['id'] }}
+                            </option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="prcice"><i class="fas fa-sort-numeric-up"></i> Weight</label>
+                <input type="number" class="form-control" id="diamond_shell_weight" name="price" value="{{ old('weight', $diamond_shell['weight']) }}" min="0" max="5" step="0.01" placeholder="gram" required>
+            </div>
+
+            <div class="form-group">
                 <label for="status"><i class="fas fa-toggle-on"></i> Status</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="status" id="status_active" value="1" {{ 'checked'}} required>
