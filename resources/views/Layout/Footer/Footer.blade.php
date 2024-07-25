@@ -57,11 +57,7 @@
                             <a href="/Giay-chung-nhan" class="text-reset">Giấy chứng nhận</a>
                         </p>
                     </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Hướng dẫn sử dụng</h6>
                         <p>
                             <a href="/DoNi" class="text-reset">Đo size</a>

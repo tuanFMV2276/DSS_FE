@@ -63,7 +63,6 @@ class OrderController extends Controller
         $id = $response->json('id');
 
         if ($orderResponse->successful()) {
-            // Lấy lại ID của đơn hàng vừa tạo
             $order = $orderResponse->json();
             $orderId = $order['id'];
             $orderDetailData = [
@@ -83,7 +82,6 @@ class OrderController extends Controller
                 $paymentResponse = Http::post('http://127.0.0.1:8000/api/payment', $paymentData);
 
                 if ($paymentResponse->successful()) {
-                    // Update product after successful payment
                     $productUpdateData = [
                         'size' => $size,
                         'status' => 0,
@@ -95,22 +93,18 @@ class OrderController extends Controller
                     if ($productUpdateResponse->successful()) {
                         return view('Customer.PaymentSuccessful.PaymentSuccessful', ['orderId' => $orderId]);
                     } else {
-                        // Rollback if product update fails
                         Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
                         return back()->withErrors('Error updating product.');
                     }
                 } else {
-                    // Rollback if payment save fails
                     Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
                     return back()->withErrors('Error saving payment.');
                 }
             } else {
-                // Rollback if order detail save fails
                 Http::delete("http://127.0.0.1:8000/api/order/{$orderId}");
                 return back()->withErrors('Error creating order detail.');
             }
         } else {
-            // Handle error if creating order fails
             return back()->withErrors('Error creating order.');
         }
         

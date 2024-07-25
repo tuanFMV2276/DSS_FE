@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Modules\Admin\Repositories\BaseRepository\BaseRepository;
 
 class CartController extends Controller
@@ -16,19 +17,21 @@ class CartController extends Controller
      */
     public function index()
 {
-    $cart = session()->get('cart', []);
+    $userId = Session::get('id');
+    $cart = session()->get("cart_{$userId}", []);
     return view('Customer.Cart.CartPage', ['cart' => $cart]);
 }
 
 public function add(Request $request)
     {
-        $product_code = $request->input('product_code'); // Get product_code from request
-        $url = "http://127.0.0.1:8000/api/product/update/{$product_code}"; // Create URL with product_code
-        $response = Http::get($url); // Send GET request to URL
+        $userId = Session::get('id');
+        $product_code = $request->input('product_code');
+        $url = "http://127.0.0.1:8000/api/product/update/{$product_code}";
+        $response = Http::get($url);
         $id = $response->json('id');
-        
+
         $product = [
-            'id' => $id, // Ensure unique ID for each cart item
+            'id' => $id,
             'product_name' => $request->input('name'),
             'total_price' => $request->input('total_price'),
             'ringsize' => $request->input('ringsize'),
@@ -36,9 +39,9 @@ public function add(Request $request)
             'product_code' => $request->input('product_code'),
         ];
 
-        $cart = session()->get('cart', []);
+        $cart = session()->get("cart_{$userId}", []);
         $cart[] = $product;
-        session()->put('cart', $cart);
+        session()->put("cart_{$userId}", $cart);
 
         if ($request->ajax()) {
             return response()->json(['success' => true]);
@@ -47,23 +50,24 @@ public function add(Request $request)
         return redirect()->route('cart.index')->with('success', 'Product added to cart!');
     }
 
+    public function remove($index)
+    {
+        $userId = Session::get('id');
+        $cart = session()->get("cart_{$userId}", []);
+        if (isset($cart[$index])) {
+            unset($cart[$index]);
+            session()->put("cart_{$userId}", array_values($cart));
+        }
 
-public function remove($index)
-{
-    $cart = session()->get('cart', []);
-    if (isset($cart[$index])) {
-        unset($cart[$index]);
-        session()->put('cart', array_values($cart)); // Re-index array
+        return redirect()->route('cart.index')->with('success', 'Product removed from cart!');
     }
 
-    return redirect()->route('cart.index')->with('success', 'Product removed from cart!');
-}
-
-public function payment()
-{
-    $cartItems = session()->get('cart', []);
-    return view('Customer.Payment.Payment', compact('cartItems'));
-}
+    public function payment()
+    {
+        $userId = Session::get('id');
+        $cartItems = session()->get("cart_{$userId}", []);
+        return view('Customer.Payment.Payment', compact('cartItems'));
+    }
 
     /**
      * Show the form for creating a new resource.

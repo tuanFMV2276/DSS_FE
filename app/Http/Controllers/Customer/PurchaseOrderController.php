@@ -24,12 +24,10 @@ class PurchaseOrderController extends Controller
     $orderDetails = Http::get('http://127.0.0.1:8000/api/orderdetail')->json();
     $products = Http::get('http://127.0.0.1:8000/api/product')->json();
 
-    // Lọc các đơn hàng của khách hàng đã đăng nhập
     $customerOrders = array_filter($orders, function($order) use ($customerId) {
         return $order['customer_id'] == $customerId;
     });
 
-    // Phân loại đơn hàng theo trạng thái
     $statuses = [
         'all' => [],
         'pending' => [],
@@ -61,7 +59,6 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    // Truyền dữ liệu tới view
     return view('Customer.PurchaseOrder.PurchaseOrder', [
         'orders' => $statuses,
         'orderDetails' => $orderDetails,

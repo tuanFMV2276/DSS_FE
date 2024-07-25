@@ -14,11 +14,9 @@ class AccountController extends Controller
         $response = Http::get('http://127.0.0.1:8000/api/customer');
         $customers = $response->json();
 
-        // Giả sử bạn có thêm employees API
         $response = Http::get('http://127.0.0.1:8000/api/employee');
         $employees = $response->json();
 
-        // Lọc employees có role_ic không bằng 1
         $filteredEmployees = array_filter($employees, function ($employee) {
             return $employee['role_id'] != 1;
         });

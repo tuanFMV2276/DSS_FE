@@ -76,10 +76,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
 {
-    // Chuyển đổi $id sang kiểu integer
     $id = (int) $id;
 
-    // Update thông tin người dùng
     $customerData = [
         'name' => $request->name,
         'email' => $request->email,

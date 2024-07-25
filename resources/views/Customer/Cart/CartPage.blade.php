@@ -154,7 +154,6 @@
     @include('Layout.Header.Header')
     <div class="container" id="cart-container">
         <div class="row mb-3">
-            <!-- Cart Items Section -->
             <div class="col-md-8">
                 <div class="cart-items">
                     @if(count($cart) > 0)
@@ -171,7 +170,6 @@
                                 @csrf @method('DELETE')
                                 <button type="submit" class="cart-remove btn btn-link">Xoá</button>
                             </form>
-
                         </div>
                         <div class="cart-item-details">
                             <h4 class="cart-item-title">
@@ -193,7 +191,6 @@
                     @endif
                 </div>
             </div>
-            <!-- Order Summary Section -->
             <div class="col-md-4">
                 <div class="order-summary">
                     <h2>Đơn hàng</h2>
@@ -242,11 +239,10 @@
             var url = form.attr('action');
 
             $.ajax({
-                type: 'DELETE', // Sử dụng phương thức DELETE
+                type: 'DELETE',
                 url: url,
                 data: form.serialize(),
                 success: function(response) {
-                    // Cập nhật lại phần giỏ hàng với nội dung HTML mới
                     $('#cart-container').html(response.html);
                 },
                 error: function(xhr, status, error) {

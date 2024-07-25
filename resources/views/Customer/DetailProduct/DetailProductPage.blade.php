@@ -37,12 +37,13 @@
                         <input type="hidden" name="total_price" value="{{ $product['total_price'] }}">
                         <input type="hidden" name="image" value="{{ asset('/Picture_Product/' . $product['image']) }}">
                         <input type="hidden" name="product_code" value="{{ $product['product_code'] }}">
+                        <input type="hidden" id="product-quantity" value="1">
                         <div>
                             <button type="button" id="add-to-cart-button" class="btn btn-orange">Thêm vào giỏ
                                 hàng</button>
                         </div>
                         <div class="d-flex justify-content-center mt-2">
-                            <button type="submit" class="btn btn-orange">Mua ngay</button>
+                            <button type="button" id="buy-now-button" class="btn btn-orange">Mua ngay</button>
                         </div>
                     </form>
                     <div id="add-to-cart-message" class="text-success mt-2" style="display: none;">Sản phẩm đã được thêm
@@ -136,7 +137,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
+        let isAddedToCart = false;
+
         $('#add-to-cart-button').click(function() {
+            if (isAddedToCart) {
+                alert(
+                    'Sản phẩm chỉ có số lượng là 1. Có thể sản phẩm đã ở trong giỏ hàng. Vui lòng kiểm tra lại.'
+                );
+                return;
+            }
+
             if (!isLoggedIn()) {
                 alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.');
                 return;
@@ -147,12 +157,29 @@
                 method: 'POST',
                 data: $('#add-to-cart-form').serialize(),
                 success: function(response) {
-                    $('#add-to-cart-message').show().delay(1000).fadeOut();
+                    $('#add-to-cart-message').show().delay(2000).fadeOut();
+                    isAddedToCart = true;
                 },
                 error: function(response) {
                     alert('Có lỗi xảy ra, vui lòng thử lại.');
                 }
             });
+        });
+
+        $('#buy-now-button').click(function() {
+            if (isAddedToCart) {
+                alert(
+                    'Sản phẩm chỉ có số lượng là 1. Có thể sản phẩm đã ở trong giỏ hàng. Vui lòng kiểm tra lại.'
+                );
+                return;
+            }
+
+            if (!isLoggedIn()) {
+                alert('Vui lòng đăng nhập để mua sản phẩm.');
+                return;
+            }
+
+            $('#add-to-cart-form').submit();
         });
     });
 
