@@ -179,23 +179,23 @@
             const orderRows = document.querySelectorAll('.status-row');
             const rowsPerPageOrder = 5;
             let currentPageOrder = 1;
-
+    
             statusButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const status = btn.getAttribute('data-status');
-
-                    // Update active button
+    
+                    // Cập nhật nút đang hoạt động
                     statusButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-
-                    // Filter orders based on status and reset pagination
+    
+                    // Lọc đơn hàng theo trạng thái và đặt lại phân trang
                     filterOrders(status);
                     currentPageOrder = 1;
                     displayOrderRows();
                     updateTotalPages();
                 });
             });
-
+    
             function filterOrders(status) {
                 orderRows.forEach(row => {
                     if (status === 'all' || row.getAttribute('data-status') === status) {
@@ -207,12 +207,12 @@
                     }
                 });
             }
-
+    
             function displayOrderRows() {
                 let displayedRows = 0;
                 let start = (currentPageOrder - 1) * rowsPerPageOrder;
                 let end = start + rowsPerPageOrder;
-
+    
                 orderRows.forEach((row, index) => {
                     if (!row.classList.contains('filtered-out')) {
                         row.style.display = 'none';
@@ -222,54 +222,59 @@
                         displayedRows++;
                     }
                 });
-
+    
                 document.getElementById('page-num-order').textContent = currentPageOrder;
                 document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
                 document.getElementById('next-btn-order').disabled = currentPageOrder >= totalPages();
             }
-
+    
             function prevPageOrder() {
                 if (currentPageOrder > 1) {
                     currentPageOrder--;
                     displayOrderRows();
                 }
             }
-
+    
             function nextPageOrder() {
                 if (currentPageOrder < totalPages()) {
                     currentPageOrder++;
                     displayOrderRows();
                 }
             }
-
+    
             function updateTotalPages() {
                 document.getElementById('total-pages').textContent = totalPages();
             }
-
+    
             function totalPages() {
                 let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
                 return Math.ceil(visibleRows.length / rowsPerPageOrder);
             }
-
+    
             document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
             document.getElementById('next-btn-order').addEventListener('click', nextPageOrder);
-
+    
             document.getElementById('goto-page-btn').addEventListener('click', () => {
                 const gotoPageInput = document.getElementById('goto-page-input').value;
                 const pageNumber = parseInt(gotoPageInput, 10);
-                if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= totalPages()) {
+                const totalPagesCount = totalPages();
+    
+                if (isNaN(pageNumber) || pageNumber <= 0 || pageNumber > totalPagesCount) {
+                    alert('Invalid page number. Please enter a number between 1 and ' + totalPagesCount + '.');
+                } else {
                     currentPageOrder = pageNumber;
                     displayOrderRows();
                 }
             });
-
-            // Initial display
+    
+            // Hiển thị trang đầu tiên
             filterOrders('all');
             displayOrderRows();
             updateTotalPages();
         });
     </script>
-    </script>
+    
+
     <script>
         function confirmAndUpdateStatus(orderId) {
             if (confirm('Are you sure you want to update the status?')) {

@@ -64,9 +64,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <p><strong><i class="fas fa-user-circle"></i> Username:</strong>
-                                {{ $employee['user_name'] }}</p>
+                                {{ $employee['name'] }}</p>
                             <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ $employee['email'] }}</p>
-                            <p><strong><i class="fas fa-key"></i> Password:</strong> {{ $employee['password'] }}</p>
+                            {{-- <p><strong><i class="fas fa-key"></i> Password:</strong> {{ $employee['password'] }}</p> --}}
                             <p><strong><i class="fas fa-phone"></i> Phone:</strong> {{ $employee['phone'] }}</p>
                         </div>
                         <div class="col-md-6">
@@ -75,18 +75,23 @@
                             <p><strong><i class="fas fa-birthday-cake"></i> Date of Birth:</strong>
                                 {{ $employee['date_of_birth'] }}</p>
                             <p><strong><i class="fas fa-venus-mars"></i> Gender:</strong> {{ $employee['gender'] }}</p>
-                            <p><strong><i class="fas fa-user-check"></i> Status:</strong>
-                                {{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</p>
+                            <div class="form-group form-inline">
+                                <label for="status" class="mr-2"><strong><i class="fas fa-user-check"></i> Status:</strong></label>
+                                <select name="status" id="status" class="form-control" onchange="enableSaveButton()">
+                                    <option value="1" {{ $employee['status'] == 1 ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ $employee['status'] == 0 ? 'selected' : '' }}>Inactive</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="role_id"><i class="fas fa-user-tag"></i> Assign Role </label>
-                        <select class="form-control" id="role_id" name="role_id" style="width: min-content">
-                            <option value='2' {{ old('role_id', $employee['role_id']) == '2' ? 'selected' : '' }}>
+                        <label for="role"><i class="fas fa-user-tag"></i> Assign Role </label>
+                        <select class="form-control" id="role" name="role" style="width: min-content">
+                            <option value='manager' {{ old('role', $employee['role']) == 'manager' ? 'selected' : '' }}>
                                 Manager</option>
-                            <option value='3' {{ old('role_id', $employee['role_id']) == '3' ? 'selected' : '' }}>Sales
+                            <option value='salestaff' {{ old('role', $employee['role']) == 'salestaff' ? 'selected' : '' }}>Sales
                                 Staff</option>
-                            <option value='4' {{ old('role_id', $employee['role_id']) == '4' ? 'selected' : '' }}>
+                            <option value='deliverystaff' {{ old('role', $employee['role']) == 'deliverystaff' ? 'selected' : '' }}>
                                 Delivery Staff</option>
                         </select>
                     </div>
@@ -95,11 +100,11 @@
                     <button type="submit" class="btn btn-primary">Save</button>
 
                 </form>
-                <form action="{{ route('admin.destroyEmployee', $employee['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?')">
+                {{-- <form action="{{ route('admin.destroyEmployee', $employee['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger mt-3"><i class="fas fa-trash-alt"></i> Delete</button>
-                </form>
+                </form> --}}
             </div>
         </div>
     </div>

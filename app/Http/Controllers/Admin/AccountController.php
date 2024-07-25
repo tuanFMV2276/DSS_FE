@@ -11,19 +11,24 @@ class AccountController extends Controller
 {
     public function index()
     {
-        $response = Http::get('http://127.0.0.1:8000/api/customer');
-        $customers = $response->json();
+        $responsecustomer = Http::get('http://127.0.0.1:8000/api/user');
+        $customers = $responsecustomer->json();
 
-        // Giả sử bạn có thêm employees API
-        $response = Http::get('http://127.0.0.1:8000/api/employee');
+        $filteredCustomers = array_filter($customers, function ($customer) {
+            return $customer['role'] == "user";
+        });
+        
+        $response = Http::get('http://127.0.0.1:8000/api/user');
         $employees = $response->json();
 
-        // Lọc employees có role_ic không bằng 1
         $filteredEmployees = array_filter($employees, function ($employee) {
-            return $employee['role_id'] != 1;
+            return $employee['role'] != "user";
+        });
+        $filteredEmployees = array_filter($filteredEmployees, function ($employee) {
+            return $employee['role'] != "admin";
         });
 
-        return view('HomeAdmin.accounts.index', compact('customers', 'filteredEmployees'));
+        return view('HomeAdmin.accounts.index', compact('filteredCustomers', 'filteredEmployees'));
     }
 
     public function create()
@@ -55,7 +60,7 @@ class AccountController extends Controller
 
     public function edit($id)
     {
-        $response = Http::get("http://127.0.0.1:8000/api/customer/{$id}");
+        $response = Http::get("http://127.0.0.1:8000/api/user/{$id}");
         $account = $response->json();
 
         return view('HomeAdmin.accounts.edit', compact('account'));
@@ -85,7 +90,7 @@ class AccountController extends Controller
 
     public function destroy($id)
     {
-        $response = Http::delete("http://127.0.0.1:8000/api/customer/{$id}");
+        $response = Http::delete("http://127.0.0.1:8000/api/user/{$id}");
 
         if ($response->successful()) {
             return redirect()->route('HomeAdmin.accounts.index')->with('success', 'Account deleted successfully.');
@@ -96,13 +101,13 @@ class AccountController extends Controller
 
     public function showEmployeeDetail($id)
     {
-        $employee = Http::get("http://127.0.0.1:8000/api/employee/{$id}")->json();
+        $employee = Http::get("http://127.0.0.1:8000/api/user/{$id}")->json();
         return view('HomeAdmin.EmployeeDetail', ['employee' => $employee]);
     }
 
     public function updateEmployee(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/employee/{$id}", $request->all());
+        $response = Http::put("http://127.0.0.1:8000/api/user/{$id}", $request->all());
 
         return redirect('/home-admin');
     }
@@ -112,28 +117,28 @@ class AccountController extends Controller
     }
     public function storeNewEmployee(Request $request)
     {
-        $response = Http::post('http://127.0.0.1:8000/api/employee', $request->all());
+        $response = Http::post('http://127.0.0.1:8000/api/user', $request->all());
         return redirect()->route('admin.accounts.index')->with('success', 'New Employee created successfully.');
     }
     public function destroyEmployee($id)
     {
-        $response = Http::delete("http://127.0.0.1:8000/api/employee/{$id}");
+        $response = Http::delete("http://127.0.0.1:8000/api/user/{$id}");
         return redirect()->route('admin.accounts.index')->with('success', 'Employee deleted successfully.');
     }
     public function showCustomerDetail($id)
     {
-        $customer = Http::get("http://127.0.0.1:8000/api/customer/{$id}")->json();
+        $customer = Http::get("http://127.0.0.1:8000/api/user/{$id}")->json();
         return view('HomeAdmin.CustomerDetail', ['customer' => $customer]);
     }
     public function updateCustomer(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/customer/{$id}", $request->all());
+        $response = Http::put("http://127.0.0.1:8000/api/user/{$id}", $request->all());
 
         return redirect('/home-admin');
     }
     public function destroyCustomer($id)
     {
-        $response = Http::delete("http://127.0.0.1:8000/api/customer/{$id}");
+        $response = Http::delete("http://127.0.0.1:8000/api/user/{$id}");
         return redirect()->route('admin.accounts.index')->with('success', 'Employee deleted successfully.');
     }
 

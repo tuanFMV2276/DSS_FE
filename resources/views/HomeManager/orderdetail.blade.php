@@ -45,8 +45,6 @@
 
                     @csrf
                     @method('PUT')
-                    @csrf
-                    @method('PUT')
 
                     <div class="form-group row">
                         <label for="status" class="col-sm-2 col-form-label"><strong>Status:</strong></label>
@@ -149,7 +147,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   
+                    @if($warrantycertificate)
                         <p><strong>Warranty ID:</strong> {{ $warrantycertificate['id'] }}</p>
                         <p><strong>Product Name:</strong> {{ $product['product_name'] }}</p>
                         <p><strong>Product Code:</strong> {{ $product['product_code'] }}</p>
@@ -159,13 +157,17 @@
                         <p><strong>Customer Phone:</strong> {{ $order['phone'] }}</p>
                         <p><strong>Issue Date:</strong> {{ $warrantycertificate['issue_date'] }}</p>
                         <p><strong>Expiry Date:</strong> {{ $warrantycertificate['expiry_date'] }}</p>
-                   
+                    @else
+                        <p>No warranty information available.</p>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a href="{{ route('warranty.pdf', $warrantycertificate['id']) }}" class="btn btn-info ml-2">
-                        <i class="fas fa-file-pdf"></i> Generate PDF
-                    </a>
+                    @if($warrantycertificate)
+                        <a href="{{ route('warranty.pdf', $warrantycertificate['id']) }}" class="btn btn-info ml-2">
+                            <i class="fas fa-file-pdf"></i> Generate PDF
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -181,11 +183,11 @@
             const doc = new jsPDF();
             const content = `
                 Warranty Information\n\n
-                Warranty ID: {{ $warrantycertificate['id'] }}\n
-                Product ID: {{ $warrantycertificate['product_id'] }}\n
-                Issue Date: {{ $warrantycertificate['issue_date'] }}\n
-                Expiry Date: {{ $warrantycertificate['expiry_date'] }}\n
-                Status: {{ $warrantycertificate['status'] }}\n
+                Warranty ID: {{ $warrantycertificate['id'] ?? 'N/A' }}\n
+                Product ID: {{ $warrantycertificate['product_id'] ?? 'N/A' }}\n
+                Issue Date: {{ $warrantycertificate['issue_date'] ?? 'N/A' }}\n
+                Expiry Date: {{ $warrantycertificate['expiry_date'] ?? 'N/A' }}\n
+                Status: {{ $warrantycertificate['status'] ?? 'N/A' }}\n
             `;
             doc.text(content, 10, 10);
             doc.save('warranty.pdf');

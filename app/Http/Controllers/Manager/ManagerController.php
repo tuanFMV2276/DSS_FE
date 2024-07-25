@@ -17,7 +17,7 @@ class ManagerController extends Controller
     public function homeManager()
     {
         // Gọi API để lấy dữ liệu
-        $employees = collect(Http::get('http://127.0.0.1:8000/api/user')->json())->whereIn('role', ["salestaff","deliverystaff"]);
+        $employees = collect(Http::get('http://127.0.0.1:8000/api/user')->json())->whereIn('role', ["salestaff", "deliverystaff"]);
         $products = Http::get('http://127.0.0.1:8000/api/product')->json();
         // $customers = Http::get('http://127.0.0.1:8000/api/customer')->json();
         $payments = Http::get('http://127.0.0.1:8000/api/payment')->json();
@@ -29,7 +29,8 @@ class ManagerController extends Controller
         $product_data = Http::get('http://127.0.0.1:8000/home_manager/product/data')->json();
         $product_for_sale = $product_data['for_sale_product'][0]['total_product'];
         $available_product = $product_data['available_product'][0]['total_product'];
-        // $total_user = Http::get('http://127.0.0.1:8000/home_manager/user/data')->json();
+        $total_user_data = Http::get('http://127.0.0.1:8000/home_manager/user/data')->json();
+        $total_user = $total_user_data[0]['total_user'];
         $total_sale = Http::get('http://127.0.0.1:8000/home_manager/for_sale/data')->json();
         // Phân trang cho orders
         $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
@@ -37,7 +38,7 @@ class ManagerController extends Controller
 
         // Số dòng trên mỗi trang
 
-        return view('HomeManager.HomeManager', compact('employees', 'products', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'material', 'orders', 'diamondpricelists','product_for_sale','available_product','total_sale'));
+        return view('HomeManager.HomeManager', compact('employees', 'products', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'material', 'orders', 'diamondpricelists', 'product_for_sale', 'available_product', 'total_user', 'total_sale'));
     }
 
     //Employee function
@@ -456,12 +457,6 @@ class ManagerController extends Controller
 
     //Diamond Shell CRUD section
 
-    public function createDiamondShell()
-    {
-        $material = Http::get("http://127.0.0.1:8000/api/material")->json();
-        return view('HomeManager.createDiamondShell',compact('material'));
-    }
-
     public function storeDiamondShell(Request $request)
     {
         if ($request->hasFile('image')) {
@@ -474,14 +469,39 @@ class ManagerController extends Controller
             $imageName = null;
         }
 
+        $shelldiamonds = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
+        $total_maleShell = 0;
+        $total_femaleShell = 0;
+
+        foreach ($shelldiamonds as $key => $value) {
+            $pattern = '/\b(Nữ|Nam)\b/';
+            preg_match($pattern, $value['name'], $matches);
+            $result = !empty($matches) ? $matches[0] : "";
+
+            if ($result === "Nam") {
+                $total_maleShell++;
+            } else if ($result === "Nữ") {
+                $total_femaleShell++;
+            }
+        }
+
+        $pattern = '/\b(Nữ|Nam)\b/';
+        preg_match($pattern, $request->name, $matches);
+        $filter = !empty($matches) ? $matches[0] : null;
+        if ($filter == "Nam") {
+            $complete_name = $request->name . ' ' . 'R' . ($total_maleShell + 1);
+        } else {
+            $complete_name = $request->name . ' ' . 'R' . ($total_femaleShell + 1);
+        }
+
         $response = Http::post('http://127.0.0.1:8000/api/diamondshell/', [
-            'name' => $request->name,
+            'name' => $complete_name,
             'image' => $imageName,
-            'price' => $request->price,
-            'status' => $request->status,
             'weight' => $request->weight,
+            'status' => $request->status,
             'material_id' => $request->material_id,
         ]);
+
         return redirect()->route('manager.home')->with('success', 'Diamond Shell created successfully.');
     }
 
@@ -489,7 +509,7 @@ class ManagerController extends Controller
     {
         $diamond_shell = Http::get("http://127.0.0.1:8000/api/diamondshell/{$id}")->json();
         $material = Http::get("http://127.0.0.1:8000/api/material")->json();
-        return view('HomeManager.updateDiamondShell', compact('diamond_shell','material'));
+        return view('HomeManager.updateDiamondShell', compact('diamond_shell', 'material'));
     }
 
     public function updateDiamondShell(Request $request, $id)
@@ -512,12 +532,26 @@ class ManagerController extends Controller
             $imageName = $request->image;
         }
 
-        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$request->$id}", [
+        if ($request->name != $request->old_name) {
+            $shelldiamonds = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
+
+            $pattern = '/\s*R\d*$/';
+            preg_match($pattern, $request->old_name, $matches);
+            $result = !empty($matches) ? $matches[0] : "";
+
+            // Remove existing tail if present
+            $request->name = preg_replace($pattern, '' ,$request->name);
+
+            // Append the new tail
+            $request->name .= ' ' . $result;
+
+        }
+
+        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}", [
             'name' => $request->name,
             'image' => $imageName,
-            'price' => $request->price,
-            'status' => $request->status,
             'weight' => $request->weight,
+            'status' => $request->status,
             'material_id' => $request->material_id,
         ]);
         return redirect()->route('manager.home')->with('success', 'Diamond Shell updated successfully.');
@@ -544,7 +578,7 @@ class ManagerController extends Controller
     public function storeMaterial(Request $request)
     {
         $response = Http::post('http://127.0.0.1:8000/api/material/', [
-            'material_name' => $request->material_name,
+            'material_name' => $request->name,
             'price' => $request->price,
             'status' => $request->status,
         ]);
@@ -561,7 +595,7 @@ class ManagerController extends Controller
     {
 
         $response = Http::put("http://127.0.0.1:8000/api/material/{$request->$id}", [
-            'material_name' => $request->material_name,
+            'material_name' => $request->name,
             'price' => $request->price,
             'status' => $request->status,
         ]);
@@ -570,7 +604,7 @@ class ManagerController extends Controller
 
     public function deleteMaterial(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/material/{$id}", ['status' => 0]);
+        $response = Http::delete("http://127.0.0.1:8000/api/material/{$id}");
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
@@ -579,41 +613,50 @@ class ManagerController extends Controller
         }
     }
     public function generatePDF($id)
-{
-    // Lấy thông tin giấy bảo hành
-    $warranty = Http::get("http://127.0.0.1:8000/api/warrantycertificate/{$id}")->json();
-    $productId = $warranty['product_id']; 
+    {
+        // Lấy thông tin giấy bảo hành
+        $warranty = Http::get("http://127.0.0.1:8000/api/warrantycertificate/{$id}")->json();
+        $productId = $warranty['product_id'];
 
-    // Lấy thông tin sản phẩm dựa trên productId
-    $product = Http::get("http://127.0.0.1:8000/api/product/{$productId}")->json();  // Sửa URL nếu cần
+        // Lấy thông tin sản phẩm dựa trên productId
+        $product = Http::get("http://127.0.0.1:8000/api/product/{$productId}")->json(); // Sửa URL nếu cần
 
-    // Lấy thông tin chi tiết đơn hàng
-    $existingOrderDetails = Http::get("http://127.0.0.1:8000/api/orderdetail")->json();
-    $existing = false;
+        // Lấy thông tin chi tiết đơn hàng
+        $existingOrderDetails = Http::get("http://127.0.0.1:8000/api/orderdetail")->json();
+        $existing = false;
 
-    foreach ($existingOrderDetails as $orderdetail) {
-        if ($orderdetail['product_id'] == $product['id']) {
-            $existing = true;
-            $Orderid = $orderdetail['order_id'];
-            break;
+        foreach ($existingOrderDetails as $orderdetail) {
+            if ($orderdetail['product_id'] == $product['id']) {
+                $existing = true;
+                $Orderid = $orderdetail['order_id'];
+                break;
+            }
         }
+
+        if ($existing) {
+            // Lấy thông tin đơn hàng dựa trên order_id
+            $order = Http::get("http://127.0.0.1:8000/api/order/{$Orderid}")->json(); // Sửa URL nếu cần
+        } else {
+            $order = null;
+        }
+
+        // Load view và truyền dữ liệu vào
+        $pdf = PDF::loadView('HomeManager.warrantyPDF', compact('warranty', 'product', 'order'));
+
+        // Tải về file PDF
+        return $pdf->download('warranty.pdf');
     }
+    public function download(Request $request, $id)
+    {
+        $certificate = WarrantyCertificate::find($id);
 
-    if ($existing) {
-        // Lấy thông tin đơn hàng dựa trên order_id
-        $order = Http::get("http://127.0.0.1:8000/api/order/{$Orderid}")->json();  // Sửa URL nếu cần
-    } else {
-        $order = null;
+        if (!$certificate) {
+            return response()->json(['error' => 'Certificate not found'], 404);
+        }
+
+        $pathToFile = storage_path('app/public/' . $certificate->file_path);
+        
+        return response()->download($pathToFile);
     }
-
-    // Load view và truyền dữ liệu vào
-    $pdf = PDF::loadView('HomeManager.warrantyPDF', compact('warranty', 'product', 'order'));
-
-    // Tải về file PDF
-    return $pdf->download('warranty.pdf');
-}
-
-    
-
 
 }

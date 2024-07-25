@@ -94,7 +94,7 @@
                         <div class="col-md-6">
                             <p><strong><i class="fas fa-user-circle"></i> Username:</strong> {{ $customer['name'] }}</p>
                             <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ $customer['email'] }}</p>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="password"><strong><i class="fas fa-key"></i> Password:</strong></label>
                                 <div class="input-group">
                                     <input type="password" id="password" class="form-control" value="{{ $customer['password'] }}" readonly>
@@ -104,7 +104,7 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <p><strong><i class="fas fa-phone"></i> Phone:</strong> {{ $customer['phone'] }}</p>
                         </div>
                         <div class="col-md-6">
@@ -125,11 +125,11 @@
                         <button type="submit" class="btn btn-primary" id="save-button">Save</button>
                     </div>
                 </form>
-                <form action="{{ route('admin.destroyCustomer', $customer['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this customer?')">
+                {{-- <form action="{{ route('admin.destroyCustomer', $customer['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this customer?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger mt-3"><i class="fas fa-trash-alt"></i> Delete</button>
-                </form>
+                </form> --}}
             </div>
         </div>
     </div>

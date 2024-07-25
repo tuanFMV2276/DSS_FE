@@ -11,7 +11,6 @@
         <div class="row">
             <div class="col-md-6">
                 <p><strong><i class="fas fa-user-circle"></i> Name:</strong> {{ $order['name'] }}</p>
-                {{-- <p><strong><i class="fas fa-venus-mars"></i> Gender:</strong> {{ $order['gender'] }}</p> --}}
                 <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ $order['email'] }}</p>
             </div>
             <div class="col-md-6">
@@ -26,20 +25,19 @@
     <div class="card-header">
         <h2><i class="fas fa-shopping-cart"></i> Order</h2>
     </div>
-    <form action="{{ route('salestaff.updateOrderStatus', $order['id']) }}" method="POST"
-        onsubmit="return confirmUpdate()">
+    <form action="{{ route('salestaff.updateOrderStatus', $order['id']) }}" method="POST" onsubmit="return confirmUpdate()">
         <div class="card-body">
             <div class="row">
                 @php
-                $payment = collect($payments)->firstWhere('order_id', $order['id']);
-                $statusLabels = [
-                0 => 'Pending',
-                1 => 'Accepted',
-                2 => 'Prepare Product',
-                3 => 'Delivering',
-                4 => 'Finished',
-                5 => 'Cancelled',
-                ];
+                    $payment = collect($payments)->firstWhere('order_id', $order['id']);
+                    $statusLabels = [
+                        0 => 'Pending',
+                        1 => 'Accepted',
+                        2 => 'Prepare Product',
+                        3 => 'Delivering',
+                        4 => 'Finished',
+                        5 => 'Cancelled',
+                    ];
                 @endphp
                 <div class="col-md-6">
                     <p><strong><i class="fas fa-id-card"></i> Order ID:</strong> {{ $order['id'] }}</p>
@@ -52,69 +50,52 @@
                         <label for="status" class="col-sm-2 col-form-label"><strong>Status:</strong></label>
                         <div class="col-sm-10">
                             @if(in_array($order['status'], [3, 4, 5]))
-
-                            <p class="form-control-static mt-2">
-                                @switch($order['status'])
-                                @case(3)
-                                Delivering
-                                @break
-                                @case(4)
-                                Finished
-                                @break
-                                @case(5)
-                                Cancelled
-                                @break
-                                @endswitch
-                            </p>
+                                <p class="form-control-static mt-2">
+                                    @switch($order['status'])
+                                        @case(3) Delivering @break
+                                        @case(4) Finished @break
+                                        @case(5) Cancelled @break
+                                    @endswitch
+                                </p>
                             @else
-                            <select class="form-control" id="status" name="status" style="width: min-content">
-                                <option value="0" {{ $order['status'] == 0 ? 'selected' : '' }}>Pending</option>
-                                <option value="1" {{ $order['status'] == 1 ? 'selected' : '' }}>Accepted</option>
-                                <option value="2" {{ $order['status'] == 2 ? 'selected' : '' }}>Prepare Product</option>
-                                <!-- <option value="3" {{ $order['status'] == 3 ? 'selected' : '' }} disabled>Delivering
-                                </option>
-                                <option value="4" {{ $order['status'] == 4 ? 'selected' : '' }} disabled>Finished
-                                </option>
-                                <option value="5" {{ $order['status'] == 5 ? 'selected' : '' }} disabled>Cancelled
-                                </option> -->
-                            </select>
+                                <select class="form-control" id="status" name="status" style="width: min-content">
+                                    <option value="0" {{ $order['status'] == 0 ? 'selected' : '' }}>Pending</option>
+                                    <option value="1" {{ $order['status'] == 1 ? 'selected' : '' }}>Accepted</option>
+                                    <option value="2" {{ $order['status'] == 2 ? 'selected' : '' }}>Prepare Product</option>
+                                    <option value="3" {{ $order['status'] == 3 ? 'selected' : '' }}>Delivering</option>
+                                    <option value="4" {{ $order['status'] == 4 ? 'selected' : '' }}>Finished</option>
+                                    <option value="5" {{ $order['status'] == 5 ? 'selected' : '' }}>Cancelled</option>
+                                </select>
                             @endif
                         </div>
                     </div>
-
-
                 </div>
                 <div class="col-md-6">
-
-                    <p><strong><i class="fas fa-credit-card"></i> Payment method:</strong>
-                        {{ $payment ? $payment['payment_method'] : 'Unknown' }}</p>
-                    <p><strong><i class="fas fa-dollar-sign"></i> Total Price:</strong>
-                        {{ number_format($order['total_price'], 0, ',', '.') }}₫</p>
-
+                    <p><strong><i class="fas fa-credit-card"></i> Payment method:</strong> {{ $payment ? $payment['payment_method'] : 'Unknown' }}</p>
+                    <p><strong><i class="fas fa-dollar-sign"></i> Total Price:</strong> {{ number_format($order['total_price'], 0, ',', '.') }}₫</p>
                 </div>
             </div>
 
             <h3><i class="fas fa-box-open"></i> Products</h3>
             <div class="border">
                 <div class="row mt-3">
-                    <div class="col-md-1">
-
-                    </div>
+                    <div class="col-md-1"></div>
                     <div class="col-md-5">
-                        <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image"
-                            class="img-thumbnail mb-2" width="100%">
+                        <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Product Image" class="img-thumbnail mb-2" width="100%">
                     </div>
-                    <div class="col-md-1">
-
-                    </div>
+                    <div class="col-md-1"></div>
                     <div class="col-md-5 mt-5">
                         <h1>{{ $product['product_name'] }}</h1>
-                        <p class="mt-5" style="font-size: 20px"><strong>Product Code:</strong>
-                            {{ $product['product_code'] }}</p>
+                        <p class="mt-5" style="font-size: 20px"><strong>Product Code:</strong> {{ $product['product_code'] }}</p>
                         <p style="font-size: 20px"><strong>Size:</strong> {{ $product['size'] }}</p>
-                        <p style="font-size: 20px"><strong>Shell: </strong>{{ $diamondshell['name'] }}</p>
-                        <p><strong><i class="fas fa-calendar-check"></i> Warranty Expiry Date:</strong>
-                            {{ $warrantycertificate ? $warrantycertificate['expiry_date'] : 'Updating' }}
+                        <p style="font-size: 20px"><strong>Shell:</strong> {{ $diamondshell['name'] }}</p>
+                        <p style="font-size: 20px">
+                            <i class="fas fa-calendar-check"></i>
+                            <strong> Warranty Expiry Date:</strong> {{ $warrantycertificate ? $warrantycertificate['expiry_date'] : 'Updating' }}
+                            
+                            <button type="button" class="btn btn-secondary mt-3" data-toggle="modal" data-target="#warrantyModal">
+                                <i class="fas fa-info-circle"></i> View Warranty Details
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -157,21 +138,56 @@
                     </tr>
                 </table>
             </div>
-
-
         </div>
         <div class="text-center mt-3"><button type="submit" class="btn btn-primary">Update Status</button></div>
     </form>
 
     <div class="text-center mt-3">
-        <a href="{{ url()->previous() }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to
-            Orders</a>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Orders</a>
     </div>
 
+    <!-- Warranty Modal -->
+    <div class="modal fade" id="warrantyModal" tabindex="-1" role="dialog" aria-labelledby="warrantyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="warrantyModalLabel">Warranty Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if($warrantycertificate)
+                        <p><strong>Warranty ID:</strong> {{ $warrantycertificate['id'] }}</p>
+                        <p><strong>Product Name:</strong> {{ $product['product_name'] }}</p>
+                        <p><strong>Product Code:</strong> {{ $product['product_code'] }}</p>
+                        <p><strong>Invoice Code:</strong> {{ $order['id'] }}</p>
+                        <p><strong>Customer Name:</strong> {{ $order['name'] }}</p>
+                        <p><strong>Customer Email:</strong> {{ $order['email'] }}</p>
+                        <p><strong>Customer Phone:</strong> {{ $order['phone'] }}</p>
+                        <p><strong>Issue Date:</strong> {{ $warrantycertificate['issue_date'] }}</p>
+                        <p><strong>Expiry Date:</strong> {{ $warrantycertificate['expiry_date'] }}</p>
+                    @else
+                        <p>No warranty information available.</p>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    @if($warrantycertificate)
+                        <a href="{{ route('warranty.pdf', $warrantycertificate['id']) }}" class="btn btn-info ml-2">
+                            <i class="fas fa-file-pdf"></i> Generate PDF
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
+</div>
+
+<script>
     function confirmUpdate() {
-        return confirm("Are you sure you want to update the order status?");
+        return confirm('Are you sure you want to update the order status?');
     }
-    </script>
-    @endsection
+</script>
+@endsection

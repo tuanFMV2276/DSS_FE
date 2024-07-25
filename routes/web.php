@@ -167,7 +167,8 @@ Route::get('/Gioi-thieu', function () {
 Route::get('/Bao-quan-trang-suc', function () {
     return view('Information.Service.BaoQuanTrangSuc');
 });
-
+Route::get('/warranty/{id}/pdf', [ManagerController::class, 'generatePDF'])->name('warranty.pdf');
+Route::get('/api/warrantycertificate/{id}/download', [ManagerController::class, 'download']);
 // //==================================================Auth=======================================================
 
 Route::get('register', [WebAuthController::class, 'showRegisterForm'])->name('register');

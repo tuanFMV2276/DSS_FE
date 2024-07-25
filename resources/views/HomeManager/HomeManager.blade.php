@@ -113,7 +113,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <div style="flex-grow: 1;">
                                     <p class="item-top-font">Total Customer
                                     </p>
-                                    0
+                                    {{ $total_user }}
                                 </div>
                                 <i class="fas fa-users fa-2x icon-top-font"></i>
                             </div>
@@ -371,9 +371,9 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 <div id="product-management" class="table-container" style="display: none;">
                     <h1>List Product</h1>
                     <div class="top-bar" style="justify-content: end">
-
-                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success"><button
-                                class="add-st"><i class="fas fa-plus"></i>Add New Product</button></a>
+                        <a href="{{ route('manager.createProduct') }}" class="btn btn-success">
+                            <button class="add-st"><i class="fas fa-plus"></i>Add New Product</button>
+                        </a>
                     </div>
 
                     <div class="status-bar">
@@ -403,7 +403,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <th>Extra Diamond ID</th>
                                 <th>Number Ex Diamond</th>
                                 <th>Diamond Shell ID</th>
-                                {{-- <th>Size</th> --}}
                                 <th>Price Rate</th>
                                 <th>Quantity</th>
                                 <th>Status</th>
@@ -425,7 +424,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $product['number_ex_diamond'] == null ? 'None' : $product['number_ex_diamond'] }}
                                     </td>
                                     <td>{{ $product['diamond_shell_id'] }}</td>
-                                    {{-- <td>{{ number_format($product['size'], 2) }}</td> --}}
                                     <td>{{ number_format($product['price_rate'], 2) }}</td>
                                     <td>{{ $product['quantity'] }}</td>
                                     <td>{{ $product['status'] }}</td>
@@ -448,23 +446,24 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     </table>
 
                     <div class="pagination">
-                        <button id="prev-btn" onclick="prevPage()" disabled>&laquo; Previous</button>
-                        <span id="page-num">1</span>
-                        <button id="next-btn" onclick="nextPage()">Next &raquo;</button>
+                        <button id="prev-btn-product" disabled>&laquo; Previous</button>
+                        <span id="page-num-product">1</span> / <span id="total-pages-product">1</span>
+                        <button id="next-btn-product">Next &raquo;</button>
+                        <input type="number" id="goto-page-input-product" min="1" placeholder="Page"
+                            style="width: 55px;">
+                        <button id="goto-page-btn-product">Go</button>
                     </div>
                 </div>
-
-
+                <!-- Main Diamond Management -->
                 <div id="maindiamond-management" class="table-container" style="display: none;">
-                    <h1>List Diamond</h1>
-                    <div class="top-bar" style="justify-content: end">
+                    <h1>List Main Diamond</h1>
+                    <div class="top-bar" style="justify-content: end;">
                         <a href="{{ route('manager.createMainDiamond') }}" class="btn btn-success">
-                            <button class="add-st"><i class="fas fa-plus"></i>Add New Diamond</button>
+                            <button class="add-st"><i class="fas fa-plus"></i>Add New Main Diamond</button>
                         </a>
                     </div>
-
                     <div class="status-bar">
-                        <button class="status-btn active" onclick="showTable('product-management')">
+                        <button class="status-btn" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
                         </button>
                         <button class="status-btn" onclick="showTable('maindiamond-management')">
@@ -477,7 +476,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-
                     <table border="1">
                         <thead>
                             <tr>
@@ -538,25 +536,25 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             @endforeach
                         </tbody>
                     </table>
-
                     <div class="pagination">
                         <button id="prev-btn-diamond" onclick="prevPageDiamond()" disabled>&laquo; Previous</button>
-                        <span id="page-num-diamond">1</span>
+                        <span id="page-num-diamond">1</span> / <span id="total-pages-diamond">1</span>
                         <button id="next-btn-diamond" onclick="nextPageDiamond()">Next &raquo;</button>
+                        <input type="number" id="goto-page-input-diamond" min="1" placeholder="Page"
+                            style="width: 55px;">
+                        <button id="goto-page-btn-diamond">Go</button>
                     </div>
                 </div>
-
+                <!-- Ex Diamond Management -->
                 <div id="exdiamond-management" class="table-container" style="display: none;">
                     <h1>List Extra Diamond</h1>
-                    <div class="top-bar" style="justify-content: end">
-
+                    <div class="top-bar" style="justify-content: end;">
                         <a href="{{ route('manager.createExDiamond') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Extra Diamond</button>
                         </a>
                     </div>
-
                     <div class="status-bar">
-                        <button class="status-btn active" onclick="showTable('product-management')">
+                        <button class="status-btn" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
                         </button>
                         <button class="status-btn" onclick="showTable('maindiamond-management')">
@@ -569,7 +567,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
-
                     <table border="1">
                         <thead>
                             <tr>
@@ -608,26 +605,27 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             @endforeach
                         </tbody>
                     </table>
-
                     <div class="pagination">
                         <button id="prev-btn-exdiamond" onclick="prevPageExDiamond()" disabled>&laquo;
                             Previous</button>
-                        <span id="page-num-exdiamond">1</span>
+                        <span id="page-num-exdiamond">1</span> / <span id="total-pages-exdiamond">1</span>
                         <button id="next-btn-exdiamond" onclick="nextPageExDiamond()">Next &raquo;</button>
+                        <input type="number" id="goto-page-input-exdiamond" min="1" placeholder="Page"
+                            style="width: 55px;">
+                        <button id="goto-page-btn-exdiamond">Go</button>
                     </div>
                 </div>
 
                 <div id="shell-management" class="table-container" style="display: none;">
                     <h1>List Diamond Shell</h1>
-                    <div class="top-bar" style="justify-content: end">
-
+                    <div class="top-bar" style="justify-content: end;">
                         <a href="{{ route('manager.createDiamondShell') }}" class="btn btn-success">
                             <button class="add-st"><i class="fas fa-plus"></i>Add New Shell</button>
                         </a>
                     </div>
 
                     <div class="status-bar">
-                        <button class="status-btn active" onclick="showTable('product-management')">
+                        <button class="status-btn" onclick="showTable('product-management')">
                             <i class="fas fa-box"></i> Products
                         </button>
                         <button class="status-btn" onclick="showTable('maindiamond-management')">
@@ -636,7 +634,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button class="status-btn" onclick="showTable('exdiamond-management')">
                             <i class="fas fa-diamond"></i> Ex Diamonds
                         </button>
-                        <button class="status-btn" onclick="showTable('shell-management')">
+                        <button class="status-btn active" onclick="showTable('shell-management')">
                             <i class="fa-solid fa-ring"></i> Diamond Shells
                         </button>
                     </div>
@@ -655,7 +653,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             </tr>
                         </thead>
                         <tbody id="shell-body">
-
                             @foreach ($shelldiamonds as $index => $shell)
                                 <tr class="shell-row">
                                     <td style="display: none;">{{ $index + 1 }}</td>
@@ -663,7 +660,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ $shell['name'] }}</td>
                                     <td><img src="{{ asset('/Picture_Product/' . $shell['image']) }}"
                                             alt="Shell Image" width="20%"></td>
-                                    <td>{{ $shell['price'] }}</td>
+                                    <td>{{ number_format($shell['price'], 0) }}</td>
                                     <td>{{ $shell['material_name'] }}</td>
                                     <td>{{ $shell['status'] }}</td>
                                     <td>
@@ -686,9 +683,13 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
                     <div class="pagination">
                         <button id="prev-btn-shell" onclick="prevPageShell()" disabled>&laquo; Previous</button>
-                        <span id="page-num-shell">1</span>
+                        <span id="page-num-shell">1</span> / <span id="total-pages-shell">1</span>
                         <button id="next-btn-shell" onclick="nextPageShell()">Next &raquo;</button>
+                        <input type="number" id="goto-page-input-shell" min="1" placeholder="Page"
+                            style="width: 55px;">
+                        <button id="goto-page-btn-shell">Go</button>
                     </div>
+
                 </div>
 
                 <div id="price-list" class="table-container" style="display: none;">
@@ -699,10 +700,10 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     </div>
                     <div class="status-bar">
                         <button class="status-btn active" onclick="showTable('price-list')">
-                             Diamonds
+                            Diamonds
                         </button>
                         <button class="status-btn" onclick="showTable('material')">
-                             Materials
+                            Materials
                         </button>
                     </div>
                     <table border="1">
@@ -757,19 +758,17 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="go-to-page-price">Go</button>
                     </div>
                 </div>
+
                 <div id="material" class="table-container" style="display: none;">
                     <h1>List Price</h1>
                     <div class="top-bar" style="justify-content: end;">
-                        <a href="{{ route('manager.createPrice') }}" class="btn btn-success"><button
-                                class="add-st"><i class="fas fa-plus"></i>Add New Material</button></a>
+                        <a href="{{ route('manager.createMaterial') }}" class="btn btn-success">
+                            <button class="add-st"><i class="fas fa-plus"></i>Add New Material</button>
+                        </a>
                     </div>
                     <div class="status-bar">
-                        <button class="status-btn active" onclick="showTable('price-list')">
-                             Diamonds
-                        </button>
-                        <button class="status-btn" onclick="showTable('material')">
-                             Materials
-                        </button>
+                        <button class="status-btn" onclick="showTable('price-list')">Diamonds</button>
+                        <button class="status-btn active" onclick="showTable('material')">Materials</button>
                     </div>
                     <table border="1">
                         <thead>
@@ -777,28 +776,46 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <th style="display: none;">#</th>
                                 <th>ID</th>
                                 <th>Material name</th>
-                                <th>price</th>
-                                <th>status</th>
+                                <th>Price</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="material-body">
-                            @foreach ($material as $index => $material)
+                            @foreach ($material as $index => $materialItem)
                                 <tr class="material-row">
                                     <td style="display: none;">{{ $index + 1 }}</td>
-                                    <td>{{ $material['id'] }}</td>
-                                    <td>{{ $material['material_name'] }}</td>
-                                    <td>{{ number_format($material['price'], 0) }}</td>
-                                    <td>{{ $material['status'] }}</td>
+                                    <td>{{ $materialItem['id'] }}</td>
+                                    <td>{{ $materialItem['material_name'] }}</td>
+                                    <td>{{ number_format($materialItem['price'], 0) }}</td>
+                                    <td>{{ $materialItem['status'] }}</td>
+                                    <td>
+                                        <button class="update-btn update-st"
+                                            data-id="{{ $materialItem['id'] }}">Update</button>
+                                        <form action="{{ route('manager.destroyMaterial', $materialItem['id']) }}"
+                                            method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="more-margintop delete-st"
+                                                onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>                  
+                    </table>
+                    <div class="pagination">
+                        <button id="prev-btn-material" disabled>&laquo; Previous</button>
+                        <span id="page-num-material">1</span> / <span id="total-pages-material">1</span>
+                        <button id="next-btn-material">Next &raquo;</button>
+                        <input type="number" id="goto-page-input-material" min="1" placeholder="Page"
+                            style="width: 55px;">
+                        <button id="goto-page-btn-material">Go</button>
+                    </div>
                 </div>
-
                 <div id="staff-management" class="table-container" style="display: none;">
                     <h1>Employee List</h1>
-
+                
                     <div class="status-bar more-margintop">
                         <button class="status-btn active" data-status="all">
                             <i class="fas fa-list icon-status"></i> All employees
@@ -823,11 +840,11 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         </thead>
                         <tbody id="employee-body">
                             @foreach ($employees as $index => $employee)
-                                <tr class="status-row-emp" data-status="{{ $employee['role'] }}">
+                                <tr class="employee-row" data-role="{{ $employee['role'] }}">
                                     <td style="display: none;">{{ $index + 1 }}</td>
                                     <td>{{ $employee['name'] }}</td>
                                     <td>{{ $employee['gender'] }}</td>
-                                    <td>{{ $employee['role']}}</td>
+                                    <td>{{ $employee['role'] }}</td>
                                     <td>{{ $employee['status'] == 1 ? 'Active' : 'Inactive' }}</td>
                                     <td>
                                         <a href="{{ route('manager.showEmployeeDetail', $employee['id']) }}">
@@ -838,13 +855,17 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             @endforeach
                         </tbody>
                     </table>
-
+                
                     <div class="pagination">
-                        <button id="prev-btn-employee" onclick="prevPageEmployee()" disabled>&laquo; Previous</button>
-                        <span id="page-num-employee">1</span>
-                        <button id="next-btn-employee" onclick="nextPageEmployee()">Next &raquo;</button>
+                        <button id="prev-btn-employee" disabled>&laquo; Previous</button>
+                        <span id="page-num-employee">1</span> / <span id="total-pages-employee">1</span>
+                        <button id="next-btn-employee">Next &raquo;</button>
+                        <input type="number" id="goto-page-input-employee" min="1" placeholder="Page" style="width: 55px;">
+                        <button id="go-to-page-employee">Go</button>
                     </div>
                 </div>
+                
+                
 
             </div>
         </div>
@@ -888,23 +909,23 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             const orderRows = document.querySelectorAll('.status-row');
             const rowsPerPageOrder = 5;
             let currentPageOrder = 1;
-
+    
             statusButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const status = btn.getAttribute('data-status');
-
-                    // Update active button
+    
+                    // Cập nhật nút đang hoạt động
                     statusButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-
-                    // Filter orders based on status and reset pagination
+    
+                    // Lọc đơn hàng theo trạng thái và đặt lại phân trang
                     filterOrders(status);
                     currentPageOrder = 1;
                     displayOrderRows();
                     updateTotalPages();
                 });
             });
-
+    
             function filterOrders(status) {
                 orderRows.forEach(row => {
                     if (status === 'all' || row.getAttribute('data-status') === status) {
@@ -916,12 +937,12 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     }
                 });
             }
-
+    
             function displayOrderRows() {
                 let displayedRows = 0;
                 let start = (currentPageOrder - 1) * rowsPerPageOrder;
                 let end = start + rowsPerPageOrder;
-
+    
                 orderRows.forEach((row, index) => {
                     if (!row.classList.contains('filtered-out')) {
                         row.style.display = 'none';
@@ -931,198 +952,295 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         displayedRows++;
                     }
                 });
-
+    
                 document.getElementById('page-num-order').textContent = currentPageOrder;
                 document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
                 document.getElementById('next-btn-order').disabled = currentPageOrder >= totalPages();
             }
-
+    
             function prevPageOrder() {
                 if (currentPageOrder > 1) {
                     currentPageOrder--;
                     displayOrderRows();
                 }
             }
-
+    
             function nextPageOrder() {
                 if (currentPageOrder < totalPages()) {
                     currentPageOrder++;
                     displayOrderRows();
                 }
             }
-
+    
             function updateTotalPages() {
                 document.getElementById('total-pages').textContent = totalPages();
             }
-
+    
             function totalPages() {
                 let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
                 return Math.ceil(visibleRows.length / rowsPerPageOrder);
             }
-
+    
             document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
             document.getElementById('next-btn-order').addEventListener('click', nextPageOrder);
-
+    
             document.getElementById('goto-page-btn').addEventListener('click', () => {
                 const gotoPageInput = document.getElementById('goto-page-input').value;
                 const pageNumber = parseInt(gotoPageInput, 10);
-                if (!isNaN(pageNumber) && pageNumber > 0 && pageNumber <= totalPages()) {
+                if (isNaN(pageNumber) || pageNumber <= 0 || pageNumber > totalPages()) {
+                    alert('Invalid page number.');
+                } else {
                     currentPageOrder = pageNumber;
                     displayOrderRows();
                 }
             });
-
-            // Initial display
+    
+            // Hiển thị trang đầu tiên
             filterOrders('all');
             displayOrderRows();
             updateTotalPages();
         });
     </script>
+    
     {{-- pageProduct --}}
     <script>
-        const rows = document.querySelectorAll('.product-row');
-        const rowsPerPage = 5;
-        let currentPage = 1;
+        document.addEventListener('DOMContentLoaded', () => {
+            const rowsPerPageProduct = 5;
+            let currentPageProduct = 1;
 
-        function displayRows() {
-            rows.forEach((row, index) => {
-                row.style.display = 'none';
-                if (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage) {
-                    row.style.display = 'table-row';
+            function displayProductRows() {
+                const productRows = document.querySelectorAll('.product-row');
+                let start = (currentPageProduct - 1) * rowsPerPageProduct;
+                let end = start + rowsPerPageProduct;
+
+                productRows.forEach((row, index) => {
+                    row.style.display = 'none';
+                    if (index >= start && index < end) {
+                        row.style.display = 'table-row';
+                    }
+                });
+
+                document.getElementById('page-num-product').textContent = currentPageProduct;
+                document.getElementById('prev-btn-product').disabled = currentPageProduct === 1;
+                document.getElementById('next-btn-product').disabled = currentPageProduct >= totalPagesProduct();
+            }
+
+            function prevPageProduct() {
+                if (currentPageProduct > 1) {
+                    currentPageProduct--;
+                    displayProductRows();
+                }
+            }
+
+            function nextPageProduct() {
+                if (currentPageProduct < totalPagesProduct()) {
+                    currentPageProduct++;
+                    displayProductRows();
+                }
+            }
+
+            function totalPagesProduct() {
+                const productRows = document.querySelectorAll('.product-row');
+                return Math.ceil(productRows.length / rowsPerPageProduct);
+            }
+
+            function updateTotalPagesProduct() {
+                document.getElementById('total-pages-product').textContent = totalPagesProduct();
+            }
+
+            document.getElementById('prev-btn-product').addEventListener('click', prevPageProduct);
+            document.getElementById('next-btn-product').addEventListener('click', nextPageProduct);
+
+            document.getElementById('goto-page-btn-product').addEventListener('click', () => {
+                const gotoPageInput = document.getElementById('goto-page-input-product').value;
+                const pageNumber = parseInt(gotoPageInput, 10);
+                if (isNaN(pageNumber) || pageNumber < 1 || pageNumber > totalPagesProduct()) {
+                    alert('Invalid page number');
+                } else {
+                    currentPageProduct = pageNumber;
+                    displayProductRows();
                 }
             });
 
-            document.getElementById('page-num').textContent = currentPage;
-            document.getElementById('prev-btn').disabled = currentPage === 1;
-            document.getElementById('next-btn').disabled = currentPage * rowsPerPage >= rows.length;
-        }
-
-        function prevPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                displayRows();
-            }
-        }
-
-        function nextPage() {
-            if (currentPage * rowsPerPage < rows.length) {
-                currentPage++;
-                displayRows();
-            }
-        }
-
-        displayRows(); // Initial display
+            // Initial display
+            displayProductRows();
+            updateTotalPagesProduct();
+        });
     </script>
-
     {{-- pageDiamond --}}
     <script>
-        const diamondRows = document.querySelectorAll('.diamond-row');
-        const rowsPerPageDiamond = 5;
-        let currentPageDiamond = 1;
+        document.addEventListener('DOMContentLoaded', () => {
+            const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        function displayDiamondRows() {
-            diamondRows.forEach((row, index) => {
-                row.style.display = 'none';
-                if (index >= (currentPageDiamond - 1) * rowsPerPageDiamond && index < currentPageDiamond *
-                    rowsPerPageDiamond) {
-                    row.style.display = 'table-row';
+            // Diamond Management
+            let diamondRows = Array.from(document.querySelectorAll('.diamond-row'));
+            const rowsPerPageDiamond = 5;
+            let currentPageDiamond = 1;
+            let filteredDiamondRows = diamondRows;
+            let totalPagesDiamond = Math.ceil(filteredDiamondRows.length / rowsPerPageDiamond);
+
+            function displayDiamondRows() {
+                filteredDiamondRows.forEach((row, index) => {
+                    row.style.display = 'none';
+                    if (index >= (currentPageDiamond - 1) * rowsPerPageDiamond && index <
+                        currentPageDiamond * rowsPerPageDiamond) {
+                        row.style.display = 'table-row';
+                    }
+                });
+
+                document.getElementById('page-num-diamond').textContent = currentPageDiamond;
+                document.getElementById('total-pages-diamond').textContent = totalPagesDiamond;
+                document.getElementById('prev-btn-diamond').disabled = currentPageDiamond === 1;
+                document.getElementById('next-btn-diamond').disabled = currentPageDiamond === totalPagesDiamond;
+            }
+
+            function prevPageDiamond() {
+                if (currentPageDiamond > 1) {
+                    currentPageDiamond--;
+                    displayDiamondRows();
                 }
-            });
-
-            document.getElementById('page-num-diamond').textContent = currentPageDiamond;
-            document.getElementById('prev-btn-diamond').disabled = currentPageDiamond === 1;
-            document.getElementById('next-btn-diamond').disabled = currentPageDiamond * rowsPerPageDiamond >= diamondRows
-                .length;
-        }
-
-        function prevPageDiamond() {
-            if (currentPageDiamond > 1) {
-                currentPageDiamond--;
-                displayDiamondRows();
             }
-        }
 
-        function nextPageDiamond() {
-            if (currentPageDiamond * rowsPerPageDiamond < diamondRows.length) {
-                currentPageDiamond++;
-                displayDiamondRows();
+            function nextPageDiamond() {
+                if (currentPageDiamond < totalPagesDiamond) {
+                    currentPageDiamond++;
+                    displayDiamondRows();
+                }
             }
-        }
 
-        displayDiamondRows(); // Initial display
+            function goToPageDiamond() {
+                const inputPage = parseInt(document.getElementById('goto-page-input-diamond').value);
+                if (inputPage >= 1 && inputPage <= totalPagesDiamond) {
+                    currentPageDiamond = inputPage;
+                    displayDiamondRows();
+                } else {
+                    alert('Invalid page number');
+                }
+            }
+
+            document.getElementById('prev-btn-diamond').addEventListener('click', prevPageDiamond);
+            document.getElementById('next-btn-diamond').addEventListener('click', nextPageDiamond);
+            document.getElementById('goto-page-btn-diamond').addEventListener('click', goToPageDiamond);
+
+            displayDiamondRows();
+        });
     </script>
     {{-- pageExDiamond --}}
     <script>
-        const exdiamondRows = document.querySelectorAll('.exdiamond-row');
-        const rowsPerPageExDiamond = 5;
-        let currentPageExDiamond = 1;
+        document.addEventListener('DOMContentLoaded', () => {
+            const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        function displayExDiamondRows() {
-            exdiamondRows.forEach((row, index) => {
-                row.style.display = 'none';
-                if (index >= (currentPageExDiamond - 1) * rowsPerPageExDiamond && index < currentPageExDiamond *
-                    rowsPerPageExDiamond) {
-                    row.style.display = 'table-row';
+            // Ex Diamond Management
+            let exdiamondRows = Array.from(document.querySelectorAll('.exdiamond-row'));
+            const rowsPerPageExDiamond = 5;
+            let currentPageExDiamond = 1;
+            let filteredExDiamondRows = exdiamondRows;
+            let totalPagesExDiamond = Math.ceil(filteredExDiamondRows.length / rowsPerPageExDiamond);
+
+            function displayExDiamondRows() {
+                filteredExDiamondRows.forEach((row, index) => {
+                    row.style.display = 'none';
+                    if (index >= (currentPageExDiamond - 1) * rowsPerPageExDiamond && index <
+                        currentPageExDiamond * rowsPerPageExDiamond) {
+                        row.style.display = 'table-row';
+                    }
+                });
+
+                document.getElementById('page-num-exdiamond').textContent = currentPageExDiamond;
+                document.getElementById('total-pages-exdiamond').textContent = totalPagesExDiamond;
+                document.getElementById('prev-btn-exdiamond').disabled = currentPageExDiamond === 1;
+                document.getElementById('next-btn-exdiamond').disabled = currentPageExDiamond ===
+                    totalPagesExDiamond;
+            }
+
+            function prevPageExDiamond() {
+                if (currentPageExDiamond > 1) {
+                    currentPageExDiamond--;
+                    displayExDiamondRows();
                 }
-            });
-
-            document.getElementById('page-num-exdiamond').textContent = currentPageExDiamond;
-            document.getElementById('prev-btn-exdiamond').disabled = currentPageExDiamond === 1;
-            document.getElementById('next-btn-exdiamond').disabled = currentPageExDiamond * rowsPerPageExDiamond >=
-                exdiamondRows.length;
-        }
-
-        function prevPageExDiamond() {
-            if (currentPageExDiamond > 1) {
-                currentPageExDiamond--;
-                displayExDiamondRows();
             }
-        }
 
-        function nextPageExDiamond() {
-            if (currentPageExDiamond * rowsPerPageExDiamond < exdiamondRows.length) {
-                currentPageExDiamond++;
-                displayExDiamondRows();
+            function nextPageExDiamond() {
+                if (currentPageExDiamond < totalPagesExDiamond) {
+                    currentPageExDiamond++;
+                    displayExDiamondRows();
+                }
             }
-        }
 
-        displayExDiamondRows(); // Initial display
+            function goToPageExDiamond() {
+                const inputPage = parseInt(document.getElementById('goto-page-input-exdiamond').value);
+                if (inputPage >= 1 && inputPage <= totalPagesExDiamond) {
+                    currentPageExDiamond = inputPage;
+                    displayExDiamondRows();
+                } else {
+                    alert('Invalid page number');
+                }
+            }
+
+            document.getElementById('prev-btn-exdiamond').addEventListener('click', prevPageExDiamond);
+            document.getElementById('next-btn-exdiamond').addEventListener('click', nextPageExDiamond);
+            document.getElementById('goto-page-btn-exdiamond').addEventListener('click', goToPageExDiamond);
+
+            displayExDiamondRows();
+        });
     </script>
     {{-- pageShell --}}
     <script>
-        const shellRows = document.querySelectorAll('.shell-row');
-        const rowsPerPageShell = 5;
-        let currentPageShell = 1;
+        document.addEventListener('DOMContentLoaded', () => {
+            const shellRows = Array.from(document.querySelectorAll('.shell-row'));
+            const rowsPerPageShell = 5;
+            let currentPageShell = 1;
 
-        function displayShellRows() {
-            shellRows.forEach((row, index) => {
-                row.style.display = 'none';
-                if (index >= (currentPageShell - 1) * rowsPerPageShell && index < currentPageShell *
-                    rowsPerPageShell) {
-                    row.style.display = 'table-row';
+            function displayShellRows() {
+                const totalPages = totalPagesShell();
+                let start = (currentPageShell - 1) * rowsPerPageShell;
+                let end = start + rowsPerPageShell;
+
+                shellRows.forEach((row, index) => {
+                    row.style.display = (index >= start && index < end) ? 'table-row' : 'none';
+                });
+
+                document.getElementById('page-num-shell').textContent = currentPageShell;
+                document.getElementById('total-pages-shell').textContent = totalPages;
+                document.getElementById('prev-btn-shell').disabled = currentPageShell === 1;
+                document.getElementById('next-btn-shell').disabled = currentPageShell === totalPages;
+            }
+
+            function prevPageShell() {
+                if (currentPageShell > 1) {
+                    currentPageShell--;
+                    displayShellRows();
+                }
+            }
+
+            function nextPageShell() {
+                if (currentPageShell < totalPagesShell()) {
+                    currentPageShell++;
+                    displayShellRows();
+                }
+            }
+
+            function totalPagesShell() {
+                return Math.ceil(shellRows.length / rowsPerPageShell);
+            }
+
+            document.getElementById('goto-page-btn-shell').addEventListener('click', () => {
+                const gotoPageInput = document.getElementById('goto-page-input-shell').value;
+                const pageNumber = parseInt(gotoPageInput, 10);
+                if (isNaN(pageNumber) || pageNumber < 1 || pageNumber > totalPagesShell()) {
+                    alert('Invalid page number');
+                } else {
+                    currentPageShell = pageNumber;
+                    displayShellRows();
                 }
             });
 
-            document.getElementById('page-num-shell').textContent = currentPageShell;
-            document.getElementById('prev-btn-shell').disabled = currentPageShell === 1;
-            document.getElementById('next-btn-shell').disabled = currentPageShell * rowsPerPageShell >= shellRows.length;
-        }
+            document.getElementById('prev-btn-shell').addEventListener('click', prevPageShell);
+            document.getElementById('next-btn-shell').addEventListener('click', nextPageShell);
 
-        function prevPageShell() {
-            if (currentPageShell > 1) {
-                currentPageShell--;
-                displayShellRows();
-            }
-        }
-
-        function nextPageShell() {
-            if (currentPageShell * rowsPerPageShell < shellRows.length) {
-                currentPageShell++;
-                displayShellRows();
-            }
-        }
-
-        displayShellRows(); // Initial display
+            // Initial display
+            displayShellRows();
+        });
     </script>
     {{-- page pricelist --}}
     <script>
@@ -1240,66 +1358,161 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             displayPriceRows();
         });
     </script>
-    {{-- pageEmployee --}}
+    {{-- page material --}}
     <script>
-        const employeeRows = document.querySelectorAll('.employee-row');
-        const rowsPerPageEmployee = 10;
-        let currentPageEmployee = 1;
+        document.addEventListener('DOMContentLoaded', () => {
+            const rowsPerPageMaterial = 2;
+            const materialRows = Array.from(document.querySelectorAll('.material-row'));
+            let currentPageMaterial = 1;
 
-        function displayEmployeeRows() {
-            employeeRows.forEach((row, index) => {
-                row.style.display = 'none';
-                if (index >= (currentPageEmployee - 1) * rowsPerPageEmployee && index < currentPageEmployee *
-                    rowsPerPageEmployee) {
-                    row.style.display = 'table-row';
-                }
-            });
+            function displayMaterialRows() {
+                const totalPages = Math.ceil(materialRows.length / rowsPerPageMaterial);
+                const start = (currentPageMaterial - 1) * rowsPerPageMaterial;
+                const end = start + rowsPerPageMaterial;
 
-            document.getElementById('page-num-employee').textContent = currentPageEmployee;
-            document.getElementById('prev-btn-employee').disabled = currentPageEmployee === 1;
-            document.getElementById('next-btn-employee').disabled = currentPageEmployee * rowsPerPageEmployee >=
-                employeeRows.length;
-        }
-
-        function prevPageEmployee() {
-            if (currentPageEmployee > 1) {
-                currentPageEmployee--;
-                displayEmployeeRows();
-            }
-        }
-
-        function nextPageEmployee() {
-            if (currentPageEmployee * rowsPerPageEmployee < employeeRows.length) {
-                currentPageEmployee++;
-                displayEmployeeRows();
-            }
-        }
-
-        displayEmployeeRows(); // Initial display
-    </script>
-    <script>
-        const statusButtons = document.querySelectorAll('.status-btn');
-        const orderRows = document.querySelectorAll('.status-row-emp');
-
-        statusButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const status = btn.getAttribute('data-status');
-
-                // Update active button
-                statusButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Filter orders based on status
-                orderRows.forEach(row => {
-                    if (status === 'all' || row.getAttribute('data-status') === status) {
-                        row.style.display = 'table-row';
-                    } else {
-                        row.style.display = 'none';
-                    }
+                materialRows.forEach((row, index) => {
+                    row.style.display = (index >= start && index < end) ? 'table-row' : 'none';
                 });
-            });
+
+                document.getElementById('page-num-material').textContent = currentPageMaterial;
+                document.getElementById('total-pages-material').textContent = totalPages;
+                document.getElementById('prev-btn-material').disabled = currentPageMaterial === 1;
+                document.getElementById('next-btn-material').disabled = currentPageMaterial === totalPages;
+            }
+
+            function prevPageMaterial() {
+                if (currentPageMaterial > 1) {
+                    currentPageMaterial--;
+                    displayMaterialRows();
+                }
+            }
+
+            function nextPageMaterial() {
+                const totalPages = Math.ceil(materialRows.length / rowsPerPageMaterial);
+                if (currentPageMaterial < totalPages) {
+                    currentPageMaterial++;
+                    displayMaterialRows();
+                }
+            }
+
+            function goToPageMaterial() {
+                const inputPage = parseInt(document.getElementById('goto-page-input-material').value, 10);
+                const totalPages = Math.ceil(materialRows.length / rowsPerPageMaterial);
+                if (inputPage >= 1 && inputPage <= totalPages) {
+                    currentPageMaterial = inputPage;
+                    displayMaterialRows();
+                } else {
+                    alert('Invalid page number');
+                }
+            }
+
+            document.getElementById('prev-btn-material').addEventListener('click', prevPageMaterial);
+            document.getElementById('next-btn-material').addEventListener('click', nextPageMaterial);
+            document.getElementById('goto-page-btn-material').addEventListener('click', goToPageMaterial);
+
+            // Initial display
+            displayMaterialRows();
         });
     </script>
+    {{-- pageEmployee --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rowsPerPageEmployee = 10; // Số hàng mỗi trang
+            let currentPageEmployee = 1;
+            const employeeRows = Array.from(document.querySelectorAll('.employee-row'));
+            let filteredRows = [...employeeRows]; // Lọc nhân viên theo trạng thái
+            const statusButtons = document.querySelectorAll('.status-btn');
+            const totalPagesElement = document.getElementById('total-pages-employee');
+            const gotoPageInput = document.getElementById('goto-page-input-employee');
+            const gotoPageBtn = document.getElementById('go-to-page-employee');
+    
+            // Hiển thị hàng của nhân viên dựa trên trang hiện tại
+            function displayEmployeeRows() {
+                const start = (currentPageEmployee - 1) * rowsPerPageEmployee;
+                const end = start + rowsPerPageEmployee;
+    
+                // Ẩn tất cả các hàng và chỉ hiển thị những hàng trong trang hiện tại
+                employeeRows.forEach((row, index) => {
+                    row.style.display = 'none';
+                    if (filteredRows.includes(row) && index >= start && index < end) {
+                        row.style.display = 'table-row';
+                    }
+                });
+    
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPageEmployee);
+                document.getElementById('page-num-employee').textContent = currentPageEmployee;
+                totalPagesElement.textContent = totalPages;
+                document.getElementById('prev-btn-employee').disabled = currentPageEmployee === 1;
+                document.getElementById('next-btn-employee').disabled = currentPageEmployee === totalPages;
+                gotoPageInput.max = totalPages; // Cập nhật giá trị tối đa của input
+            }
+    
+            // Chuyển đến trang trước
+            function prevPageEmployee() {
+                if (currentPageEmployee > 1) {
+                    currentPageEmployee--;
+                    displayEmployeeRows();
+                }
+            }
+    
+            // Chuyển đến trang tiếp theo
+            function nextPageEmployee() {
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPageEmployee);
+                if (currentPageEmployee < totalPages) {
+                    currentPageEmployee++;
+                    displayEmployeeRows();
+                }
+            }
+    
+            // Chuyển đến trang cụ thể
+            function goToPageEmployee() {
+                const inputPage = parseInt(gotoPageInput.value, 10);
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPageEmployee);
+                if (inputPage >= 1 && inputPage <= totalPages) {
+                    currentPageEmployee = inputPage;
+                    displayEmployeeRows();
+                } else {
+                    alert('Invalid page number');
+                }
+            }
+    
+            // Lọc nhân viên theo trạng thái
+            function filterEmployees(status) {
+                if (status === 'all') {
+                    filteredRows = employeeRows;
+                } else {
+                    filteredRows = employeeRows.filter(row => row.getAttribute('data-role') === status);
+                }
+                currentPageEmployee = 1;
+                displayEmployeeRows();
+            }
+    
+            // Cập nhật trạng thái khi nhấp vào nút
+            statusButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const status = btn.getAttribute('data-status');
+    
+                    // Cập nhật nút đang hoạt động
+                    statusButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+    
+                    // Lọc và hiển thị hàng
+                    filterEmployees(status);
+                });
+            });
+    
+            // Gán sự kiện cho các nút phân trang
+            document.getElementById('prev-btn-employee').addEventListener('click', prevPageEmployee);
+            document.getElementById('next-btn-employee').addEventListener('click', nextPageEmployee);
+            gotoPageBtn.addEventListener('click', goToPageEmployee);
+    
+            // Hiển thị trang đầu tiên khi tải trang
+            displayEmployeeRows();
+        });
+    </script>
+    
+    
+
     {{-- search ajax --}}
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script>
