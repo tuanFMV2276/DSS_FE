@@ -70,7 +70,7 @@ class WebAuthController extends Controller
             if($role == "deliverystaff"){
                 return redirect('/home-deliverystaff');
             }
-            return redirect('/'); // Chuyển hướng đến trang sản phẩm
+            return redirect('/');
         } else {
             return back()->withErrors(['error' => 'Đăng nhập thất bại.']);
         }
@@ -86,7 +86,7 @@ class WebAuthController extends Controller
 
         if ($response->successful()) {
             Session::forget('access_token');
-            return redirect('/login')->with('success', 'Logged out successfully.');
+            return redirect('/')->with('success', 'Logged out successfully.');
         } else {
             return back()->withErrors(['error' => 'Logout failed.']);
         }

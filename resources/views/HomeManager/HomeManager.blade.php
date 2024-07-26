@@ -4,7 +4,14 @@
 //Data for Customer rating and Shell chart
 $dataPointsCustomerMen = [['label' => 'T1', 'y' => 2.3], ['label' => 'T2', 'y' => 3.0], ['label' => 'T3', 'y' => 2.6], ['label' => 'T4', 'y' => 2.1], ['label' => 'T5', 'y' => 1.9], ['label' => 'T6', 'y' => 2.0]];
 $dataPointsCustomerWoMen = [['label' => 'T1', 'y' => 3.1], ['label' => 'T2', 'y' => 3.5], ['label' => 'T3', 'y' => 3.8], ['label' => 'T4', 'y' => 4.0], ['label' => 'T5', 'y' => 3.7], ['label' => 'T6', 'y' => 3.4]];
-$dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label' => 'Nhẫn kim cương nữ', 'y' => 40]];
+$statusLabels = [
+    0 => 'Pending',
+    1 => 'Accepted',
+    2 => 'Prepare Product',
+    3 => 'Delivering',
+    4 => 'Finished',
+    5 => 'Cancelled',
+];
 ?>
 <html lang="en" dir="ltr">
 
@@ -142,7 +149,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 <button onclick="fetchAndUpdateChart('month')">Month</button>
                                 <button onclick="fetchAndUpdateChart('day')">Daily</button>
                             </h3>
-                            <h2>43,000,000VND</h2>
+                            <h2 id="totalAmount"></h2>
                             <div id="chartContainer" style="height: 330px; width: 100%;"></div>
                             <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
                             <div style="flex-wrap: wrap;">
@@ -160,96 +167,22 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
 
                             <h4 style="font-size: 1.5rem;text-align:center;">Order history</h4>
                             <!-- Order history section -->
-                            <div class="order-history-card">
-
-                                <div class="item-align margin-bottom-card">
-                                    <span class="card-font-style">Order A</span>
-                                    <span>Customer A<img src="{{ asset('img/customer.png') }}" class="icon"
-                                            alt="Sale Icon"></span>
+                            @foreach ($recentOrders as $recent)
+                                <div class="order-history-card">
+                                    <div class="item-align margin-bottom-card">
+                                        <span class="card-font-style">{{ $recent['order_date'] }}</span>
+                                        <span>{{ $recent['name'] }}</span>
+                                    </div>
+                                    <div class="item-align margin-bottom-card">
+                                        <span>Total Price</span>
+                                        <span>{{ $recent['total_price'] }}</span>
+                                    </div>
+                                    <div class="item-align margin-bottom-card">
+                                        <span>Current Status</span>
+                                        <span>{{ $statusLabels[$recent['status']] }}</span>
+                                    </div>
                                 </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Total Price</span>
-                                    <span>3,460,000VND</span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Current Status</span>
-                                    <span>Pending Order</span>
-                                </div>
-
-                            </div>
-
-                            <div class="order-history-card">
-
-                                <div class="item-align margin-bottom-card">
-                                    <span class="card-font-style">Order B</span>
-                                    <span>Customer B<img src="{{ asset('img/customer.png') }}" class="icon"
-                                            alt="Sale Icon"></span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Total Price</span>
-                                    <span>4,280,000VND</span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Current Status</span>
-                                    <span>Pending Order</span>
-                                </div>
-
-                            </div>
-
-                            <div class="order-history-card">
-
-                                <div class="item-align margin-bottom-card">
-                                    <span class="card-font-style">Order C</span>
-                                    <span>Customer C<img src="{{ asset('img/customer.png') }}" class="icon"
-                                            alt="Sale Icon"></span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Total Price</span>
-                                    <span>5,130,000VND</span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Current Status</span>
-                                    <span>Accepted Order</span>
-                                </div>
-
-                            </div>
-
-                            <div class="order-history-card">
-
-                                <div class="item-align margin-bottom-card">
-                                    <span class="card-font-style">Order D</span>
-                                    <span>Customer D<img src="{{ asset('img/customer.png') }}" class="icon"
-                                            alt="Sale Icon"></span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Total Price</span>
-                                    <span>20,356,000VND</span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Current Status</span>
-                                    <span>Delivering Order</span>
-                                </div>
-
-                            </div>
-
-                            <div class="order-history-card">
-
-                                <div class="item-align margin-bottom-card">
-                                    <span class="card-font-style">Order E</span>
-                                    <span>Customer E<img src="{{ asset('img/customer.png') }}" class="icon"
-                                            alt="Sale Icon"></span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Total Price</span>
-                                    <span>8,652,000VND</span>
-                                </div>
-                                <div class="item-align margin-bottom-card">
-                                    <span>Current Status</span>
-                                    <span>Accepted Order</span>
-                                </div>
-
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -313,14 +246,6 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                 @php
                                     //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
                                     $payment = collect($payments)->firstWhere('order_id', $order['id']);
-                                    $statusLabels = [
-                                        0 => 'Pending',
-                                        1 => 'Accepted',
-                                        2 => 'Prepare Product',
-                                        3 => 'Delivering',
-                                        4 => 'Finished',
-                                        5 => 'Cancelled',
-                                    ];
                                 @endphp
                                 <tr class="status-row" data-status="{{ $order['status'] }}">
                                     <td>{{ $index + 1 }}</td>
@@ -790,14 +715,11 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                                     <td>{{ number_format($materialItem['price'], 0) }}</td>
                                     <td>{{ $materialItem['status'] }}</td>
                                     <td>
-                                        <button class="update-btn update-st"
-                                            data-id="{{ $materialItem['id'] }}">Update</button>
-                                        <form action="{{ route('manager.destroyMaterial', $materialItem['id']) }}"
-                                            method="POST" style="display:inline-block;">
+                                        <button class="update-btn update-st" data-id="{{ $materialItem['id'] }}">Update</button>
+                                        <form action="{{ route('manager.destroyMaterial', $materialItem['id']) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="more-margintop delete-st"
-                                                onclick="return confirm('Are you sure?')">Delete</button>
+                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -808,14 +730,14 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         <button id="prev-btn-material" disabled>&laquo; Previous</button>
                         <span id="page-num-material">1</span> / <span id="total-pages-material">1</span>
                         <button id="next-btn-material">Next &raquo;</button>
-                        <input type="number" id="goto-page-input-material" min="1" placeholder="Page"
-                            style="width: 55px;">
+                        <input type="number" id="goto-page-input-material" min="1" placeholder="Page" style="width: 55px;">
                         <button id="goto-page-btn-material">Go</button>
                     </div>
                 </div>
+
                 <div id="staff-management" class="table-container" style="display: none;">
-                    <h1>Employee List</h1>
-                
+                    <h1>List Employee</h1>
+
                     <div class="status-bar more-margintop">
                         <button class="status-btn active" data-status="all">
                             <i class="fas fa-list icon-status"></i> All employees
@@ -855,17 +777,18 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                             @endforeach
                         </tbody>
                     </table>
-                
+
                     <div class="pagination">
                         <button id="prev-btn-employee" disabled>&laquo; Previous</button>
                         <span id="page-num-employee">1</span> / <span id="total-pages-employee">1</span>
                         <button id="next-btn-employee">Next &raquo;</button>
-                        <input type="number" id="goto-page-input-employee" min="1" placeholder="Page" style="width: 55px;">
+                        <input type="number" id="goto-page-input-employee" min="1" placeholder="Page"
+                            style="width: 55px;">
                         <button id="go-to-page-employee">Go</button>
                     </div>
                 </div>
-                
-                
+
+
 
             </div>
         </div>
@@ -909,15 +832,15 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             const orderRows = document.querySelectorAll('.status-row');
             const rowsPerPageOrder = 5;
             let currentPageOrder = 1;
-    
+
             statusButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const status = btn.getAttribute('data-status');
-    
+
                     // Cập nhật nút đang hoạt động
                     statusButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-    
+
                     // Lọc đơn hàng theo trạng thái và đặt lại phân trang
                     filterOrders(status);
                     currentPageOrder = 1;
@@ -925,7 +848,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     updateTotalPages();
                 });
             });
-    
+
             function filterOrders(status) {
                 orderRows.forEach(row => {
                     if (status === 'all' || row.getAttribute('data-status') === status) {
@@ -937,12 +860,12 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     }
                 });
             }
-    
+
             function displayOrderRows() {
                 let displayedRows = 0;
                 let start = (currentPageOrder - 1) * rowsPerPageOrder;
                 let end = start + rowsPerPageOrder;
-    
+
                 orderRows.forEach((row, index) => {
                     if (!row.classList.contains('filtered-out')) {
                         row.style.display = 'none';
@@ -952,38 +875,38 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         displayedRows++;
                     }
                 });
-    
+
                 document.getElementById('page-num-order').textContent = currentPageOrder;
                 document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
                 document.getElementById('next-btn-order').disabled = currentPageOrder >= totalPages();
             }
-    
+
             function prevPageOrder() {
                 if (currentPageOrder > 1) {
                     currentPageOrder--;
                     displayOrderRows();
                 }
             }
-    
+
             function nextPageOrder() {
                 if (currentPageOrder < totalPages()) {
                     currentPageOrder++;
                     displayOrderRows();
                 }
             }
-    
+
             function updateTotalPages() {
                 document.getElementById('total-pages').textContent = totalPages();
             }
-    
+
             function totalPages() {
                 let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
                 return Math.ceil(visibleRows.length / rowsPerPageOrder);
             }
-    
+
             document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
             document.getElementById('next-btn-order').addEventListener('click', nextPageOrder);
-    
+
             document.getElementById('goto-page-btn').addEventListener('click', () => {
                 const gotoPageInput = document.getElementById('goto-page-input').value;
                 const pageNumber = parseInt(gotoPageInput, 10);
@@ -994,14 +917,14 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     displayOrderRows();
                 }
             });
-    
+
             // Hiển thị trang đầu tiên
             filterOrders('all');
             displayOrderRows();
             updateTotalPages();
         });
     </script>
-    
+
     {{-- pageProduct --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1361,32 +1284,33 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
     {{-- page material --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const rowsPerPageMaterial = 2;
             const materialRows = Array.from(document.querySelectorAll('.material-row'));
             let currentPageMaterial = 1;
-
+    
             function displayMaterialRows() {
                 const totalPages = Math.ceil(materialRows.length / rowsPerPageMaterial);
                 const start = (currentPageMaterial - 1) * rowsPerPageMaterial;
                 const end = start + rowsPerPageMaterial;
-
+    
                 materialRows.forEach((row, index) => {
                     row.style.display = (index >= start && index < end) ? 'table-row' : 'none';
                 });
-
+    
                 document.getElementById('page-num-material').textContent = currentPageMaterial;
                 document.getElementById('total-pages-material').textContent = totalPages;
                 document.getElementById('prev-btn-material').disabled = currentPageMaterial === 1;
                 document.getElementById('next-btn-material').disabled = currentPageMaterial === totalPages;
             }
-
+    
             function prevPageMaterial() {
                 if (currentPageMaterial > 1) {
                     currentPageMaterial--;
                     displayMaterialRows();
                 }
             }
-
+    
             function nextPageMaterial() {
                 const totalPages = Math.ceil(materialRows.length / rowsPerPageMaterial);
                 if (currentPageMaterial < totalPages) {
@@ -1394,7 +1318,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     displayMaterialRows();
                 }
             }
-
+    
             function goToPageMaterial() {
                 const inputPage = parseInt(document.getElementById('goto-page-input-material').value, 10);
                 const totalPages = Math.ceil(materialRows.length / rowsPerPageMaterial);
@@ -1405,13 +1329,73 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     alert('Invalid page number');
                 }
             }
-
+    
             document.getElementById('prev-btn-material').addEventListener('click', prevPageMaterial);
             document.getElementById('next-btn-material').addEventListener('click', nextPageMaterial);
             document.getElementById('goto-page-btn-material').addEventListener('click', goToPageMaterial);
-
+    
             // Initial display
             displayMaterialRows();
+    
+            document.querySelectorAll('.update-btn').forEach(button => {
+                button.addEventListener('click', async (event) => {
+                    const row = event.target.closest('tr');
+                    const priceCell = row.querySelector('td:nth-child(4)');
+                    const price = priceCell.textContent.trim();
+    
+                    // Display input for editing
+                    priceCell.innerHTML = `
+                        <input type="text" pattern="[0-9]*" value="${price.replace(/,/g, '')}" placeholder="${price}">
+                        <button class="save-btn">Save</button>
+                        <button class="cancel-btn">Cancel</button>
+                    `;
+    
+                    const input = priceCell.querySelector('input');
+    
+                    // Format the input value with commas
+                    input.addEventListener('input', function(event) {
+                        const newValue = event.target.value.replace(/\D/g, '');
+                        event.target.value = newValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    });
+    
+                    // Save button click handler
+                    priceCell.querySelector('.save-btn').addEventListener('click', async () => {
+                        const newPrice = priceCell.querySelector('input').value.replace(/,/g, '');
+                        const id = row.querySelector('td:nth-child(2)').textContent.trim(); // Get ID from ID column
+    
+                        if (confirm('Are you sure you want to update the price?')) {
+                            try {
+                                const response = await fetch(`/material/update/${id}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': csrfToken, // Ensure csrfToken is defined
+                                    },
+                                    body: JSON.stringify({ price: newPrice }),
+                                });
+    
+                                if (response.ok) {
+                                    const data = await response.json();
+                                    priceCell.innerHTML = data.price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                } else {
+                                    throw new Error('Failed to update price');
+                                }
+                            } catch (error) {
+                                console.error('Error:', error);
+                                alert('Failed to update price.');
+                                priceCell.innerHTML = price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                            }
+                        } else {
+                            priceCell.innerHTML = price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        }
+                    });
+    
+                    // Cancel button click handler
+                    priceCell.querySelector('.cancel-btn').addEventListener('click', () => {
+                        priceCell.innerHTML = price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    });
+                });
+            });
         });
     </script>
     {{-- pageEmployee --}}
@@ -1425,12 +1409,12 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             const totalPagesElement = document.getElementById('total-pages-employee');
             const gotoPageInput = document.getElementById('goto-page-input-employee');
             const gotoPageBtn = document.getElementById('go-to-page-employee');
-    
+
             // Hiển thị hàng của nhân viên dựa trên trang hiện tại
             function displayEmployeeRows() {
                 const start = (currentPageEmployee - 1) * rowsPerPageEmployee;
                 const end = start + rowsPerPageEmployee;
-    
+
                 // Ẩn tất cả các hàng và chỉ hiển thị những hàng trong trang hiện tại
                 employeeRows.forEach((row, index) => {
                     row.style.display = 'none';
@@ -1438,7 +1422,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         row.style.display = 'table-row';
                     }
                 });
-    
+
                 const totalPages = Math.ceil(filteredRows.length / rowsPerPageEmployee);
                 document.getElementById('page-num-employee').textContent = currentPageEmployee;
                 totalPagesElement.textContent = totalPages;
@@ -1446,7 +1430,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 document.getElementById('next-btn-employee').disabled = currentPageEmployee === totalPages;
                 gotoPageInput.max = totalPages; // Cập nhật giá trị tối đa của input
             }
-    
+
             // Chuyển đến trang trước
             function prevPageEmployee() {
                 if (currentPageEmployee > 1) {
@@ -1454,7 +1438,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     displayEmployeeRows();
                 }
             }
-    
+
             // Chuyển đến trang tiếp theo
             function nextPageEmployee() {
                 const totalPages = Math.ceil(filteredRows.length / rowsPerPageEmployee);
@@ -1463,7 +1447,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     displayEmployeeRows();
                 }
             }
-    
+
             // Chuyển đến trang cụ thể
             function goToPageEmployee() {
                 const inputPage = parseInt(gotoPageInput.value, 10);
@@ -1475,7 +1459,7 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                     alert('Invalid page number');
                 }
             }
-    
+
             // Lọc nhân viên theo trạng thái
             function filterEmployees(status) {
                 if (status === 'all') {
@@ -1486,32 +1470,32 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                 currentPageEmployee = 1;
                 displayEmployeeRows();
             }
-    
+
             // Cập nhật trạng thái khi nhấp vào nút
             statusButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const status = btn.getAttribute('data-status');
-    
+
                     // Cập nhật nút đang hoạt động
                     statusButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-    
+
                     // Lọc và hiển thị hàng
                     filterEmployees(status);
                 });
             });
-    
+
             // Gán sự kiện cho các nút phân trang
             document.getElementById('prev-btn-employee').addEventListener('click', prevPageEmployee);
             document.getElementById('next-btn-employee').addEventListener('click', nextPageEmployee);
             gotoPageBtn.addEventListener('click', goToPageEmployee);
-    
+
             // Hiển thị trang đầu tiên khi tải trang
             displayEmployeeRows();
         });
     </script>
-    
-    
+
+
 
     {{-- search ajax --}}
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
@@ -1588,6 +1572,9 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
         async function fetchAndUpdateChart(criteria) {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/home_manager/dashboard/${criteria}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 const data = await response.json();
 
                 const dataPoints = data.map(item => {
@@ -1611,12 +1598,20 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
                         y: Number(item.y)
                     };
                 });
+
+                const totalAmount = dataPoints.reduce((total, point) => total + point.y, 0);
+
+                document.getElementById('totalAmount').textContent =
+                    `Total Revenue: VND ${totalAmount.toLocaleString()}`;
                 console.log('Data Points:', dataPoints);
                 updateChart(criteria, dataPoints);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
+
+
+
 
         function updateChart(criteria, dataPoints) {
             let xValueFormatString;
@@ -1669,32 +1664,62 @@ $dataPointsPieShell = [['label' => 'Nhẫn kim cương nam', 'y' => 60], ['label
             }
         }
 
+
         // Initial load
         fetchAndUpdateChart('day'); // Default to 'day' criteria on initial load
         //Draw pie chart for ring
-        var chart2 = new CanvasJS.Chart("chartContainer2", {
-            animationEnabled: true,
-            title: {
-                fontSize: 20,
-                text: "Product Sales based on Ring Types",
-            },
-            subtitles: [{
-                text: "Q1 2024"
-            }],
-            data: [{
-                type: "pie",
-                indexLabel: "{y}",
-                yValueFormatString: "#,##0.00\"%\"",
-                indexLabelPlacement: "inside",
-                indexLabelFontColor: "#36454F",
-                indexLabelFontSize: 15,
-                indexLabelFontWeight: "bolder",
-                showInLegend: true,
-                legendText: "{label}",
-                dataPoints: <?php echo json_encode($dataPointsPieShell, JSON_NUMERIC_CHECK); ?>
-            }]
-        });
-        chart2.render();
+        async function fetchChart2Data() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/home_manager/shell_sale/data');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                const dataFetch = [{
+                        label: 'Nhẫn kim cương Nam',
+                        y: data.percent_male // Use 'y' for the value key
+                    },
+                    {
+                        label: 'Nhẫn kim cương Nữ',
+                        y: data.percent_female // Correct key 'percent_female'
+                    }
+                ];
+
+                drawChart2(dataFetch);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        function drawChart2(dataForChart2) {
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: true,
+                title: {
+                    fontSize: 20,
+                    text: "Product Sales based on Ring Types",
+                },
+                subtitles: [{
+                    text: "Q1 2024"
+                }],
+                data: [{
+                    type: "pie",
+                    indexLabel: "{y}",
+                    yValueFormatString: "#,##0.00\"%\"",
+                    indexLabelPlacement: "inside",
+                    indexLabelFontColor: "#36454F",
+                    indexLabelFontSize: 15,
+                    indexLabelFontWeight: "bolder",
+                    showInLegend: true,
+                    legendText: "{label}",
+                    dataPoints: dataForChart2,
+                }]
+            });
+            chart2.render();
+        }
+
+        fetchChart2Data();
+
         //Draw chart for Customer rating
         var chart3 = new CanvasJS.Chart("chartContainer3", {
             animationEnabled: true,

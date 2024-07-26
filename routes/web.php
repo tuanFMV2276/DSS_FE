@@ -334,6 +334,9 @@ Route::middleware(['auth.token', 'role:salestaff'])->group(function () {
     Route::get('/home-salestaff', [SaleStaffController::class, 'homeSalestaff'])->name('salestaff.home');
     Route::put('/salestaff_orders/{id}/update_status', [SaleStaffController::class, 'updateOrderStatus'])->name('salestaff.updateOrderStatus');
     Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
+
+    //Chức năng tìm kiếm cho đơn hàng
+    Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('salesstaff.searchOrdersAjax');
 });
 
 Route::middleware(['auth.token', 'role:deliverystaff'])->group(function () {

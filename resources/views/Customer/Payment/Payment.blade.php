@@ -38,7 +38,6 @@
 
         <form id="checkout-form" action="{{ route('orders.store') }}" method="POST">
             @csrf
-            <!-- Order Fields -->
             <input type="hidden" name="order_date" id="order_date">
             <input type="hidden" name="total_price" id="total_price"
                 value="{{ array_sum(array_column($cartItems, 'total_price')) }}">
@@ -168,7 +167,6 @@
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 @foreach ($cartItems as $item)
-                                <!-- Order Details Fields -->
                                 <input type="hidden" name="product_code" value="{{ $item['product_code'] }}">
                                 <input type="hidden" name="unitprice" value="{{ $item['total_price'] }}">
                                 <input type="hidden" name="size" value="{{ $item['ringsize'] }}">
@@ -196,7 +194,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
     function combineAddressAndNextStep() {
-        // Lấy các giá trị từ các trường địa chỉ và thông tin khách hàng
         const email = document.getElementById('email');
         const name = document.getElementById('name');
         const addressLine1 = document.getElementById('address');
@@ -204,7 +201,6 @@
         const addressLine3 = document.getElementById('city');
         const phone = document.getElementById('phone');
 
-        // Xóa lớp is-invalid trước khi kiểm tra lại
         [email, name, addressLine1, addressLine2, addressLine3, phone].forEach(input => input.classList.remove(
             'is-invalid'));
 
@@ -238,16 +234,12 @@
             isValid = false;
         }
 
-        // Nếu không hợp lệ, dừng lại
         if (!isValid) return;
 
-        // Kết hợp các giá trị địa chỉ thành một dòng
         const fullAddress = addressLine1.value + ', ' + addressLine2.value + ', ' + addressLine3.value;
 
-        // Đặt giá trị kết hợp này vào input ẩn
         document.getElementById('full_address').value = fullAddress;
 
-        // Chuyển sang bước tiếp theo
         nextStep(2);
     }
 
@@ -257,7 +249,6 @@
         $(".md-step").removeClass("active");
         $("#step-" + step + "-stepper").addClass("active");
 
-        // Đặt giá trị mặc định cho phương thức thanh toán khi chuyển từ bước 1 sang bước 2
         if (step === 2) {
             $('input[name="paymentMethod"][value="paypal"]').prop('checked', true);
             $('.payment-info').hide();

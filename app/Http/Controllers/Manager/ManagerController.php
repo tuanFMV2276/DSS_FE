@@ -18,12 +18,12 @@ class ManagerController extends Controller
     {
         // Gọi API để lấy dữ liệu
         $employees = collect(Http::get('http://127.0.0.1:8000/api/user')->json())->whereIn('role', ["salestaff", "deliverystaff"]);
-        $products = Http::get('http://127.0.0.1:8000/api/product')->json();
+        $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json())->reverse();
         // $customers = Http::get('http://127.0.0.1:8000/api/customer')->json();
         $payments = Http::get('http://127.0.0.1:8000/api/payment')->json();
-        $maindiamonds = Http::get('http://127.0.0.1:8000/api/maindiamond')->json();
+        $maindiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json())->sortBy('id');
         $exdiamonds = Http::get('http://127.0.0.1:8000/api/exdiamond')->json();
-        $shelldiamonds = Http::get('http://127.0.0.1:8000/api/diamondshell')->json();
+        $shelldiamonds = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json())->sortBy('id');
         $material = Http::get('http://127.0.0.1:8000/api/material')->json();
         $diamondpricelists = Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json();
         $product_data = Http::get('http://127.0.0.1:8000/home_manager/product/data')->json();
@@ -32,13 +32,12 @@ class ManagerController extends Controller
         $total_user_data = Http::get('http://127.0.0.1:8000/home_manager/user/data')->json();
         $total_user = $total_user_data[0]['total_user'];
         $total_sale = Http::get('http://127.0.0.1:8000/home_manager/for_sale/data')->json();
-        // Phân trang cho orders
-        $orders = Http::get('http://127.0.0.1:8000/api/order')->json();
-        $orders = collect($orders);
+        
+        $orders = collect(Http::get('http://127.0.0.1:8000/api/order')->json())->reverse();
+        $recentOrders = $orders->sortByDesc('order_date')->take(5);
 
-        // Số dòng trên mỗi trang
-
-        return view('HomeManager.HomeManager', compact('employees', 'products', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'material', 'orders', 'diamondpricelists', 'product_for_sale', 'available_product', 'total_user', 'total_sale'));
+  
+        return view('HomeManager.HomeManager', compact('employees', 'products', 'payments', 'maindiamonds', 'exdiamonds', 'shelldiamonds', 'material', 'orders', 'diamondpricelists', 'product_for_sale', 'available_product', 'total_user', 'total_sale', 'recentOrders'));
     }
 
     //Employee function
@@ -485,7 +484,6 @@ class ManagerController extends Controller
             }
         }
 
-        $pattern = '/\b(Nữ|Nam)\b/';
         preg_match($pattern, $request->name, $matches);
         $filter = !empty($matches) ? $matches[0] : null;
         if ($filter == "Nam") {
@@ -540,7 +538,7 @@ class ManagerController extends Controller
             $result = !empty($matches) ? $matches[0] : "";
 
             // Remove existing tail if present
-            $request->name = preg_replace($pattern, '' ,$request->name);
+            $request->name = preg_replace($pattern, '', $request->name);
 
             // Append the new tail
             $request->name .= ' ' . $result;
@@ -562,7 +560,7 @@ class ManagerController extends Controller
         $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}", ['status' => 0]);
 
         if ($response->successful()) {
-            return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
+            return redirect()->route('manager.home')->with('success', 'Shell status updated successfully.');
         } else {
             return back()->with('error', 'Failed to update order status.');
         }
@@ -591,20 +589,26 @@ class ManagerController extends Controller
         return view('HomeManager.updateMaterial', compact('material'));
     }
 
+    // public function updateMaterial(Request $request, $id)
+    // {
+
+    //     $response = Http::put("http://127.0.0.1:8000/api/material/{$request->$id}", [
+    //         'material_name' => $request->name,
+    //         'price' => $request->price,
+    //         'status' => $request->status,
+    //     ]);
+    //     return redirect()->route('manager.home')->with('success', 'Material created successfully.');
+    // }
     public function updateMaterial(Request $request, $id)
     {
-
-        $response = Http::put("http://127.0.0.1:8000/api/material/{$request->$id}", [
-            'material_name' => $request->name,
+        return $response = Http::put("http://127.0.0.1:8000/api/material/{$id}", [
             'price' => $request->price,
-            'status' => $request->status,
         ]);
-        return redirect()->route('manager.home')->with('success', 'Material created successfully.');
     }
 
     public function deleteMaterial(Request $request, $id)
     {
-        $response = Http::delete("http://127.0.0.1:8000/api/material/{$id}");
+        $response = Http::put("http://127.0.0.1:8000/api/material/{$id}", ['status' => 0]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
@@ -655,8 +659,7 @@ class ManagerController extends Controller
         }
 
         $pathToFile = storage_path('app/public/' . $certificate->file_path);
-        
+
         return response()->download($pathToFile);
     }
-
 }

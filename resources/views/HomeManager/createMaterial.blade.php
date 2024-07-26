@@ -53,7 +53,7 @@
 
             <div class="form-group">
                 <label for="quantity"><i class="fas fa-sort-numeric-up"></i> Price</label>
-                <input type="number" class="form-control" id="material_price" name="price" value="" min="0" max="99999999" step="500000" required>
+                <input type="number" class="form-control" id="material_price" name="price" value="" min="0" max="99999999" required>
             </div>
 
             <div class="form-group">

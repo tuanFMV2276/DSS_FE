@@ -401,7 +401,7 @@
                     var customerName = $('#customer_name').val();
                     var orderDate = $('#order_date').val();
                     $.ajax({
-                        url: "{{ route('manager.searchOrdersAjax') }}",
+                        url: "{{ route('salesstaff.searchOrdersAjax') }}",
                         method: 'GET',
                         data: {
                             customer_Name: customerName || 'null',
@@ -418,7 +418,7 @@
                                 5: 'Cancelled'
                             };
 
-                            var orderList = $('#billing_table tbody');
+                            var orderList = $('tbody');
                             orderList.empty();
                             var array_orders = Array.from(orders.orders);
                             if (array_orders) {

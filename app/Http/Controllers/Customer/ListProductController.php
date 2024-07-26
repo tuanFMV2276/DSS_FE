@@ -16,7 +16,6 @@ class ListProductController extends Controller
      */
     public function index(Request $request)
     {
-        // Retrieve query parameters
         $sort = $request->query('sort', 'price_asc');
         $priceRange = $request->query('price_range', '');
         $productName = $request->query('product_name', '');
@@ -27,22 +26,18 @@ class ListProductController extends Controller
         $color = $request->query('color', '');
         $clarity = $request->query('clarity', '');
 
-        // Fetch products from API
         $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
 
-        // Exclude products with a status of 0
         $products = $products->filter(function ($product) {
             return $product['status'] != 0;
         });
 
-        // Filter by product name if provided
         if ($productName) {
             $products = $products->filter(function ($product) use ($productName) {
                 return $product['product_name'] == $productName;
             });
         }
 
-        // Filter by price range if provided
         if ($priceRange) {
             list($minPrice, $maxPrice) = explode('-', $priceRange) + [0, INF];
             $products = $products->filter(function ($product) use ($minPrice, $maxPrice) {
@@ -50,57 +45,44 @@ class ListProductController extends Controller
             });
         }
 
-        // Filter by material if provided
         if ($material) {
             $products = $products->filter(function ($product) use ($material) {
-                // Assuming material is stored in the product data
                 return $product['material_name'] == $material;
             });
         }
 
-        // Filter by shape if provided
         if ($shape) {
             $products = $products->filter(function ($product) use ($shape) {
-                // Assuming shape is stored in the product data
                 return $product['shape'] == $shape;
             });
         }
 
-        // Filter by carat if provided
         if ($carat) {
             list($minCarat, $maxCarat) = explode('-', $carat) + [0, INF];
             $products = $products->filter(function ($product) use ($minCarat, $maxCarat) {
-                // Assuming carat range is stored in the product data
                 $productCarat = $product['cara_weight'];
                 return $productCarat >= $minCarat && $productCarat <= $maxCarat;
             });
         }
 
-        // Filter by cut if provided
         if ($cut) {
             $products = $products->filter(function ($product) use ($cut) {
-                // Assuming cut is stored in the product data
                 return $product['cut'] == $cut;
             });
         }
 
-        // Filter by color if provided
         if ($color) {
             $products = $products->filter(function ($product) use ($color) {
-                // Assuming color is stored in the product data
                 return $product['color'] == $color;
             });
         }
 
-        // Filter by clarity if provided
         if ($clarity) {
             $products = $products->filter(function ($product) use ($clarity) {
-                // Assuming clarity is stored in the product data
                 return $product['clarity'] == $clarity;
             });
         }
 
-        // Sort products
         if ($sort === 'price_desc') {
             $products = $products->sortByDesc('total_price');
         } else {
@@ -118,7 +100,6 @@ class ListProductController extends Controller
      */
     public function filterProducts(Request $request)
     {
-        // Retrieve query parameters
         $sort = $request->query('sort', 'price_asc');
         $priceRange = $request->query('price_range', '');
         $productName = $request->query('product_name', '');
@@ -129,22 +110,18 @@ class ListProductController extends Controller
         $color = $request->query('color', '');
         $clarity = $request->query('clarity', '');
 
-        // Fetch products from API
         $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
 
-        // Exclude products with a status of 0
         $products = $products->filter(function ($product) {
             return $product['status'] != 0;
         });
 
-        // Filter by product name if provided
         if ($productName) {
             $products = $products->filter(function ($product) use ($productName) {
                 return $product['product_name'] == $productName;
             });
         }
 
-        // Filter by price range if provided
         if ($priceRange) {
             list($minPrice, $maxPrice) = explode('-', $priceRange) + [0, INF];
             $products = $products->filter(function ($product) use ($minPrice, $maxPrice) {
@@ -152,64 +129,50 @@ class ListProductController extends Controller
             });
         }
 
-        // Filter by material if provided
         if ($material) {
             $products = $products->filter(function ($product) use ($material) {
-                // Assuming material is stored in the product data
                 return $product['material_name'] == $material;
             });
         }
 
-        // Filter by shape if provided
         if ($shape) {
             $products = $products->filter(function ($product) use ($shape) {
-                // Assuming shape is stored in the product data
                 return $product['shape'] == $shape;
             });
         }
 
-        // Filter by carat if provided
         if ($carat) {
             list($minCarat, $maxCarat) = explode('-', $carat) + [0, INF];
             $products = $products->filter(function ($product) use ($minCarat, $maxCarat) {
-                // Assuming carat range is stored in the product data
                 $productCarat = $product['cara_weight'];
                 return $productCarat >= $minCarat && $productCarat <= $maxCarat;
             });
         }
 
-        // Filter by cut if provided
         if ($cut) {
             $products = $products->filter(function ($product) use ($cut) {
-                // Assuming cut is stored in the product data
                 return $product['cut'] == $cut;
             });
         }
 
-        // Filter by color if provided
         if ($color) {
             $products = $products->filter(function ($product) use ($color) {
-                // Assuming color is stored in the product data
                 return $product['color'] == $color;
             });
         }
 
-        // Filter by clarity if provided
         if ($clarity) {
             $products = $products->filter(function ($product) use ($clarity) {
-                // Assuming clarity is stored in the product data
                 return $product['clarity'] == $clarity;
             });
         }
 
-        // Sort products
         if ($sort === 'price_desc') {
             $products = $products->sortByDesc('total_price');
         } else {
             $products = $products->sortBy('total_price');
         }
 
-        // Return filtered products as JSON response
         return response()->json($products->values()->all());
     }
 

@@ -69,11 +69,9 @@
     @include('Layout.Header/Header')
     <div class="container">
         <div class="row mb-3 mt-3 justify-content-center">
-            <!-- Diamond Search Filters -->
             <div class="filter-group">
                 <label for="shape" class="form-label filter-label">Shape</label>
                 <div id="shape" class="d-flex">
-                    <!-- Add shape buttons here -->
                     <button class="btn btn-outline-secondary" data-value="Round" style="margin-right: 0.5rem;"><img
                             src="/Picture_web/MaterialDiamond/Round.jpg" alt="Round"></button>
                     <button class="btn btn-outline-secondary" data-value="Emerald" style="margin-right: 0.5rem;"><img
@@ -275,11 +273,9 @@
         button.addEventListener('click', function() {
             const currentValue = this.getAttribute('data-value');
             if (currentValue === selectedShape) {
-                // Nếu shape đã được chọn rồi, click lần nữa để bỏ chọn
                 selectedShape = '';
                 this.classList.remove('active');
             } else {
-                // Nếu chưa được chọn, chọn shape và đánh dấu là đã chọn
                 selectedShape = currentValue;
                 shapeButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
@@ -293,7 +289,6 @@
     document.getElementById('color').addEventListener('change', updateURLParams);
     document.getElementById('clarity').addEventListener('change', updateURLParams);
 
-    // Initial load
     updateURLParams();
     </script>
 </body>
