@@ -77,7 +77,7 @@ class OrderController extends Controller
                 $paymentData = [
                     'order_id' => $orderId,
                     'payment_method' => $request->input('paymentMethod'),
-                    'date_time' => Carbon::today()->format('Y-m-d'),
+                    'date_time' => Carbon::now()->format('Y-m-d H:i:s'),
                 ];
 
                 $paymentResponse = Http::post('http://127.0.0.1:8000/api/payment', $paymentData);
