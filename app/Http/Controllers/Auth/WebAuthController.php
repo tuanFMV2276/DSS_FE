@@ -49,6 +49,9 @@ class WebAuthController extends Controller
 
         if ($response->successful()) {
             $data = $response->json();
+            if ($data['data']['status'] == 0) {
+                return back()->withErrors(['error' => 'Tài khoản của bạn đã bị khóa.']);
+            }
             Session::put('access_token', $data['access_token']);
             //  dd($data);
             Session::put('access_token', $data['access_token']);

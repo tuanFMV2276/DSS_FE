@@ -163,7 +163,7 @@ class ManagerController extends Controller
         $newProductCode = 'PD' . str_pad($newNumber, 3, '0', STR_PAD_LEFT); // Format the new code
 
         // Fetch data for the dropdowns
-        $mainDiamonds = Http::get("http://127.0.0.1:8000/api/maindiamond")->json();
+        $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json())->sortBy('id');
         $extraDiamonds = Http::get("http://127.0.0.1:8000/api/exdiamond")->json();
         $diamondShells = Http::get("http://127.0.0.1:8000/api/diamondshell")->json();
 
@@ -214,7 +214,7 @@ class ManagerController extends Controller
     public function editProduct($id)
     {
         $product = Http::get("http://127.0.0.1:8000/api/product/{$id}")->json();
-        $mainDiamonds = Http::get("http://127.0.0.1:8000/api/maindiamond")->json();
+        $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json())->sortBy('id');
         $extraDiamonds = Http::get("http://127.0.0.1:8000/api/exdiamond")->json();
         $diamondShells = Http::get("http://127.0.0.1:8000/api/diamondshell")->json();
         return view('HomeManager.updateProduct', compact('product', 'mainDiamonds', 'extraDiamonds', 'diamondShells'));

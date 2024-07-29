@@ -95,7 +95,7 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
-                                    <td>{{ $order['total_price'] }}</td>
+                                    <td>{{ number_format($order['total_price'], 0) }}</td>
                                     {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
                                     <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
                                         Address: {{ $order ? $order['address'] : 'Unknown' }}<br>

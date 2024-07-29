@@ -14,18 +14,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request )
-    {
-        $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
-        $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
-        $extraDiamonds = collect(Http::get('http://127.0.0.1:8000/api/exdiamond')->json());
-        $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
-        $diamondPriceList = collect(Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json());
+    public function index(Request $request)
+{
+    $products = collect(Http::get('http://127.0.0.1:8000/api/product')->json());
+    $mainDiamonds = collect(Http::get('http://127.0.0.1:8000/api/maindiamond')->json());
+    $extraDiamonds = collect(Http::get('http://127.0.0.1:8000/api/exdiamond')->json());
+    $diamondShells = collect(Http::get('http://127.0.0.1:8000/api/diamondshell')->json());
+    $diamondPriceList = collect(Http::get('http://127.0.0.1:8000/api/diamondpricelist')->json());
 
-        $latestProducts = $products->slice(-5)->values();
+    $filteredProducts = $products->filter(function ($product) {
+        return $product['status'] != 0;
+    });
 
-        return view('Customer/Homepage/HomePage', ['products' => $latestProducts]);
-    }
+    $latestProducts = $filteredProducts->slice(-5)->values();
+
+    return view('Customer/Homepage/HomePage', ['products' => $latestProducts]);
+}
+
 
     /**
      * Show the form for creating a new resource.

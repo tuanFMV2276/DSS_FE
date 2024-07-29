@@ -102,7 +102,7 @@
                 <div class="product">
                     <a href="{{ route('product.show', $product['id']) }}" style="text-decoration: none; color: black">
                         <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="Diamond Product" />
-                        <strong>{{ $product['product_name'] }}</strong>
+                        <strong>{{ $product['product_name'] }} {{ $product['product_code'] }}</strong>
                         <p>{{ number_format($product['total_price'], 0, ',', '.') }}₫</p>
                     </a>
                 </div>

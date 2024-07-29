@@ -9,59 +9,59 @@
     <link rel="stylesheet" href="{{ asset('css/ListProduct.css') }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-    .custom-select {
-        appearance: none;
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-radius: 0.25rem;
-        padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        color: #495057;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='none' stroke='gray' stroke-linecap='round' stroke-width='1' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        background-size: 8px 10px;
-    }
+        .custom-select {
+            appearance: none;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='none' stroke='gray' stroke-linecap='round' stroke-width='1' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 8px 10px;
+        }
 
-    .custom-select:focus {
-        border-color: #80bdff;
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
+        .custom-select:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
 
-    .filter-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-right: 1rem;
-    }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 1rem;
+        }
 
-    .filter-group .slider {
-        width: 200px;
-        margin-top: 1rem;
-    }
+        .filter-group .slider {
+            width: 200px;
+            margin-top: 1rem;
+        }
 
-    #shape {
-        display: flex;
-        justify-content: space-around;
-    }
+        #shape {
+            display: flex;
+            justify-content: space-around;
+        }
 
-    #shape button {
-        background-color: white;
-        border: 1px solid #ced4da;
-        border-radius: 50%;
-        padding: 0.5rem;
-    }
+        #shape button {
+            background-color: white;
+            border: 1px solid #ced4da;
+            border-radius: 50%;
+            padding: 0.5rem;
+        }
 
-    #shape button img {
-        width: 30px;
-        height: 30px;
-    }
+        #shape button img {
+            width: 30px;
+            height: 30px;
+        }
 
-    .filter-label {
-        font-weight: bold;
-    }
+        .filter-label {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -179,21 +179,22 @@
         </div>
         <div id="product-list" class="shell-grid mt-3 mb-3">
             @foreach ($products as $product)
-            <a class="link" href="{{route('product.show', $product['id'])}}">
-                <div class="col">
-                    <div class="card h-70 clickable">
-                        <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="ring" class="card-img-top">
-                        <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
-                            <p class="card-text text-center">
-                                {{ $product['product_name'] }} {{ $product['product_code'] }}
-                            </p>
-                            <h6 class="card-title text-center">
-                                {{ number_format($product['total_price'], 0, ',', '.') }}₫
-                            </h6>
+                <a class="link" href="{{ route('product.show', $product['id']) }}">
+                    <div class="col">
+                        <div class="card h-70 clickable">
+                            <img src="{{ asset('/Picture_Product/' . $product['image']) }}" alt="ring"
+                                class="card-img-top">
+                            <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
+                                <p class="card-text text-center">
+                                    {{ $product['product_name'] }} {{ $product['product_code'] }}
+                                </p>
+                                <h6 class="card-title text-center">
+                                    {{ number_format($product['total_price'], 0, '', '.') }}₫
+                                </h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
             @endforeach
         </div>
     </div>
@@ -201,95 +202,97 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    let selectedShape = '';
+        let selectedShape = '';
 
-    const updateProductList = (products) => {
-        if (!Array.isArray(products)) {
-            console.error("Expected an array but got:", products);
-            return;
-        }
+        const updateProductList = (products) => {
+            if (!Array.isArray(products)) {
+                console.error("Expected an array but got:", products);
+                return;
+            }
 
-        let productHtml = '';
-        products.forEach(product => {
-            productHtml += `
+            let productHtml = '';
+            products.forEach(product => {
+                productHtml += `
                 <a class="link" href="/Product/${product.id}">
                     <div class="col">
                         <div class="card h-70 clickable">
                             <img src="/Picture_Product/${product.image}" alt="ring" class="card-img-top">
                             <div class="card-body" style="padding-left: 0.5rem;padding-right: 0.5rem;">
                                 <p class="card-text text-center">${product.product_name} ${product.product_code}</p>
-                                <h6 class="card-title text-center">${new Intl.NumberFormat().format(product.total_price)}₫</h6>
+                                <h6 class="card-title text-center">
+    ${new Intl.NumberFormat('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(product.total_price)}₫
+                                </h6>
                             </div>
                         </div>
                     </div>
                 </a>`;
+            });
+            document.getElementById('product-list').innerHTML = productHtml;
+        }
+
+        const updateURLParams = () => {
+            const priceRange = document.getElementById('price_range').value;
+            const sortBy = document.getElementById('sort_by').value;
+            const productType = document.getElementById('type').value;
+            const shape = selectedShape;
+            const carat = document.getElementById('carat').value;
+            const cut = document.getElementById('cut').value;
+            const color = document.getElementById('color').value;
+            const clarity = document.getElementById('clarity').value;
+            const material = document.getElementById('material').value;
+
+            const filters = {
+                sort: sortBy,
+                price_range: priceRange,
+                product_name: productType,
+                material: material,
+                shape: shape,
+                carat: carat,
+                cut: cut,
+                color: color,
+                clarity: clarity
+            };
+
+            $.ajax({
+                url: '/filter-products',
+                data: filters,
+                success: (response) => {
+                    console.log("AJAX response:", response);
+                    updateProductList(response);
+                },
+                error: (error) => {
+                    console.error("AJAX error:", error);
+                }
+            });
+        }
+
+        document.getElementById('price_range').addEventListener('change', updateURLParams);
+        document.getElementById('sort_by').addEventListener('change', updateURLParams);
+        document.getElementById('type').addEventListener('change', updateURLParams);
+        document.getElementById('material').addEventListener('change', updateURLParams);
+
+        const shapeButtons = document.querySelectorAll('#shape button');
+        shapeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const currentValue = this.getAttribute('data-value');
+                if (currentValue === selectedShape) {
+                    selectedShape = '';
+                    this.classList.remove('active');
+                } else {
+                    selectedShape = currentValue;
+                    shapeButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                }
+                updateURLParams();
+            });
         });
-        document.getElementById('product-list').innerHTML = productHtml;
-    }
 
-    const updateURLParams = () => {
-        const priceRange = document.getElementById('price_range').value;
-        const sortBy = document.getElementById('sort_by').value;
-        const productType = document.getElementById('type').value;
-        const shape = selectedShape;
-        const carat = document.getElementById('carat').value;
-        const cut = document.getElementById('cut').value;
-        const color = document.getElementById('color').value;
-        const clarity = document.getElementById('clarity').value;
-        const material = document.getElementById('material').value;
+        document.getElementById('carat').addEventListener('change', updateURLParams);
+        document.getElementById('cut').addEventListener('change', updateURLParams);
+        document.getElementById('color').addEventListener('change', updateURLParams);
+        document.getElementById('clarity').addEventListener('change', updateURLParams);
 
-        const filters = {
-            sort: sortBy,
-            price_range: priceRange,
-            product_name: productType,
-            material: material,
-            shape: shape,
-            carat: carat,
-            cut: cut,
-            color: color,
-            clarity: clarity
-        };
-
-        $.ajax({
-            url: '/filter-products',
-            data: filters,
-            success: (response) => {
-                console.log("AJAX response:", response);
-                updateProductList(response);
-            },
-            error: (error) => {
-                console.error("AJAX error:", error);
-            }
-        });
-    }
-
-    document.getElementById('price_range').addEventListener('change', updateURLParams);
-    document.getElementById('sort_by').addEventListener('change', updateURLParams);
-    document.getElementById('type').addEventListener('change', updateURLParams);
-    document.getElementById('material').addEventListener('change', updateURLParams);
-
-    const shapeButtons = document.querySelectorAll('#shape button');
-    shapeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const currentValue = this.getAttribute('data-value');
-            if (currentValue === selectedShape) {
-                selectedShape = '';
-                this.classList.remove('active');
-            } else {
-                selectedShape = currentValue;
-                shapeButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-            }
-            updateURLParams();
-        });
-    });
-
-    document.getElementById('carat').addEventListener('change', updateURLParams);
-    document.getElementById('cut').addEventListener('change', updateURLParams);
-    document.getElementById('color').addEventListener('change', updateURLParams);
-    document.getElementById('clarity').addEventListener('change', updateURLParams);
-
-    updateURLParams();
+        updateURLParams();
     </script>
 </body>
 

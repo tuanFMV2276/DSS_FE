@@ -153,8 +153,7 @@
                             <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
                             <i class="fas fa-user"></i>
                             <input type="date" data-date-format="YYYY-MM-DD" id="order_date" name="order_date"
-                                placeholder="Order Date">
-                            <i class="fas fa-calendar-alt"></i>
+                                placeholder="Order Date">       
                             <button type="submit">
                                 Search
                             </button>
@@ -216,7 +215,7 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $order['id'] }}</td>
                                 <td>{{ $order['order_date'] }}</td>
-                                <td>{{ $order['total_price'] }}</td>
+                                <td>{{ number_format($order['total_price'], 0) }}</td>
                                 <!-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> -->
                                 {{-- <td style="text-align: left;">
                                     <div class="customer-info">

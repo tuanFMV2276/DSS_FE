@@ -29,7 +29,6 @@ class SaleStaffController extends Controller
         $response = Http::put("http://127.0.0.1:8000/api/order/{$id}", [
             'status' => $request->status,
         ]);
-
         if ($response->successful()) {
             return redirect()->route('salestaff.home')->with('success', 'Order status updated successfully.');
         } else {

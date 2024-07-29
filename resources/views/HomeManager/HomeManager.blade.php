@@ -175,7 +175,7 @@ $statusLabels = [
                                     </div>
                                     <div class="item-align margin-bottom-card">
                                         <span>Total Price</span>
-                                        <span>{{ $recent['total_price'] }}</span>
+                                        <span>{{ number_format($recent['total_price'], 0) }}</span>
                                     </div>
                                     <div class="item-align margin-bottom-card">
                                         <span>Current Status</span>
@@ -251,7 +251,7 @@ $statusLabels = [
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $order['id'] }}</td>
                                     <td>{{ $order['order_date'] }}</td>
-                                    <td>{{ $order['total_price'] }}</td>
+                                    <td>{{ number_format($order['total_price'], 0) }}</td>
                                     {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
                                     {{-- <td style="text-align: left;">
                                         <div class="customer-info">
@@ -1285,7 +1285,7 @@ $statusLabels = [
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const csrfToken = document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            const rowsPerPageMaterial = 2;
+            const rowsPerPageMaterial = 10;
             const materialRows = Array.from(document.querySelectorAll('.material-row'));
             let currentPageMaterial = 1;
     

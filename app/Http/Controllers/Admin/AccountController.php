@@ -12,6 +12,7 @@ class AccountController extends Controller
     public function index()
     {
         $responsecustomer = Http::get('http://127.0.0.1:8000/api/user');
+        
         $customers = $responsecustomer->json();
 
         $filteredCustomers = array_filter($customers, function ($customer) {
