@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container1 {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.step {
+    margin-bottom: 20px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+h4 {
+    color: #000000; /* Màu đen */
+    margin-bottom: 10px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: center !important;
+    padding: 10px;
+}
+
+th {
+    background-color: #FFA500; /* Màu cam */
+    color: #fff; /* Màu trắng */
+}
+
+tr:nth-child(even) {
+    background-color: #FFFACD; /* Màu vàng nhạt */
+}
+
+tr:hover {
+    background-color: #e7e6cc; 
+}

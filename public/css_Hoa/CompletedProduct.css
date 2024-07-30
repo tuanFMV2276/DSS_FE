@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.img-product {
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding-top: 70px;
+}
+
+.complete-setting-title,
+.complete-diamond-title,
+.complete-setting-price,
+.complete-diamond-price,
+.complete-total-price {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.complete-total-price span {
+  font-weight: bold;
+  color: #d4a373;
+}
+
+.btn-complete button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #d4a373;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-complete button:hover {
+  background-color: #d4a373;
+  color: #000;
+  border: 1px solid #d4a373;
+}
+
+.complete-icons-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.complete-icons-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.complete-icon-img {
+  margin-bottom: 10px;
+}
+
+.complete-icon-img img {
+  width: 50px;
+  height: 40px;
+}
+
+.complete-icons-block .text {
+  font-size: 14px;
+  color: #555;
+}
+
+.description-diamond,
+.description-shell {
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.diamond-details,
+.shell-details {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.diamond-details td,
+.shell-details td {
+  text-align: left;
+  padding: 10px;
+}
+
+.diamond-details tr:nth-child(even),
+.shell-details tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.diamond-details tr:nth-child(odd),
+.shell-details tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.diamond-details tr:hover,
+.shell-details tr:hover {
+  background-color: #f1f1f1;
+}
+
+.tabpanel h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.tab-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .complete-icons-wrapper {
+    flex-direction: column;
+  }
+
+  .complete-icons-block {
+    margin-bottom: 20px;
+  }
+
+  .btn-complete button {
+    width: 80%;
+  }
+}
