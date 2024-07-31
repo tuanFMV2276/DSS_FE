@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<?php
-$Shape_diamond = array("Round" , "Oval" , "Emerald" , "True" , "Princess" , "Cushion" , "Pear" , "Heart");
-$Clarity_diamond = array("IF" , "VVS1" , "VVS2" , "VS1" , "VS2");
-$Origin_diamond = array("Natural" , "Lab");
-$Color_diamond = array("D" , "E" , "F" , "J" );
-$Cut_diamond = array("Excellent" , "Very Good" , "Good" , "Poor" );
-$Polish_diamond = array("Excellent" , "Very Good" , "Good" , "Poor" );
-$Symmetry_diamond = array("Excellent" , "Very Good" , "Good" , "Poor" );
-$Culet_diamond = array("None" , "Small" , "Medium" , "Large" );
-$Flourescence_diamond = array("None" , "Faint" , "Medium" , "Strong" );
-?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

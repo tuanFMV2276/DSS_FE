@@ -54,10 +54,6 @@
                         ];
                     @endphp
                     <p><strong><i class="fas fa-id-card"></i> Status:</strong> {{ $statusLabels[$order['status']] }}</p>
-
-
-
-
                 </div>
                 <div class="col-md-6">
 
@@ -132,10 +128,7 @@
                     </tr>
                 </table>
             </div>
-
-
         </div>
-
 
         <div class="text-center mt-3">
             <a href="{{ url()->previous() }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to

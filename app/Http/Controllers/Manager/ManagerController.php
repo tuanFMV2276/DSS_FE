@@ -59,7 +59,6 @@ class ManagerController extends Controller
 
     public function updateOrderStatus(Request $request, $id)
     {
-
         $response = Http::put("http://127.0.0.1:8000/api/order/{$id}", [
             'status' => $request->status,
         ]);

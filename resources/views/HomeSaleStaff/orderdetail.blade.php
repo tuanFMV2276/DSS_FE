@@ -62,7 +62,6 @@
                                     <option value="0" {{ $order['status'] == 0 ? 'selected' : '' }}>Pending</option>
                                     <option value="1" {{ $order['status'] == 1 ? 'selected' : '' }}>Accepted</option>
                                     <option value="2" {{ $order['status'] == 2 ? 'selected' : '' }}>Prepare Product</option>
-                                    
                                 </select>
                             @endif
                         </div>

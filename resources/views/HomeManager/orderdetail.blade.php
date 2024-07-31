@@ -28,17 +28,6 @@
     <form action="{{ route('manager.updateOrderStatus', $order['id']) }}" method="POST" onsubmit="return confirmUpdate()">
         <div class="card-body">
             <div class="row">
-                @php
-                    $payment = collect($payments)->firstWhere('order_id', $order['id']);
-                    $statusLabels = [
-                        0 => 'Pending',
-                        1 => 'Accepted',
-                        2 => 'Prepare Product',
-                        3 => 'Delivering',
-                        4 => 'Finished',
-                        5 => 'Cancelled',
-                    ];
-                @endphp
                 <div class="col-md-6">
                     <p><strong><i class="fas fa-id-card"></i> Order ID:</strong> {{ $order['id'] }}</p>
                     <p><strong><i class="far fa-calendar-alt"></i> Date:</strong> {{ $order['order_date'] }}</p>
