@@ -361,8 +361,15 @@ $statusLabels = [
                                             method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('PUT')
+                                            @if($product['status'] == 1)
                                             <button type="submit" class="more-margintop delete-st"
-                                                onclick="return confirm('Are you sure?')">Delete</button>
+                                                onclick="return confirm('Are you sure?')">Disable</button>
+                                                <input type="hidden" id="status" name="product_status" value="0">
+                                            @else
+                                            <button type="submit" class="more-margintop delete-st" style="background-color: #0099cc;color: #ffffff;"
+                                                onclick="return confirm('Are you sure?')">Enable</button>
+                                                <input type="hidden" id="status" name="product_status" value="1">
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>
@@ -452,9 +459,16 @@ $statusLabels = [
                                         <form action="{{ route('manager.destroyMainDiamond', $maindiamond['id']) }}"
                                             method="POST" style="display:inline-block;">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('PUT')
+                                            @if($maindiamond['status'] == 1)
                                             <button type="submit" class="more-margintop delete-st"
-                                                onclick="return confirm('Are you sure?')">Delete</button>
+                                                onclick="return confirm('Are you sure?')">Disable</button>
+                                                <input type="hidden" id="status" name="main_diamond_status" value="0">
+                                            @else
+                                            <button type="submit" class="more-margintop delete-st" style="background-color: #0099cc;color: #ffffff;"
+                                                onclick="return confirm('Are you sure?')">Enable</button>
+                                                <input type="hidden" id="status" name="main_diamond_status" value="1">
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>
@@ -521,9 +535,16 @@ $statusLabels = [
                                         <form action="{{ route('manager.destroyExDiamond', $exdiamond['id']) }}"
                                             method="POST" style="display:inline-block;">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('PUT')
+                                            @if($exdiamond['status'] == 1)
                                             <button type="submit" class="more-margintop delete-st"
-                                                onclick="return confirm('Are you sure?')">Delete</button>
+                                                onclick="return confirm('Are you sure?')">Disable</button>
+                                                <input type="hidden" id="status" name="ex_diamond_status" value="0">
+                                            @else
+                                            <button type="submit" class="more-margintop delete-st" style="background-color: #0099cc;color: #ffffff;"
+                                                onclick="return confirm('Are you sure?')">Enable</button>
+                                                <input type="hidden" id="status" name="ex_diamond_status" value="1">
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>
@@ -596,9 +617,16 @@ $statusLabels = [
                                         <form action="{{ route('manager.destroyDiamondShell', $shell['id']) }}"
                                             method="POST" style="display:inline-block;">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('PUT')
+                                            @if($shell['status'] == 1)
                                             <button type="submit" class="more-margintop delete-st"
-                                                onclick="return confirm('Are you sure?')">Delete</button>
+                                                onclick="return confirm('Are you sure?')">Disable</button>
+                                                <input type="hidden" id="status" name="shell_diamond_status" value="0">
+                                            @else
+                                            <button type="submit" class="more-margintop delete-st" style="background-color: #0099cc;color: #ffffff;"
+                                                onclick="return confirm('Are you sure?')">Enable</button>
+                                                <input type="hidden" id="status" name="shell_diamond_status" value="1">
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>
@@ -718,8 +746,16 @@ $statusLabels = [
                                         <button class="update-btn update-st" data-id="{{ $materialItem['id'] }}">Update</button>
                                         <form action="{{ route('manager.destroyMaterial', $materialItem['id']) }}" method="POST" style="display:inline-block;">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="more-margintop delete-st" onclick="return confirm('Are you sure?')">Delete</button>
+                                            @method('PUT')
+                                            @if($materialItem['status'] == 1)
+                                            <button type="submit" class="more-margintop delete-st"
+                                                onclick="return confirm('Are you sure?')">Disable</button>
+                                                <input type="hidden" id="status" name="material_status" value="0">
+                                            @else
+                                            <button type="submit" class="more-margintop delete-st" style="background-color: #0099cc;color: #ffffff;"
+                                                onclick="return confirm('Are you sure?')">Enable</button>
+                                                <input type="hidden" id="status" name="material_status" value="1">
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>

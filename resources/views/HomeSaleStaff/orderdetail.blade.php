@@ -136,7 +136,9 @@
                 </table>
             </div>
         </div>
-        <div class="text-center mt-3"><button type="submit" class="btn btn-primary">Update Status</button></div>
+        @if(!in_array($order['status'], [3, 4, 5]))
+            <div class="text-center mt-3"><button type="submit" class="btn btn-primary">Update Status</button></div>  
+        @endif
     </form>
 
     <div class="text-center mt-3">

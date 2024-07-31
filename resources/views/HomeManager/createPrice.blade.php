@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+$Clarity_diamond = array("IF" , "VVS1" , "VVS2" , "VS1" , "VS2");
+$Color_diamond = array("D" , "E" , "F" , "G" );
+$Cut_diamond = array("Excellent" , "Very Good" , "Good" , "Poor" );
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,31 +73,18 @@
                                 <label for="clarity"><i class="fas fa-diamond"></i> Clarity:</label>
                                 <select class="form-control" id="clarity" name="clarity" required>
                                     <option value="" disabled selected>Select clarity</option>
-                                    <option value="FL" {{ old('clarity') == 'FL' ? 'selected' : '' }}>FL</option>
-                                    <option value="IF" {{ old('clarity') == 'IF' ? 'selected' : '' }}>IF</option>
-                                    <option value="VVS1" {{ old('clarity') == 'VVS1' ? 'selected' : '' }}>VVS1</option>
-                                    <option value="VVS2" {{ old('clarity') == 'VVS2' ? 'selected' : '' }}>VVS2</option>
-                                    <option value="VS1" {{ old('clarity') == 'VS1' ? 'selected' : '' }}>VS1</option>
-                                    <option value="VS2" {{ old('clarity') == 'VS2' ? 'selected' : '' }}>VS2</option>
-                                    <option value="SI1" {{ old('clarity') == 'SI1' ? 'selected' : '' }}>SI1</option>
-                                    <option value="SI2" {{ old('clarity') == 'SI2' ? 'selected' : '' }}>SI2</option>
-                                    <option value="I1" {{ old('clarity') == 'I1' ? 'selected' : '' }}>I1</option>
+                                    @foreach ($Clarity_diamond as $clarity)
+                                        <option value="{{ $clarity }}" >{{ $clarity }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="color"><i class="fas fa-palette"></i> Color:</label>
                                 <select class="form-control" id="color" name="color" required>
                                     <option value="" disabled selected>Select color</option>
-                                    <option value="D" {{ old('color') == 'D' ? 'selected' : '' }}>D</option>
-                                    <option value="E" {{ old('color') == 'E' ? 'selected' : '' }}>E</option>
-                                    <option value="F" {{ old('color') == 'F' ? 'selected' : '' }}>F</option>
-                                    <option value="G" {{ old('color') == 'G' ? 'selected' : '' }}>G</option>
-                                    <option value="H" {{ old('color') == 'H' ? 'selected' : '' }}>H</option>
-                                    <option value="I" {{ old('color') == 'I' ? 'selected' : '' }}>I</option>
-                                    <option value="J" {{ old('color') == 'J' ? 'selected' : '' }}>J</option>
-                                    <option value="K" {{ old('color') == 'K' ? 'selected' : '' }}>K</option>
-                                    <option value="L" {{ old('color') == 'L' ? 'selected' : '' }}>L</option>
-                                    <option value="M" {{ old('color') == 'M' ? 'selected' : '' }}>M</option>
+                                    @foreach ($Color_diamond as $color)
+                                        <option value="{{ $color }}" >{{ $color }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -110,16 +101,14 @@
                                 <label for="cut"><i class="fas fa-cut"></i> Cut:</label>
                                 <select class="form-control" id="cut" name="cut" required>
                                     <option value="" disabled selected>Select cut</option>
-                                    <option value="Excellent" {{ old('cut') == 'Excellent' ? 'selected' : '' }}>Excellent</option>
-                                    <option value="Very Good" {{ old('cut') == 'Very Good' ? 'selected' : '' }}>Very Good</option>
-                                    <option value="Good" {{ old('cut') == 'Good' ? 'selected' : '' }}>Good</option>
-                                    <option value="Fair" {{ old('cut') == 'Fair' ? 'selected' : '' }}>Fair</option>
-                                    <option value="Poor" {{ old('cut') == 'Poor' ? 'selected' : '' }}>Poor</option>
+                                    @foreach ($Cut_diamond as $cut)
+                                        <option value="{{ $cut }}" >{{ $cut }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="cara_weight"><i class="fas fa-balance-scale"></i> Carat Weight:</label>
-                                <input type="number" class="form-control" id="cara_weight" name="cara_weight" min="0" step="0.01" max = "3" value="{{ old('cara_weight') }}" required>
+                                <input type="number" class="form-control" id="cara_weight" name="cara_weight" min="0" step="0.01" max = "3" value="" required>
                             </div>
                         </div>
                     </div>

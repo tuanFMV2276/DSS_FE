@@ -277,7 +277,7 @@ Route::middleware(['auth.token', 'role:manager'])->group(function () {
     Route::put('/maindiamond/update/{id}', [ManagerController::class, 'updateMainDiamond'])->name('manager.updateMainDiamond');
 
     //Đổi status thành 0
-    Route::delete('/maindiamond/delete/{id}', [ManagerController::class, 'deleteMainDiamond'])->name('manager.destroyMainDiamond');
+    Route::put('/maindiamond/delete/{id}', [ManagerController::class, 'deleteMainDiamond'])->name('manager.destroyMainDiamond');
 
     //CRUD cho kim cương phụ
     //Trang tạo kim cương phụ
@@ -293,7 +293,7 @@ Route::middleware(['auth.token', 'role:manager'])->group(function () {
     Route::put('/exdiamond/update/{id}', [ManagerController::class, 'updateExDiamond'])->name('manager.updateExDiamond');
 
     //Đổi status thành 0
-    Route::delete('/exdiamond/delete/{id}', [ManagerController::class, 'deleteExDiamond'])->name('manager.destroyExDiamond');
+    Route::put('/exdiamond/delete/{id}', [ManagerController::class, 'deleteExDiamond'])->name('manager.destroyExDiamond');
 
     //CRUD cho vỏ kim cương
     //Trang tạo vỏ kim cương
@@ -309,7 +309,7 @@ Route::middleware(['auth.token', 'role:manager'])->group(function () {
     Route::put('/diamondshell/update/{id}', [ManagerController::class, 'updateDiamondShell'])->name('manager.updateDiamondShell');
 
     //Đổi status thành 0
-    Route::delete('/diamondshell/delete/{id}', [ManagerController::class, 'deleteDiamondShell'])->name('manager.destroyDiamondShell');
+    Route::put('/diamondshell/delete/{id}', [ManagerController::class, 'deleteDiamondShell'])->name('manager.destroyDiamondShell');
 
     //CRUD cho nguyên liệu vỏ kim cương
     //Trang thêm nguyên liệu
@@ -325,7 +325,7 @@ Route::middleware(['auth.token', 'role:manager'])->group(function () {
     Route::put('/material/update/{id}', [ManagerController::class, 'updateMaterial'])->name('manager.updateMaterial');
 
     //Đổi status thành 0
-    Route::delete('/material/delete/{id}', [ManagerController::class, 'deleteMaterial'])->name('manager.destroyMaterial');
+    Route::put('/material/delete/{id}', [ManagerController::class, 'deleteMaterial'])->name('manager.destroyMaterial');
 });
 
 Route::middleware(['auth.token', 'role:salestaff'])->group(function () {

@@ -5,7 +5,7 @@
 $Shape_diamond = array("Round" , "Oval" , "Emerald" , "True" , "Princess" , "Cushion" , "Pear" , "Heart");
 $Clarity_diamond = array("IF" , "VVS1" , "VVS2" , "VS1" , "VS2");
 $Origin_diamond = array("Natural" , "Lab");
-$Color_diamond = array("D" , "E" , "F" , "J" );
+$Color_diamond = array("D" , "E" , "F" , "G" );
 $Cut_diamond = array("Excellent" , "Very Good" , "Good" , "Poor" );
 $Polish_diamond = array("Excellent" , "Very Good" , "Good" , "Poor" );
 $Symmetry_diamond = array("Excellent" , "Very Good" , "Good" , "Poor" );

@@ -23,7 +23,7 @@ class DeliveryStaffController extends Controller
     {
         // Update the order status
         $response = Http::put("http://127.0.0.1:8000/api/order/{$id}", [
-            'status' => $request->status,
+            'status' => ++$request->status,
         ]);
 
         $newStatus = $request->input('status');

@@ -28,6 +28,9 @@
     <form action="{{ route('manager.updateOrderStatus', $order['id']) }}" method="POST" onsubmit="return confirmUpdate()">
         <div class="card-body">
             <div class="row">
+                @php
+                    $payment = collect($payments)->firstWhere('order_id', $order['id']);
+                @endphp
                 <div class="col-md-6">
                     <p><strong><i class="fas fa-id-card"></i> Order ID:</strong> {{ $order['id'] }}</p>
                     <p><strong><i class="far fa-calendar-alt"></i> Date:</strong> {{ $order['order_date'] }}</p>
@@ -118,7 +121,9 @@
                 </table>
             </div>
         </div>
-        <div class="text-center mt-3"><button type="submit" class="btn btn-primary">Update Status</button></div>
+        @if($order['status']<4)
+            <div class="text-center mt-3"><button type="submit" class="btn btn-primary">Update Status</button></div>
+        @endif
     </form>
 
     <div class="text-center mt-3">

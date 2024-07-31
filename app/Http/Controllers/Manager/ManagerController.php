@@ -72,12 +72,10 @@ class ManagerController extends Controller
     public function showOrderDetail($id)
     {
 
-        $orderDetailsResponse = Http::get("http://127.0.0.1:8000/api/orderdetail/{$id}");
-        $orderDetails = $orderDetailsResponse->json();
+        $orderDetails = Http::get("http://127.0.0.1:8000/api/orderdetail/{$id}")->json();
 
         // Get product details
-        $productResponse = Http::get("http://127.0.0.1:8000/api/product/{$orderDetails['product_id']}");
-        $product = $productResponse->json();
+        $product = Http::get("http://127.0.0.1:8000/api/product/{$orderDetails['product_id']}")->json();
 
         // Check if a warranty already exists for the product
         $existingWarranties = Http::get("http://127.0.0.1:8000/api/warrantycertificate")->json();
@@ -98,24 +96,19 @@ class ManagerController extends Controller
         }
 
         // Get main diamond details
-        $maindiamondResponse = Http::get("http://127.0.0.1:8000/api/maindiamond/{$product['main_diamond_id']}");
-        $maindiamond = $maindiamondResponse->json();
-        $exdiamondResponse = Http::get("http://127.0.0.1:8000/api/exdiamond/{$product['extra_diamond_id']}");
-        $exiamond = $exdiamondResponse->json();
+        $maindiamond = Http::get("http://127.0.0.1:8000/api/maindiamond/{$product['main_diamond_id']}")->json();
 
-        $diamondshellResponse = Http::get("http://127.0.0.1:8000/api/diamondshell/{$product['diamond_shell_id']}");
-        $diamondshell = $diamondshellResponse->json();
+        $exiamond = Http::get("http://127.0.0.1:8000/api/exdiamond/{$product['extra_diamond_id']}")->json();
+
+        $diamondshell = Http::get("http://127.0.0.1:8000/api/diamondshell/{$product['diamond_shell_id']}")->json();
 
         // Get order details
-        $orderResponse = Http::get("http://127.0.0.1:8000/api/order/{$id}");
-        $order = $orderResponse->json();
+        $order = Http::get("http://127.0.0.1:8000/api/order/{$id}")->json();
 
         // Get customer details
-        $customerResponse = Http::get("http://127.0.0.1:8000/api/customer/{$order['customer_id']}");
-        $customer = $customerResponse->json();
+        $customer = Http::get("http://127.0.0.1:8000/api/customer/{$order['customer_id']}")->json();
 
-        $paymentResponse = Http::get("http://127.0.0.1:8000/api/payment");
-        $payments = $paymentResponse->json();
+        $payments = Http::get("http://127.0.0.1:8000/api/payment")->json();
 
         return view('HomeManager.orderdetail', compact('orderDetails', 'customer', 'order', 'product', 'maindiamond', 'payments', 'exiamond', 'diamondshell', 'warrantycertificate'));
 
@@ -290,9 +283,9 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Product updated successfully.');
     }
 
-    public function destroyProduct($id)
+    public function destroyProduct(Request $request,$id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/product/{$id}", ['status' => 0]);
+        $response = Http::put("http://127.0.0.1:8000/api/product/{$id}", ['status' => $request->product_status]);
         return redirect()->route('manager.home')->with('success', 'Product deleted successfully.');
     }
 
@@ -406,9 +399,9 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Main Diamond updated successfully.');
     }
 
-    public function deleteMainDiamond($id)
+    public function deleteMainDiamond(Request $request,$id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/maindiamond/{$id}", ['status' => 0]);
+        $response = Http::put("http://127.0.0.1:8000/api/maindiamond/{$id}", ['status' => $request->main_diamond_status]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Main Diamond deleted successfully.');
@@ -442,9 +435,9 @@ class ManagerController extends Controller
         return redirect()->route('manager.home')->with('success', 'Extra Diamond updated successfully.');
     }
 
-    public function deleteExDiamond($id)
+    public function deleteExDiamond(Request $request,$id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/exdiamond/{$id}", ['status' => 0]);
+        $response = Http::put("http://127.0.0.1:8000/api/exdiamond/{$id}", ['status' => $request->ex_diamond_status]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');
@@ -556,7 +549,7 @@ class ManagerController extends Controller
 
     public function deleteDiamondShell(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}", ['status' => 0]);
+        $response = Http::put("http://127.0.0.1:8000/api/diamondshell/{$id}", ['status' => $request->shell_diamond_status]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Shell status updated successfully.');
@@ -607,7 +600,7 @@ class ManagerController extends Controller
 
     public function deleteMaterial(Request $request, $id)
     {
-        $response = Http::put("http://127.0.0.1:8000/api/material/{$id}", ['status' => 0]);
+        $response = Http::put("http://127.0.0.1:8000/api/material/{$id}", ['status' => $request->material_status]);
 
         if ($response->successful()) {
             return redirect()->route('manager.home')->with('success', 'Order status updated successfully.');

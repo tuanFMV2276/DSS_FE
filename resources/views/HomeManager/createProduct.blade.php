@@ -69,8 +69,8 @@
                     <option value="">Select Main Diamond</option>
                     @foreach ($mainDiamonds as $diamond)
                         @if ($diamond['status'] == 1)
-                            <option value="{{ $diamond['id'] }}" {{ old('main_diamond_id') == $diamond['id'] ? 'selected' : '' }}>
-                                {{ $diamond['id'] }}
+                            <option value="{{ $diamond['id'] }}">
+                                {{ $diamond['id'] }} / {{ $diamond['shape'] }} / {{ $diamond['shape'] }} / {{ $diamond['cara_weight'] }}
                             </option>
                         @endif
                     @endforeach
@@ -83,8 +83,8 @@
                     <option value="">Select Extra Diamond</option>
                     @foreach ($extraDiamonds as $diamond)
                         @if ($diamond['status'] == 1)
-                            <option value="{{ $diamond['id'] }}" {{ old('extra_diamond_id') == $diamond['id'] ? 'selected' : '' }}>
-                                {{ $diamond['id'] }}
+                            <option value="{{ $diamond['id'] }}">
+                                {{ $diamond['id'] }} / {{ $diamond['name'] }} / {{ $diamond['quantity'] }}
                             </option>
                         @endif
                     @endforeach
@@ -93,7 +93,7 @@
 
             <div class="form-group">
                 <label for="number_ex_diamond"><i class="fas fa-cubes"></i> Number of Extra Diamonds</label>
-                <input type="number" class="form-control" id="number_ex_diamond" name="number_ex_diamond" value="{{ old('number_ex_diamond') }}" min="0" title="Number of extra diamonds should not exceed the available quantity.">
+                <input type="number" class="form-control" id="number_ex_diamond" name="number_ex_diamond" value="" min="0" title="Number of extra diamonds should not exceed the available quantity.">
                 <small>Available: <span id="available-extra-diamonds">0</span></small>
             </div>
 
@@ -108,8 +108,8 @@
                     <option value=''>Select Diamond Shell</option>
                     @foreach ($diamondShells as $shell)
                         @if ($shell['status'] == 1)
-                            <option value="{{ $shell['id'] }}" {{ old('diamond_shell_id') == $shell['id'] ? 'selected' : '' }}>
-                                {{ $shell['id'] }}
+                            <option value="{{ $shell['id'] }}">
+                                {{ $shell['id'] }} / {{ $shell['name'] }} 
                             </option>
                         @endif
                     @endforeach
@@ -118,12 +118,12 @@
 
             <div class="form-group" style="display: none;">
                 <label for="size"><i class="fas fa-ruler"></i> Size</label>
-                <input type="text" class="form-control" id="size" name="size" value="{{ old('size') }}">
+                <input type="text" class="form-control" id="size" name="size" value="">
             </div>
 
             <div class="form-group">
                 <label for="price_rate"><i class="fas fa-dollar-sign"></i> Price Rate</label>
-                <input type="number" step="0.01" class="form-control" id="price_rate" name="price_rate" value="{{ old('price_rate') }}" required>
+                <input type="number" step="0.01" class="form-control" id="price_rate" name="price_rate" value="" required>
             </div>
 
             <div class="form-group">

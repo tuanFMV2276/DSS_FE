@@ -1,3 +1,14 @@
+<?php
+$statusLabels = [
+    0 => 'Pending',
+    1 => 'Accepted',
+    2 => 'Prepare Product',
+    3 => 'Delivering',
+    4 => 'Finished',
+    5 => 'Cancelled',
+];
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -81,51 +92,58 @@
                         </thead>
                         <tbody id="order-list">
                             @foreach ($orders as $index => $order)
-                                @php
-                                    //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
-                                    $payment = collect($payments)->firstWhere('order_id', $order['id']);
-                                    $statusLabels = [
-                                        2 => 'Prepare Product',
-                                        3 => 'Delivering',
-                                        4 => 'Finished',
-                                        5 => 'Cancelled',
-                                    ];
-                                @endphp
-                                <tr class="status-row" data-status="{{ $order['status'] }}">
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $order['id'] }}</td>
-                                    <td>{{ $order['order_date'] }}</td>
-                                    <td>{{ number_format($order['total_price'], 0) }}</td>
-                                    {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
-                                    <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
-                                        Address: {{ $order ? $order['address'] : 'Unknown' }}<br>
-                                        Phone: {{ $order ? $order['phone'] : 'Unknown' }}</td>
-                                    <td>
-                                        <form id="status-form-{{ $order['id'] }}"
-                                            action="{{ route('delivery-staff.orders.updateStatus', $order['id']) }}"
-                                            method="POST" class="form-inline">
-                                            @csrf
-                                            @method('PUT')
-                                            <select name="status" class="form-control"
-                                                onchange="confirmAndUpdateStatus({{ $order['id'] }})">
-                                                <option value='2' {{ $order['status'] == '2' ? 'selected' : '' }}>
-                                                    Prepare Product</option>
-                                                <option value='3' {{ $order['status'] == '3' ? 'selected' : '' }}>
-                                                    Delivering</option>
-                                                <option value='4' {{ $order['status'] == '4' ? 'selected' : '' }}>
-                                                    Finished</option>
-                                                <option value='5' {{ $order['status'] == '5' ? 'selected' : '' }}>
-                                                    Cancelled</option>
-                                            </select>
-                                        </form>
-                                    </td>
+                                @if($order['status']>1)
+                                    @php
+                                        //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
+                                        $payment = collect($payments)->firstWhere('order_id', $order['id']);
+                                        $statusLabels = [
+                                            2 => 'Prepare Product',
+                                            3 => 'Delivering',
+                                            4 => 'Finished',
+                                            5 => 'Cancelled',
+                                        ];
+                                    @endphp
+                                    <tr class="status-row" data-status="{{ $order['status'] }}">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $order['id'] }}</td>
+                                        <td>{{ $order['order_date'] }}</td>
+                                        <td>{{ number_format($order['total_price'], 0) }}</td>
+                                        {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
+                                        <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
+                                            Address: {{ $order ? $order['address'] : 'Unknown' }}<br>
+                                            Phone: {{ $order ? $order['phone'] : 'Unknown' }}</td>
+                                        <td>
+                                            <form id="status-form-{{ $order['id'] }}"
+                                                action="{{ route('delivery-staff.orders.updateStatus', $order['id']) }}"
+                                                method="POST" class="form-inline">
+                                                @csrf
+                                                @method('PUT')
+                                                <!-- <select name="status" class="form-control"
+                                                    onchange="confirmAndUpdateStatus({{ $order['id'] }})">
+                                                    <option value='2' {{ $order['status'] == '2' ? 'selected' : '' }}>
+                                                        Prepare Product</option>
+                                                    <option value='3' {{ $order['status'] == '3' ? 'selected' : '' }}>
+                                                        Delivering</option>
+                                                    <option value='4' {{ $order['status'] == '4' ? 'selected' : '' }}>
+                                                        Finished</option>
+                                                    <option value='5' {{ $order['status'] == '5' ? 'selected' : '' }}>
+                                                        Cancelled</option>
+                                                </select> -->
+                                                <div>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</div>
+                                                @if(4 > $order['status'])
+                                                    <input type="number" class="form-control" id="order_status" name="status" value="{{ $order['status'] }}" hidden>    
+                                                    <button><i class="fa-solid fa-plus"></i></button>
+                                                @endif
+                                            </form>
+                                        </td>
 
-                                    <td>
-                                        <a href="{{ route('delivery-staff.orders.show', $order['id']) }}">
-                                            <i class="fa-regular fa-eye icon-blue"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <a href="{{ route('delivery-staff.orders.show', $order['id']) }}">
+                                                <i class="fa-regular fa-eye icon-blue"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
