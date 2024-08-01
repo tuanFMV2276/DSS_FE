@@ -83,7 +83,7 @@
                         @if ($diamond['status'] == 1 || $diamond['id'] == $product['main_diamond_id'])
                             <option value="{{ $diamond['id'] }}"
                                 {{ old('main_diamond_id', $product['main_diamond_id']) == $diamond['id'] ? 'selected' : '' }}>
-                                {{ $diamond['id'] }}</option>
+                                {{ $diamond['id'] }} / {{ $diamond['shape'] }} / {{ $diamond['shape'] }} / {{ $diamond['cara_weight'] }}</option>
                         @endif
                     @endforeach
                     <input type="hidden" id="old-diamond" name="old_main_diamond" value="{{ $product['main_diamond_id'] }}">
@@ -98,7 +98,7 @@
                         @if ($diamond['status'] == 1 || $diamond['id'] == $product['extra_diamond_id'])
                             <option value="{{ $diamond['id'] }}"
                                 {{ old('extra_diamond_id', $product['extra_diamond_id']) == $diamond['id'] ? 'selected' : '' }}>
-                                {{ $diamond['id'] }}</option>
+                                {{ $diamond['id'] }} / {{ $diamond['name'] }} / {{ $diamond['quantity'] }}</option>
                         @endif
                     @endforeach
                     <input type="hidden" id="old-ex-diamond" name="old_ex_diamond" value="{{ $product['extra_diamond_id'] }}">
@@ -128,7 +128,7 @@
                         @if ($shell['status'] == 1 || $shell['id'] == $product['diamond_shell_id'])
                             <option value="{{ $shell['id'] }}"
                                 {{ old('diamond_shell_id', $product['diamond_shell_id']) == $shell['id'] ? 'selected' : '' }}>
-                                {{ $shell['id'] }}</option>
+                                {{ $shell['id'] }} / {{ $shell['name'] }} </option>
                         @endif
                     @endforeach
                     <input type="hidden" id="old-shell" name="old_shell_diamond" value="{{ $product['diamond_shell_id'] }}">
