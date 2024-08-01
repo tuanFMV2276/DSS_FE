@@ -46,11 +46,10 @@ $statusLabels = [
             <li class="profile">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" style="padding: 0; background-color: #1d1b31;border: none"
-                       >
-                        <i class="fa-solid fa-arrow-right-to-bracket" ></i>
+                    <button type="submit" style="padding: 0; background-color: #1d1b31;border: none">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     </button>
-                </form>             
+                </form>
             </li>
         </ul>
     </div>
@@ -59,6 +58,19 @@ $statusLabels = [
             <div class="main-content">
                 <div id="bill-management" class="table-container" style="display: contents;">
                     <h1>List Orders</h1>
+                    <div id="div_search_order">
+                        <form id="search-form">
+                            <div class="search-bar">
+                                <input type="text" id="customer_name" name="customer_name" placeholder="Customer Name">
+                                <i class="fas fa-user"></i>
+                                <input type="date" data-date-format="YYYY-MM-DD" id="order_date" name="order_date"
+                                    placeholder="Order Date">
+                                <button type="submit">
+                                    Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                     <div class="status-bar">
                         <button class="status-btn active" data-status="all">
                             <i class="fas fa-list icon-status"></i> All Orders
@@ -92,58 +104,59 @@ $statusLabels = [
                         </thead>
                         <tbody id="order-list">
                             @foreach ($orders as $index => $order)
-                                @if($order['status']>1)
-                                    @php
-                                        //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
-                                        $payment = collect($payments)->firstWhere('order_id', $order['id']);
-                                        $statusLabels = [
-                                            2 => 'Prepare Product',
-                                            3 => 'Delivering',
-                                            4 => 'Finished',
-                                            5 => 'Cancelled',
-                                        ];
-                                    @endphp
-                                    <tr class="status-row" data-status="{{ $order['status'] }}">
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $order['id'] }}</td>
-                                        <td>{{ $order['order_date'] }}</td>
-                                        <td>{{ number_format($order['total_price'], 0) }}</td>
-                                        {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
-                                        <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
-                                            Address: {{ $order ? $order['address'] : 'Unknown' }}<br>
-                                            Phone: {{ $order ? $order['phone'] : 'Unknown' }}</td>
-                                        <td>
-                                            <form id="status-form-{{ $order['id'] }}"
-                                                action="{{ route('delivery-staff.orders.updateStatus', $order['id']) }}"
-                                                method="POST" class="form-inline">
-                                                @csrf
-                                                @method('PUT')
-                                                <!-- <select name="status" class="form-control"
-                                                    onchange="confirmAndUpdateStatus({{ $order['id'] }})">
-                                                    <option value='2' {{ $order['status'] == '2' ? 'selected' : '' }}>
-                                                        Prepare Product</option>
-                                                    <option value='3' {{ $order['status'] == '3' ? 'selected' : '' }}>
-                                                        Delivering</option>
-                                                    <option value='4' {{ $order['status'] == '4' ? 'selected' : '' }}>
-                                                        Finished</option>
-                                                    <option value='5' {{ $order['status'] == '5' ? 'selected' : '' }}>
-                                                        Cancelled</option>
-                                                </select> -->
-                                                <div>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</div>
-                                                @if(4 > $order['status'])
-                                                    <input type="number" class="form-control" id="order_status" name="status" value="{{ $order['status'] }}" hidden>    
-                                                    <button><i class="fa-solid fa-plus"></i></button>
-                                                @endif
-                                            </form>
-                                        </td>
+                                                    @if($order['status'] > 1)
+                                                                            @php
+                                                                                //$customer = collect($customers)->firstWhere('id', $order['customer_id']);
+                                                                                $payment = collect($payments)->firstWhere('order_id', $order['id']);
+                                                                                $statusLabels = [
+                                                                                    2 => 'Prepare Product',
+                                                                                    3 => 'Delivering',
+                                                                                    4 => 'Finished',
+                                                                                    5 => 'Cancelled',
+                                                                                ];
+                                                                            @endphp
+                                                                            <tr class="status-row" data-status="{{ $order['status'] }}">
+                                                                                <td>{{ $index + 1 }}</td>
+                                                                                <td>{{ $order['id'] }}</td>
+                                                                                <td>{{ $order['order_date'] }}</td>
+                                                                                <td>{{ number_format($order['total_price'], 0) }}</td>
+                                                                                {{-- <td>{{ $payment ? $payment['payment_method'] : 'Unknown' }}</td> --}}
+                                                                                <td style="text-align: left;">Name: {{ $order ? $order['name'] : 'Unknown' }}<br>
+                                                                                    Address: {{ $order ? $order['address'] : 'Unknown' }}<br>
+                                                                                    Phone: {{ $order ? $order['phone'] : 'Unknown' }}</td>
+                                                                                <td>
+                                                                                    <form id="status-form-{{ $order['id'] }}"
+                                                                                        action="{{ route('delivery-staff.orders.updateStatus', $order['id']) }}"
+                                                                                        method="POST" class="form-inline">
+                                                                                        @csrf
+                                                                                        @method('PUT')
+                                                                                        <!-- <select name="status" class="form-control"
+                                                                                                    onchange="confirmAndUpdateStatus({{ $order['id'] }})">
+                                                                                                    <option value='2' {{ $order['status'] == '2' ? 'selected' : '' }}>
+                                                                                                        Prepare Product</option>
+                                                                                                    <option value='3' {{ $order['status'] == '3' ? 'selected' : '' }}>
+                                                                                                        Delivering</option>
+                                                                                                    <option value='4' {{ $order['status'] == '4' ? 'selected' : '' }}>
+                                                                                                        Finished</option>
+                                                                                                    <option value='5' {{ $order['status'] == '5' ? 'selected' : '' }}>
+                                                                                                        Cancelled</option>
+                                                                                                </select> -->
+                                                                                        <div>{{ $statusLabels[$order['status']] ?? 'Unknown' }}</div>
+                                                                                        @if(4 > $order['status'])
+                                                                                            <input type="number" class="form-control" id="order_status" name="status"
+                                                                                                value="{{ $order['status'] }}" hidden>
+                                                                                            <button><i class="fa-solid fa-plus"></i></button>
+                                                                                        @endif
+                                                                                    </form>
+                                                                                </td>
 
-                                        <td>
-                                            <a href="{{ route('delivery-staff.orders.show', $order['id']) }}">
-                                                <i class="fa-regular fa-eye icon-blue"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endif
+                                                                                <td>
+                                                                                    <a href="{{ route('delivery-staff.orders.show', $order['id']) }}">
+                                                                                        <i class="fa-regular fa-eye icon-blue"></i>
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                    @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -197,15 +210,15 @@ $statusLabels = [
             const orderRows = document.querySelectorAll('.status-row');
             const rowsPerPageOrder = 5;
             let currentPageOrder = 1;
-    
+
             statusButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const status = btn.getAttribute('data-status');
-    
+
                     // Cập nhật nút đang hoạt động
                     statusButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-    
+
                     // Lọc đơn hàng theo trạng thái và đặt lại phân trang
                     filterOrders(status);
                     currentPageOrder = 1;
@@ -213,7 +226,7 @@ $statusLabels = [
                     updateTotalPages();
                 });
             });
-    
+
             function filterOrders(status) {
                 orderRows.forEach(row => {
                     if (status === 'all' || row.getAttribute('data-status') === status) {
@@ -225,12 +238,12 @@ $statusLabels = [
                     }
                 });
             }
-    
+
             function displayOrderRows() {
                 let displayedRows = 0;
                 let start = (currentPageOrder - 1) * rowsPerPageOrder;
                 let end = start + rowsPerPageOrder;
-    
+
                 orderRows.forEach((row, index) => {
                     if (!row.classList.contains('filtered-out')) {
                         row.style.display = 'none';
@@ -240,43 +253,43 @@ $statusLabels = [
                         displayedRows++;
                     }
                 });
-    
+
                 document.getElementById('page-num-order').textContent = currentPageOrder;
                 document.getElementById('prev-btn-order').disabled = currentPageOrder === 1;
                 document.getElementById('next-btn-order').disabled = currentPageOrder >= totalPages();
             }
-    
+
             function prevPageOrder() {
                 if (currentPageOrder > 1) {
                     currentPageOrder--;
                     displayOrderRows();
                 }
             }
-    
+
             function nextPageOrder() {
                 if (currentPageOrder < totalPages()) {
                     currentPageOrder++;
                     displayOrderRows();
                 }
             }
-    
+
             function updateTotalPages() {
                 document.getElementById('total-pages').textContent = totalPages();
             }
-    
+
             function totalPages() {
                 let visibleRows = Array.from(orderRows).filter(row => !row.classList.contains('filtered-out'));
                 return Math.ceil(visibleRows.length / rowsPerPageOrder);
             }
-    
+
             document.getElementById('prev-btn-order').addEventListener('click', prevPageOrder);
             document.getElementById('next-btn-order').addEventListener('click', nextPageOrder);
-    
+
             document.getElementById('goto-page-btn').addEventListener('click', () => {
                 const gotoPageInput = document.getElementById('goto-page-input').value;
                 const pageNumber = parseInt(gotoPageInput, 10);
                 const totalPagesCount = totalPages();
-    
+
                 if (isNaN(pageNumber) || pageNumber <= 0 || pageNumber > totalPagesCount) {
                     alert('Invalid page number. Please enter a number between 1 and ' + totalPagesCount + '.');
                 } else {
@@ -284,14 +297,14 @@ $statusLabels = [
                     displayOrderRows();
                 }
             });
-    
+
             // Hiển thị trang đầu tiên
             filterOrders('all');
             displayOrderRows();
             updateTotalPages();
         });
     </script>
-    
+
 
     <script>
         function confirmAndUpdateStatus(orderId) {
@@ -300,8 +313,74 @@ $statusLabels = [
             }
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#search-form').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var customerName = $('#customer_name').val();
+                    var orderDate = $('#order_date').val();
+                    $.ajax({
+                        url: "{{ route('deliverystaff.searchOrdersAjax') }}",
+                        method: 'GET',
+                        data: {
+                            customer_Name: customerName || 'null',
+                            order_Date: orderDate || 'null',
+                        },
+                        success: function(response) {
+                            var orders = response.orders;
+                            var statusLabels = {
+                                0: 'Pending',
+                                1: 'Accepted',
+                                2: 'Prepare Product',
+                                3: 'Delivering',
+                                4: 'Finished',
+                                5: 'Cancelled'
+                            };
+
+                            var orderList = $('tbody');
+                            orderList.empty();
+                            var array_orders = Array.from(orders.orders);
+                            if (array_orders) {
+                                array_orders.forEach(function(orders, index) {
+                                    var customerName = orders ? orders.name : 'Unknown';
+                                    var customerEmail = orders ? orders.email : 'Unknown';
+                                    var status = statusLabels[orders.status] || 'Unknown';
+                                    var orderRow = `
+                                        <tr class='order-row' data-status="${orders.status}">
+                                            <td>${index+1}</td>
+                                            <td>${orders.id}</td>
+                                            <td>${orders.order_date}</td>
+                                            <td>${orders.total_price}</td>
+                                            
+                                            <td style="text-align: left;">
+                                                Name: ${customerName}<br>
+                                                Email: ${customerEmail}
+                                            </td>
+                                            <td>${status}</td>
+                                            <td>
+                                                <a href="/manager_orders/${orders.id}/detail">
+                                                    <i class="fa-regular fa-eye icon-blue"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    `;
+                                    orderList.append(orderRow);
+                                });
+                            } else {
+                                orderList.append('<tr><td colspan="8">No orders found.</td></tr>');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching orders:', error);
+                            alert('An error occurred while fetching orders. Please try again.');
+                        }
+                    });
+                });
+            });
+        </script>
 
 </body>
 
 </html>
-

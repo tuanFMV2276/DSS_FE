@@ -336,13 +336,14 @@ Route::middleware(['auth.token', 'role:salestaff'])->group(function () {
     Route::get('/salestaff/{id}/detail', [SaleStaffController::class, 'showOrderDetail'])->name('salestaff.showOrderDetail');
 
     //Chức năng tìm kiếm cho đơn hàng
-    Route::get('/home-manager/search', [ManagerController::class, 'searchOrdersAjax'])->name('salesstaff.searchOrdersAjax');
+    Route::get('/home-salestaff/search', [ManagerController::class, 'searchOrdersAjax'])->name('salesstaff.searchOrdersAjax');
 });
 
 Route::middleware(['auth.token', 'role:deliverystaff'])->group(function () {
     Route::get('/home-deliverystaff', [DeliveryStaffController::class, 'index'])->name('delivery-staff.orders');
     Route::put('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'updateStatus'])->name('delivery-staff.orders.updateStatus');
     Route::get('/delivery-staff/orders/{id}', [DeliveryStaffController::class, 'show'])->name('delivery-staff.orders.show');
+    Route::get('/home-deliverystaff/search', [ManagerController::class, 'searchOrdersAjax'])->name('deliverystaff.searchOrdersAjax');
 });
 
 Route::middleware(['auth.token', 'role:admin'])->group(function () {
